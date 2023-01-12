@@ -56,7 +56,7 @@ const Playground = () => {
         <div className="flex flex-row justify-between py-5">
           
           <img
-            class="w-[3rem] h-[3rem] mb-3 rounded-full shadow-lg"
+            className="w-[3rem] h-[3rem] mb-3 rounded-full shadow-lg"
             src={avatar}
             alt="avatar"
           />

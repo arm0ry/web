@@ -25,7 +25,6 @@ const App = () => (
     <ChakraProvider theme={theme}>
       <GlobalContextProvider>
         {/* <WagmiConfig client={wagmiClient}> */}
-        {console.log({VITE_DYNAMIC:import.meta.env.VITE_DYNAMIC})}
         <DynamicContextProvider
           settings={{
             environmentId: import.meta.env.VITE_DYNAMIC,

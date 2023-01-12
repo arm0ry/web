@@ -22,7 +22,7 @@ const Home = () => {
                   <li>開發 Web3 工具，提倡實作 Web3 題目，elevate g0v</li>
                   <li>培育 Web3 人才，提供小額資源補助，supercharge g0v</li>
                 </ul>
-                <div class="flex justify-center md:justify-start ">
+                <div className="flex justify-center md:justify-start ">
                   <div>
                     <button
                       type="button"

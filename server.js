@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5001;
 
-console.log({port})
+
 // deploy
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
