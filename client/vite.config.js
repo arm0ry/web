@@ -8,13 +8,13 @@ import path from "path";
 
 export default ({command, mode }) => {
   // Load app-level env vars to node-level env vars.
-  const env = loadEnv(mode, process.cwd(), "");
+  // const env = loadEnv(mode, process.cwd(), "");
   // process.env = {...process.env, ...loadEnv(mode, process.cwd())};
 
   return defineConfig({
-    define: {
-      __APP_ENV__: env.APP_ENV,
-    },
+    // define: {
+    //   __APP_ENV__: env.APP_ENV,
+    // },
     envDir: path.resolve(__dirname, "../"),
     plugins: [react()],
     resolve: {

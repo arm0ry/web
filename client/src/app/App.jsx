@@ -20,14 +20,17 @@ import { Web3Modal } from "@web3modal/react";
 import { goerli } from "wagmi/chains";
 import { DynamicContextProvider } from "@dynamic-labs/sdk-react";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
+
+const VITE_DYNAMIC = import.meta.env.VITE_DYNAMIC
 const App = () => (
   <BrowserRouter>
     <ChakraProvider theme={theme}>
       <GlobalContextProvider>
         {/* <WagmiConfig client={wagmiClient}> */}
+        {/* {console.log("VITE_DYNAMIC", VITE_DYNAMIC)} */}
         <DynamicContextProvider
           settings={{
-            environmentId: import.meta.env.VITE_DYNAMIC,
+            environmentId: VITE_DYNAMIC,
           }}
         >
           <DynamicWagmiConnector>
