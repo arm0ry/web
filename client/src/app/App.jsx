@@ -3,16 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import { GlobalContextProvider } from "../context/store";
 import Routers from "./Routers";
 
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-const breakpoints = {
-  sm: '320px',
-  md: '768px',
-  lg: '960px',
-  xl: '1200px',
-  '2xl': '1536px',
-}
-const theme = extendTheme({ breakpoints })
-
 
 import { WagmiConfig } from "wagmi";
 import { client, wagmiClient, ethereumClient } from "../context/connectors";
@@ -24,7 +14,6 @@ import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 const VITE_DYNAMIC = import.meta.env.VITE_DYNAMIC
 const App = () => (
   <BrowserRouter>
-    <ChakraProvider theme={theme}>
       <GlobalContextProvider>
         {/* <WagmiConfig client={wagmiClient}> */}
         {/* {console.log("VITE_DYNAMIC", VITE_DYNAMIC)} */}
@@ -53,7 +42,6 @@ const App = () => (
           enableNetworkView={true}
         /> */}
       </GlobalContextProvider>
-    </ChakraProvider>
   </BrowserRouter>
 );
 

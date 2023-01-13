@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Heading, Text, Grid, GridItem, Spacer } from "@chakra-ui/react";
+
 
 const TaskCard = () => {
   return (

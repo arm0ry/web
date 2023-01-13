@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Container } from "@chakra-ui/react";
+
 import { Web3Button, Web3NetworkSwitch } from "@web3modal/react";
 import { useDynamicContext, DynamicWidget } from "@dynamic-labs/sdk-react";
 import TaskCard from "./TaskCard";
