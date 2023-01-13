@@ -56,11 +56,11 @@ const Playground = () => {
         <div className="flex flex-row justify-between py-5">
           
           <img
-            className="w-[3rem] h-[3rem] mb-3 rounded-full shadow-lg"
+            className="w-[3rem] h-[3rem] mb-3 rounded-full shadow-lg bg-yellow-300"
             src={avatar}
             alt="avatar"
           />
-          <DynamicWidget className="self-end"/>
+          <DynamicWidget buttonClassName="connectButton" innerButtonComponent='Connect Wallet'/>
         </div>
         <div className="flex flex-col gap-3">
           <TaskCard />

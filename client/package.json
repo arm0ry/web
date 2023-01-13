@@ -9,8 +9,8 @@
   "dependencies": {
     "@dicebear/collection": "^5.0.2",
     "@dicebear/core": "^5.0.2",
-    "@dynamic-labs/sdk-react": "^0.14.23",
-    "@dynamic-labs/wagmi-connector": "^0.14.23",
+    "@dynamic-labs/sdk-react": "^0.14.26",
+    "@dynamic-labs/wagmi-connector": "^0.14.26",
     "@web3modal/ethereum": "*",
     "@web3modal/react": "*",
     "axios": "^0.21.4",

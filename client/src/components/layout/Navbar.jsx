@@ -72,7 +72,7 @@ const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   return (
-    <nav className="bg-[#FFFCFA] border-b-2 border-gray-600 fixed z-20 top-0 left-0 w-full flex md:justify-center justify-between items-center p-4">
+    <nav className="bg-[#FFFCFA] border-b-2 border-gray-600 fixed z-[2147483648] top-0 left-0 w-full flex md:justify-center justify-between items-center p-4">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Link to="/" className="flex">
           <img src={logo} alt="arm0ry"/>
