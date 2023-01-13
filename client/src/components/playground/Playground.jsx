@@ -5,7 +5,7 @@ import { useDynamicContext, DynamicWidget } from "@dynamic-labs/sdk-react";
 import TaskCard from "./TaskCard";
 
 import { createAvatar } from '@dicebear/core';
-import { openPeeps, micah } from '@dicebear/collection';
+import { openPeeps, micah, bigSmile } from '@dicebear/collection';
 import * as style from "@dicebear/open-peeps";
 
 
@@ -26,7 +26,7 @@ const Playground = () => {
         setBalance(balance.toString());
       });
     }
-    createAvatar(micah, {
+    createAvatar(bigSmile, {
       seed: user?.walletPublicKey,
       backgroundColor: ["b6e3f4"]
     }).toDataUri().then((data)=>setAvatar(data))
