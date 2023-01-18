@@ -38,11 +38,11 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="text-center justify-center  my-auto col-span-2 md:col-span-1 order-2 md:order-2">
+            <div className="text-center  min-h-[50vw] flex justify-center items-center  align-middle  my-auto col-span-2 md:col-span-1 order-2 md:order-2">
               <img
                 alt="dancing"
                 src={dancing}
-                className="inline-block max-h-[50vw]"
+                className=" max-h-[30vw]"
               />
             </div>
           </div>

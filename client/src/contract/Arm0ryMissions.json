@@ -6,18 +6,8 @@
     {
       "inputs": [
         {
-          "internalType": "contract IArm0ryTravellers",
-          "name": "_travellers",
-          "type": "address"
-        },
-        {
-          "internalType": "contract IArm0ryTasks",
-          "name": "_tasks",
-          "type": "address"
-        },
-        {
           "internalType": "address",
-          "name": "_weth",
+          "name": "_admin",
           "type": "address"
         }
       ],
@@ -26,42 +16,7 @@
     },
     {
       "inputs": [],
-      "name": "AlreadyClaimed",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "IncompleteTask",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "InvalidBuddy",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "InvalidClaim",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "InvalidReview",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "InvalidTraveller",
-      "type": "error"
-    },
-    {
-      "inputs": [],
       "name": "LengthMismatch",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "NeedMoreCoins",
       "type": "error"
     },
     {
@@ -70,154 +25,253 @@
       "type": "error"
     },
     {
-      "inputs": [],
-      "name": "TaskNotActive",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "TaskNotReadyForReview",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "THRESHOLD",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "WETH",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "arm0ry",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
+      "anonymous": false,
       "inputs": [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "isMissionBuddy",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "isMissionTask",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "missionNonce",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "missions",
-      "outputs": [
-        {
-          "internalType": "enum Phase",
-          "name": "phase",
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "missionId",
           "type": "uint8"
         },
+        {
+          "indexed": true,
+          "internalType": "uint8[]",
+          "name": "taskIds",
+          "type": "uint8[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "details",
+          "type": "string"
+        }
+      ],
+      "name": "MissionSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "admin",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "manager",
+          "type": "address"
+        }
+      ],
+      "name": "PermissionUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [
         {
           "internalType": "uint8",
-          "name": "progress",
+          "name": "_missionId",
           "type": "uint8"
         },
         {
-          "internalType": "uint8",
-          "name": "xpGained",
-          "type": "uint8"
+          "internalType": "uint8[]",
+          "name": "_taskIds",
+          "type": "uint8[]"
         },
         {
+          "internalType": "string",
+          "name": "_details",
+          "type": "string"
+        }
+      ],
+      "name": "setMission",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes[]",
+          "name": "taskData",
+          "type": "bytes[]"
+        }
+      ],
+      "name": "setTasks",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
           "internalType": "uint40",
           "name": "expiration",
+          "type": "uint40"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "points",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "details",
+          "type": "string"
+        }
+      ],
+      "name": "TaskSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint40",
+          "name": "expiration",
+          "type": "uint40"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "points",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "details",
+          "type": "string"
+        }
+      ],
+      "name": "TasksUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_admin",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_manager",
+          "type": "address"
+        }
+      ],
+      "name": "updatePermission",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8[]",
+          "name": "ids",
+          "type": "uint8[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "taskData",
+          "type": "bytes[]"
+        }
+      ],
+      "name": "updateTasks",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "admin",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "_missionId",
+          "type": "uint8"
+        }
+      ],
+      "name": "getMissionTasks",
+      "outputs": [
+        {
+          "internalType": "uint8[]",
+          "name": "",
+          "type": "uint8[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "_taskId",
+          "type": "uint8"
+        }
+      ],
+      "name": "getTaskCreator",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "_taskId",
+          "type": "uint8"
+        }
+      ],
+      "name": "getTaskExpiration",
+      "outputs": [
+        {
+          "internalType": "uint40",
+          "name": "",
           "type": "uint40"
         }
       ],
@@ -227,86 +281,17 @@
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "traveller",
-          "type": "address"
-        },
-        {
-          "internalType": "uint16",
-          "name": "taskId",
-          "type": "uint16"
-        },
-        {
           "internalType": "uint8",
-          "name": "review",
+          "name": "_taskId",
           "type": "uint8"
         }
       ],
-      "name": "reviewTasks",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "enum Phase",
-          "name": "phase",
-          "type": "uint8"
-        },
-        {
-          "internalType": "address[]",
-          "name": "buddies",
-          "type": "address[]"
-        },
-        {
-          "internalType": "uint16[]",
-          "name": "taskIds",
-          "type": "uint16[]"
-        }
-      ],
-      "name": "startMission",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint16",
-          "name": "taskId",
-          "type": "uint16"
-        },
-        {
-          "internalType": "string",
-          "name": "deliverable",
-          "type": "string"
-        }
-      ],
-      "name": "submitTasks",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "taskDeliverables",
+      "name": "getTaskXp",
       "outputs": [
         {
-          "internalType": "string",
+          "internalType": "uint8",
           "name": "",
-          "type": "string"
+          "type": "uint8"
         }
       ],
       "stateMutability": "view",
@@ -315,17 +300,17 @@
     {
       "inputs": [
         {
-          "internalType": "address",
+          "internalType": "uint8",
           "name": "",
-          "type": "address"
+          "type": "uint8"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint8",
           "name": "",
-          "type": "uint256"
+          "type": "uint8"
         }
       ],
-      "name": "taskReadyForReview",
+      "name": "isTaskInMission",
       "outputs": [
         {
           "internalType": "bool",
@@ -338,10 +323,10 @@
     },
     {
       "inputs": [],
-      "name": "tasks",
+      "name": "manager",
       "outputs": [
         {
-          "internalType": "contract IArm0ryTasks",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -351,12 +336,12 @@
     },
     {
       "inputs": [],
-      "name": "travellers",
+      "name": "missionId",
       "outputs": [
         {
-          "internalType": "contract IArm0ryTravellers",
+          "internalType": "uint8",
           "name": "",
-          "type": "address"
+          "type": "uint8"
         }
       ],
       "stateMutability": "view",
@@ -365,32 +350,72 @@
     {
       "inputs": [
         {
-          "internalType": "address[]",
-          "name": "preBuddies",
-          "type": "address[]"
-        },
-        {
-          "internalType": "address[]",
-          "name": "newBuddies",
-          "type": "address[]"
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
         }
       ],
-      "name": "updateBuddies",
-      "outputs": [],
-      "stateMutability": "payable",
+      "name": "missions",
+      "outputs": [
+        {
+          "internalType": "uint40",
+          "name": "expiration",
+          "type": "uint40"
+        },
+        {
+          "internalType": "string",
+          "name": "details",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "taskId",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "traveller",
-          "type": "address"
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
         }
       ],
-      "name": "updateMissionProgress",
-      "outputs": [],
-      "stateMutability": "payable",
+      "name": "tasks",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "xp",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint40",
+          "name": "expiration",
+          "type": "uint40"
+        },
+        {
+          "internalType": "address",
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "details",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     }
   ]
