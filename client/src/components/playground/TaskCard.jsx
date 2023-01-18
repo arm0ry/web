@@ -41,7 +41,7 @@ const TaskCard = ({taskId}) => {
                 </p>
                 <button disabled="">
                   <p className="text-blue font-bold text-base leading-6">
-                    {tasksdata.expiration}
+                    {tasksdata?.expiration}
                   </p>
                 </button>
             </div>

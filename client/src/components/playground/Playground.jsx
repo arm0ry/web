@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 
-import { useContractRead } from 'wagmi'
+import { useContractRead, useAccount } from 'wagmi'
 import { ADDRESS, ABI } from "../../contract";
 
 import WalletBar from "../WalletBar"
@@ -12,6 +12,7 @@ import TaskCard from "./TaskCard"
 // const svg = avatar.toString();
 
 const Playground = () => {
+  const { isConnected } = useAccount();
   const { data: taskIDdata, isError, isSuccess, isLoading } = useContractRead({
     address: ADDRESS,
     abi: ABI,
@@ -23,12 +24,12 @@ const Playground = () => {
     <>
       <div className="container">
         <WalletBar/>
+        
         <div className="flex flex-col gap-3">
-        {[...Array(taskIDdata)].map((_, i)=>{
+        {isConnected && [...Array(taskIDdata)].map((_, i)=>{
           return(<TaskCard taskId={i+1}/>)
           }
         )}
-        {}
         </div>
       </div>
     </>
