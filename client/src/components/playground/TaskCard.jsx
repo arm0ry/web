@@ -6,18 +6,16 @@ import { useContractRead } from "wagmi";
 import { getContract } from "@wagmi/core";
 import { Arm0ryMissions } from "../../contract";
 
-const TaskCard = ({ taskId }) => {
+const TaskCard = ({ taskdata }) => {
   const [details, setDetails] = useState(undefined);
   // const { data: tasksdata, isLoading, isFetched } = useContractRead({
   //   ...Arm0ryMissions,
   //   functionName: 'tasks',
   //   args:[taskId]
   // })
-  // useEffect(() => {
-  //   if( isFetched){
-  //     setDetails(JSON.parse(tasksdata.details))
-  //   }
-  // }, [tasksdata])
+  useEffect(() => {
+    setDetails(JSON.parse(taskdata.details))
+  }, [])
   const RPC = "https://rpc.ankr.com/eth_goerli";
 
   useEffect(() => {
@@ -28,7 +26,7 @@ const TaskCard = ({ taskId }) => {
         signerOrProvider: provider,
       });
       const tasksdata = await contract.tasks(taskId);
-      console.log(tasksdata);
+      // console.log(tasksdata);
       setDetails({
         ...JSON.parse(tasksdata.details),
         xp: tasksdata.xp,

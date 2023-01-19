@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { useContractRead, useAccount, useProvider } from "wagmi";
 import { getContract } from "@wagmi/core";
-import { Arm0ryMissions } from "../../contract";
+import { Arm0ryMissions,RPC } from "../../contract";
+
+import{useGlobalContext} from "../../context/store"
 
 import WalletBar from "../WalletBar";
 import TaskCard from "./TaskCard";
@@ -12,42 +14,19 @@ import TaskCard from "./TaskCard";
 // const svg = avatar.toString();
 
 const Playground = () => {
+  const{tasks}= useGlobalContext()
   const navigate = useNavigate();
-  const { isConnected } = useAccount();
-  const [taskId, setTaskId] = useState(0);
-  // const provider = useProvider()
-
-  const RPC = "https://rpc.ankr.com/eth_goerli";
-  const provider = new ethers.providers.JsonRpcProvider(RPC);
-  const contract = getContract({
-    ...Arm0ryMissions,
-    signerOrProvider: provider,
-  });
-  (async () => {
-    const _taskId = await contract.taskId();
-    setTaskId(_taskId);
-  })();
-  // console.log({ dc, provider });
-  // const {
-  //   data: taskIDdata,
-  //   isError,
-  //   isSuccess,
-  //   isLoading,
-  // } = useContractRead({
-  //   ...Arm0ryMissions,
-  //   functionName: "taskId",
-  // });
 
   return (
     <>
-      <div className="container">
+      <div className="container min-h-screen">
         <WalletBar />
         {/* <p>{dc}</p> */}
         <div className="flex flex-col gap-3">
           {/* {isConnected &&
             } */}
-            {[...Array(taskId)].map((_, i) => {
-              return <TaskCard key={i} taskId={i + 1} />;
+            {tasks.map((data,i) => {
+              return <TaskCard key={i} taskdata={data} />;
             })}
         </div>
         <button

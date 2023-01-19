@@ -7,6 +7,7 @@ import {
   Funding,
   Admin,
   ProposeTask,
+  Donate
 } from "../components";
 import ScrollToTop from "../utils/ScrollToTop";
 
@@ -20,6 +21,7 @@ const Routers = () => {
         <Route path="/playground" element={<Playground />} />
         <Route path="/playground/proposeTask" element={<ProposeTask />} />
         <Route path="/funding" element={<Funding />} />
+        <Route path="/donate" element={<Donate />} />
         {/* <Route path="/admin" element={<Admin />} /> */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

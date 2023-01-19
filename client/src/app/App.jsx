@@ -28,7 +28,7 @@ const App = () => (
             <div className="mt-[4.1rem]">
               <Routers />
             </div>
-            <div className="min-h-screen"></div>
+            <div className="min-h-5"></div>
             <Footer />
           </DynamicWagmiConnector>
         </DynamicContextProvider>

@@ -105,7 +105,7 @@ const Navbar = () => {
             </NavbarDropdown> */}
 
             <NavBarItem title="Funding" to="/funding" onClick={() => setToggleMenu(false)}/>
-            <NavBarItem title="Donate" to="/funding" onClick={() => setToggleMenu(false)}/>
+            <NavBarItem disable title="Donate" to="/donate" onClick={() => setToggleMenu(false)}/>
             {/* <li>
                 <CustomButton
                   title="connect wallet"

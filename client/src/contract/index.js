@@ -9,3 +9,8 @@ export const KaliDAO = {
   address: "0x5e3255fee519ef9b7b41339d20abf5591f393c4d",
   abi: KaliDAO_abi,
 };
+
+
+const goerli = "https://rpc.ankr.com/eth_goerli";
+
+export const RPC={goerli}

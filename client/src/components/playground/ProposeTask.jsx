@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { useForm } from "react-hook-form";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { prepareWriteContract, writeContract } from "@wagmi/core";
-
+import kaliLogo from "../../assets/kali.svg"
 import { Arm0ryMissions, KaliDAO } from "../../contract";
 import WalletBar from "../WalletBar";
 
@@ -29,18 +29,24 @@ const Admin = () => {
         JSON.stringify(detail),
       ]
     );
-    console.log(params)
+    // console.log(params);
     // encode Function Data
-    const mInterface = new ethers.utils.Interface(Arm0ryMissions.abi)
-    const callData = mInterface.encodeFunctionData("setTasks", [[params]])
-    // 
+    const mInterface = new ethers.utils.Interface(Arm0ryMissions.abi);
+    const callData = mInterface.encodeFunctionData("setTasks", [[params]]);
+    //
     const config = await prepareWriteContract({
       ...KaliDAO,
       functionName: "propose",
-      args: [2,`setTask:\n${d.title}`, [Arm0ryMissions.address], [0], [callData]]
+      args: [
+        2,
+        `setTask:\n${d.title}`,
+        [Arm0ryMissions.address],
+        [0],
+        [callData],
+      ],
     });
     const data = await writeContract(config);
-    console.log({data})
+    // console.log({ data });
 
     // const ppconfig = await prepareWriteContract({
     //   ...Arm0ryMissions,
@@ -48,15 +54,14 @@ const Admin = () => {
     //   args: ["0x55C6F238B85F1808f0C105b817180213513E854A", "0x4744cda32bE7b3e75b9334001da9ED21789d4c0d"],
     // });
     // const ppdata = await writeContract(ppconfig);
-
-    
   };
-  console.log(watch("example"));
+  // console.log(watch("example"));
 
   return (
     <>
-      <div className="container">
+      <div className="container min-h-screen">
         <WalletBar />
+        
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-6">
@@ -83,13 +88,6 @@ const Admin = () => {
               >
                 Point
               </label>
-              {/* <input
-                type="text"
-                id="point"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="3"
-                required
-              /> */}
               <select
                 id="point"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -169,12 +167,30 @@ const Admin = () => {
             <button
               type="submit"
               disabled={!isConnected}
-              className=" transition duration-300 ease-in-out w-full text-gray bg-yellow-200 hover:ring-4 hover:ring-yellow-200 focus:ring-2  font-PasseroOne rounded-lg text-base  px-auto py-2 text-center disabled:opacity-25 disabled:pointer-events-none"
+              className=" transition duration-300 ease-in-out w-full text-gray bg-yellow-200 hover:ring-4 hover:ring-yellow-200 active:ring-2  font-PasseroOne rounded-lg text-base  px-auto py-2 text-center disabled:opacity-25 disabled:pointer-events-none"
             >
-              {isConnected? "Submit": "Please Connect Wallet"}
+              {isConnected ? "Submit" : "Please Connect Wallet"}
             </button>
           </div>
         </form>
+        <div>
+          <button
+            onClick={() =>
+              window.open(
+                "https://app.kali.gg/daos/5/0x5e3255fee519ef9b7b41339d20abf5591f393c4d"
+              )
+            }
+            className="text-center  gap-2  flex justify-center items-center  align-middle transition duration-300 ease-in-out w-full text-gray bg-black hover:ring-4 hover:ring-black active:ring-2 rounded-lg text-base  px-5 py-2  mt-5"
+          >
+            <img
+                alt="kali Logo"
+                src={kaliLogo}
+                className=" max-h-6"
+              />
+            <span className="text-white font-bold"> Arm0ry Dao</span>
+            
+          </button>
+        </div>
       </div>
     </>
   );
