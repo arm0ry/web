@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useRef, useState } from 'r
 import { ethers } from 'ethers';
 import { useNavigate } from 'react-router-dom';
 
-import { ABI, ADDRESS } from '../contract';
+import { Arm0ryMissions } from '../contract';
 
 const GlobalContext = createContext();
 

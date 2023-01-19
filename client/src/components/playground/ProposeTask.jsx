@@ -15,13 +15,6 @@ const Admin = () => {
     watch,
     formState: { errors },
   } = useForm();
-  // const { config } = usePrepareContractWrite({
-  //   address: ADDRESS,
-  //   abi: ABI,
-  //   functionName: "setTasks",
-  //   args:['']
-  // });
-  // const { data, isLoading, isSuccess, write } = useContractWrite(config);
   const abiCoder = ethers.utils.defaultAbiCoder;
 
   const onSubmit = async (d) => {
@@ -37,18 +30,18 @@ const Admin = () => {
       ]
     );
     console.log(params)
-    // 
+    // encode Function Data
     const mInterface = new ethers.utils.Interface(Arm0ryMissions.abi)
     const callData = mInterface.encodeFunctionData("setTasks", [[params]])
-    console.log({callData})
     // 
     const config = await prepareWriteContract({
       ...KaliDAO,
       functionName: "propose",
-      args: [2,"setTask", [Arm0ryMissions.address], [0], [callData]]
+      args: [2,`setTask:\n${d.title}`, [Arm0ryMissions.address], [0], [callData]]
     });
     const data = await writeContract(config);
     console.log({data})
+
     // const ppconfig = await prepareWriteContract({
     //   ...Arm0ryMissions,
     //   functionName: "updatePermission",
@@ -127,9 +120,9 @@ const Admin = () => {
                 {...register("expiration")}
               >
                 <option value="">Choose...</option>
-                <option value="1440">1 Day</option>
-                <option value="2880">2 Days</option>
-                <option value="4320">3 Days</option>
+                <option value="86400">1 Day</option>
+                <option value="172800">2 Days</option>
+                <option value="259200">3 Days</option>
               </select>
             </div>
           </div>
@@ -175,9 +168,10 @@ const Admin = () => {
           <div className="block w-fulll">
             <button
               type="submit"
-              className=" transition duration-300 ease-in-out w-full text-gray bg-yellow-200 hover:ring-4 hover:ring-yellow-200 focus:ring-2  font-PasseroOne rounded-lg text-base  px-auto py-2 text-center"
+              disabled={!isConnected}
+              className=" transition duration-300 ease-in-out w-full text-gray bg-yellow-200 hover:ring-4 hover:ring-yellow-200 focus:ring-2  font-PasseroOne rounded-lg text-base  px-auto py-2 text-center disabled:opacity-25 disabled:pointer-events-none"
             >
-              Submit
+              {isConnected? "Submit": "Please Connect Wallet"}
             </button>
           </div>
         </form>
