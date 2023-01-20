@@ -59,7 +59,7 @@ const Admin = () => {
 
   return (
     <>
-      <div className="container min-h-screen">
+      <div className="container ">
         <WalletBar />
         
 

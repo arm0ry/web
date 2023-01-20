@@ -25,7 +25,7 @@ const App = () => (
           <DynamicWagmiConnector>
             <Navbar />
 
-            <div className="mt-[4.1rem]">
+            <div className="mt-[4.1rem] min-h-[90vh]">
               <Routers />
             </div>
             <div className="min-h-5"></div>

@@ -19,7 +19,7 @@ const Playground = () => {
 
   return (
     <>
-      <div className="container min-h-screen">
+      <div className="container">
         <WalletBar />
         {/* <p>{dc}</p> */}
         <div className="flex flex-col gap-3">

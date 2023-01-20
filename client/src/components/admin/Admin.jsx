@@ -36,11 +36,11 @@ const Admin = () => {
         JSON.stringify(detail),
       ]
     );
-    console.log(params)
+    // console.log(params)
     // 
     const mInterface = new ethers.utils.Interface(Arm0ryMissions.abi)
     const callData = mInterface.encodeFunctionData("setTasks", [[params]])
-    console.log({callData})
+    // console.log({callData})
     // 
     const config = await prepareWriteContract({
       ...KaliDAO,
@@ -48,7 +48,7 @@ const Admin = () => {
       args: [2,"setTask", [Arm0ryMissions.address], [0], [callData]]
     });
     const data = await writeContract(config);
-    console.log({data})
+    // console.log({data})
     // const ppconfig = await prepareWriteContract({
     //   ...Arm0ryMissions,
     //   functionName: "updatePermission",
