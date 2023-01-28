@@ -9,7 +9,7 @@ import {
   ProposeTask,
   Donate
 } from "../components";
-import ScrollToTop from "../utils/ScrollToTop";
+import ScrollToTop from "@utils/ScrollToTop";
 
 const Routers = () => {
   return (

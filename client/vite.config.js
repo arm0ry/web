@@ -24,6 +24,9 @@ export default ({command, mode }) => {
           find: "node-fetch",
           replacement: "axios",
         },
+        { find: '@utils', replacement: path.resolve(__dirname, 'src/utils') },
+        { find: '@context', replacement: path.resolve(__dirname, 'src/context') },
+        { find: '@contract', replacement: path.resolve(__dirname, 'src/contract') },
     ],
   },
   });

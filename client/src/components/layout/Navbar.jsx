@@ -5,7 +5,7 @@ import { CustomButton } from "../.";
 import logo from "../../assets/logo.svg";
 import close from "../../assets/close.svg";
 import menu from "../../assets/menu.svg";
-import { useGlobalContext } from "../../context/store";
+import { useGlobalContext } from "@context/store";
 // const NavBarItem = ({ title, classprops }) => (
 //   <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
 // );

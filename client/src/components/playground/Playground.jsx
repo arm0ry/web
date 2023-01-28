@@ -6,7 +6,7 @@ import { useContractRead, useAccount, useProvider } from "wagmi";
 import { getContract } from "@wagmi/core";
 import { Arm0ryMissions,RPC } from "../../contract";
 
-import{useGlobalContext} from "../../context/store"
+import{useGlobalContext} from "@context/store"
 
 import WalletBar from "../WalletBar";
 import TaskCard from "./TaskCard";

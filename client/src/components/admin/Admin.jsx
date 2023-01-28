@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { prepareWriteContract, writeContract } from "@wagmi/core";
 
-import { Arm0ryMissions, KaliDAO } from "../../contract";
+import { Arm0ryMissions, KaliDAO } from "@contract";
 import WalletBar from "../WalletBar";
 
 const Admin = () => {

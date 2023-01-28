@@ -1,11 +1,11 @@
 import { Navbar, Footer } from "../components/layout";
 import { BrowserRouter } from "react-router-dom";
-import { GlobalContextProvider } from "../context/store";
+import { GlobalContextProvider } from "@context/store";
 import Routers from "./Routers";
 
 
 import { WagmiConfig } from "wagmi";
-import { client, wagmiClient, ethereumClient } from "../context/connectors";
+import { client, wagmiClient, ethereumClient } from "@context/connectors";
 import { Web3Modal } from "@web3modal/react";
 import { goerli } from "wagmi/chains";
 import { DynamicContextProvider } from "@dynamic-labs/sdk-react";
