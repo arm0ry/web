@@ -16,6 +16,9 @@ export default ({command, mode }) => {
     // define: {
     //   __APP_ENV__: env.APP_ENV,
     // },
+    define: {
+      'process.env': {}
+    },
     envDir: path.resolve(__dirname, "../"),
     plugins: [react(), svgr()],
     resolve: {
