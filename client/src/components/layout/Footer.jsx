@@ -1,9 +1,9 @@
 import React from "react";
 
-import logo from "../../assets/logo.svg";
+import {logo} from "@assets";
 
 const Footer = () => (
-  <div className="w-full flex md:justify-center justify-between items-center flex-col p-4">
+  <div className="w-full flex md:justify-center justify-between items-center flex-col p-4 mt-5">
     <div className="w-full flex sm:flex-row flex-col justify-between items-center my-4">
       <div className="flex flex-[0.5] justify-center items-center">
         <img src={logo} alt="logo" className="w-32" />

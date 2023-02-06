@@ -1,6 +1,5 @@
 import React from "react";
-import bgHome from "../../assets/bg-home.svg";
-import dancing from "../../assets/dancing.png";
+import {bgHome, dancing} from "@assets";
 import style from "../../styles";
 import { useNavigate } from "react-router-dom";
 
@@ -50,7 +49,7 @@ const Home = () => {
         <div>
           <img
             src={bgHome}
-            alt="logo"
+            alt="bgHome"
             className="absolute bottom-[0vh] -left-5 -ml-4  min-w-[120vw] md:bottom-[1vh] xl:bottom-[1vh] md:min-w-[115vw] md:-left-9 2xl:bottom-[-3vh]"
           />
         </div>

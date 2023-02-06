@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { CustomButton } from "../.";
-import logo from "../../assets/logo.svg";
-import close from "../../assets/close.svg";
-import menu from "../../assets/menu.svg";
+import {logo, menuUp, menuDown }from "@assets";
 import { useGlobalContext } from "@context/store";
 // const NavBarItem = ({ title, classprops }) => (
 //   <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
@@ -72,7 +70,7 @@ const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   return (
-    <nav className="bg-[#FFFCFA] border-b-2 border-gray-600 fixed z-[2147483648] top-0 left-0 w-full flex md:justify-center justify-between items-center p-4">
+    <nav className="bg-[#FFFCFA] border-b-2 border-gray-600 fixed z-[2147483648] top-0 left-0 w-full flex md:justify-center justify-between items-center p-4 h-16">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Link to="/" className="flex">
           <img src={logo} alt="arm0ry"/>
@@ -84,9 +82,9 @@ const Navbar = () => {
         >
           <span className="sr-only">Open main menu</span>
           {!toggleMenu ? (
-            <img src={close} className="w-6 h-6"/>
+            <img src={menuDown} className="w-6 h-6"/>
           ) : (
-            <img src={menu} className="w-6 h-6"/>
+            <img src={menuUp} className="w-6 h-6"/>
            
           )}
         </button>
