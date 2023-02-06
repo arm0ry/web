@@ -18,7 +18,7 @@ import { useGlobalContext } from "@context/store";
 
 const encodeFunctionData = async (types, data, address, abi, method) => {
   const abiCoder = ethers.utils.defaultAbiCoder;
-  const ipfsUrl = await uploadJSON({
+  const ipfsCDI = await uploadJSON({
     title: data.title,
     detail: data.detail,
   });
@@ -27,7 +27,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
     parseInt(data.point, 10),
     parseInt(data.expiration, 10),
     address,
-    ipfsUrl,
+    ipfsCDI,
   ];
   const params = abiCoder.encode(
     types, // encode as address array
