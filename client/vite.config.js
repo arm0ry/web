@@ -1,23 +1,32 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
-import svgr from 'vite-plugin-svgr'
+import svgr from "vite-plugin-svgr";
 import path from "path";
 // https://vitejs.dev/config/
 // export default defineConfig({
 //   plugins: [react()]
 // })
 
-export default ({command, mode }) => {
+export default ({ command, mode }) => {
   // Load app-level env vars to node-level env vars.
-  // const env = loadEnv(mode, process.cwd(), "");
+  // const env = loadEnv(mode, path.resolve(__dirname, "../"), "");
   // process.env = {...process.env, ...loadEnv(mode, process.cwd())};
-
   return defineConfig({
-    // define: {
-    //   __APP_ENV__: env.APP_ENV,
-    // },
     define: {
-      'process.env': {}
+      // __APP_ENV__: env,
+      "process.env": { ...process.env },
+      global: 'window'
+    },
+    build: {
+      target: ["es2020"],
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        target: "es2020",
+        define: {
+          global: 'globalThis'
+        }
+      },
     },
     envDir: path.resolve(__dirname, "../"),
     plugins: [react(), svgr()],
@@ -28,15 +37,20 @@ export default ({command, mode }) => {
           find: "node-fetch",
           replacement: "axios",
         },
-        { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
-        { find: '@utils', replacement: path.resolve(__dirname, 'src/utils') },
-        { find: '@context', replacement: path.resolve(__dirname, 'src/context') },
-        { find: '@contract', replacement: path.resolve(__dirname, 'src/contract') },
-    ],
-  },
-  server: {
-    host: '0.0.0.0'
-}
+        { find: "@assets", replacement: path.resolve(__dirname, "src/assets") },
+        { find: "@utils", replacement: path.resolve(__dirname, "src/utils") },
+        {
+          find: "@context",
+          replacement: path.resolve(__dirname, "src/context"),
+        },
+        {
+          find: "@contract",
+          replacement: path.resolve(__dirname, "src/contract"),
+        },
+      ],
+    },
+    server: {
+      host: "0.0.0.0",
+    },
   });
 };
-

@@ -70,15 +70,15 @@ const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   return (
-    <nav className="bg-[#FFFCFA] border-b-2 border-gray-600 fixed z-[2147483648] top-0 left-0 w-full flex md:justify-center justify-between items-center p-4 h-16">
+    <nav className="bg-[#FFFCFA] border-b-2 border-gray-600 fixed z-[2147483648] top-0 left-0 w-full flex md:justify-center justify-between items-center p-4 h-auto md:h-16">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
-        <Link to="/" className="flex">
+        <Link to="/" className="flex h-8 md:h-auto ">
           <img src={logo} alt="arm0ry"/>
         </Link>
         <button
           type="button"
           onClick={() => setToggleMenu((t) => !t)}
-          className="md:hidden ml-3 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center"
+          className="h-8 md:hidden ml-3 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center"
         >
           <span className="sr-only">Open main menu</span>
           {!toggleMenu ? (
