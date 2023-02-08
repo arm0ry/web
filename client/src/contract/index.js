@@ -2,7 +2,7 @@ import Arm0ryMissions_abi from "./Arm0ryMissions.json";
 import KaliDAO_abi from "./KaliDAO.json";
 
 export const Arm0ryMissions = {
-  address: "0x2B0460E8949dE6afF205d0Fa47328BBd9035af3C",
+  address: "0xF8F7c70Fc378474e1C2DF6b11ac4B7480c6fF9Bf",
   abi: Arm0ryMissions_abi.abi,
 };
 export const KaliDAO = {
@@ -10,7 +10,6 @@ export const KaliDAO = {
   abi: KaliDAO_abi,
 };
 
-
 const goerli = "https://rpc.ankr.com/eth_goerli";
 
-export const RPC={goerli}
+export const RPC = { goerli };
