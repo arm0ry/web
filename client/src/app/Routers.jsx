@@ -10,6 +10,10 @@ import {
   Tasks,
   TaskDetail,
   Donate,
+  Missions,
+  Review,
+  TravelerPass,
+  Manager
 } from "../components";
 import { Navbar, Footer } from "../components/layout";
 import ScrollToTop from "@utils/ScrollToTop";
@@ -30,9 +34,14 @@ const Routers = () => {
         <Route path="/" element={HomeLayout(<Home />)} />
         <Route path="/onboard" element={HomeLayout(<Onboard />)} />
         <Route path="/playground" element={<Playground />}>
-          <Route path="propose-task" element={<ProposeTask />} />
+          <Route index element={<Navigate to="tasks" replace />} />
+          <Route path="traveller-pass" element={<TravelerPass />} />
+          <Route path="missions" element={<Missions />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="tasks/:id" element={<TaskDetail />} />
+          <Route path="review" element={<Review />} />
+          <Route path="propose-task" element={<ProposeTask />} />
+          <Route path="manager" element={<Manager />} />
         </Route>
 
         <Route path="/funding" element={HomeLayout(<Funding />)} />

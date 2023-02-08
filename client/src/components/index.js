@@ -4,6 +4,7 @@ import CustomButton from './CustomButton';
 import WalletBar from './Avatar';
 import Alert from './Alert';
 import Money from './Money';
+import Missions from './playground/Missions';
 export {CustomButton, WalletBar, Alert, Money};
 
 
@@ -15,6 +16,11 @@ export { default as Playground } from "./playground/Playground";
 export { default as ProposeTask } from "./playground/ProposeTask";
 export { default as Tasks } from "./playground/Tasks";
 export { default as TaskDetail } from "./playground/TaskDetail";
+export { default as Missions } from "./playground/Missions";
+export { default as Review } from "./playground/Review";
+export { default as TravelerPass } from "./playground/TravelerPass";
+export { default as Manager } from "./playground/Manager";
+
 
 export { default as Funding } from "./funding/Funding";
 export { default as Admin } from "./admin/Admin";

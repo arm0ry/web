@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate, NavLink, Link, Outlet } from "react-router-dom";
+import { useNavigate, NavLink, Link, Outlet, redirect } from "react-router-dom";
 import {
   logo,
   menuUp,
@@ -19,6 +19,7 @@ import { ethers } from "ethers";
 import { useContractRead, useAccount, useProvider } from "wagmi";
 import { getContract } from "@wagmi/core";
 import { Arm0ryMissions, RPC } from "../../contract";
+
 
 import { useGlobalContext } from "@context/store";
 
@@ -93,7 +94,7 @@ const Playground = () => {
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white flex flex-col  ">
           <ul className="space-y-2">
             <NavbarItem
-              to="passport"
+              to="traveller-pass"
               name="Passport"
               Icon={Passport}
               setToggleMenu={setToggleMenu}

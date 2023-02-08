@@ -11,6 +11,7 @@ import { ReactComponent as BuddiesIcon } from "./buddies.svg";
 import { ReactComponent as ProposeIcon } from "./propose.svg";
 import { ReactComponent as ManagerIcon } from "./manager.svg";
 import { ReactComponent as ClockIcon } from "./clock.svg";
+import { ReactComponent as PassportIdIcon } from "./passportId.svg";
 import {  ArrowSVG } from "./arrow.js";
 // import arrow from "./arrow.js";
 
@@ -28,5 +29,6 @@ export {
   ProposeIcon,
   ManagerIcon,
   ArrowSVG,
-  ClockIcon
+  ClockIcon,
+  PassportIdIcon
 };

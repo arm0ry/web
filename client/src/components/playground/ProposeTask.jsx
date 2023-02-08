@@ -43,13 +43,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
 const Admin = () => {
   // const { alerts } = useGlobalContext();
   const [writeState, setWriteState] = useState(0);
-  // const [address, setAddress] = useState(
-  //   "0x0000000000000000000000000000000000000000"
-  // );
   const { address, isConnected, isDisconnected } = useAccount();
-  // useEffect(() => {
-  //   if (_ad !== undefined) setAddress(_ad);
-  // }, [_ad]);
 
   const {
     register,
@@ -60,34 +54,6 @@ const Admin = () => {
   } = useForm({
     defaultValues: { point: 0, expiration: 0 },
   });
-  // const data = watch();
-  // const { config } = usePrepareContractWrite({
-  //   ...KaliDAO,
-  //   functionName: "propose",
-  //   args: [
-  //     2,
-  //     `setTask:\n${data.title}`,
-  //     [Arm0ryMissions.address],
-  //     [0],
-  //     [
-  //       encodeFunctionData(
-  //         ["uint8", "uint40", "address", "string"],
-  //         { ...data, address },
-  //         Arm0ryMissions.abi,
-  //         "setTasks"
-  //       ),
-  //     ],
-  //   ],
-  // });
-  // console.log({ config });
-  // const { write } = useContractWrite({
-  //   ...config,
-  //   onSuccess(data) {
-  //     pushAlert({ msg: "Success!", type: "success" });
-  //     console.log("Success", data);
-  //   },
-  // });
-
   const onSubmit = async (data) => {
     // write();
     try {
