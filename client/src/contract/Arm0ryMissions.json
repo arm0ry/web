@@ -16,6 +16,11 @@
     },
     {
       "inputs": [],
+      "name": "InvalidMission",
+      "type": "error"
+    },
+    {
+      "inputs": [],
       "name": "LengthMismatch",
       "type": "error"
     },
@@ -76,11 +81,6 @@
     },
     {
       "inputs": [
-        {
-          "internalType": "uint8",
-          "name": "_missionId",
-          "type": "uint8"
-        },
         {
           "internalType": "uint8[]",
           "name": "_taskIds",
@@ -206,6 +206,34 @@
     {
       "inputs": [
         {
+          "internalType": "uint8",
+          "name": "_missionId",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint8[]",
+          "name": "_taskIds",
+          "type": "uint8[]"
+        },
+        {
+          "internalType": "string",
+          "name": "_details",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_title",
+          "type": "string"
+        }
+      ],
+      "name": "updateMission",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "uint8[]",
           "name": "ids",
           "type": "uint8[]"
@@ -229,6 +257,25 @@
           "internalType": "address",
           "name": "",
           "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "_missionId",
+          "type": "uint8"
+        }
+      ],
+      "name": "getMissionLength",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
