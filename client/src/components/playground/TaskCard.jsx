@@ -14,7 +14,6 @@ const secondToDay = (s) => {
   return parseInt(s / 86400);
 };
 const TaskCard = ({ taskdata }) => {
-
   // const { data: tasksdata, isLoading, isFetched } = useContractRead({
   //   ...Arm0ryMissions,
   //   functionName: 'tasks',
@@ -31,7 +30,7 @@ const TaskCard = ({ taskdata }) => {
         <div className="relative h-full w-full px-4 py-3 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex justify-between flex-row items-center space-x-1">
           <div className="space-y-2 ml-2 ">
             <p className="text-slate-800 line-clamp-2 leading-5 font-medium  group-hover:font-semibold ">
-              {taskdata?.title}Arm0ry
+              {taskdata?.title}
             </p>
             <Link
               to={`${taskdata?.id}`}
@@ -40,7 +39,7 @@ const TaskCard = ({ taskdata }) => {
               Read Detail →
             </Link>
           </div>
-          <div className="justify-items-end flex mt-2 ml-auto  min-w-[7rem] md:mt-0 items-start justify-start md:items-end md:justify-end">
+          <div className="justify-items-end flex mt-2 ml-auto  min-w-[7rem] md:mt-0 items-start justify-end md:items-end md:justify-end">
             <div className="flex md:p-2 flex-col flex-nowrap gap-2">
               <div class="inline-flex items-center w-fit px-2 py-1 bg-[#303481]  rounded-full text-sm font-bold text-[#D6E6F2]">
                 <ClockIcon />

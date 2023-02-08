@@ -10,6 +10,7 @@ import { ethers } from "ethers";
 import { getContract } from "@wagmi/core";
 import { useNavigate } from "react-router-dom";
 
+import { fetchIpfsCDI } from "@utils/ipfs";
 import { Arm0ryMissions, RPC } from "../contract";
 import dispatch, { alertReducer } from "./reducer";
 
@@ -47,16 +48,18 @@ export const GlobalContextProvider = ({ children }) => {
 
       const data = await Promise.all(
         [...Array(_taskId)].map(async (_, id) => {
+          const _task = await contract.tasks(id + 1);
+          const res = await fetchIpfsCDI(_task.details);
           setTasksDetail((p) => {
-            return { ...p, [id + 1]: "" };
+            return { ...p, [id + 1]: res.data.detail };
           });
-          return await contract.tasks(id + 1);
+          return {..._task, title: res.data.title};
         })
       );
       setTasks(data);
     };
 
-    fetchData().catch(console.error);;
+    fetchData().catch(console.error);
     
   }, []);
 

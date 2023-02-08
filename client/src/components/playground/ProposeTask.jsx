@@ -37,7 +37,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
   // encode Function Data
   const mInterface = new ethers.utils.Interface(abi);
   const callData = mInterface.encodeFunctionData(method, [[params]]);
-  return callData;
+  return [ipfsCDI, callData];
 };
 
 const Admin = () => {
@@ -58,7 +58,7 @@ const Admin = () => {
     // write();
     try {
       setWriteState(1);
-      const callData = await encodeFunctionData(
+      const [ipfsCDI, callData] = await encodeFunctionData(
         ["uint8", "uint40", "address", "string"],
         data,
         address,
@@ -71,7 +71,7 @@ const Admin = () => {
         functionName: "propose",
         args: [
           2,
-          `setTask:\n${data.title}`,
+          `[Set Task]\n${data.title}\nexpiration:${data.expiration}\n     point:${data.point}AMG\n\ndetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}`,
           [Arm0ryMissions.address],
           [0],
           [callData],
