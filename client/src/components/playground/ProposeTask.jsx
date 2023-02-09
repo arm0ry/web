@@ -40,7 +40,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
   return [ipfsCDI, callData];
 };
 
-const Admin = () => {
+const ProposeTask = () => {
   // const { alerts } = useGlobalContext();
   const [writeState, setWriteState] = useState(0);
   const { address, isConnected, isDisconnected } = useAccount();
@@ -71,12 +71,13 @@ const Admin = () => {
         functionName: "propose",
         args: [
           2,
-          `[Set Task]\n${data.title}\nexpiration:${data.expiration}\n     point:${data.point}AMG\n\ndetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}`,
+          `[Set Task]\n${data.title}\n\nexpiration:${parseInt(data.expiration/86400)}${" days"}\n${"     "}point:${data.point}${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}\n${data.detail}`,
           [Arm0ryMissions.address],
           [0],
           [callData],
         ],
       });
+      pushAlert({ msg: "區塊驗證中...", type: "info" });
       setWriteState(2);
       await waitForTransaction({
         hash,
@@ -245,4 +246,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default ProposeTask;
