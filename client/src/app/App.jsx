@@ -1,5 +1,5 @@
 import { Navbar, Footer } from "../components/layout";
-import { Alert } from "../components";
+import { Alert, Modal } from "../components";
 import { BrowserRouter } from "react-router-dom";
 import { GlobalContextProvider } from "@context/store";
 import Routers from "./Routers";
@@ -21,6 +21,7 @@ const App = () => (
         }}
       >
         <DynamicWagmiConnector>
+          {/* <Modal></Modal> */}
           <Routers />
         </DynamicWagmiConnector>
       </DynamicContextProvider>

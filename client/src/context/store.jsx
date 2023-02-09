@@ -4,14 +4,15 @@ import React, {
   useEffect,
   useRef,
   useState,
-  useReducer,
+  useCallback,
 } from "react";
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
+import { useAccount } from "wagmi";
 import { getContract } from "@wagmi/core";
 import { useNavigate } from "react-router-dom";
 
 import { fetchIpfsCDI } from "@utils/ipfs";
-import { Arm0ryMissions, RPC } from "../contract";
+import { Arm0ryMissions, Arm0ryTravelers, RPC } from "@contract";
 import dispatch, { alertReducer } from "./reducer";
 
 const GlobalContext = createContext();
@@ -21,6 +22,9 @@ const combineDispatch =
     dispatches.forEach((dispatch) => dispatch(action));
 
 export const GlobalContextProvider = ({ children }) => {
+  const { address, isConnected, isDisconnected } = useAccount();
+  const [travelerPass, setTravelerPass] = useState(null);
+  const [isMinted, setIsMinted] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [tasksDetail, setTasksDetail] = useState({});
   const [alerts, _alertDispatch] = alertReducer();
@@ -31,9 +35,42 @@ export const GlobalContextProvider = ({ children }) => {
     dispatch.fn = combineDispatch(_alertDispatch);
     Object.freeze(dispatch);
   }
+  const fetchSvgPass = useCallback(async () => {
+    const provider = new ethers.providers.JsonRpcProvider(RPC.goerli);
+    const contract = getContract({
+      ...Arm0ryTravelers,
+      signerOrProvider: provider,
+    });
 
-  const navigate = useNavigate();
+    // TODO check _ownerOf
+    let tokenId = BigNumber.from(address).toBigInt().toString(10);
 
+    const _ownerOf = await contract.ownerOf(tokenId);
+    console.log({ _ownerOf });
+    if (_ownerOf === address) {
+      setIsMinted(true);
+      // TODO tokenId******
+      console.log("svg")
+      let svg = await contract.generateImage(tokenId);
+      console.dir(svg)
+      let blob = new Blob([svg], { type: "image/svg+xml" });
+      let url = URL.createObjectURL(blob);
+      setTravelerPass(url);
+    }
+  }, [address]);
+
+  // const navigate = useNavigate();
+  useEffect(() => {
+    if (isConnected) {
+      fetchSvgPass();
+    }
+  }, [isConnected]);
+  useEffect(() => {
+    if (isDisconnected) {
+      setIsMinted(false);
+      setTravelerPass(null);
+    }
+  }, [isDisconnected]);
   //*
 
   useEffect(() => {
@@ -53,14 +90,13 @@ export const GlobalContextProvider = ({ children }) => {
           setTasksDetail((p) => {
             return { ...p, [id + 1]: res.data.detail };
           });
-          return {..._task, title: res.data.title};
+          return { ..._task, title: res.data.title };
         })
       );
       setTasks(data);
     };
 
     fetchData().catch(console.error);
-    
   }, []);
 
   return (
@@ -69,6 +105,10 @@ export const GlobalContextProvider = ({ children }) => {
         tasks,
         tasksDetail,
         setTasksDetail,
+        isMinted,
+        travelerPass,
+        setTravelerPass,
+        setIsMinted,
         alerts,
       }}
     >

@@ -4,8 +4,8 @@ import CustomButton from './CustomButton';
 import WalletBar from './Avatar';
 import Alert from './Alert';
 import Money from './Money';
-import Missions from './playground/Missions';
-export {CustomButton, WalletBar, Alert, Money};
+import Modal from './Modal';
+export {CustomButton, WalletBar, Alert, Money, Modal};
 
 
 
