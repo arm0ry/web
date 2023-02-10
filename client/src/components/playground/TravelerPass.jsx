@@ -63,9 +63,9 @@ const TravelerPass = () => {
       <div className=" flex  h-[calc(100vh_-_8rem)] items-center justify-center p-4  text-center  align-middle">
         {isConnected && isMinted && (
           <img
-            className="z-[10] m-1 h-[95vw] w-[95vw] md:h-[40vw] md:w-[40vw] max-w-full rounded-lg bg-white"
+            className="z-[10] m-1 h-[95vw] w-[95vw] md:h-[40vw] md:w-[40vw] max-w-full rounded-lg"
             src={travelerPass}
-            alt="image description"
+            alt="Traveler Pass"
           />
         )}
         {!isMinted && (

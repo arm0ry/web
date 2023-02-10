@@ -23,6 +23,7 @@ const combineDispatch =
 
 export const GlobalContextProvider = ({ children }) => {
   const { address, isConnected, isDisconnected } = useAccount();
+  // const [modalPayload, set] = useState(null);
   const [travelerPass, setTravelerPass] = useState(null);
   const [isMinted, setIsMinted] = useState(false);
   const [tasks, setTasks] = useState([]);
@@ -42,15 +43,12 @@ export const GlobalContextProvider = ({ children }) => {
       signerOrProvider: provider,
     });
 
-    // TODO check _ownerOf
     let tokenId = BigNumber.from(address).toBigInt().toString(10);
 
     const _ownerOf = await contract.ownerOf(tokenId);
     console.log({ _ownerOf });
     if (_ownerOf === address) {
       setIsMinted(true);
-      // TODO tokenId******
-      console.log("svg")
       let svg = await contract.generateImage(tokenId);
       console.dir(svg)
       let blob = new Blob([svg], { type: "image/svg+xml" });

@@ -12,6 +12,7 @@ import { uploadJSON } from "@utils/ipfs";
 import { Arm0ryMissions, KaliDAO } from "../../contract";
 
 import Spinner from "../Spinner";
+import Modal from "../Modal";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { useGlobalContext } from "@context/store";
@@ -101,6 +102,7 @@ const ProposeTask = () => {
 
   return (
     <>
+    {/* <Modal></Modal> */}
       <div className=" p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
         <div className="container ">
           <form onSubmit={handleSubmit(onSubmit)}>
