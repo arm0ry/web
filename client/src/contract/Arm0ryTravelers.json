@@ -308,25 +308,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "traveler",
-				"type": "address"
-			}
-		],
-		"name": "getActiveQuest",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
@@ -338,44 +319,6 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "missionId",
-				"type": "uint8"
-			}
-		],
-		"name": "getMissionLength",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "missionId",
-				"type": "uint8"
-			}
-		],
-		"name": "getMissionTitle",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -493,6 +436,25 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "a",
+				"type": "address"
+			}
+		],
+		"name": "toBytes",
+		"outputs": [
+			{
+				"internalType": "bytes",
+				"name": "b",
+				"type": "bytes"
+			}
+		],
+		"stateMutability": "pure",
 		"type": "function"
 	},
 	{

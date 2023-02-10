@@ -4,17 +4,17 @@ import Arm0ryQuests_abi from "./Arm0ryQuests.json";
 import KaliDAO_abi from "./KaliDAO.json";
 
 export const Arm0ryMissions = {
-  address: "0x9Ed2D1EbB1F92e031f361282E91F312A11C32E3b",
+  address: "0x62978937d9EBB9A384C364414bf28CDCC8758Fa9",
   abi: Arm0ryMissions_abi.abi,
 };
 
 export const Arm0ryTravelers = {
-  address: "0x39c848e6AB0CD7A59fF96Bc79E2BE6Ef7cA5F5F8",
+  address: "0x7EaEC42AefACF9f93Dc7b845e514785F3F001789",
   abi: Arm0ryTravelers_abi.abi,
 };
 
 export const Arm0ryQuests = {
-  address: "0xce8620e5eBeB5d767CB689e0E9e7dDC5c1A7FB38",
+  address: "0x366398fF881322575ab5e0233482E238b4485f63",
   abi: Arm0ryQuests_abi.abi,
 };
 

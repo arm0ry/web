@@ -41,26 +41,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "claimCreatorReward",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "questId",
-				"type": "uint8"
-			}
-		],
-		"name": "claimTravelerReward",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "InsufficientReviewerXp",
 		"type": "error"
 	},
@@ -176,19 +156,6 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "questId",
-				"type": "uint8"
-			}
-		],
-		"name": "pauseQuest",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -263,83 +230,6 @@
 		],
 		"name": "QuestStarted",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "questId",
-				"type": "uint8"
-			}
-		],
-		"name": "resumeQuest",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "traveler",
-				"type": "address"
-			},
-			{
-				"internalType": "uint8",
-				"name": "questId",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint16",
-				"name": "taskId",
-				"type": "uint16"
-			},
-			{
-				"internalType": "uint8",
-				"name": "review",
-				"type": "uint8"
-			}
-		],
-		"name": "reviewTasks",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "missionId",
-				"type": "uint8"
-			}
-		],
-		"name": "startQuest",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "questId",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "taskId",
-				"type": "uint8"
-			},
-			{
-				"internalType": "string",
-				"name": "homework",
-				"type": "string"
-			}
-		],
-		"name": "submitTasks",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -429,47 +319,16 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "contract IArm0ryTravelers",
-				"name": "_travelers",
-				"type": "address"
-			},
-			{
-				"internalType": "contract IArm0ryMission",
-				"name": "_mission",
-				"type": "address"
-			}
-		],
-		"name": "updateContracts",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"inputs": [],
+		"name": "THRESHOLD",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "_fastPass",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "updateFastPass",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "reviewer",
-				"type": "address"
-			}
-		],
-		"name": "updateReviewerXp",
-		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -506,12 +365,56 @@
 	},
 	{
 		"inputs": [],
+		"name": "claimCreatorReward",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "questId",
+				"type": "uint8"
+			}
+		],
+		"name": "claimTravelerReward",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "fastPass",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_traveler",
+				"type": "address"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_questId",
+				"type": "uint8"
+			}
+		],
+		"name": "getQuestIncompleteCount",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"stateMutability": "view",
@@ -555,30 +458,6 @@
 			}
 		],
 		"name": "getQuestProgress",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_traveler",
-				"type": "address"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_questId",
-				"type": "uint8"
-			}
-		],
-		"name": "getQuestReviewXpNeeded",
 		"outputs": [
 			{
 				"internalType": "uint8",
@@ -685,9 +564,9 @@
 		"name": "missionCreatorRewards",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "uint16",
 				"name": "",
-				"type": "uint256"
+				"type": "uint16"
 			}
 		],
 		"stateMutability": "view",
@@ -715,6 +594,19 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "questId",
+				"type": "uint8"
+			}
+		],
+		"name": "pauseQuest",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -778,6 +670,11 @@
 			},
 			{
 				"internalType": "uint8",
+				"name": "incomplete",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint8",
 				"name": "progress",
 				"type": "uint8"
 			},
@@ -793,6 +690,47 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "questId",
+				"type": "uint8"
+			}
+		],
+		"name": "resumeQuest",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "traveler",
+				"type": "address"
+			},
+			{
+				"internalType": "uint8",
+				"name": "questId",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint16",
+				"name": "taskId",
+				"type": "uint16"
+			},
+			{
+				"internalType": "uint8",
+				"name": "review",
+				"type": "uint8"
+			}
+		],
+		"name": "reviewTasks",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -817,6 +755,42 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint8",
+				"name": "missionId",
+				"type": "uint8"
+			}
+		],
+		"name": "startQuest",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "questId",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint8",
+				"name": "taskId",
+				"type": "uint8"
+			},
+			{
+				"internalType": "string",
+				"name": "homework",
+				"type": "string"
+			}
+		],
+		"name": "submitTasks",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
@@ -825,9 +799,9 @@
 		"name": "taskCreatorRewards",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "uint16",
 				"name": "",
-				"type": "uint256"
+				"type": "uint16"
 			}
 		],
 		"stateMutability": "view",
@@ -912,19 +886,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "THRESHOLD",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "travelers",
 		"outputs": [
 			{
@@ -934,6 +895,50 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract IArm0ryTravelers",
+				"name": "_travelers",
+				"type": "address"
+			},
+			{
+				"internalType": "contract IArm0ryMission",
+				"name": "_mission",
+				"type": "address"
+			}
+		],
+		"name": "updateContracts",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_fastPass",
+				"type": "uint256"
+			}
+		],
+		"name": "updateFastPass",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "reviewer",
+				"type": "address"
+			}
+		],
+		"name": "updateReviewerXp",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	}
 ]

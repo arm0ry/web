@@ -80,47 +80,6 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint8[]",
-				"name": "_taskIds",
-				"type": "uint8[]"
-			},
-			{
-				"internalType": "string",
-				"name": "_details",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_title",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_creator",
-				"type": "address"
-			}
-		],
-		"name": "setMission",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes[]",
-				"name": "taskData",
-				"type": "bytes[]"
-			}
-		],
-		"name": "setTasks",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -181,83 +140,6 @@
 		],
 		"name": "TasksUpdated",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_admin",
-				"type": "address"
-			}
-		],
-		"name": "updateAdmin",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "_managers",
-				"type": "address[]"
-			}
-		],
-		"name": "updateManagers",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "_missionId",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8[]",
-				"name": "_taskIds",
-				"type": "uint8[]"
-			},
-			{
-				"internalType": "string",
-				"name": "_details",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_title",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_creator",
-				"type": "address"
-			}
-		],
-		"name": "updateMission",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8[]",
-				"name": "ids",
-				"type": "uint8[]"
-			},
-			{
-				"internalType": "bytes[]",
-				"name": "taskData",
-				"type": "bytes[]"
-			}
-		],
-		"name": "updateTasks",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -501,6 +383,47 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint8[]",
+				"name": "_taskIds",
+				"type": "uint8[]"
+			},
+			{
+				"internalType": "string",
+				"name": "_details",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_creator",
+				"type": "address"
+			}
+		],
+		"name": "setMission",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes[]",
+				"name": "taskData",
+				"type": "bytes[]"
+			}
+		],
+		"name": "setTasks",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "taskId",
 		"outputs": [
@@ -550,6 +473,83 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_admin",
+				"type": "address"
+			}
+		],
+		"name": "updateAdmin",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address[]",
+				"name": "_managers",
+				"type": "address[]"
+			}
+		],
+		"name": "updateManagers",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "_missionId",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint8[]",
+				"name": "_taskIds",
+				"type": "uint8[]"
+			},
+			{
+				"internalType": "string",
+				"name": "_details",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_creator",
+				"type": "address"
+			}
+		],
+		"name": "updateMission",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8[]",
+				"name": "ids",
+				"type": "uint8[]"
+			},
+			{
+				"internalType": "bytes[]",
+				"name": "taskData",
+				"type": "bytes[]"
+			}
+		],
+		"name": "updateTasks",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	}
 ]
