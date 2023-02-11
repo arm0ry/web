@@ -35,7 +35,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
     types, // encode as address array
     values
   );
-  console.log({params})
+  console.log({ params });
   // encode Function Data
   const mInterface = new ethers.utils.Interface(abi);
   const callData = mInterface.encodeFunctionData(method, [[params]]);
@@ -73,7 +73,13 @@ const ProposeTask = () => {
         functionName: "propose",
         args: [
           2,
-          `[Set Task]\n${data.title}\n\nexpiration:${parseInt(data.expiration/86400)}${" days"}\n${"     "}point:${data.point}${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}\n${data.detail}`,
+          `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
+            data.expiration / 86400
+          )}${" days"}\n${"     "}point:${
+            data.point
+          }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}\n${
+            data.detail
+          }`,
           [Arm0ryMissions.address],
           [0],
           [callData],
@@ -84,7 +90,6 @@ const ProposeTask = () => {
       await waitForTransaction({
         hash,
       });
-      
 
       // const { hash } = await writeContract({
       //   mode: "recklesslyUnprepared",
@@ -103,31 +108,31 @@ const ProposeTask = () => {
 
   return (
     <>
-    {/* <Modal></Modal> */}
-      <div className=" p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      {/* <Modal></Modal> */}
+      <div className=" rounded-lg border-2 border-dashed border-gray-200 p-4 ">
         <div className="container ">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-6">
               <label
                 for="text"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="mb-2 block text-sm font-medium text-gray-900 "
               >
                 Title
               </label>
               <input
                 type="text"
                 id="title"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
                 placeholder="Title"
                 required
                 {...register("title")}
               />
             </div>
-            <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <div className="mb-6 grid gap-6 md:grid-cols-2">
               <div>
                 <label
                   for="point"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Point
                 </label>
@@ -137,8 +142,8 @@ const ProposeTask = () => {
                   style={{
                     backgroundImage: `url("data:image/svg+xml;charset=utf-8,${ArrowSVG}")`,
                   }}
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 appearance-none bg-[right_0.5rem_center] bg-[length:1.5em_1.5em] pr-[2.5rem] bg-no-repeat`}
-                  // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
+                  className={`block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat p-2.5 pr-[2.5rem] text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500`}
+                  // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
                   required
                   defaultValue=""
                   {...register("point")}
@@ -156,7 +161,7 @@ const ProposeTask = () => {
               <div>
                 <label
                   for="expiration"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Expiration
                 </label>
@@ -165,7 +170,7 @@ const ProposeTask = () => {
                   style={{
                     backgroundImage: `url("data:image/svg+xml;charset=utf-8,${ArrowSVG}")`,
                   }}
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 appearance-none bg-[right_0.5rem_center] bg-[length:1.5em_1.5em] pr-[2.5rem] bg-no-repeat`}
+                  className={`block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat p-2.5 pr-[2.5rem] text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500`}
                   {...register("expiration")}
                 >
                   <option value="">Choose...</option>
@@ -178,14 +183,14 @@ const ProposeTask = () => {
             <div className="mb-6">
               <label
                 for="detail"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="mb-2 block text-sm font-medium text-gray-900 "
               >
                 Detail
               </label>
               <textarea
                 id="detail"
                 rows="4"
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
                 placeholder="Write task detail here..."
                 {...register("detail")}
               ></textarea>
@@ -196,29 +201,29 @@ const ProposeTask = () => {
                 id="remember"
                 type="checkbox"
                 value=""
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
                 required
               />
             </div>
             <label
               for="remember"
-              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="ml-2 text-sm font-medium text-gray-900 "
             >
               I agree with the{" "}
               <a
                 href="#"
-                className="text-blue-600 hover:underline dark:text-blue-500"
+                className="text-blue-600 hover:underline"
               >
                 terms and conditions
               </a>
               .
             </label>
           </div> */}
-            <div className="block w-fulll">
+            <div className="w-fulll block">
               <button
                 type="submit"
                 disabled={!isConnected || writeState > 0}
-                className="flex x justify-center items-center flex-row transition duration-300 ease-in-out w-full text-gray bg-yellow-200 hover:ring-4 hover:ring-yellow-200 active:ring-2  font-PasseroOne rounded-lg text-base  px-auto py-2 text-center disabled:opacity-25 disabled:pointer-events-none"
+                className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
               >
                 {!isConnected && "Please Connect Wallet"}
                 {isConnected && writeState === 0 && "Submit!"}

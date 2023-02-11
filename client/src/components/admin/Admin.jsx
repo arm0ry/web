@@ -34,19 +34,19 @@ const Admin = () => {
         parseInt(d.expiration, 10),
         address,
         d.title,
-        JSON.stringify(detail)
+        JSON.stringify(detail),
       ]
     );
     // console.log(params)
-    // 
-    const mInterface = new ethers.utils.Interface(Arm0ryMissions.abi)
-    const callData = mInterface.encodeFunctionData("setTasks", [[params]])
+    //
+    const mInterface = new ethers.utils.Interface(Arm0ryMissions.abi);
+    const callData = mInterface.encodeFunctionData("setTasks", [[params]]);
     // console.log({callData})
-    // 
+    //
     const config = await prepareWriteContract({
       ...KaliDAO,
       functionName: "propose",
-      args: [2,"setTask", [Arm0ryMissions.address], [0], [callData]]
+      args: [2, "setTask", [Arm0ryMissions.address], [0], [callData]],
     });
     const data = await writeContract(config);
     // console.log({data})
@@ -56,8 +56,6 @@ const Admin = () => {
     //   args: ["0x55C6F238B85F1808f0C105b817180213513E854A", "0x4744cda32bE7b3e75b9334001da9ED21789d4c0d"],
     // });
     // const ppdata = await writeContract(ppconfig);
-
-    
   };
   console.log(watch("example"));
 
@@ -70,37 +68,37 @@ const Admin = () => {
           <div className="mb-6">
             <label
               for="text"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900 "
             >
               Title
             </label>
             <input
               type="text"
               id="title"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
               placeholder="Title"
               required
               {...register("title")}
             />
           </div>
-          <div className="grid gap-6 mb-6 md:grid-cols-2">
+          <div className="mb-6 grid gap-6 md:grid-cols-2">
             <div>
               <label
                 for="point"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="mb-2 block text-sm font-medium text-gray-900"
               >
                 Point
               </label>
               {/* <input
                 type="text"
                 id="point"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="3"
                 required
               /> */}
               <select
                 id="point"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
                 required
                 defaultValue=""
                 {...register("point")}
@@ -116,13 +114,13 @@ const Admin = () => {
             <div>
               <label
                 for="expiration"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="mb-2 block text-sm font-medium text-gray-900 "
               >
                 Expiration
               </label>
               <select
                 id="expiration"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 required
                 defaultValue=""
                 {...register("expiration")}
@@ -137,14 +135,14 @@ const Admin = () => {
           <div className="mb-6">
             <label
               for="detail"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900 "
             >
               Detail
             </label>
             <textarea
               id="detail"
               rows="4"
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
               placeholder="Write task detail here..."
               {...register("detail")}
             ></textarea>
@@ -155,28 +153,28 @@ const Admin = () => {
                 id="remember"
                 type="checkbox"
                 value=""
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 "
                 required
               />
             </div>
             <label
               for="remember"
-              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="ml-2 text-sm font-medium text-gray-900"
             >
               I agree with the{" "}
               <a
                 href="#"
-                className="text-blue-600 hover:underline dark:text-blue-500"
+                className="text-blue-600 hover:underline "
               >
                 terms and conditions
               </a>
               .
             </label>
           </div> */}
-          <div className="block w-fulll">
+          <div className="w-fulll block">
             <button
               type="submit"
-              className=" transition duration-300 ease-in-out w-full text-gray bg-yellow-200 hover:ring-4 hover:ring-yellow-200 focus:ring-2  font-PasseroOne rounded-lg text-base  px-auto py-2 text-center"
+              className=" text-gray px-auto w-full rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 focus:ring-2"
             >
               Submit
             </button>

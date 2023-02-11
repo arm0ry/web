@@ -5,9 +5,9 @@ const Missions = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-5 p-4 xl:grid-cols-3 2xl:grid-cols-4">
-        <div class="max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
+        <div class="max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow">
           <svg
-            class="mb-2 h-10 w-10 text-gray-500 dark:text-gray-400"
+            class="mb-2 h-10 w-10 text-gray-500 "
             aria-hidden="true"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
@@ -28,15 +28,13 @@ const Missions = () => {
               data-original="#000000"
             />
           </svg>
-          
-          
 
           <a href="#">
-            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">
               Arm0ry playground🖖🏼
             </h5>
           </a>
-          <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
+          <p class="mb-3 font-normal text-gray-500 ">
             Follow us to build Web3 Learning Square!
           </p>
           <a
@@ -55,8 +53,12 @@ const Missions = () => {
             </svg>
           </a>
         </div>
-        <div class="h-52 flex items-center justify-center max-w-sm rounded-lg border-4 border-dashed border-gray-200 p-6 "><LegoBrickIcon class="mb-2 h-20 w-20 text-gray-400 "/></div>
-        <div class="h-52 flex items-center justify-center max-w-sm rounded-lg border-4 border-dashed border-gray-200 p-6 "><LegoBrickIcon class="mb-2 h-20 w-20 text-gray-400 "/></div>
+        <div class="flex h-52 max-w-sm items-center justify-center rounded-lg border-4 border-dashed border-gray-200 p-6 ">
+          <LegoBrickIcon class="mb-2 h-20 w-20 text-gray-400 " />
+        </div>
+        <div class="flex h-52 max-w-sm items-center justify-center rounded-lg border-4 border-dashed border-gray-200 p-6 ">
+          <LegoBrickIcon class="mb-2 h-20 w-20 text-gray-400 " />
+        </div>
       </div>
     </>
   );

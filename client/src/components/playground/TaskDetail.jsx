@@ -72,7 +72,7 @@ const TaskDetail = () => {
                   <div
                     className={`${
                       tooltip ? "visible opacity-70" : "invisible opacity-0"
-                    } tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-1 py-1 text-xs  font-medium text-black shadow-sm dark:bg-gray-700`}
+                    } tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-1 py-1 text-xs  font-medium text-black shadow-sm`}
                   >
                     {tasks[taskId]?.creator}
                   </div>
