@@ -28,12 +28,13 @@ const Admin = () => {
     const detail = { title: d.title, detail: d.detail };
 
     const params = abiCoder.encode(
-      ["uint8", "uint40", "address", "string"], // encode as address array
+      ["uint8", "uint40", "address", "string", "string"], // encode as address array
       [
         parseInt(d.point, 10),
         parseInt(d.expiration, 10),
         address,
-        JSON.stringify(detail),
+        d.title,
+        JSON.stringify(detail)
       ]
     );
     // console.log(params)
