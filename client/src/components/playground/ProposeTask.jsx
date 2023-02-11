@@ -28,6 +28,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
     parseInt(data.point, 10),
     parseInt(data.expiration, 10),
     address,
+    data.title,
     ipfsCDI,
   ];
   const params = abiCoder.encode(
@@ -60,7 +61,7 @@ const ProposeTask = () => {
     try {
       setWriteState(1);
       const [ipfsCDI, callData] = await encodeFunctionData(
-        ["uint8", "uint40", "address", "string"],
+        ["uint8", "uint40", "address", "string", "string"],
         data,
         address,
         Arm0ryMissions.abi,

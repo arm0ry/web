@@ -84,11 +84,11 @@ export const GlobalContextProvider = ({ children }) => {
       const data = await Promise.all(
         [...Array(_taskId)].map(async (_, id) => {
           const _task = await contract.tasks(id + 1);
-          const res = await fetchIpfsCDI(_task.details);
+          // const res = await fetchIpfsCDI(_task.details);
           setTasksDetail((p) => {
-            return { ...p, [id + 1]: res.data.detail };
+            return { ...p, [id + 1]: "" };
           });
-          return { ..._task, title: res.data.title };
+          return { ..._task, title: _task.title };
         })
       );
       setTasks(data);
