@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, NavLink, Link, Outlet, redirect } from "react-router-dom";
 import {
   logo,
-  menuUp,
-  menuDown,
+  MenuUpIcon,
+  MenuDownIcon,
   Passport,
   TaskIcon,
   MissionIcon,
@@ -62,9 +62,9 @@ const Playground = () => {
               >
                 <span className="sr-only">Open main menu</span>
                 {!toggleMenu ? (
-                  <img src={menuDown} className="h-6 w-6" />
+                  <MenuDownIcon className="h-6 w-6"/>
                 ) : (
-                  <img src={menuUp} className="h-6 w-6" />
+                  <MenuUpIcon className="h-6 w-6" />
                 )}
               </button>
               <Link to="/" className="ml-2 flex md:mr-24">

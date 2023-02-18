@@ -1,5 +1,6 @@
 
 export { default as alertReducer } from "./alertReducer";
+export { default as modalReducer } from "./modalReducer";
 
 
 const dispatch = {

@@ -2,10 +2,11 @@
 
 import CustomButton from './CustomButton';
 import WalletBar from './Avatar';
+import Markdown from './Markdown';
 import Alert from './Alert';
 import Money from './Money';
 import Modal from './Modal';
-export {CustomButton, WalletBar, Alert, Money, Modal};
+export {CustomButton, WalletBar, Alert, Money, Modal, Markdown};
 
 
 

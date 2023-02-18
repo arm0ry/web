@@ -9,6 +9,7 @@ import {
 
 import { useGlobalContext } from "@context/store";
 import { pushAlert } from "@context/actions/alertAction";
+import { showModal } from "@context/actions/modalAction";
 import { dancing, PassportIdIcon } from "@assets";
 import { Arm0ryTravelers, RPC } from "@contract";
 

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 import { fetchIpfsCDI } from "@utils/ipfs";
 import { Arm0ryMissions, Arm0ryTravelers, RPC } from "@contract";
-import dispatch, { alertReducer } from "./reducer";
+import dispatch, { alertReducer, modalReducer } from "./reducer";
 
 const GlobalContext = createContext();
 const combineDispatch =
@@ -29,11 +29,13 @@ export const GlobalContextProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [tasksDetail, setTasksDetail] = useState({});
   const [alerts, _alertDispatch] = alertReducer();
+  const [modalPayload, _modalDispatch] = modalReducer();
 
   if (!dispatch.isReady) {
     dispatch.isReady = true;
+    console.log("dispatch isReady")
     // dispatch.fn = params => dispatch(params)
-    dispatch.fn = combineDispatch(_alertDispatch);
+    dispatch.fn = combineDispatch(_alertDispatch, _modalDispatch);
     Object.freeze(dispatch);
   }
   const fetchSvgPass = useCallback(async () => {
@@ -108,6 +110,7 @@ export const GlobalContextProvider = ({ children }) => {
         setTravelerPass,
         setIsMinted,
         alerts,
+        modalPayload
       }}
     >
       {children}

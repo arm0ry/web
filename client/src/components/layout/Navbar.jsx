@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { CustomButton } from "../.";
-import {logo, menuUp, menuDown }from "@assets";
+import {logo, MenuUpIcon, MenuDownIcon }from "@assets";
 import { useGlobalContext } from "@context/store";
 // const NavBarItem = ({ title, classprops }) => (
 //   <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
@@ -82,9 +82,9 @@ const Navbar = () => {
         >
           <span className="sr-only">Open main menu</span>
           {!toggleMenu ? (
-            <img src={menuDown} className="w-6 h-6"/>
+            <MenuDownIcon className="w-6 h-6"/>
           ) : (
-            <img src={menuUp} className="w-6 h-6"/>
+            <MenuUpIcon className="w-6 h-6"/>
            
           )}
         </button>

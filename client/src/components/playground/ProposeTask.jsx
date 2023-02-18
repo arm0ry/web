@@ -8,13 +8,14 @@ import {
   waitForTransaction,
 } from "@wagmi/core";
 import { KaliLogo, ArrowSVG } from "@assets";
-import { uploadJSON } from "@utils/ipfs";
+import { uploadJSON, unpinCID } from "@utils/ipfs";
 import { Arm0ryMissions, KaliDAO } from "../../contract";
 
 import Spinner from "../Spinner";
 import Modal from "../Modal";
 
 import { pushAlert } from "@context/actions/alertAction";
+import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 
 const encodeFunctionData = async (types, data, address, abi, method) => {
@@ -67,38 +68,43 @@ const ProposeTask = () => {
         Arm0ryMissions.abi,
         "setTasks"
       );
-      const { hash } = await writeContract({
-        mode: "recklesslyUnprepared",
-        ...KaliDAO,
-        functionName: "propose",
-        args: [
-          2,
-          `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
-            data.expiration / 86400
-          )}${" days"}\n${"     "}point:${
-            data.point
-          }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}\n${
-            data.detail
-          }`,
-          [Arm0ryMissions.address],
-          [0],
-          [callData],
-        ],
-      });
-      pushAlert({ msg: "區塊驗證中...", type: "info" });
-      setWriteState(2);
-      await waitForTransaction({
-        hash,
-      });
+      try {
+        const { hash } = await writeContract({
+          mode: "recklesslyUnprepared",
+          ...KaliDAO,
+          functionName: "propose",
+          args: [
+            2,
+            `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
+              data.expiration / 86400
+            )}${" days"}\n${"     "}point:${
+              data.point
+            }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}\n${
+              data.detail
+            }`,
+            [Arm0ryMissions.address],
+            [0],
+            [callData],
+          ],
+        });
+        pushAlert({ msg: "區塊驗證中...", type: "info" });
+        setWriteState(2);
+        await waitForTransaction({
+          hash,
+        });
 
-      // const { hash } = await writeContract({
-      //   mode: "recklesslyUnprepared",
-      //   ...Arm0ryMissions,
-      //   functionName: "setTasks",
-      //   args: [[callData]],
-      // });
+        // const { hash } = await writeContract({
+        //   mode: "recklesslyUnprepared",
+        //   ...Arm0ryMissions,
+        //   functionName: "setTasks",
+        //   args: [[callData]],
+        // });
 
-      pushAlert({ msg: "Success!", type: "success" });
+        pushAlert({ msg: "Success!", type: "success" });
+      } catch (error) {
+        pushAlert({ msg: `Error! ${error}`, type: "failure" });
+        unpinCID(ipfsCDI);
+      }
     } catch (error) {
       pushAlert({ msg: `Error! ${error}`, type: "failure" });
     } finally {
@@ -194,7 +200,17 @@ const ProposeTask = () => {
                 placeholder="Write task detail here..."
                 {...register("detail")}
               ></textarea>
+              <button
+              type="button"
+              className="mt-1 ml-2 text-sm text-gray-500 "
+              onClick={() => {
+                showModal({ type: 1, title: getValues("title"), content: {text:getValues("detail")}, size: "5xl" });
+              }}
+            >
+              Preview Document
+            </button>
             </div>
+            
             {/* <div className="flex items-start mb-6">
             <div className="flex items-center h-5">
               <input

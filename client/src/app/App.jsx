@@ -21,7 +21,7 @@ const App = () => (
         }}
       >
         <DynamicWagmiConnector>
-          {/* <Modal></Modal> */}
+          <Modal></Modal>
           <Routers />
         </DynamicWagmiConnector>
       </DynamicContextProvider>

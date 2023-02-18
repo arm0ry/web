@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+
 
 import { useGlobalContext } from "@context/store";
 import { fetchIpfsCDI } from "@utils/ipfs";
 import { shortenAddress } from "@utils/shortenAddress";
 import Spinner from "../Spinner";
-import { Money } from "../";
+import { Money, Markdown } from "../";
 import { ClockIcon } from "@assets";
 
 const TaskDetail = () => {
@@ -95,7 +94,7 @@ const TaskDetail = () => {
                 </div>
               </div>
             </div>
-            <ReactMarkdown className="markdown" remarkPlugins={[[remarkGfm, {singleTilde: false}]]}>{detail}</ReactMarkdown>
+            <Markdown>{detail}</Markdown>
           </div>
         </>
       )}
