@@ -81,9 +81,7 @@ export const unpinCID = async(cid)=>{
       `https://api.pinata.cloud/pinning/unpin/${cid}`,
       {
         headers: {
-          // Authorization: `Bearer ${import.meta.env.VITE_PINATA_JSON_JWT}`,
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI4YTMxMDBlYS04NzM4LTRjNjQtODJiMi0yMGFlOGE4ZTlhZDciLCJlbWFpbCI6ImNoYXpzaWVoQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI3NmMxM2UzZGViM2YyMDhmOTdkNiIsInNjb3BlZEtleVNlY3JldCI6IjMwODI4ZGYzN2U5NTFiYzgxYTgyN2E2NjdmZjZjMjg3YmZlZmU4ZWIxYTZhNjY4N2Y0YjFkYzU5MDllZThiNjkiLCJpYXQiOjE2NzY3MjU5MTR9.9Scv4O2LBzojARcQ2ZspCBojxHzJ_07qTqUqYMF6lbE",
-        },
+          Authorization: `Bearer ${import.meta.env.VITE_PINATA_JSON_JWT}`}
       }
     );
     return res;
