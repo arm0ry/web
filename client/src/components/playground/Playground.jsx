@@ -11,8 +11,8 @@ import {
   ProposeIcon,
   KaliLogo,
   ManagerIcon,
+  ArrowSVG,
 } from "@assets";
-
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
 
 import { ethers } from "ethers";
@@ -26,12 +26,16 @@ import { Alert } from "../";
 import Avatar from "../Avatar";
 
 // const svg = avatar.toString();
-const NavbarItem = ({ to, Icon, name, setToggleMenu }) => {
+const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick=()=>{} }) => {
   return (
     <li>
       <NavLink
         to={to}
-        onClick={() => setToggleMenu(false)}
+        onClick={() => {
+          console.log(to);
+          setToggleMenu(false);
+          onClick();
+        }}
         style={({ isActive }) =>
           isActive ? { background: "#F3F4F6" } : undefined
         }
@@ -41,6 +45,34 @@ const NavbarItem = ({ to, Icon, name, setToggleMenu }) => {
         <span className="ml-3">{name}</span>
       </NavLink>
     </li>
+  );
+};
+const SidebarMultiLevelMenu = ({ Icon, name, children }) => {
+  const [taggle, setTaggle] = useState(false);
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setTaggle((t) => !t)}
+        // style={({ isActive }) =>
+        //   isActive ? { background: "#F3F4F6" } : undefined
+        // }
+        className={`
+            group flex w-full items-center rounded-lg p-2 text-base font-normal text-gray-900 transition duration-75 hover:bg-gray-100 `}
+      >
+        <Icon className="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900" />
+        <span className="ml-3 flex-1 whitespace-nowrap text-left">{name}</span>
+        <img src={`data:image/svg+xml;charset=utf-8,${ArrowSVG}`} className="h-6 w-6"/>
+      </button>
+
+      <ul
+        className={`${taggle ? "" : "hidden"} mt-0 space-y-1 py-1`}
+        onClick={() => setTaggle((t) => !t)}
+        // onBlur={() => setTaggle((t) => false)}
+      >
+        {children}
+      </ul>
+    </>
   );
 };
 
@@ -62,7 +94,7 @@ const Playground = () => {
               >
                 <span className="sr-only">Open main menu</span>
                 {!toggleMenu ? (
-                  <MenuDownIcon className="h-6 w-6"/>
+                  <MenuDownIcon className="h-6 w-6" />
                 ) : (
                   <MenuUpIcon className="h-6 w-6" />
                 )}
@@ -92,25 +124,25 @@ const Playground = () => {
       >
         <div className="flex h-full flex-col overflow-y-auto bg-white px-3 pb-4  ">
           <ul className="space-y-2">
-            <NavbarItem
+            <SidebarItem
               to="traveller-pass"
               name="Passport"
               Icon={Passport}
               setToggleMenu={setToggleMenu}
             />
-            <NavbarItem
+            <SidebarItem
               to="missions"
               name="Missions"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
-            <NavbarItem
+            <SidebarItem
               to="tasks"
               name="Tasks"
               Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             />
-            <NavbarItem
+            <SidebarItem
               to="review"
               name="Review"
               Icon={BuddiesIcon}
@@ -118,7 +150,7 @@ const Playground = () => {
             />
           </ul>
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <NavbarItem
+            <SidebarItem
               to="propose-task"
               name="Propose Task"
               Icon={ProposeIcon}
@@ -141,12 +173,20 @@ const Playground = () => {
             </li>
           </ul>
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <NavbarItem
-              to="manager"
-              name="Manager"
-              Icon={ManagerIcon}
-              setToggleMenu={setToggleMenu}
-            />
+            <SidebarMultiLevelMenu name="Manager" Icon={ManagerIcon}>
+              <SidebarItem
+                to="manager/set-task"
+                name="Set Task"
+                Icon={()=><div className="pl-6"/>}
+                setToggleMenu={setToggleMenu}
+              />
+              <SidebarItem
+                to="manager/set-mission"
+                name="Set Mission"
+                Icon={()=><div className="pl-6"/>}
+                setToggleMenu={setToggleMenu}
+              />
+            </SidebarMultiLevelMenu>
           </ul>
           <Avatar className="mt-auto " />
         </div>

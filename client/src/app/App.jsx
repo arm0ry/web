@@ -17,6 +17,7 @@ const App = () => (
     <GlobalContextProvider>
       <DynamicContextProvider
         settings={{
+          appName: 'Arm0ry',
           environmentId: VITE_DYNAMIC,
         }}
       >

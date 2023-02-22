@@ -18,7 +18,7 @@ import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 
-const encodeFunctionData = async (types, data, address, abi, method) => {
+const prepareData = async (types, data, address, abi, method) => {
   const abiCoder = ethers.utils.defaultAbiCoder;
   const ipfsCDI = await uploadJSON({
     title: data.title,
@@ -35,18 +35,16 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
     data.title,
     ipfsCDI,
   ];
+  // * encode  Data
   const params = abiCoder.encode(
     types, // encode as address array
     values
   );
   console.log({ params });
-  // encode Function Data
-  const mInterface = new ethers.utils.Interface(abi);
-  const callData = mInterface.encodeFunctionData(method, [[params]]);
-  return [ipfsCDI, callData];
+  return [ipfsCDI, params];
 };
 
-const ProposeTask = () => {
+const SetTask = () => {
   // const { alerts } = useGlobalContext();
   const [writeState, setWriteState] = useState(0);
   const { address, isConnected, isDisconnected } = useAccount();
@@ -55,8 +53,8 @@ const ProposeTask = () => {
     register,
     handleSubmit,
     getValues,
-    reset,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: { point: 0, expiration: 0 },
@@ -65,7 +63,7 @@ const ProposeTask = () => {
     // write();
     try {
       setWriteState(1);
-      const [ipfsCDI, callData] = await encodeFunctionData(
+      const [ipfsCDI, params] = await prepareData(
         ["uint8", "uint40", "address", "string", "string"],
         data,
         address,
@@ -75,21 +73,9 @@ const ProposeTask = () => {
       try {
         const { hash } = await writeContract({
           mode: "recklesslyUnprepared",
-          ...KaliDAO,
-          functionName: "propose",
-          args: [
-            2,
-            `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
-              data.expiration / 86400
-            )}${" days"}\n${"     "}point:${
-              data.point
-            }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}\n${
-              data.detail
-            }`,
-            [Arm0ryMissions.address],
-            [0],
-            [callData],
-          ],
+          ...Arm0ryMissions,
+          functionName: "setTasks",
+          args: [[params]],
         });
         pushAlert({ msg:<span> 區塊驗證中...<a
           href={`https://goerli.etherscan.io/tx/${hash}`}
@@ -98,11 +84,15 @@ const ProposeTask = () => {
         >
           View on Etherscan
         </a></span>, type: "info" });
+
         setWriteState(2);
+        
         await waitForTransaction({
           hash,
         });
+
         reset();
+
         pushAlert({ msg: "Success!", type: "success" });
       } catch (error) {
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
@@ -273,4 +263,4 @@ const ProposeTask = () => {
   );
 };
 
-export default ProposeTask;
+export default SetTask;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { useGlobalContext } from "@context/store";
 import { fetchIpfsCDI } from "@utils/ipfs";
@@ -10,30 +9,33 @@ import { Money, Markdown } from "../";
 import { ClockIcon } from "@assets";
 
 const TaskDetail = () => {
-  const { tasks, tasksDetail, setTasksDetail } = useGlobalContext();
+  const { tasks, setTasks } = useGlobalContext();
   const [detail, setDetail] = useState(undefined);
   const [tooltip, setTooltip] = useState(false);
   const params = useParams();
-  const taskId = params.id - 1;
-  //   if (params.id < "") {
-  //     return redirect("/tasks");
-  //   }
+  const taskId = params.id;
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchData = async (cdi) => {
       const res = await fetchIpfsCDI(cdi);
       setDetail(res.data.detail);
-      setTasksDetail((p) => {
-        return { ...p, [params.id]: res.data.detail };
+      setTasks((p) => {
+        return { ...p, [taskId]: { ...p[taskId], content: res.data.detail } };
       });
     };
-    if (tasks.length > 0) {
-      if (tasksDetail[params.id] !== "") {
-        setDetail(tasksDetail[params.id]);
-      } else {
-        fetchData(tasks[taskId].details).catch((err) => console.error(err));
+    if(Object.keys(tasks).length > 0){
+      if (tasks[taskId] === undefined) {
+        return navigate("/playground/tasks");
       }
     }
+    if (tasks[taskId]?.content !== "") {
+      setDetail(tasks[taskId]?.content);
+    } else {
+      fetchData(tasks[taskId]?.details).catch((err) => console.error(err));
+    }
   }, [tasks]);
+  
 
   return (
     <>
@@ -51,12 +53,12 @@ const TaskDetail = () => {
       ) : (
         <>
           <div className="p-4">
-            <Link
-              to="/playground/tasks"
+            <button
+              onClick={() => navigate(-1)}
               className="rounded-lg p-2 text-blue-900 hover:bg-blue-100"
             >
               <span className="text-base font-medium">←Go Back</span>
-            </Link>
+            </button>
             <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
               <div className=" ">
                 <p className="text-3xl font-bold  text-slate-800 ">
@@ -82,7 +84,7 @@ const TaskDetail = () => {
                   <div class="inline-flex w-fit items-center rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
                     <ClockIcon />
                     <span class="ml-1">
-                      {parseInt(tasks[taskId]?.expiration / 86400)}
+                      {parseInt(tasks[taskId]?.duration / 86400)}
                       {" days"}
                     </span>
                     {/* <span class="ml-1">10{" days"}</span> */}

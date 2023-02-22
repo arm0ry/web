@@ -23,14 +23,14 @@ const combineDispatch =
 
 export const GlobalContextProvider = ({ children }) => {
   const { address, isConnected, isDisconnected } = useAccount();
-  // const [modalPayload, set] = useState(null);
   const [travelerPass, setTravelerPass] = useState(null);
   const [isMinted, setIsMinted] = useState(false);
-  const [tasks, setTasks] = useState([]);
-  const [tasksDetail, setTasksDetail] = useState({});
+  const [tasks, setTasks] = useState({});
+  const [missions, setMissions] = useState({});
   const [alerts, _alertDispatch] = alertReducer();
   const [modalPayload, _modalDispatch] = modalReducer();
 
+  // * dispatch set
   if (!dispatch.isReady) {
     dispatch.isReady = true;
     console.log("dispatch isReady")
@@ -38,6 +38,7 @@ export const GlobalContextProvider = ({ children }) => {
     dispatch.fn = combineDispatch(_alertDispatch, _modalDispatch);
     Object.freeze(dispatch);
   }
+  // * fetch Traveler Pass
   const fetchSvgPass = useCallback(async () => {
     const provider = new ethers.providers.JsonRpcProvider(RPC.goerli);
     const contract = getContract({
@@ -48,18 +49,16 @@ export const GlobalContextProvider = ({ children }) => {
     let tokenId = BigNumber.from(address).toBigInt().toString(10);
 
     const _ownerOf = await contract.ownerOf(tokenId);
-    console.log({ _ownerOf });
     if (_ownerOf === address) {
       setIsMinted(true);
       let svg = await contract.generateImage(tokenId);
-      console.dir(svg)
       let blob = new Blob([svg], { type: "image/svg+xml" });
       let url = URL.createObjectURL(blob);
       setTravelerPass(url);
     }
   }, [address]);
 
-  // const navigate = useNavigate();
+  // * Traveler Pass
   useEffect(() => {
     if (isConnected) {
       fetchSvgPass();
@@ -71,8 +70,34 @@ export const GlobalContextProvider = ({ children }) => {
       setTravelerPass(null);
     }
   }, [isDisconnected]);
-  //*
+  
+  //* fetch missions data
+  useEffect(() => {
+    const fetchData = async () => {
+      const provider = new ethers.providers.JsonRpcProvider(RPC.goerli);
+      const contract = getContract({
+        ...Arm0ryMissions,
+        signerOrProvider: provider,
+      });
 
+      const _missionId = await contract.missionId();
+
+      await Promise.all(
+        [...Array(_missionId)].map(async (_, id) => {
+          const _missions = await contract.missions(id);
+          const _missionsTasksId = await contract.getMissionTasks(id);
+          const res = await fetchIpfsCDI(_missions.details);
+          // console.log("_missions", {..._missions,info: res.data.detail, taskIds: _missionsTasksId} )
+          setMissions((m) => {
+            return { ...m, [id]:{..._missions,info: res.data.detail, taskIds: _missionsTasksId} };
+          });
+        })
+      );
+    };
+
+    fetchData().catch(console.error);
+  }, []);
+  //* fetch tasks data
   useEffect(() => {
     const fetchData = async () => {
       const provider = new ethers.providers.JsonRpcProvider(RPC.goerli);
@@ -83,17 +108,15 @@ export const GlobalContextProvider = ({ children }) => {
 
       const _taskId = await contract.taskId();
 
-      const data = await Promise.all(
+      await Promise.all(
         [...Array(_taskId)].map(async (_, id) => {
-          const _task = await contract.tasks(id + 1);
+          const _task = await contract.tasks(id);
           // const res = await fetchIpfsCDI(_task.details);
-          setTasksDetail((p) => {
-            return { ...p, [id + 1]: "" };
+          setTasks((p) => {
+            return { ...p, [id]:{..._task, content: ""} };
           });
-          return { ..._task, title: _task.title };
         })
       );
-      setTasks(data);
     };
 
     fetchData().catch(console.error);
@@ -103,8 +126,8 @@ export const GlobalContextProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         tasks,
-        tasksDetail,
-        setTasksDetail,
+        setTasks,
+        missions,
         isMinted,
         travelerPass,
         setTravelerPass,

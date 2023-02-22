@@ -13,16 +13,21 @@ import TaskCard from "./TaskCard";
 // const svg = avatar.toString();
 
 const Tasks = () => {
-  const { tasks, tasksDetail } = useGlobalContext();
+  const { tasks } = useGlobalContext();
   const navigate = useNavigate();
 
   return (
     <>
-      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 p-4">
+      {/* <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 p-4">
         {tasks.map((data, i) => {
           return <TaskCard key={i} taskdata={{...data, id:i+1}} />;
         })}
-      </div>
+      </div> */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 p-4">
+        {Object.keys(tasks).map((id) => {
+          return <TaskCard key={id} taskId={id} />;
+        })}
+      </div> 
     </>
   );
 };

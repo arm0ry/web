@@ -18,12 +18,16 @@ export { default as ProposeTask } from "./playground/ProposeTask";
 export { default as Tasks } from "./playground/Tasks";
 export { default as TaskDetail } from "./playground/TaskDetail";
 export { default as Missions } from "./playground/Missions";
+export { default as MissionDetail } from "./playground/MissionDetail";
+export { default as ProposeMission } from "./playground/ProposeMission";
 export { default as Review } from "./playground/Review";
 export { default as TravelerPass } from "./playground/TravelerPass";
 export { default as Manager } from "./playground/Manager";
 
+export { default as SetTask } from "./manager/SetTask";
+export { default as SetMission } from "./manager/SetMission";
 
 export { default as Funding } from "./funding/Funding";
-export { default as Admin } from "./admin/Admin";
+// export { default as Admin } from "./manager/Admin";
 export { default as Donate } from "./donate/Donate";
 

@@ -1,11 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { ethers, BigNumber } from "ethers";
 import { useAccount } from "wagmi";
-import {
-  getContract,
-  writeContract,
-  waitForTransaction,
-} from "@wagmi/core";
+import { getContract, writeContract, waitForTransaction } from "@wagmi/core";
 
 import { useGlobalContext } from "@context/store";
 import { pushAlert } from "@context/actions/alertAction";
@@ -16,9 +12,11 @@ import { Arm0ryTravelers, RPC } from "@contract";
 import Spinner from "../Spinner";
 
 const TravelerPass = () => {
-  const { travelerPass, isMinted, setTravelerPass, setIsMinted } = useGlobalContext();
+  const { travelerPass, isMinted, setTravelerPass, setIsMinted } =
+    useGlobalContext();
   const { address, isConnected, isDisconnected } = useAccount();
   const [writeState, setWriteState] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const mineeeet = useCallback(async () => {
     try {
@@ -34,45 +32,68 @@ const TravelerPass = () => {
         hash,
       });
       pushAlert({ msg: "Success! Minted", type: "success" });
-      // 
+      //
       const provider = new ethers.providers.JsonRpcProvider(RPC.goerli);
       const contract = getContract({
         ...Arm0ryTravelers,
         signerOrProvider: provider,
       });
 
-      let tokenId = BigNumber.from(address).toBigInt().toString(10)
+      let tokenId = BigNumber.from(address).toBigInt().toString(10);
 
       const _ownerOf = await contract.ownerOf(tokenId);
-      if(_ownerOf === address){
-        setIsMinted(true)
-        let svg =  await contract.generateImage(tokenId);;
+      if (_ownerOf === address) {
+        setIsMinted(true);
+        let svg = await contract.generateImage(tokenId);
         let blob = new Blob([svg], { type: "image/svg+xml" });
         let url = URL.createObjectURL(blob);
-        setTravelerPass(url)
+        setTravelerPass(url);
       }
     } catch (error) {
       pushAlert({ msg: `Error! ${error}`, type: "failure" });
     } finally {
       setWriteState(0);
     }
-    
   }, [address]);
 
   return (
     <>
-      <div className=" flex  h-[calc(100vh_-_8rem)] items-center justify-center p-4  text-center  align-middle">
+      <div className=" relative flex  h-[calc(100vh_-_8rem)] items-center justify-center p-4  text-center  align-middle">
         {isConnected && isMinted && (
-          <img
-            className="z-[10] m-1 h-[95vw] w-[95vw] md:h-[40vw] md:w-[40vw] max-w-full rounded-lg"
-            src={travelerPass}
-            alt="Traveler Pass"
-          />
+          <>
+            {/* <div
+              className={`${
+                isLoaded
+                  ? "hidden"
+                  : "flex"
+              }  absolute z-[11] top-1/2 left-1/2 bg-[#fffcfa] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg border-4 border-dotted border-gray-400 pt-5 p-6 w-[95vw]  h-[95vw] md:w-[40vw]  md:h-[40vw]`}
+            >
+              <Spinner
+                className={"h-20 w-20 border-b-4"}
+                pathColor={"text-gray-400"}
+              />
+            </div> */}
+
+            <img
+              className={`${
+                isLoaded
+                  ? " opacity-100 blur-0"
+                  : " bg-gray-200 opacity-20  blur-2xl"
+              } z-[10] m-1 h-[95vw] w-[95vw] max-w-full rounded-lg  transition delay-200 duration-300 md:h-[40vw] md:w-[40vw]`}
+              src={travelerPass}
+              alt="Traveler Pass"
+              onLoad={() => setIsLoaded(true)}
+            ></img>
+          </>
         )}
         {!isMinted && (
           <div className="flex min-h-[95vw] min-w-[95vw] max-w-full select-none flex-col items-center justify-center rounded-lg border-4 border-dotted border-gray-400 pt-5 pb-6 md:min-h-[40vw] md:min-w-[40vw]">
             <PassportIdIcon className="mb-3 h-28  w-28 stroke-[17px] text-gray-300" />
-            <div  className={`group h-14 w-52 min-w-fit p-1.5 transition-all duration-150 active:p-0 ${(!isConnected || writeState > 0) && "pointer-events-none"}`}>
+            <div
+              className={`group h-14 w-52 min-w-fit p-1.5 transition-all duration-150 active:p-0 ${
+                (!isConnected || writeState > 0) && "pointer-events-none"
+              }`}
+            >
               <button
                 type="button"
                 disabled={!isConnected || writeState > 0}

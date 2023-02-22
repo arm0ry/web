@@ -5,15 +5,19 @@ import {
   Onboard,
   Playground,
   Funding,
-  Admin,
+  // Admin,
   ProposeTask,
   Tasks,
   TaskDetail,
   Donate,
   Missions,
+  MissionDetail,
   Review,
   TravelerPass,
-  Manager
+  Manager,
+  ProposeMission,
+  SetTask,
+  SetMission
 } from "../components";
 import { Navbar, Footer } from "../components/layout";
 import ScrollToTop from "@utils/ScrollToTop";
@@ -37,11 +41,15 @@ const Routers = () => {
           <Route index element={<Navigate to="traveller-pass" replace />} />
           <Route path="traveller-pass" element={<TravelerPass />} />
           <Route path="missions" element={<Missions />} />
+          <Route path="missions/:id" element={<MissionDetail />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="tasks/:id" element={<TaskDetail />} />
           <Route path="review" element={<Review />} />
           <Route path="propose-task" element={<ProposeTask />} />
+          <Route path="propose-mission" element={<ProposeMission />} />
           <Route path="manager" element={<Manager />} />
+          <Route path="manager/set-task" element={<SetTask />} />
+          <Route path="manager/set-mission" element={<SetMission />} />
         </Route>
 
         <Route path="/funding" element={HomeLayout(<Funding />)} />
