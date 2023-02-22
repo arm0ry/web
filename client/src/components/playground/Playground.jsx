@@ -26,7 +26,7 @@ import { Alert } from "../";
 import Avatar from "../Avatar";
 
 // const svg = avatar.toString();
-const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick=()=>{} }) => {
+const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => {} }) => {
   return (
     <li>
       <NavLink
@@ -54,22 +54,25 @@ const SidebarMultiLevelMenu = ({ Icon, name, children }) => {
       <button
         type="button"
         onClick={() => setTaggle((t) => !t)}
+        onBlur={(e) => {
+          e.preventDefault();
+          setTimeout(() => setTaggle(false), 180);
+        }}
         // style={({ isActive }) =>
         //   isActive ? { background: "#F3F4F6" } : undefined
         // }
+
         className={`
             group flex w-full items-center rounded-lg p-2 text-base font-normal text-gray-900 transition duration-75 hover:bg-gray-100 `}
       >
         <Icon className="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900" />
         <span className="ml-3 flex-1 whitespace-nowrap text-left">{name}</span>
-        <img src={`data:image/svg+xml;charset=utf-8,${ArrowSVG}`} className="h-6 w-6"/>
+        <img
+          src={`data:image/svg+xml;charset=utf-8,${ArrowSVG}`}
+          className="h-6 w-6"
+        />
       </button>
-
-      <ul
-        className={`${taggle ? "" : "hidden"} mt-0 space-y-1 py-1`}
-        onClick={() => setTaggle((t) => !t)}
-        // onBlur={() => setTaggle((t) => false)}
-      >
+      <ul className={`${taggle ? "" : "hidden"} mt-0 space-y-1 py-1`}>
         {children}
       </ul>
     </>
@@ -150,12 +153,20 @@ const Playground = () => {
             />
           </ul>
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <SidebarItem
-              to="propose-task"
-              name="Propose Task"
-              Icon={ProposeIcon}
-              setToggleMenu={setToggleMenu}
-            />
+            <SidebarMultiLevelMenu name="Propose" Icon={ProposeIcon}>
+              <SidebarItem
+                to="propose-task"
+                name="Task"
+                Icon={() => <div className="pl-6" />}
+                setToggleMenu={setToggleMenu}
+              />
+              <SidebarItem
+                to="propose-mission"
+                name="Mission"
+                Icon={() => <div className="pl-6" />}
+                setToggleMenu={setToggleMenu}
+              />
+            </SidebarMultiLevelMenu>
 
             <li>
               <div
@@ -177,13 +188,13 @@ const Playground = () => {
               <SidebarItem
                 to="manager/set-task"
                 name="Set Task"
-                Icon={()=><div className="pl-6"/>}
+                Icon={() => <div className="pl-6" />}
                 setToggleMenu={setToggleMenu}
               />
               <SidebarItem
                 to="manager/set-mission"
                 name="Set Mission"
-                Icon={()=><div className="pl-6"/>}
+                Icon={() => <div className="pl-6" />}
                 setToggleMenu={setToggleMenu}
               />
             </SidebarMultiLevelMenu>
