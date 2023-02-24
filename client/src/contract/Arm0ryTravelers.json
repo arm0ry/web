@@ -1,12 +1,8 @@
-{
-  "_format": "hh-sol-artifact-1",
-  "contractName": "Arm0ryTravelers",
-  "sourceName": "contracts/Arm0ryTravelers.sol",
-  "abi": [
+[
 	{
 		"inputs": [
 			{
-				"internalType": "address payable",
+				"internalType": "address",
 				"name": "_arm0ry",
 				"type": "address"
 			}
@@ -240,7 +236,7 @@
 		"name": "arm0ry",
 		"outputs": [
 			{
-				"internalType": "address payable",
+				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
@@ -490,4 +486,3 @@
 		"type": "function"
 	}
 ]
-}
