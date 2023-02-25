@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "@context/store";
+import { Cube } from "../";
 
 const MissionCard = ({ missionId }) => {
   const { missions } = useGlobalContext();
   return (
     <>
-      <div className="relative max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow">
-        <svg
+      <div className="relative group flex max-w-sm flex-col rounded-lg border border-gray-200 bg-white p-6 shadow">
+        {/* <svg
           className="absolute -top-3 -left-3 mb-2 h-10 w-10 text-gray-500 "
           aria-hidden="true"
           fill="currentColor"
@@ -28,19 +29,20 @@ const MissionCard = ({ missionId }) => {
             d="M3.1 8.9c1.5-.3 2.6-1.2 2.5-2.1 0-.2-.2-.4-.4-.6L3.7 1.1c1 .3 1.8.9 2.4 1.7l.9-.6C6.3.9 5 .1 3.6 0L2.3.1 4 5.7l-1.5.1C.9 6.1-.2 7 0 7.9s1.6 1.3 3.1 1zM46 32.5c-1.1-.5-1.7-.3-2.8-.2l1.7 5.6h-1.5c-1.5.3-2.6 1.2-2.5 2.1.2.9 1.6 1.3 3.1 1s2.6-1.2 2.5-2.1c0-.2-.2-.4-.4-.6l-1.5-5.1c1 .3 1.8.9 2.4 1.7l.9-.6c-.1-.4-.7-1.3-1.9-1.8z"
             data-original="#000000"
           />
-        </svg>
+        </svg> */}
+        <div className="absolute bottom-1 right-1 mb-2 ">
+          <Cube size={"200px"} />
+        </div>
 
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">
-            {missions[missionId]?.title}
-          </h5>
-        </a>
+        <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">
+          {missions[missionId]?.title}
+        </h5>
         <p className="mb-3 font-normal text-gray-500 ">
           {missions[missionId]?.info}
         </p>
         <Link
           to={missionId}
-          className="inline-flex items-center text-blue-600 hover:underline"
+          className="mt-auto inline-flex items-center text-blue-600 hover:underline"
         >
           Read Detail →
         </Link>

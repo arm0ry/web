@@ -6,7 +6,7 @@ import { getContract, writeContract, waitForTransaction } from "@wagmi/core";
 import { useGlobalContext } from "@context/store";
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
-import { dancing, PassportIdIcon } from "@assets";
+import { LockIcon, PassportIdIcon } from "@assets";
 import { Arm0ryTravelers, RPC } from "@contract";
 
 import Spinner from "../Spinner";
@@ -73,13 +73,23 @@ const TravelerPass = () => {
                 pathColor={"text-gray-400"}
               />
             </div> */}
-
+            <div
+              className={`${
+                isLoaded
+                  ? "flex"
+                  : "flex"
+              }  absolute z-[11] top-1/2 left-1/2 bg-gray-100 bg-opacity-60 -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg  pt-5 p-6 w-[95vw]  h-[95vw] md:w-[40vw]  md:h-[40vw]`}
+            >
+              <LockIcon
+                className={"h-40 w-40 opacity-80"}
+              />
+            </div>
             <img
               className={`${
                 isLoaded
                   ? " opacity-100 blur-0"
                   : " bg-gray-200 opacity-20  blur-2xl"
-              } z-[10] m-1 h-[95vw] w-[95vw] max-w-full rounded-lg  transition delay-200 duration-300 md:h-[40vw] md:w-[40vw]`}
+              } z-[10] m-1 h-[95vw] w-[95vw] max-w-full rounded-lg transition delay-200 duration-300 md:h-[40vw] md:w-[40vw]`}
               src={travelerPass}
               alt="Traveler Pass"
               onLoad={() => setIsLoaded(true)}

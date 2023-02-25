@@ -5,8 +5,9 @@ import WalletBar from './Avatar';
 import Markdown from './Markdown';
 import Alert from './Alert';
 import Money from './Money';
+import Cube from './Cube';
 import Modal from './Modal';
-export {CustomButton, WalletBar, Alert, Money, Modal, Markdown};
+export {CustomButton, WalletBar, Alert, Money, Modal, Markdown, Cube};
 
 
 

@@ -57,6 +57,7 @@
       )
       calc(var(--pos) * -200%) 0% / 200% 100%,
     var(--color);
+    background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   z-index: 2;
