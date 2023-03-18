@@ -73,7 +73,7 @@ const TravelerPass = () => {
                 pathColor={"text-gray-400"}
               />
             </div> */}
-            <div
+            {/* <div
               className={`${
                 isLoaded
                   ? "flex"
@@ -83,7 +83,7 @@ const TravelerPass = () => {
               <LockIcon
                 className={"h-40 w-40 opacity-80"}
               />
-            </div>
+            </div> */}
             <img
               className={`${
                 isLoaded
