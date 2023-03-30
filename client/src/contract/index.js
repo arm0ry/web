@@ -14,7 +14,7 @@ export const Arm0ryTravelers = {
 };
 
 export const Arm0ryQuests = {
-  address: "0x93b9D954d9559df1EE0cE7B1BB4109D4C4F80AD6",
+  address: "0x3873694571Ee5ECf561da5b8d5e965650DE01068",
   abi: Arm0ryQuests_abi,
 };
 
