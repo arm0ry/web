@@ -42,6 +42,11 @@
 	},
 	{
 		"inputs": [],
+		"name": "InvalidMission",
+		"type": "error"
+	},
+	{
+		"inputs": [],
 		"name": "InvalidReview",
 		"type": "error"
 	},
@@ -137,7 +142,7 @@
 		"inputs": [
 			{
 				"internalType": "uint8",
-				"name": "questId",
+				"name": "missionId",
 				"type": "uint8"
 			}
 		],
@@ -155,7 +160,7 @@
 			},
 			{
 				"internalType": "uint8",
-				"name": "questId",
+				"name": "missionId",
 				"type": "uint8"
 			}
 		],
@@ -211,7 +216,7 @@
 			},
 			{
 				"internalType": "uint8",
-				"name": "_questId",
+				"name": "_missionId",
 				"type": "uint8"
 			}
 		],
@@ -226,11 +231,6 @@
 				"internalType": "uint40",
 				"name": "",
 				"type": "uint40"
-			},
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
 			},
 			{
 				"internalType": "uint8",
@@ -279,7 +279,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "isQuestTaskCompleted",
+		"name": "isMissionTaskCompleted",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -408,32 +408,13 @@
 		"inputs": [
 			{
 				"internalType": "uint8",
-				"name": "questId",
+				"name": "_missionId",
 				"type": "uint8"
 			}
 		],
 		"name": "pauseQuest",
 		"outputs": [],
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "questNonce",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -482,11 +463,6 @@
 			},
 			{
 				"internalType": "uint8",
-				"name": "missionId",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
 				"name": "completed",
 				"type": "uint8"
 			},
@@ -517,26 +493,13 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
-				"name": "questId",
-				"type": "uint8"
-			}
-		],
-		"name": "resumeQuest",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "traveler",
 				"type": "address"
 			},
 			{
 				"internalType": "uint8",
-				"name": "questId",
+				"name": "missionId",
 				"type": "uint8"
 			},
 			{
@@ -545,7 +508,7 @@
 				"type": "uint8"
 			},
 			{
-				"internalType": "uint8",
+				"internalType": "enum Review",
 				"name": "review",
 				"type": "uint8"
 			},
@@ -596,13 +559,13 @@
 		"inputs": [
 			{
 				"internalType": "uint8",
-				"name": "questId",
+				"name": "_missionId",
 				"type": "uint8"
 			},
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "taskId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"internalType": "string",
@@ -679,7 +642,7 @@
 		"name": "taskReviews",
 		"outputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "enum Review",
 				"name": "",
 				"type": "uint8"
 			}
