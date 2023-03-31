@@ -15,7 +15,7 @@ export const convertIpfsHash = (source, gateway = 0) => {
   // const ipfsGatewayPrefix = "https://ipfs.io/ipfs/";
   return gatewayPrefix[gateway] + source;
 };
-export const fetchIpfsCDI = async (source) => {
+export const fetchIpfsCID = async (source) => {
   // const p0 = axios.get(convertIpfsHash(source, 0));
   // const p1 = axios.get(convertIpfsHash(source, 1));
   // const p2 = axios.get(convertIpfsHash(source, 2));
@@ -43,7 +43,7 @@ export const fetchIpfsCDI = async (source) => {
         .catch((err) => {
           // TODO
           console.error(err);
-          throw "";
+          throw new Error(err);
         });
     });
 };

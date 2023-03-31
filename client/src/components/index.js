@@ -6,7 +6,7 @@ import Markdown from './Markdown';
 import Alert from './Alert';
 import Money from './Money';
 import Cube from './Cube';
-import Modal from './Modal';
+import Modal from './modal/Modal';
 export {CustomButton, WalletBar, Alert, Money, Modal, Markdown, Cube};
 
 
@@ -23,6 +23,7 @@ export { default as MissionDetail } from "./playground/MissionDetail";
 export { default as ProposeMission } from "./playground/ProposeMission";
 export { default as Review } from "./playground/Review";
 export { default as TravelerPass } from "./playground/TravelerPass";
+export { default as Quest } from "./playground/Quest";
 export { default as Manager } from "./playground/Manager";
 
 export { default as SetTask } from "./manager/SetTask";

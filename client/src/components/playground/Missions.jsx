@@ -3,12 +3,12 @@ import { LegoBrickIcon } from "@assets";
 import { useGlobalContext } from "@context/store";
 import MissionCard from "./MissionCard";
 const Missions = () => {
-  const { missions } = useGlobalContext();
+  const { playground } = useGlobalContext();
+  const { missions } = playground;
   return (
     <>
       <div className="grid grid-cols-1 gap-5 p-4 xl:grid-cols-3 2xl:grid-cols-4">
         {Object.keys(missions).map((id) => {
-          console.log({ id });
           return <MissionCard key={id} missionId={id} />;
         })}
         <div className="flex h-52 max-w-sm items-center justify-center rounded-lg border-4 border-dashed border-gray-200 p-6 ">

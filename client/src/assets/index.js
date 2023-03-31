@@ -15,7 +15,9 @@ import { ReactComponent as PassportIdIcon } from "./passportId.svg";
 import { ReactComponent as LegoBrickIcon } from "./LegoBrick.svg";
 import { ReactComponent as InfoIcon } from "./info.svg";
 import { ReactComponent as LockIcon } from "./lock.svg";
-import {  ArrowSVG } from "./arrow.js";
+import { ReactComponent as TickIcon } from "./tick.svg";
+import { ReactComponent as QuestIcon } from "./quest.svg";
+import { ArrowSVG } from "./arrow.js";
 // import arrow from "./arrow.js";
 
 export {
@@ -36,5 +38,7 @@ export {
   PassportIdIcon,
   LegoBrickIcon,
   InfoIcon,
-  LockIcon
+  LockIcon,
+  TickIcon,
+  QuestIcon,
 };

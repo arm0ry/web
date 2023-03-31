@@ -10,7 +10,8 @@ const secondToDay = (s) => {
   return parseInt(s / 86400);
 };
 const TaskCard = ({ taskId, className="" }) => {
-  const { tasks } = useGlobalContext();
+  const { playground } = useGlobalContext();
+  const { tasks } = playground;
   // const { data: tasksdata, isLoading, isFetched } = useContractRead({
   //   ...Arm0ryMissions,
   //   functionName: 'tasks',
@@ -31,7 +32,7 @@ const TaskCard = ({ taskId, className="" }) => {
               {tasks[taskId]?.title}
             </p>
             <Link
-              to={`/playground/tasks/${taskId}`}
+              to={`${taskId}`}
               className="block text-indigo-500 transition duration-200"
             >
               Read Detail →

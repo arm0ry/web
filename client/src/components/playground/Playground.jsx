@@ -12,14 +12,37 @@ import {
   KaliLogo,
   ManagerIcon,
   ArrowSVG,
+  QuestIcon,
 } from "@assets";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
 
 import { ethers } from "ethers";
-import { useContractRead, useAccount, useProvider } from "wagmi";
+import {
+  useContractRead,
+  useAccount,
+  useProvider,
+  useNetwork,
+  useContractEvent,
+  useBlockNumber,
+} from "wagmi";
+import { createClient, configureChains, mainnet, goerli } from "wagmi";
+import { publicProvider } from "wagmi/providers/public";
+
 import { getContract } from "@wagmi/core";
 import { Arm0ryMissions, RPC } from "../../contract";
 
+import { fetchMissionsData, fetchTasksData } from "@utils/contract";
+
+import { signIn, signOut } from "@context/actions/userAction";
+import {
+  loadTasks,
+  loadMissions,
+  loadTaskId,
+  loadMissionId,
+  loadTravelerCount,
+  loadTravelers,
+  loadUnreviews
+} from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 
 import { Alert } from "../";
@@ -32,7 +55,7 @@ const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => {} }) => {
       <NavLink
         to={to}
         onClick={() => {
-          console.log(to);
+          // console.log(to);
           setToggleMenu(false);
           onClick();
         }}
@@ -80,9 +103,139 @@ const SidebarMultiLevelMenu = ({ Icon, name, children }) => {
 };
 
 const Playground = () => {
+  const { address, isConnected, isDisconnected } = useAccount();
+  const { setTasks, setMissions, playground, userInfo } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
-  const { tasks } = useGlobalContext();
-  const navigate = useNavigate();
+
+  // const provider = useProvider();
+  // const { chain, chains } = useNetwork();
+  // useEffect(() => {
+  //   console.log("provider", provider);
+  //   console.log("chain", chain);
+  //   console.log("chains", chains);
+  // }, [chain, chains, provider]);
+
+  // * Traveler Pass
+  useEffect(() => {
+    if (isConnected) {
+      signIn({ address });
+    }
+  }, [isConnected]);
+  useEffect(() => {
+    if (isDisconnected) {
+      signOut();
+    }
+  }, [isDisconnected]);
+
+  //
+  // const { data:missionId, refetch:missionsRefetch} = useContractRead({
+  //   ...Arm0ryMissions,
+  //   functionName: "missionId",
+  //   chainId: 5,
+  //   cacheTime: 2_000,
+  //   cacheOnBlock: true,
+  //   onError(error) {
+  //     console.log('Error', error);
+  //     missionsRefetch();
+  //   },
+  // });
+  // useEffect(() => {
+  //   if (missionId > 0) {
+  //     loadMissions(missionId, playground);
+  //   }
+  // }, [missionId])
+
+  // const { data: taskId, refetch:tasksRefetch } = useContractRead({
+  //   ...Arm0ryMissions,
+  //   functionName: "taskId",
+  //   chainId: 5,
+  //   cacheTime: 2_000,
+  //   cacheOnBlock: true,
+  //   onError(error) {
+  //     console.log('Error', error);
+  //     tasksRefetch();
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   console.log("taskId", taskId)
+  //   if (taskId > 0) {
+  //     loadTasks(taskId);
+  //   }
+  // }, [taskId]);
+  // *
+  useContractEvent({
+    ...Arm0ryMissions,
+    eventName: "TaskUpdated",
+    listener(node, label, owner) {
+      console.log(
+        node,
+        label,
+        owner
+      )(async () => {
+        await loadTaskId(playground.taskId);
+        await loadTasks(playground.taskId);
+      })();
+    },
+    chainId: 5,
+  });
+  useContractEvent({
+    ...Arm0ryMissions,
+    eventName: "MissionUpdated",
+    listener(node, label, owner) {
+      console.log(
+        node,
+        label,
+        owner
+      )(async () => {
+        await loadMissionId(playground.missionId);
+        await loadMissions(playground.missionId);
+      })();
+    },
+    chainId: 5,
+  });
+  // *
+  // const { data: blockNumber } = useBlockNumber({
+  //   chainId: 5,
+  //   watch: true,
+  // });
+  useEffect(() => {
+    loadTaskId(playground.taskId);
+    loadMissionId(playground.missionId);
+    loadTravelerCount();
+  }, []);
+  useEffect(() => {
+    if (playground.travelerCount > 0) {
+      loadTravelers(playground.travelerCount);
+    }
+  }, [playground.travelerCount]);
+  // load Unreviews
+  useEffect(() => {
+    if (playground.travelers.length > 0 && playground.taskId > 0) {
+      loadUnreviews(playground.travelers, playground.taskId);
+    }
+  }, [playground.travelers, playground.taskId]);
+  useEffect(() => {
+    if (playground.taskId > 0) {
+      loadTasks(playground.taskId);
+    }
+  }, [playground.taskId]);
+
+  useEffect(() => {
+    if (playground.missionId > 0) {
+      loadMissions(playground.missionId, playground);
+    }
+  }, [playground.missionId]);
+
+  //* fetch missions & tasks data
+  // useEffect(() => {
+  //   fetchMissionsData()
+  //     .then((data) => setMissions(data))
+  //     .catch(console.error);
+  //   fetchTasksData()
+  //     .then((data) => setTasks(data))
+  //     .catch(console.error);
+  // }, []);
 
   return (
     <>
@@ -112,6 +265,7 @@ const Playground = () => {
                   buttonClassName="connectButton"
                   innerButtonComponent="Connect Wallet"
                 />
+                {/* <DynamicWidget buttonClassName="dynamic-connect__button" /> */}
               </div>
             </div>
           </div>
@@ -133,6 +287,17 @@ const Playground = () => {
               Icon={Passport}
               setToggleMenu={setToggleMenu}
             />
+            {userInfo.inQuest ? (
+              <SidebarItem
+                to="my-quest"
+                name="My Quest"
+                Icon={QuestIcon}
+                setToggleMenu={setToggleMenu}
+              />
+            ) : (
+              <></>
+            )}
+
             <SidebarItem
               to="missions"
               name="Missions"
@@ -183,29 +348,32 @@ const Playground = () => {
               </div>
             </li>
           </ul>
-          <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <SidebarMultiLevelMenu name="Manager" Icon={ManagerIcon}>
-              <SidebarItem
-                to="manager/set-task"
-                name="Set Task"
-                Icon={() => <div className="pl-6" />}
-                setToggleMenu={setToggleMenu}
-              />
-              <SidebarItem
-                to="manager/set-mission"
-                name="Set Mission"
-                Icon={() => <div className="pl-6" />}
-                setToggleMenu={setToggleMenu}
-              />
-            </SidebarMultiLevelMenu>
-          </ul>
+          {userInfo.isManager ? (
+            <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
+              <SidebarMultiLevelMenu name="Manager" Icon={ManagerIcon}>
+                <SidebarItem
+                  to="manager/set-task"
+                  name="Set Task"
+                  Icon={() => <div className="pl-6" />}
+                  setToggleMenu={setToggleMenu}
+                />
+                <SidebarItem
+                  to="manager/set-mission"
+                  name="Set Mission"
+                  Icon={() => <div className="pl-6" />}
+                  setToggleMenu={setToggleMenu}
+                />
+              </SidebarMultiLevelMenu>
+            </ul>
+          ) : (
+            <></>
+          )}
           <Avatar className="mt-auto " />
         </div>
       </aside>
 
       <div className="relative mt-16 p-4 md:ml-64">
         <Alert />
-
         <Outlet />
         {/* <div className="h-screen"></div> */}
       </div>

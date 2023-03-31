@@ -17,7 +17,7 @@ const Alert = () => {
   const { alerts } = useGlobalContext();
 
   return (
-    <div className="absolute z-10 top-10 left-0 right-0 flex flex-col items-center ">
+    <div className="absolute z-[101] top-10 left-0 right-0 flex flex-col items-center ">
       <div className="fixed flex flex-col items-center w-8/12  md:w-1/2  gap-3 ">
         
         {alerts.msg.map((m, i) => {

@@ -5,8 +5,8 @@ export const ERASE_ALERT = "ERASE_ALERT";
 export const CLEAR_ALERTS = "CLEAR_ALERTS";
 
 const alertInitialState = {
-  msg: [], // {msg, type, status, id}
-  show: false,
+  msg: [], // {msg, type, status, id}{ msg: "Success! Minted", type: "success", status:"", id:"", uid:"7g4g" }
+  show: true,
 };
 const alertReducer = (state, action) => {
   switch (action?.type) {

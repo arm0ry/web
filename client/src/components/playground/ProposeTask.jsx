@@ -12,43 +12,50 @@ import { uploadJSON, unpinCID } from "@utils/ipfs";
 import { Arm0ryMissions, KaliDAO } from "../../contract";
 
 import Spinner from "../Spinner";
-import Modal from "../Modal";
+import Modal from "../modal/Modal";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
+import useWriteContract from "@hooks/useWriteContract";
+import { replaceMarkdownImageUrltoBase64} from "@utils/encodeImageAsBase64"
 
 const encodeFunctionData = async (types, data, address, abi, method) => {
-  const abiCoder = ethers.utils.defaultAbiCoder;
-  const ipfsCDI = await uploadJSON({
-    title: data.title,
-    detail: data.detail,
-    creator: address,
-    xp:data.point,
-    expiration:data.expiration
-  });
-  console.log({ ipfsCDI });
-  const values = [
-    parseInt(data.point, 10),
-    parseInt(data.expiration, 10),
-    address,
-    data.title,
-    ipfsCDI,
-  ];
-  const params = abiCoder.encode(
-    types, // encode as address array
-    values
-  );
-  console.log({ params });
-  // encode Function Data
-  const mInterface = new ethers.utils.Interface(abi);
-  const callData = mInterface.encodeFunctionData(method, [[params]]);
-  return [ipfsCDI, callData];
+  try {
+    const abiCoder = ethers.utils.defaultAbiCoder;
+    const detailBase64 = await replaceMarkdownImageUrltoBase64(data.detail)
+    const ipfsCID = await uploadJSON({
+      title: data.title,
+      detail: detailBase64,
+      creator: address,
+      xp: data.point,
+      expiration: data.expiration,
+    });
+    console.log({ ipfsCID });
+    const values = [
+      parseInt(data.point, 10),
+      parseInt(data.expiration, 10),
+      address,
+      data.title,
+      ipfsCID,
+    ];
+    const params = abiCoder.encode(
+      types, // encode as address array
+      values
+    );
+    console.log({ params });
+    // encode Function Data
+    const mInterface = new ethers.utils.Interface(abi);
+    const callData = mInterface.encodeFunctionData(method, [[params]]);
+    return { ipfsCID, callData };
+  } catch (error) {
+    if(ipfsCID) unpinCID(ipfsCID);
+    throw error;
+  }
 };
 
 const ProposeTask = () => {
   // const { alerts } = useGlobalContext();
-  const [writeState, setWriteState] = useState(0);
   const { address, isConnected, isDisconnected } = useAccount();
 
   const {
@@ -61,58 +68,47 @@ const ProposeTask = () => {
   } = useForm({
     defaultValues: { point: 0, expiration: 0 },
   });
+  // *
+  const { write: propose, state } = useWriteContract({
+    ...KaliDAO,
+    functionName: "propose",
+  });
+
   const onSubmit = async (data) => {
-    // write();
-    try {
-      setWriteState(1);
-      const [ipfsCDI, callData] = await encodeFunctionData(
-        ["uint8", "uint40", "address", "string", "string"],
-        data,
-        address,
-        Arm0ryMissions.abi,
-        "setTasks"
-      );
-      try {
-        const { hash } = await writeContract({
-          mode: "recklesslyUnprepared",
-          ...KaliDAO,
-          functionName: "propose",
-          args: [
-            2,
-            `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
-              data.expiration / 86400
-            )}${" days"}\n${"     "}point:${
-              data.point
-            }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCDI}\n${
-              data.detail
-            }`,
-            [Arm0ryMissions.address],
-            [0],
-            [callData],
-          ],
-        });
-        pushAlert({ msg:<span> 區塊驗證中...<a
-          href={`https://goerli.etherscan.io/tx/${hash}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          View on Etherscan
-        </a></span>, type: "info" });
-        setWriteState(2);
-        await waitForTransaction({
-          hash,
-        });
+    encodeFunctionData(
+      ["uint8", "uint40", "address", "string", "string"],
+      data,
+      address,
+      Arm0ryMissions.abi,
+      "setTasks"
+    ).then(({ ipfsCID, callData }) => {
+      const onSuccess = () => {
         reset();
-        pushAlert({ msg: "Success!", type: "success" });
-      } catch (error) {
-        pushAlert({ msg: `Error! ${error}`, type: "failure" });
-        unpinCID(ipfsCDI);
-      }
-    } catch (error) {
+      };
+      const onError = () => {
+        unpinCID(ipfsCID);
+      };
+      propose({
+        args: [
+          2,
+          `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
+            data.expiration / 86400
+          )}${" days"}\n${"     "}point:${
+            data.point
+          }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${
+            data.detail
+          }`,
+          [Arm0ryMissions.address],
+          [0],
+          [callData],
+        ],
+        onSuccess,
+        onError,
+      });
+    })
+    .catch((error) => {
       pushAlert({ msg: `Error! ${error}`, type: "failure" });
-    } finally {
-      setWriteState(0);
-    }
+    });
   };
 
   return (
@@ -204,16 +200,21 @@ const ProposeTask = () => {
                 {...register("detail")}
               ></textarea>
               <button
-              type="button"
-              className="mt-1 ml-2 text-sm text-gray-500 "
-              onClick={() => {
-                showModal({ type: 1, title: getValues("title"), content: {text:getValues("detail")}, size: "5xl" });
-              }}
-            >
-              Preview Document
-            </button>
+                type="button"
+                className="mt-1 ml-2 text-sm text-gray-500 "
+                onClick={() => {
+                  showModal({
+                    type: 2,
+                    title: getValues("title"),
+                    content: { text: getValues("detail") },
+                    size: "5xl",
+                  });
+                }}
+              >
+                Preview Document
+              </button>
             </div>
-            
+
             {/* <div className="flex items-start mb-6">
             <div className="flex items-center h-5">
               <input
@@ -241,15 +242,17 @@ const ProposeTask = () => {
             <div className="w-fulll block">
               <button
                 type="submit"
-                disabled={!isConnected || writeState > 0}
+                // disabled={!isConnected || state.writeStatus > 0}
                 className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
               >
                 {!isConnected && "Please Connect Wallet"}
-                {isConnected && writeState === 0 && "Submit!"}
-                {isConnected && writeState > 0 && <Spinner />}
+                {isConnected && state.writeStatus === 0 && "Submit!"}
+                {isConnected && state.writeStatus > 0 && <Spinner />}
                 <div className="ml-2">
-                  {isConnected && writeState === 1 && "Waiting for approval"}
-                  {isConnected && writeState === 2 && "pending"}
+                  {isConnected &&
+                    state.writeStatus === 1 &&
+                    "Waiting for approval"}
+                  {isConnected && state.writeStatus === 2 && "pending"}
                 </div>
               </button>
             </div>

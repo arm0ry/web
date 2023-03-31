@@ -5,6 +5,7 @@ node_modules
 # production
 client/dist
 
+client/test
 
 # misc
 .DS_Store

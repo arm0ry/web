@@ -1,6 +1,8 @@
 
 export { default as alertReducer } from "./alertReducer";
 export { default as modalReducer } from "./modalReducer";
+export { default as userReducer } from "./userReducer";
+export { default as playgroundReducer } from "./playgroundReducer";
 
 
 const dispatch = {

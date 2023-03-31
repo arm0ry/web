@@ -2,63 +2,103 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { useGlobalContext } from "@context/store";
-import { fetchIpfsCDI } from "@utils/ipfs";
+import { loadIPFS } from "@context/actions/playgroundAction";
+import { fetchIpfsCID } from "@utils/ipfs";
 import { shortenAddress } from "@utils/shortenAddress";
 import Spinner from "../Spinner";
 import { Money, Markdown } from "../";
 import { ClockIcon } from "@assets";
+import { showModal, cleanModal } from "@context/actions/modalAction";
 
 const TaskDetail = () => {
-  const { tasks, setTasks } = useGlobalContext();
+  const { setTasks, playground, userInfo } = useGlobalContext();
+  const { missions } = playground;
   const [detail, setDetail] = useState(undefined);
   const [tooltip, setTooltip] = useState(false);
   const params = useParams();
-  const taskId = params.id;
+  const taskId = params.taskId;
+  const { tasks } = playground;
   const navigate = useNavigate();
+
   
+
+  // useEffect(() => {
+  //   const fetchData = async (cdi) => {
+  //     const res = await fetchIpfsCID(cdi);
+  //     setDetail(res.data.detail);
+  //     setTasks((p) => {
+  //       return { ...p, [taskId]: { ...p[taskId], content: res.data.detail } };
+  //     });
+  //   };
+  // if (Object.keys(tasks).length > 0) {
+  //   if (tasks[taskId] === undefined) {
+  //     return navigate("/playground/tasks");
+  //   }
+  // }
+  //   if (tasks[taskId]?.content !== "") {
+  //     setDetail(tasks[taskId]?.content);
+  //   } else {
+  //     fetchData(tasks[taskId]?.details).catch((err) => console.error(err));
+  //   }
+  // }, [tasks]);
   useEffect(() => {
-    const fetchData = async (cdi) => {
-      const res = await fetchIpfsCDI(cdi);
-      setDetail(res.data.detail);
-      setTasks((p) => {
-        return { ...p, [taskId]: { ...p[taskId], content: res.data.detail } };
-      });
-    };
-    if(Object.keys(tasks).length > 0){
+    // TODO
+    if (Object.keys(tasks).length > 0) {
       if (tasks[taskId] === undefined) {
         return navigate("/playground/tasks");
+      } else {
+        loadIPFS(tasks[taskId]?.details, playground, () => {
+          setDetail(true);
+        });
       }
     }
-    if (tasks[taskId]?.content !== "") {
-      setDetail(tasks[taskId]?.content);
-    } else {
-      fetchData(tasks[taskId]?.details).catch((err) => console.error(err));
-    }
   }, [tasks]);
-  
+  const clickButton = () => {
+    showModal({
+      type: 5,
+      size:"3xl",
+      content: { questID: userInfo?.questID, taskId }
+    });
+  };
 
   return (
     <>
-      {/* // TODO expiration xp ,address */}
-      {detail === undefined ? (
-        <div className="w-100 flex h-[calc(100vh_-_6rem)] flex-col items-center justify-center">
-          <Spinner
-            className="h-16 w-16 border-b-4"
-            pathColor="border-gray-500"
-          />
-          <span className="mt-3 text-lg font-medium text-gray-600">
-            Fetching data from IPFS...
-          </span>
-        </div>
-      ) : (
-        <>
-          <div className="p-4">
-            <button
-              onClick={() => navigate(-1)}
-              className="rounded-lg p-2 text-blue-900 hover:bg-blue-100"
+      <div className="p-4">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => navigate(-1)}
+            className="rounded-lg p-2 text-blue-900 hover:bg-blue-100"
+          >
+            <span className="text-base font-medium">←Go Back</span>
+          </button>
+          {console.log(typeof missions[userInfo?.questID]?.taskIds[0])}
+          {console.log(typeof taskId)}
+          {missions[userInfo?.questID]?.taskIds.includes(Number(taskId)) ? (
+            <div
+              onClick={clickButton}
+              className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
             >
-              <span className="text-base font-medium">←Go Back</span>
-            </button>
+              <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
+                Submit
+              </span>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        {/* missions[missionId]?.taskIds.includes(taskId) */}
+        {detail === undefined ? (
+          <div className="w-100 flex h-[calc(100vh_-_6rem)] flex-col items-center justify-center">
+            <Spinner
+              className="h-16 w-16 border-b-4"
+              pathColor="border-gray-500"
+            />
+            <span className="mt-3 text-lg font-medium text-gray-600">
+              Fetching data from IPFS...
+            </span>
+          </div>
+        ) : (
+          <>
             <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
               <div className=" ">
                 <p className="text-3xl font-bold  text-slate-800 ">
@@ -91,15 +131,17 @@ const TaskDetail = () => {
                   </div>
                   <Money>
                     {tasks[taskId]?.xp}
+
                     <span className="ml-1 text-sm">AMG</span>
                   </Money>
                 </div>
               </div>
             </div>
-            <Markdown>{detail}</Markdown>
-          </div>
-        </>
-      )}
+            {/* <Markdown>{detail}</Markdown> */}
+            <Markdown>{playground.ipfs[tasks[taskId].details].detail}</Markdown>
+          </>
+        )}
+      </div>
     </>
   );
 };
