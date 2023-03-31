@@ -9,12 +9,12 @@ export const Arm0ryMissions = {
 };
 
 export const Arm0ryTravelers = {
-  address: "0xAd9Bbb5743acFf22623f7dA8019C62e4e0f28848",
+  address: "0xd95C2fA80Cc1e89cBFDb94be14E56bc81436DD43",
   abi: Arm0ryTravelers_abi,
 };
 
 export const Arm0ryQuests = {
-  address: "0x9eCe9c7D5A876619737F679cFd807CB2413bc648",
+  address: "0x03e9A23dA9DCe5275e59A2DC448566Ec41a34558",
   abi: Arm0ryQuests_abi,
 };
 
