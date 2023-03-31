@@ -72,7 +72,6 @@ const StartQuestModal = ({ modalPayload }) => {
     functionName: "approve",
   });
   useEffect(() => {
-    console.log(userInfo.inQuest)
     if(userInfo.isApproved && !userInfo.inQuest){
       setProgress("2/3")
     }
@@ -196,12 +195,12 @@ const StartQuestModal = ({ modalPayload }) => {
               <button
                 type="button"
                 disabled={ approveState.writeStatus > 0}
-                className=" ml-auto mr-2 mb-2 w-full rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto"
+                className=" flex flex-row ml-auto mr-2 mb-2 w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto disabled:opacity-60"
                 onClick={approve}
               >
                 {approveState.writeStatus === 0 && "Approve!"}
                 {approveState.writeStatus > 0 && <Spinner />}
-                <div className="ml-2">
+                <div className={`${approveState.writeStatus > 0?"ml-2":""}`}>
                   {approveState.writeStatus === 1 && "Waiting for approval"}
                   {approveState.writeStatus === 2 && "pending"}
                 </div>
@@ -210,12 +209,12 @@ const StartQuestModal = ({ modalPayload }) => {
               <button
                 type="button"
                 disabled={ startQuestState.writeStatus > 0}
-                className=" ml-auto mr-2 mb-2 w-full rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto"
+                className=" flex flex-row ml-auto mr-2 mb-2 w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto disabled:opacity-60"
                 onClick={startQuest}
               >
                 {startQuestState.writeStatus === 0 && "Start Quest"}
                 {startQuestState.writeStatus > 0 && <Spinner />}
-                <div className="ml-2">
+                <div className={`${startQuestState.writeStatus > 0?"ml-2":""}`}>
                   {startQuestState.writeStatus === 1 && "Waiting for approval"}
                   {startQuestState.writeStatus === 2 && "pending"}
                 </div>

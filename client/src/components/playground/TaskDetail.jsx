@@ -71,9 +71,7 @@ const TaskDetail = () => {
           >
             <span className="text-base font-medium">←Go Back</span>
           </button>
-          {console.log(typeof missions[userInfo?.questID]?.taskIds[0])}
-          {console.log(typeof taskId)}
-          {missions[userInfo?.questID]?.taskIds.includes(Number(taskId)) ? (
+          {userInfo?.questID && missions[userInfo?.questID]?.taskIds.includes(Number(taskId))  ? (
             <div
               onClick={clickButton}
               className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "

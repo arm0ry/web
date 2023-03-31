@@ -18,7 +18,6 @@ import {
 import { whoOwnsPass, fetchTravelPass, isApproved, isManager, questing } from "@utils/contract";
 
 export const signIn = async ({ address }) => {
-  console.log("signIn", address)
   let userState = userInitialState;
   const tokenId = BigNumber.from(address).toBigInt().toString(10);
   const _ownerOf = await whoOwnsPass(tokenId)
@@ -28,7 +27,6 @@ export const signIn = async ({ address }) => {
       const  _questID= await questing(address)
       userState.questID = _questID
     case address:
-      console.log("match", address)
       const _travelerPass = await fetchTravelPass(tokenId)
       userState.travelerPass = _travelerPass
       userState.isMinted = true
@@ -36,14 +34,14 @@ export const signIn = async ({ address }) => {
       if(_isApproved){
         userState.isApproved = true
       }
-      userState.isManager = await isManager()
+      userState.isManager = await isManager(address)
     case zero_address:
       userState.tokenId = tokenId 
       // break;
     default:
       break;
   }
-  console.log("userState", userState)
+  
   dispatch.fn({
     type: USER_SIGNIN,
     payload: { ...userState },

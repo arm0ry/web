@@ -102,14 +102,14 @@ export const questing = async (address) => {
   const _questID = await Arm0ryQuests_contract.questing(address);
   return _questID;
 };
-export const isQuestTaskCompleted = async (address, taskId) => {
-  const _bool = await Arm0ryQuests_contract.isQuestTaskCompleted(
-    address,
-    questId,
-    taskId
-  );
-  return _bool;
-};
+// export const isQuestTaskCompleted = async (address, taskId) => {
+//   const _bool = await Arm0ryQuests_contract.isQuestTaskCompleted(
+//     address,
+//     questId,
+//     taskId
+//   );
+//   return _bool;
+// };
 export const isTravelerTaskReadyForReview = async (address, taskId) => {
   const taskHomework = await Arm0ryQuests_contract.taskHomework(
     address,
@@ -121,20 +121,33 @@ export const isTravelerTaskReadyForReview = async (address, taskId) => {
     return { _bool: true, taskHomework };
   }
 };
+export const taskReviews = async (address, taskId) => {
+  const _state = await Arm0ryQuests_contract.taskReviews(
+    address,
+    taskId
+  );
+  return _state
+};
 export const taskReadyForReviewList = async (addresses, tasksId) => {
   let _taskReadyForReviewList = [];
   // {address, questId, taskId, review}review:0, 1, 2
   await Promise.all(
     addresses.map(async (add, _) => {
       const _questing = await questing(add);
+      // const _questing = await questing(add);
       if (_questing > 0) {
         await Promise.all(
-          [...Array(tasksId)].map(async (_, taskId) => {
+          [...Array(tasksId)].map(async (_, _taskId) => {
+            const taskId = _taskId+1
             const { _bool, taskHomework } = await isTravelerTaskReadyForReview(
               add,
               taskId
             );
-            if (_bool) {
+            const _TaskState = await taskReviews(
+              add,
+              taskId
+            );
+            if (_bool && _TaskState != 1) {
               _taskReadyForReviewList.push({
                 traveler: add,
                 taskId,

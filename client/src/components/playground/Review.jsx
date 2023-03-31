@@ -26,6 +26,7 @@ const Review = () => {
     <>
       <div className="grid grid-cols-1 gap-10 p-4 xl:grid-cols-2 2xl:grid-cols-3">
         {unreviews.map((review, id) => {
+          console.log("review", review)
           return <ReviewCard key={id} review={review} />;
         })}
       </div>

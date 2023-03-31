@@ -17,6 +17,8 @@ import { ReactComponent as InfoIcon } from "./info.svg";
 import { ReactComponent as LockIcon } from "./lock.svg";
 import { ReactComponent as TickIcon } from "./tick.svg";
 import { ReactComponent as QuestIcon } from "./quest.svg";
+import { ReactComponent as PeopleIcon } from "./people.svg";
+import { ReactComponent as PercentageIcon } from "./percentage.svg";
 import { ArrowSVG } from "./arrow.js";
 // import arrow from "./arrow.js";
 
@@ -41,4 +43,6 @@ export {
   LockIcon,
   TickIcon,
   QuestIcon,
+  PeopleIcon,
+  PercentageIcon,
 };

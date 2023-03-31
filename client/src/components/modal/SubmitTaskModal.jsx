@@ -16,15 +16,15 @@ import CloseModalButton from "./CloseModalButton";
 
 const prepareData = async (types, questId, taskId, homework, address) => {
   try {
-    const abiCoder = ethers.utils.defaultAbiCoder;
-    const tasks = data.tasks.map((item) => parseInt(item.value, 10));
     const ipfsCID = await uploadJSON({
+      title:`"[HomeWork]${address} ${questId} ${taskId}`,
       questId: questId,
       taskId: taskId,
       homework: homework,
       traveler: address,
       time: Date.now(),
     });
+    // BigNumber.from(taskId).toBigInt().toString(10),
     console.log({ ipfsCID });
     const params = [questId, taskId, ipfsCID];
     return { ipfsCID, params };
@@ -36,7 +36,7 @@ const prepareData = async (types, questId, taskId, homework, address) => {
 const SubmitTaskModal = ({ modalPayload }) => {
   const [view, setView] = useState(false);
   const { address, isConnected, isDisconnected } = useAccount();
-  const { questId, taskId } = modalPayload.content;
+  const { questID:questId, taskId } = modalPayload.content;
   const {
     register,
     handleSubmit,

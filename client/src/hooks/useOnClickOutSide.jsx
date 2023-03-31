@@ -9,7 +9,6 @@ const useOnClickOutSide = (ref, handler) => {
          */
         const handleClickOutside = (event) => {
           if (ref.current && !ref.current.contains(event.target)) {
-            console.log("cloooose")
             handler()
           }
         }

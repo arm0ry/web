@@ -222,7 +222,7 @@ const SetTask = () => {
                 {!isConnected && "Please Connect Wallet"}
                 {isConnected && state.writeStatus === 0 && "Submit!"}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
-                <div className="ml-2">
+                <div className={`${state.writeStatus > 0?"ml-2":""}`}>
                   {isConnected && state.writeStatus === 1 && "Waiting for approval"}
                   {isConnected && state.writeStatus === 2 && "pending"}
                 </div>

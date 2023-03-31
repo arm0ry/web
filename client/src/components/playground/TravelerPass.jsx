@@ -16,6 +16,7 @@ const TravelerPass = () => {
   const { userInfo, setTravelerPass, setIsMinted } = useGlobalContext();
   const { address, isConnected, isDisconnected } = useAccount();
   const [isLoaded, setIsLoaded] = useState(false);
+
   const { write:mint, state } = useWriteContract({
     ...Arm0ryTravelers,
     functionName: "mintTravelerPass",
@@ -85,7 +86,7 @@ const TravelerPass = () => {
                 {!isConnected && "Please Connect Wallet"}
                 {isConnected && state.writeStatus === 0 && "Mint"}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
-                <div className="ml-2">
+                <div className={`${state.writeStatus > 0?"ml-2":""}`}>
                   {isConnected && state.writeStatus === 1 && "Waiting for approval"}
                   {isConnected && state.writeStatus === 2 && "pending"}
                 </div>

@@ -32,7 +32,7 @@ const ReviewCard = ({ review }) => {
 
   return (
     <>
-      <div className={`h-30 group relative w-full ${className}`}>
+      <div className={`h-30 group relative w-full `}>
         <div className="absolute -inset-1 ml-2 mt-2 h-full w-full rounded-lg bg-gradient-to-r from-[#00C3FF]  via-[#fcfcc2] to-[#fffc00] opacity-20 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
         <div className="relative flex h-full w-full flex-row items-center justify-between space-x-1 rounded-lg bg-white px-4 py-3 leading-none ring-1 ring-gray-900/5">
           <div className="ml-2 space-y-2 ">

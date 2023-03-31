@@ -29,7 +29,7 @@ import { createClient, configureChains, mainnet, goerli } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 
 import { getContract } from "@wagmi/core";
-import { Arm0ryMissions, RPC } from "../../contract";
+import { Arm0ryMissions, Arm0ryQuests, RPC } from "../../contract";
 
 import { fetchMissionsData, fetchTasksData } from "@utils/contract";
 
@@ -41,7 +41,7 @@ import {
   loadMissionId,
   loadTravelerCount,
   loadTravelers,
-  loadUnreviews
+  loadUnreviews,
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 
@@ -168,14 +168,9 @@ const Playground = () => {
     ...Arm0ryMissions,
     eventName: "TaskUpdated",
     listener(node, label, owner) {
-      console.log(
-        node,
-        label,
-        owner
-      )(async () => {
-        await loadTaskId(playground.taskId);
-        await loadTasks(playground.taskId);
-      })();
+      console.log(node, label, owner);
+      // TODO
+      loadTaskId(playground.taskId);
     },
     chainId: 5,
   });
@@ -183,14 +178,26 @@ const Playground = () => {
     ...Arm0ryMissions,
     eventName: "MissionUpdated",
     listener(node, label, owner) {
-      console.log(
-        node,
-        label,
-        owner
-      )(async () => {
-        await loadMissionId(playground.missionId);
-        await loadMissions(playground.missionId);
-      })();
+      console.log(node, label, owner);
+      loadMissionId(playground.missionId);
+    },
+    chainId: 5,
+  });
+  useContractEvent({
+    ...Arm0ryQuests,
+    eventName: "TaskSubmitted",
+    listener(node, label, owner) {
+      // console.log(node, label, owner);
+      loadUnreviews(playground.travelers, playground.taskId);
+    },
+    chainId: 5,
+  });
+  useContractEvent({
+    ...Arm0ryQuests,
+    eventName: "TaskReviewed",
+    listener(node, label, owner) {
+      // console.log(node, label, owner);
+      loadUnreviews(playground.travelers, playground.taskId);
     },
     chainId: 5,
   });

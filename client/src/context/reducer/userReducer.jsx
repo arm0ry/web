@@ -10,8 +10,8 @@ export const userInitialState = {
   isMinted: false,
   isApproved: false,
   inQuest: false,
-  questID: 0,//undefined
-  tokenId:"",
+  questID: undefined, //undefined
+  tokenId: "",
   travelerPass: "",
   isManager: false,
 };
@@ -26,7 +26,7 @@ const userReducer = (state, action) => {
         // questID: action?.payload?.questID,
         // tokenId:action?.payload?.tokenId,
         // travelerPass: action?.payload?.travelerPass,
-        ...action?.payload
+        ...action?.payload,
       };
     case MINT_PASS:
       return {
@@ -47,12 +47,19 @@ const userReducer = (state, action) => {
         ...state,
         inQuest: true,
         isApproved: false,
-        questID:action?.payload?.questID
+        questID: action?.payload?.questID,
         // ...action?.payload
       };
     case USER_SIGNOUT:
+      // !!!
       return {
-        ...userInitialState,
+        isMinted: false,
+        isApproved: false,
+        inQuest: false,
+        questID: undefined,
+        tokenId: "",
+        travelerPass: "",
+        isManager: false,
       };
     default:
       return state;
@@ -60,9 +67,6 @@ const userReducer = (state, action) => {
 };
 
 export default () => {
-  const [userPayload, userDispatch] = useReducer(
-    userReducer,
-    userInitialState
-  );
+  const [userPayload, userDispatch] = useReducer(userReducer, userInitialState);
   return [userPayload, userDispatch];
 };

@@ -8,7 +8,6 @@ export const pushAlert = ({ msg, type, status="", id="" }) => {
     type: PUSH_ALERT,
     payload: { msg: { msg, type, status, id, uid } },
   });
-  console.log({ msg, type, status, id, uid})
   setTimeout(() => eraseAlert({ uid }), 5000);
 };
 // *

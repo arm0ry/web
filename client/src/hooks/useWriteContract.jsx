@@ -29,7 +29,7 @@ const useWriteContract = ({ address, abi, functionName }) => {
 
   const [state, dispatch] = useReducer(fetchReducer, initialState);
 
-  const write = useMemo(async() => {
+  const write = useMemo(() => {
     return async ({ args, onSuccess, onError }) => {
       const _onSuccess = onSuccess ?? (() => {});
       const _onError = onError ?? (() => {});
@@ -63,11 +63,12 @@ const useWriteContract = ({ address, abi, functionName }) => {
         const data = await waitForTransaction({
           hash,
         });
-        pushAlert({ msg: "Success! Minted", type: "success" });
+        pushAlert({ msg: "Success! ", type: "success" });
         dispatch({ type: "successed", payload: data });
 
         await _onSuccess();
       } catch (error) {
+        console.log(error)
         dispatch({ type: "error", payload: error });
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
         await _onError();
@@ -76,6 +77,7 @@ const useWriteContract = ({ address, abi, functionName }) => {
       }
     };
   }, [address, abi, functionName]);
+
   return { write, state };
 };
 
