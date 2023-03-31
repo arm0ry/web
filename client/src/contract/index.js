@@ -4,7 +4,7 @@ import Arm0ryQuests_abi from "./Arm0ryQuests.json";
 import KaliDAO_abi from "./KaliDAO.json";
 
 export const Arm0ryMissions = {
-  address: "0x7dDcafCa0c7183a86fb052466b7D8484ADBD2DC3",
+  address: "0xE56512f78fdBCeb013C96E1D853Ad6574B67e486",
   abi: Arm0ryMissions_abi,
 };
 
