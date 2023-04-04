@@ -21,21 +21,7 @@ import Routers from "./Routers";
 
 import { DynamicContextProvider } from "@dynamic-labs/sdk-react";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
-const evmNetworks = [{
-  blockExplorerUrls: ['https://etherscan.io/'],
-  chainId: 1,
-  chainName: 'Ethereum Mainnet',
-  iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Ether',
-    symbol: 'ETH',
-  },
-  networkId: 1,
-  shortName: 'eth',
-  rpcUrls: ['https://cloudflare-eth.com'],
-  vanityName: 'ETH Mainnet',
-},
+const evmNetworks = [
   {
     blockExplorerUrls: ["https://goerli.etherscan.io/"],
     chainId: 5,

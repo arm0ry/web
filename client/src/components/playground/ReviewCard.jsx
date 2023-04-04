@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useAccount } from "wagmi";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
 import Spinner from "../Spinner";
@@ -13,7 +14,8 @@ const secondToDay = (s) => {
 const ReviewCard = ({ review }) => {
   const { playground } = useGlobalContext();
   const { tasks } = playground;
-  const { traveler, taskId:rTaskId, taskHomework, questing } = review;
+  const { traveler, taskId: rTaskId, taskHomework, questing } = review;
+  const { address, isConnected, isDisconnected } = useAccount();
   // const { data: tasksdata, isLoading, isFetched } = useContractRead({
   //   ...Arm0ryMissions,
   //   functionName: 'tasks',
@@ -23,11 +25,13 @@ const ReviewCard = ({ review }) => {
   //   setDetails(JSON.parse(tasks[taskId].details))
   // }, [])
   const clickButton = () => {
-    showModal({
-      type: 6,
-      size:"3xl",
-      content: { traveler, taskId:rTaskId, taskHomework, questing },
-    });
+    if (address !== traveler) {
+      showModal({
+        type: 6,
+        size: "3xl",
+        content: { traveler, taskId: rTaskId, taskHomework, questing },
+      });
+    }
   };
 
   return (
@@ -40,11 +44,11 @@ const ReviewCard = ({ review }) => {
               {tasks[rTaskId]?.title}
             </p>
             <span
-              
+              disabled={address === traveler}
               onClick={clickButton}
-              className="block text-indigo-500 transition duration-200"
+              className="block text-indigo-500 transition duration-200 disabled:pointer-events-none disabled:text-gray-300"
             >
-              ✔ Review
+              {address === traveler ? "Your Homework" : " ✔ Review"}
             </span>
           </div>
           <div className="mt-2 ml-auto flex min-w-[7rem]  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end">
