@@ -108,11 +108,11 @@ const ReviewTaskModal = ({ modalPayload }) => {
           <button
             type="button"
             onClick={pass}
-            disabled={!isConnected || state.writeStatus > 0}
+            disabled={!isConnected || state.writeStatus > 0 || address === traveler}
             className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
           >
             {!isConnected && "Please Connect Wallet"}
-            {isConnected && state.writeStatus === 0 && "PASS"}
+            {isConnected && state.writeStatus === 0 &&(  address !== traveler ? "PASS" : "My Homework") }
             {isConnected && state.writeStatus > 0 && <Spinner />}
             <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
               {isConnected && state.writeStatus === 1 && "Waiting for approval"}

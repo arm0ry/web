@@ -25,13 +25,11 @@ const ReviewCard = ({ review }) => {
   //   setDetails(JSON.parse(tasks[taskId].details))
   // }, [])
   const clickButton = () => {
-    if (address !== traveler) {
-      showModal({
-        type: 6,
-        size: "3xl",
-        content: { traveler, taskId: rTaskId, taskHomework, questing },
-      });
-    }
+    showModal({
+      type: 6,
+      size: "3xl",
+      content: { traveler, taskId: rTaskId, taskHomework, questing },
+    });
   };
 
   return (
@@ -44,9 +42,10 @@ const ReviewCard = ({ review }) => {
               {tasks[rTaskId]?.title}
             </p>
             <span
-              disabled={address === traveler}
               onClick={clickButton}
-              className="block text-indigo-500 transition duration-200 disabled:pointer-events-none disabled:text-gray-300"
+              className={`block cursor-pointer	 transition duration-200 ${
+                address !== traveler ? "text-indigo-500" : "text-gray-500"
+              } `}
             >
               {address === traveler ? "My Homework" : " ✔ Review"}
             </span>
