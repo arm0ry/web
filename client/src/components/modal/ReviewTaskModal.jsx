@@ -86,9 +86,9 @@ const ReviewTaskModal = ({ modalPayload }) => {
         <CloseModalButton />
       </div>
 
-      <div className="h-[calc(100vh_-_6rem)] space-y-6 overflow-y-scroll px-6 py-4">
+      <div className="h-[calc(88vh_-_6rem)] space-y-6 overflow-y-scroll px-6 py-4 md:h-[calc(95vh_-_6rem)]">
         <div
-          className={`block h-[calc(100vh_-_14rem)] space-y-6 overflow-y-scroll  rounded-lg border-2 border-gray-400 p-6`}
+          className={`block h-[calc(88vh_-_14rem)] space-y-6 overflow-y-scroll  rounded-lg border-2 border-gray-400 px-6 pb-6 md:h-[calc(95vh_-_14rem)]`}
         >
           { detail === undefined? (
             <div className="flex h-full w-full flex-col items-center justify-center">

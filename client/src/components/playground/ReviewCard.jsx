@@ -48,7 +48,7 @@ const ReviewCard = ({ review }) => {
               onClick={clickButton}
               className="block text-indigo-500 transition duration-200 disabled:pointer-events-none disabled:text-gray-300"
             >
-              {address === traveler ? "Your Homework" : " ✔ Review"}
+              {address === traveler ? "My Homework" : " ✔ Review"}
             </span>
           </div>
           <div className="mt-2 ml-auto flex min-w-[7rem]  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end">

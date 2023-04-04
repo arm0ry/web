@@ -17,59 +17,55 @@ const TravelerPass = () => {
   const { address, isConnected, isDisconnected } = useAccount();
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const { write:mint, state } = useWriteContract({
+  const { write: mint, state } = useWriteContract({
     ...Arm0ryTravelers,
     functionName: "mintTravelerPass",
   });
-  
+
   const mintClick = () => {
-    const onSuccess = ()=>{
+    const onSuccess = () => {
       mintSuccess(userInfo.tokenId);
-    }
-    mint({onSuccess});
+    };
+    mint({ onSuccess });
   };
 
   return (
     <>
       <div className=" relative flex  h-[calc(100vh_-_8rem)] items-center justify-center p-4  text-center  align-middle">
-        {isConnected && userInfo.isMinted && (
+        {userInfo.status === 1 ? (
+          <div
+            className={` absolute top-1/2 left-1/2 z-[11] flex h-[95vw] w-[95vw] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg border-4 border-dotted border-gray-400 bg-[#fffcfa] p-6  pt-5 md:h-[40vw]  md:w-[40vw]`}
+          >
+            <Spinner
+              className={"h-20 w-20 border-b-4"}
+              pathColor={"text-gray-400"}
+            />
+          </div>
+        ) : userInfo.isMinted ? (
           <>
-            {/* <div
-              className={`${
-                isLoaded
-                  ? "hidden"
-                  : "flex"
-              }  absolute z-[11] top-1/2 left-1/2 bg-[#fffcfa] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg border-4 border-dotted border-gray-400 pt-5 p-6 w-[95vw]  h-[95vw] md:w-[40vw]  md:h-[40vw]`}
-            >
-              <Spinner
-                className={"h-20 w-20 border-b-4"}
-                pathColor={"text-gray-400"}
-              />
-            </div> */}
             <div
               className={`${
                 userInfo.inQuest
-                  ? "flex"
+                  ? isLoaded
+                    ? "opacity-100"
+                    : "opacity-0"
                   : "hidden"
-              }  absolute z-[11] top-1/2 left-1/2 bg-gray-100 bg-opacity-60 -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg  pt-5 p-6 w-[95vw]  h-[95vw] md:w-[40vw]  md:h-[40vw]`}
+              } flex  absolute top-1/2 left-1/2 z-[11] h-[95vw] w-[95vw] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg bg-gray-100 bg-opacity-60 p-6  pt-5 transition-all   duration-500 md:h-[40vw]  md:w-[40vw]`}
             >
-              <LockIcon
-                className={"h-40 w-40 opacity-80"}
-              />
+              <LockIcon className={"h-40 w-40 opacity-80 "} />
             </div>
             <img
               className={`${
                 isLoaded
                   ? " opacity-100 blur-0"
                   : " bg-gray-200 opacity-20  blur-2xl"
-              } z-[10] m-1 h-[95vw] w-[95vw] max-w-full rounded-lg transition delay-200 duration-300 md:h-[40vw] md:w-[40vw]`}
+              } z-[10] m-1 h-[95vw] w-[95vw] max-w-full rounded-lg transition  duration-300 md:h-[40vw] md:w-[40vw]`}
               src={userInfo.travelerPass}
               alt="Traveler Pass"
               onLoad={() => setIsLoaded(true)}
             ></img>
           </>
-        )}
-        {!userInfo.isMinted && (
+        ) : (
           <div className="flex min-h-[95vw] min-w-[95vw] max-w-full select-none flex-col items-center justify-center rounded-lg border-4 border-dotted border-gray-400 pt-5 pb-6 md:min-h-[40vw] md:min-w-[40vw]">
             <PassportIdIcon className="mb-3 h-28  w-28 stroke-[17px] text-gray-300" />
             <div
@@ -86,29 +82,16 @@ const TravelerPass = () => {
                 {!isConnected && "Please Connect Wallet"}
                 {isConnected && state.writeStatus === 0 && "Mint"}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
-                <div className={`${state.writeStatus > 0?"ml-2":""}`}>
-                  {isConnected && state.writeStatus === 1 && "Waiting for approval"}
+                <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
+                  {isConnected &&
+                    state.writeStatus === 1 &&
+                    "Waiting for approval"}
                   {isConnected && state.writeStatus === 2 && "pending"}
                 </div>
               </button>
             </div>
           </div>
         )}
-
-        {/* {!isConnected && !userInfo.isMinted && (
-          <div className="flex min-h-[95vw] min-w-[95vw] max-w-full select-none flex-col items-center justify-center rounded-lg border-4 border-dotted border-gray-400 pt-5 pb-6 md:min-h-[40vw] md:min-w-[40vw]">
-            <PassportIdIcon className="mb-3 h-28  w-28 stroke-[17px] text-gray-300" />
-            <div className="group h-14 w-48  p-1.5 active:p-0 transition-all duration-150">
-              <button
-                type="button"
-                onClick={miiint}
-                className="  flex items-center justify-center   h-full w-full rounded-lg bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 px-3 py-2 text-center font-PasseroOne text-lg font-medium text-gray-900 hover:bg-gradient-to-br "
-              >
-                Please connect wallet
-              </button>
-            </div>
-          </div>
-        )} */}
       </div>
     </>
   );

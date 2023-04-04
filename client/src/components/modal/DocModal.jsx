@@ -23,7 +23,7 @@ const DocModal = ({modalPayload}) => {
         <CloseModalButton />
       </div>
 
-      <div className="h-[calc(100vh_-_6rem)] space-y-6 overflow-y-scroll p-6">
+      <div className="h-[calc(88vh_-_6rem)] space-y-6 overflow-y-scroll px-6 pb-6 md:h-[calc(95vh_-_6rem)]">
         <Markdown>{text}</Markdown>
       </div>
     </>

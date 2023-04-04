@@ -1,5 +1,6 @@
 import dispatch from "../reducer";
 import {
+  USER_LOADING,
   USER_SIGNIN,
   USER_SIGNOUT,
   MINT_PASS,
@@ -18,7 +19,10 @@ import {
 import { whoOwnsPass, fetchTravelPass, isApproved, isManager, questing } from "@utils/contract";
 
 export const signIn = async ({ address }) => {
-  let userState = userInitialState;
+  let userState = userInitialState();
+  dispatch.fn({
+    type: USER_LOADING,
+  });
   const tokenId = BigNumber.from(address).toBigInt().toString(10);
   const _ownerOf = await whoOwnsPass(tokenId)
   switch (_ownerOf) {
@@ -44,7 +48,7 @@ export const signIn = async ({ address }) => {
   
   dispatch.fn({
     type: USER_SIGNIN,
-    payload: { ...userState },
+    payload: { ...userState, status:2 },
   });
 };
 export const signOut =() =>{

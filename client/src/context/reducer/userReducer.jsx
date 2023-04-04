@@ -1,22 +1,31 @@
 import { useReducer } from "react";
 
+export const USER_LOADING = "USER_LOADING";
 export const USER_SIGNIN = "USER_SIGNIN";
 export const USER_SIGNOUT = "USER_SIGNOUT";
 export const MINT_PASS = "MINT_PASS";
 export const APPROVE = "APPROVE";
 export const START_QUEST = "START_QUEST";
 
-export const userInitialState = {
-  isMinted: false,
-  isApproved: false,
-  inQuest: false,
-  questID: undefined, //undefined
-  tokenId: "",
-  travelerPass: "",
-  isManager: false,
+export const userInitialState = () => {
+  return {
+    isMinted: false,
+    isApproved: false,
+    inQuest: false,
+    questID: undefined, //undefined
+    tokenId: "",
+    travelerPass: "",
+    isManager: false,
+    status:0
+  };
 };
 const userReducer = (state, action) => {
   switch (action?.type) {
+    case USER_LOADING:
+      return {
+        ...state,
+        status:1
+      };
     case USER_SIGNIN:
       return {
         ...state,
@@ -51,22 +60,13 @@ const userReducer = (state, action) => {
         // ...action?.payload
       };
     case USER_SIGNOUT:
-      // !!!
-      return {
-        isMinted: false,
-        isApproved: false,
-        inQuest: false,
-        questID: undefined,
-        tokenId: "",
-        travelerPass: "",
-        isManager: false,
-      };
+      return userInitialState();
     default:
       return state;
   }
 };
 
 export default () => {
-  const [userPayload, userDispatch] = useReducer(userReducer, userInitialState);
+  const [userPayload, userDispatch] = useReducer(userReducer, undefined, userInitialState);
   return [userPayload, userDispatch];
 };
