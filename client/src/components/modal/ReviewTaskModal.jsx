@@ -15,25 +15,6 @@ import Markdown from "../Markdown";
 import Spinner from "../Spinner";
 import CloseModalButton from "./CloseModalButton";
 
-const prepareData = async (types, questId, taskId, homework, address) => {
-  try {
-    const abiCoder = ethers.utils.defaultAbiCoder;
-    const tasks = data.tasks.map((item) => parseInt(item.value, 10));
-    const ipfsCID = await uploadJSON({
-      questId: questId,
-      taskId: taskId,
-      homework: homework,
-      traveler: address,
-      time: Date.now(),
-    });
-    console.log({ ipfsCID });
-    const params = [questId, taskId, ipfsCID];
-    return { ipfsCID, params };
-  } catch (error) {
-    if (ipfsCID) unpinCID(ipfsCID);
-    throw error;
-  }
-};
 const ReviewTaskModal = ({ modalPayload }) => {
   const { address, isConnected, isDisconnected } = useAccount();
   const { playground } = useGlobalContext();

@@ -199,7 +199,7 @@ const StartQuestModal = ({ modalPayload }) => {
                 onClick={approve}
               >
                 {approveState.writeStatus === 0 && "Approve!"}
-                {approveState.writeStatus > 0 && <Spinner />}
+                {approveState.writeStatus > 0 && <Spinner  pathColor="border-white" />}
                 <div className={`${approveState.writeStatus > 0?"ml-2":""}`}>
                   {approveState.writeStatus === 1 && "Waiting for approval"}
                   {approveState.writeStatus === 2 && "pending"}
@@ -213,7 +213,7 @@ const StartQuestModal = ({ modalPayload }) => {
                 onClick={startQuest}
               >
                 {startQuestState.writeStatus === 0 && "Start Quest"}
-                {startQuestState.writeStatus > 0 && <Spinner />}
+                {startQuestState.writeStatus > 0 && <Spinner pathColor="border-white" />}
                 <div className={`${startQuestState.writeStatus > 0?"ml-2":""}`}>
                   {startQuestState.writeStatus === 1 && "Waiting for approval"}
                   {startQuestState.writeStatus === 2 && "pending"}

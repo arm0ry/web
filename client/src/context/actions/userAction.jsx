@@ -6,6 +6,7 @@ import {
   MINT_PASS,
   APPROVE,
   START_QUEST,
+  UPDATE_TRAVELER_TASK,
   userInitialState,
 } from "../reducer/userReducer";
 import { showModal, cleanModal } from "@context/actions/modalAction";
@@ -22,9 +23,10 @@ import {
   isApproved,
   isManager,
   questing,
+  travelerTaskState,
 } from "@utils/contract";
 
-export const signIn = async ({ address }) => {
+export const signIn = async ({ address,taskId }) => {
   let userState = userInitialState();
   dispatch.fn({
     type: USER_LOADING,
@@ -48,6 +50,7 @@ export const signIn = async ({ address }) => {
         userState.isApproved = true;
       }
       userState.isManager = await isManager(address);
+      userState.tasks = await travelerTaskState(address, taskId);
     case zero_address:
       userState.tokenId = tokenId;
     // break;
@@ -87,5 +90,12 @@ export const updateQuestId = async (address) => {
   dispatch.fn({
     type: START_QUEST,
     payload: { questID: _questID },
+  });
+};
+export const updateTravelerTask = async (taskId) => {
+  
+  dispatch.fn({
+    type: UPDATE_TRAVELER_TASK,
+    payload: { taskId },
   });
 };

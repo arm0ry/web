@@ -6,6 +6,7 @@ export const USER_SIGNOUT = "USER_SIGNOUT";
 export const MINT_PASS = "MINT_PASS";
 export const APPROVE = "APPROVE";
 export const START_QUEST = "START_QUEST";
+export const UPDATE_TRAVELER_TASK = "UPDATE_TRAVELER_TASK";
 
 export const userInitialState = () => {
   return {
@@ -16,7 +17,8 @@ export const userInitialState = () => {
     tokenId: "",
     travelerPass: "",
     isManager: false,
-    status:0
+    status:0,
+    tasks:{},
   };
 };
 const userReducer = (state, action) => {
@@ -58,6 +60,11 @@ const userReducer = (state, action) => {
         isApproved: false,
         questID: action?.payload?.questID,
         // ...action?.payload
+      };
+    case UPDATE_TRAVELER_TASK:
+      return {
+        ...state,
+        tasks:{...state.tasks,[action?.payload?.taskId]:{...state.tasks[action?.payload?.taskId], state:0} }
       };
     case USER_SIGNOUT:
       return userInitialState();

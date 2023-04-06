@@ -122,11 +122,8 @@ export const isTravelerTaskReadyForReview = async (address, taskId) => {
   }
 };
 export const taskReviews = async (address, taskId) => {
-  const _state = await Arm0ryQuests_contract.taskReviews(
-    address,
-    taskId
-  );
-  return _state
+  const _state = await Arm0ryQuests_contract.taskReviews(address, taskId);
+  return _state;
 };
 export const taskReadyForReviewList = async (addresses, tasksId) => {
   let _taskReadyForReviewList = [];
@@ -138,21 +135,18 @@ export const taskReadyForReviewList = async (addresses, tasksId) => {
       if (_questing > 0) {
         await Promise.all(
           [...Array(tasksId)].map(async (_, _taskId) => {
-            const taskId = _taskId+1
+            const taskId = _taskId + 1;
             const { _bool, taskHomework } = await isTravelerTaskReadyForReview(
               add,
               taskId
             );
-            const _TaskState = await taskReviews(
-              add,
-              taskId
-            );
+            const _TaskState = await taskReviews(add, taskId);
             if (_bool && _TaskState != 1) {
               _taskReadyForReviewList.push({
                 traveler: add,
                 taskId,
                 taskHomework,
-                questing:_questing
+                questing: _questing,
               });
             }
           })
@@ -160,6 +154,31 @@ export const taskReadyForReviewList = async (addresses, tasksId) => {
       }
     })
   );
-
+  _taskReadyForReviewList.sort((a, b) => a.taskId - b.taskId);
   return _taskReadyForReviewList;
+};
+export const travelerTaskState = async (address, tasksId) => {
+  let _travelerTasksState = {};
+  // {address, questId, taskId, review}review:0, 1, 2
+  await Promise.all(
+    [...Array(tasksId)].map(async (_, _taskId) => {
+      const taskId = _taskId + 1;
+      const { _bool, taskHomework } = await isTravelerTaskReadyForReview(
+        address,
+        taskId
+      );
+      const _TaskState = await taskReviews(address, taskId);
+      let state = -1;
+      if (_bool) {
+        if (_TaskState === 1) {
+          state = 1;
+        } else {
+          state = 0;
+        }
+      }
+      _travelerTasksState[taskId] = { state, taskHomework };
+    })
+  );
+
+  return _travelerTasksState;
 };

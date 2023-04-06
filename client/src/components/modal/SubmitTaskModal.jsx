@@ -7,8 +7,9 @@ import useWriteContract from "@hooks/useWriteContract";
 import { Arm0ryQuests } from "@contract";
 
 import { useGlobalContext } from "@context/store";
+import { updateTravelerTask } from "@context/actions/userAction";
 import { pushAlert } from "@context/actions/alertAction";
-import { showModal } from "@context/actions/modalAction";
+import { cleanModal } from "@context/actions/modalAction";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
 
 import Markdown from "../Markdown";
@@ -36,6 +37,7 @@ const prepareData = async (types, questId, taskId, homework, address) => {
 };
 const SubmitTaskModal = ({ modalPayload }) => {
   const [view, setView] = useState(false);
+  const [inPrepare, setInPrepare] = useState(false);
   const navigate = useNavigate();
   const { address, isConnected, isDisconnected } = useAccount();
   const { questID:questId, taskId } = modalPayload.content;
@@ -55,6 +57,7 @@ const SubmitTaskModal = ({ modalPayload }) => {
     functionName: "submitTasks",
   });
   const onSubmit = async (data) => {
+    setInPrepare(true);
     prepareData(
       ["uint8", "uint8", "string"],
       questId,
@@ -63,8 +66,11 @@ const SubmitTaskModal = ({ modalPayload }) => {
       address
     )
       .then(({ ipfsCID, params }) => {
+        setInPrepare(false);
         const onSuccess = () => {
           // reset();
+          updateTravelerTask(taskId);
+          cleanModal();
           navigate("/playground/review");
         };
         const onError = () => {
@@ -74,6 +80,8 @@ const SubmitTaskModal = ({ modalPayload }) => {
       })
       .catch((error) => {
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
+      }).finally(() => {
+        setInPrepare(false);
       });
   };
   return (
@@ -120,11 +128,11 @@ const SubmitTaskModal = ({ modalPayload }) => {
           <div className="w-fulll block">
             <button
               type="submit"
-              disabled={ state.writeStatus > 0}
+              disabled={ state.writeStatus > 0 || inPrepare}
               className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
             >
               
-              { state.writeStatus === 0 && "Submit!"}
+              { state.writeStatus === 0 && (inPrepare? "Wait...": "Submit!")}
               { state.writeStatus > 0 && <Spinner />}
               <div className="ml-2">
                 {

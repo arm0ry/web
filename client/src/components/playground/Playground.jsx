@@ -118,9 +118,9 @@ const Playground = () => {
   // * Traveler Pass
   useEffect(() => {
     if (isConnected) {
-      signIn({ address });
+      signIn({ address, taskId:playground.taskId });
     }
-  }, [isConnected]);
+  }, [isConnected, playground.taskId]);
   useEffect(() => {
     if (isDisconnected) {
       signOut();
