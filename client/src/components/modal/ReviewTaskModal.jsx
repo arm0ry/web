@@ -9,7 +9,7 @@ import { loadIPFS, loadUnreviews } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal, cleanModal } from "@context/actions/modalAction";
-import { uploadJSON, unpinCID } from "@utils/ipfs";
+import {  unpinCID } from "@utils/ipfs";
 
 import Markdown from "../Markdown";
 import Spinner from "../Spinner";
@@ -36,10 +36,11 @@ const ReviewTaskModal = ({ modalPayload }) => {
     functionName: "reviewTasks",
   });
 
-  const pass = async (data) => {
+  const pass = async () => {
     const onSuccess = () => {
       cleanModal();
       loadUnreviews(playground.travelers, playground.taskId);
+      unpinCID(taskHomework);
     };
     const onError = () => {
       cleanModal();
