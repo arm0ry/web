@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import { useGlobalContext } from "@context/store";
 import { cleanModal } from "@context/actions/modalAction";
 import { Markdown } from "..";
@@ -6,21 +12,22 @@ import { Markdown } from "..";
 import { InfoIcon, MenuUpIcon } from "@assets";
 import useOnClickOutSide from "@hooks/useOnClickOutSide";
 import CloseModalButton from "./CloseModalButton";
-import InfoModal from "./InfoModal"
-import DocModal from "./DocModal"
-import ConfirmModal from "./ConfirmModal"
-import StartQuestModal from "./StartQuestModal"
-import SubmitTaskModal from "./SubmitTaskModal"
-import ReviewTaskModal from "./ReviewTaskModal"
+import InfoModal from "./InfoModal";
+import DocModal from "./DocModal";
+import ConfirmModal from "./ConfirmModal";
+import StartQuestModal from "./StartQuestModal";
+import SubmitTaskModal from "./SubmitTaskModal";
+import ReviewTaskModal from "./ReviewTaskModal";
+import SpinnerModal from "./SpinnerModal";
 
 const sizeVariants = {
-  lg: 'max-w-lg',
-  xl: 'max-w-xl',
-  "2xl": 'max-w-2xl',
-  "3xl": 'max-w-3xl',
-  "4xl": 'max-w-4xl',
-  "5xl": 'max-w-5xl',
-}
+  lg: "max-w-lg",
+  xl: "max-w-xl",
+  "2xl": "max-w-2xl",
+  "3xl": "max-w-3xl",
+  "4xl": "max-w-4xl",
+  "5xl": "max-w-5xl",
+};
 function LockBodyScroll() {
   useLayoutEffect(() => {
     // Get original body overflow
@@ -30,14 +37,13 @@ function LockBodyScroll() {
     // Re-enable scrolling when component unmounts
     return () => (document.body.style.overflow = originalStyle);
   }, []); // Empty array ensures effect is only run on mount and unmount
-  return<></>
+  return <></>;
 }
-
 
 const Modal = ({ children }) => {
   const { modalPayload } = useGlobalContext();
-  const ref = useRef(null)
-  useOnClickOutSide(ref, cleanModal)
+  const ref = useRef(null);
+  useOnClickOutSide(ref, cleanModal);
   // const [type, setType] = useState(1);
   // const [isApproved, setIsApproved] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -57,7 +63,7 @@ const Modal = ({ children }) => {
       case 1:
         return (
           <>
-          <InfoModal modalPayload={modalPayload}/>
+            <InfoModal modalPayload={modalPayload} />
           </>
         );
 
@@ -66,35 +72,41 @@ const Modal = ({ children }) => {
         // max-w-5xl
         return (
           <>
-          <DocModal modalPayload={modalPayload}/>
+            <DocModal modalPayload={modalPayload} />
           </>
         );
 
       case 3:
         return (
           <>
-          <ConfirmModal modalPayload={modalPayload}/>
+            <ConfirmModal modalPayload={modalPayload} />
           </>
         );
       case 4:
         return (
           <>
-          <StartQuestModal modalPayload={modalPayload}/>
+            <StartQuestModal modalPayload={modalPayload} />
           </>
         );
       case 5:
         return (
           <>
-          <SubmitTaskModal modalPayload={modalPayload}/>
+            <SubmitTaskModal modalPayload={modalPayload} />
           </>
         );
       case 6:
         return (
           <>
-          <ReviewTaskModal modalPayload={modalPayload}/>
+            <ReviewTaskModal modalPayload={modalPayload} />
           </>
         );
-      
+      case 7:
+        return (
+          <>
+            <SpinnerModal modalPayload={modalPayload} />
+          </>
+        );
+
       case -1:
         return <></>;
 
@@ -111,13 +123,20 @@ const Modal = ({ children }) => {
             className="fixed  inset-0 z-[998]  overflow-y-auto overflow-x-hidden bg-white bg-opacity-10  backdrop-blur backdrop-filter md:h-full"
             onClick={cleanModal}
           /> */}
-          <LockBodyScroll/>
-          <div className="fixed  inset-0 z-[100] flex w-full h-full items-center justify-center overflow-y-auto overflow-x-hidden bg-white bg-opacity-10  backdrop-blur backdrop-filter">
+          <LockBodyScroll />
+          <div className="fixed  inset-0 z-[100] flex h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-white bg-opacity-10  backdrop-blur backdrop-filter">
             <div
-              className={`relative h-auto w-full ${sizeVariants[modalPayload.size]} mx-2 md:h-auto`}
+              className={`relative h-auto w-full ${
+                sizeVariants[modalPayload.size]
+              } mx-2 md:h-auto`}
               // className={`relative h-auto w-full max-w-3xl mx-2 md:h-auto`}
             >
-              <div ref={ref} className="relative rounded-lg  bg-white shadow">
+              <div
+                ref={ref}
+                className={`relative rounded-lg ${
+                  modalPayload.type !== 7 ? "bg-white shadow" : ""
+                } `}
+              >
                 {generateModal}
               </div>
             </div>

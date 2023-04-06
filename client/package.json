@@ -1,6 +1,6 @@
 {
   "name": "armory",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": " GENERATE_SOURCEMAP=false vite build",
@@ -17,14 +17,11 @@
     "@dynamic-labs/wagmi-connector": "^0.15.19",
     "axios": "^0.21.4",
     "dotenv": "^16.0.3",
-    "eth-revert-reason": "^1.0.3",
     "ethers": "^5.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
-    "react-icons": "^4.3.1",
     "react-markdown": "^8.0.5",
-    "react-modal": "^3.16.1",
     "react-router-dom": "^6.6.1",
     "react-select": "^5.7.0",
     "remark-gfm": "^3.0.1",

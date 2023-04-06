@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { useAccount } from "wagmi";
 
@@ -35,6 +36,7 @@ const prepareData = async (types, questId, taskId, homework, address) => {
 };
 const SubmitTaskModal = ({ modalPayload }) => {
   const [view, setView] = useState(false);
+  const navigate = useNavigate();
   const { address, isConnected, isDisconnected } = useAccount();
   const { questID:questId, taskId } = modalPayload.content;
   const {
@@ -62,7 +64,8 @@ const SubmitTaskModal = ({ modalPayload }) => {
     )
       .then(({ ipfsCID, params }) => {
         const onSuccess = () => {
-          reset();
+          // reset();
+          navigate("/playground/review");
         };
         const onError = () => {
           unpinCID(ipfsCID);
