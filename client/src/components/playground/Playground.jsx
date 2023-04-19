@@ -311,12 +311,12 @@ const Playground = () => {
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
-            <SidebarItem
+            {/* <SidebarItem
               to="tasks"
               name="Tasks"
               Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
-            />
+            /> */}
             <SidebarItem
               to="review"
               name="Review"
@@ -375,7 +375,7 @@ const Playground = () => {
           ) : (
             <></>
           )}
-          <Avatar className="mt-auto " />
+          <Avatar className="mt-auto mb-3 h-12 w-12  shadow-lg " address={address}/>
         </div>
       </aside>
 

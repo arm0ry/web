@@ -7,7 +7,7 @@ import { fetchIpfsCID } from "@utils/ipfs";
 import { shortenAddress } from "@utils/shortenAddress";
 import Spinner from "../Spinner";
 import { Money, Markdown } from "../";
-import { ClockIcon } from "@assets";
+import { ClockIcon, PassIcon } from "@assets";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
 const TaskDetail = () => {
@@ -19,8 +19,6 @@ const TaskDetail = () => {
   const taskId = params.taskId;
   const { tasks } = playground;
   const navigate = useNavigate();
-
-  
 
   // useEffect(() => {
   //   const fetchData = async (cdi) => {
@@ -56,8 +54,8 @@ const TaskDetail = () => {
   const clickButton = () => {
     showModal({
       type: 5,
-      size:"3xl",
-      content: { questID: userInfo?.questID, taskId }
+      size: "3xl",
+      content: { questID: userInfo?.questID, taskId },
     });
   };
 
@@ -71,15 +69,21 @@ const TaskDetail = () => {
           >
             <span className="text-base font-medium">←Go Back</span>
           </button>
-          {userInfo?.questID && missions[userInfo?.questID]?.taskIds.includes(Number(taskId))  ? (
-            <div
-              onClick={clickButton}
-              className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
-            >
-              <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
-                Submit
-              </span>
-            </div>
+          {userInfo?.questID &&
+          missions[userInfo?.questID]?.taskIds.includes(Number(taskId)) ? (
+            userInfo.tasks[taskId]?.state == 1 ? (
+              <PassIcon className="h-14"/>
+            ) : (
+              <div
+                onClick={clickButton}
+                className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
+              >
+                <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
+                  
+                  {userInfo.tasks[taskId]?.state == 1 ? "Submit" : "Edit"}
+                </span>
+              </div>
+            )
           ) : (
             <></>
           )}

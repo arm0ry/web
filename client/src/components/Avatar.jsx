@@ -6,8 +6,8 @@ import { createAvatar } from "@dicebear/core";
 import { openPeeps, micah, bigSmile } from "@dicebear/collection";
 import * as style from "@dicebear/open-peeps";
 
-const Avatar = ({ className }) => {
-  const { address } = useAccount();
+const Avatar = ({ className, address }) => {
+  // const { address } = useAccount();
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Avatar = ({ className }) => {
   return (
     <>
       <img
-        className={`${className} mb-3 h-12 w-12 rounded-full shadow-lg `}
+        className={`${className} rounded-full `}
         src={avatar}
         alt="avatar"
       />

@@ -7,7 +7,7 @@ import { ethers, BigNumber } from "ethers";
 import { useGlobalContext } from "@context/store";
 import TaskCard from "./TaskCard";
 import Spinner from "../Spinner";
-import {PeopleIcon, PercentageIcon} from '@assets'
+import { PeopleIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
 import { Arm0ryQuests, Arm0ryTravelers } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
@@ -78,6 +78,10 @@ const MissionDetail = () => {
               <p className="text-3xl font-bold  text-slate-800 ">
                 {missions[missionId]?.title}
               </p>
+              <p className=" text-sm text-slate-800 ">
+                {/* {console.log(playground.ipfs[missions[missionId]?.details])} */}
+                {playground.ipfs[missions[missionId]?.details]?.detail}
+              </p>
               <div
                 onMouseEnter={() => setTooltip(true)}
                 onMouseLeave={() => setTooltip(false)}
@@ -93,23 +97,32 @@ const MissionDetail = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-2 ml-auto flex min-w-[7rem]  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end">
-                <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
-                  <div class="inline-flex w-fit items-center rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
-                    <PeopleIcon className="h-3"/>
-                    <span class="ml-1">
-                      {missions[missionId]?.completionsCount}
-                      {" 人"}
-                    </span>
-                  </div>
-                  <div class="inline-flex w-fit items-center rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
-                    <PercentageIcon className="h-3"/>
-                    <span class="ml-1">
-                      {missions[missionId]?.impact}
-                    </span>
-                  </div>
+            <div className="mt-2 ml-auto flex w-fit  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end md:self-end">
+              <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
+                <div className="inline-flex w-fit items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
+                  <PeopleIcon className="h-3" />
+                  <span className="ml-1">
+                    {Math.round(
+                      (missions[missionId]?.completionsCount /
+                        missions[missionId]?.impact) *
+                        100
+                    )}
+                    {" 人"}
+                  </span>
+                </div>
+                <div className="inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
+                  <PercentageIcon className="h-3" />
+                  <span className="ml-1">{missions[missionId]?.impact}</span>
                 </div>
               </div>
+            </div>
+          </div>
+          
+          <div className="inline-flex w-fit items-center justify-center  whitespace-nowrap rounded-full  px-2  py-1  text-base ">
+            <TaskIcon className="h-4 text-gray-700" />
+            <span className="ml-1 font-semibold ">
+              {missions[missionId]?.taskIds.length} tasks
+            </span>
           </div>
           <div className="grid grid-cols-1 gap-5 p-4 md:grid-cols-6">
             {missions[missionId]?.taskIds.map((id, i) => {

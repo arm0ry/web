@@ -47,7 +47,7 @@ const ReviewCard = ({ review }) => {
                 address !== traveler ? "text-indigo-500" : "text-gray-500"
               } `}
             >
-              {address === traveler ? "My Homework" : " ✔ Review"}
+              {address === traveler ? "My Homework" : " ✔ Click to Review"}
             </span>
           </div>
           <div className="mt-2 ml-auto flex min-w-[7rem]  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end">
