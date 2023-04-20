@@ -6,14 +6,14 @@ import { createAvatar } from "@dicebear/core";
 import { openPeeps, micah, bigSmile } from "@dicebear/collection";
 import * as style from "@dicebear/open-peeps";
 
-const Avatar = ({ className, address }) => {
+const Avatar = ({ className, address, color}) => {
   // const { address } = useAccount();
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     createAvatar(bigSmile, {
       seed: address,
-      backgroundColor: ["b6e3f4"],
+      backgroundColor: [color ?? "b6e3f4"],
     })
       .toDataUri()
       .then((data) => setAvatar(data));

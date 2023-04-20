@@ -32,7 +32,7 @@ const TaskCard = ({ taskId, className="" }) => {
         
         <div className="relative h-full w-full px-4 py-3 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex justify-between flex-row items-center space-x-1">
           <div className="space-y-2 ml-2 ">
-            <p className="text-slate-800 line-clamp-2 leading-5 font-medium  group-hover:font-semibold ">
+            <p className="text-slate-800 line-clamp-2 my-0 mx-auto leading-5 font-medium  group-hover:font-semibold ">
               {tasks[taskId]?.title}
             </p>
             <Link

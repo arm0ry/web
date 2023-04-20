@@ -13,12 +13,12 @@ import { Arm0ryQuests, Arm0ryTravelers } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal, cleanModal } from "@context/actions/modalAction";
+import Avatar from "../Avatar";
 
 const MissionDetail = () => {
   const { playground, userInfo, isApproved, setIsApproved } =
     useGlobalContext();
   const { missions } = playground;
-  const [tooltip, setTooltip] = useState(false);
   const { address, isConnected, isDisconnected } = useAccount();
   const params = useParams();
   const missionId = params.missionId;
@@ -83,15 +83,12 @@ const MissionDetail = () => {
                 {playground.ipfs[missions[missionId]?.details]?.detail}
               </p>
               <div
-                onMouseEnter={() => setTooltip(true)}
-                onMouseLeave={() => setTooltip(false)}
                 className="relative inline-block text-xs text-gray-600"
               >
-                {shortenAddress(missions[missionId]?.creator)}
+                <span className="peer"> {shortenAddress(missions[missionId]?.creator)}</span>
+                
                 <div
-                  className={`${
-                    tooltip ? "visible opacity-70" : "invisible opacity-0"
-                  } tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-1 py-1 text-xs  font-medium text-black shadow-sm`}
+                  className={` opacity-0  peer-hover:opacity-70 tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-2 py-1 text-xs  font-medium text-black shadow-sm`}
                 >
                   {missions[missionId]?.creator}
                 </div>
@@ -99,7 +96,7 @@ const MissionDetail = () => {
             </div>
             <div className="mt-2 ml-auto flex w-fit  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end md:self-end">
               <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
-                <div className="inline-flex w-fit items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
+                {/* <div className="inline-flex w-fit items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
                   <PeopleIcon className="h-3" />
                   <span className="ml-1">
                     {Math.round(
@@ -109,20 +106,59 @@ const MissionDetail = () => {
                     )}
                     {" 人"}
                   </span>
-                </div>
-                <div className="inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
-                  <PercentageIcon className="h-3" />
-                  <span className="ml-1">{missions[missionId]?.impact}</span>
+                </div> */}
+                <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
+                  <span className="peer mr-1 ">
+                    {missions[missionId]?.impact}
+                  </span>
+                  <PercentageIcon className="peer h-3" />
+                  <div
+                    className={` tooltip absolute left-[100%]  -top-1 z-10 inline-block -translate-y-full -translate-x-full  rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80`}
+                  >
+                    Mission Impact
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          
-          <div className="inline-flex w-fit items-center justify-center  whitespace-nowrap rounded-full  px-2  py-1  text-base ">
-            <TaskIcon className="h-4 text-gray-700" />
-            <span className="ml-1 font-semibold ">
-              {missions[missionId]?.taskIds.length} tasks
-            </span>
+          <div className="flex flex-row justify-between m-2">
+            <div className="inline-flex w-fit items-center justify-center  whitespace-nowrap rounded-full  px-2  py-1  text-base ">
+              <TaskIcon className="h-4 text-gray-700" />
+              <span className="ml-1 font-semibold ">
+                {missions[missionId]?.taskIds.length} tasks
+              </span>
+            </div>
+            <div className="relative  flex flex-row items-center justify-center">
+              <div className=" peer flex -space-x-[0.5rem]">
+                {[...Array(5)].map((_, i) => {
+                  return (
+                    <>
+                      <Avatar className={"h-7 w-7 "} address={Math.random()} color="f7f0eb" />
+                    </>
+                  );
+                })}
+                <div className="border-1 ml-2 flex h-7 w-7 cursor-cell	items-center justify-center rounded-full border-white bg-[#f7f0eb] text-xs font-semibold text-black hover:bg-[#ece2dc]">
+                  +{" "}
+                  {Math.round(
+                    (missions[missionId]?.completionsCount /
+                      missions[missionId]?.impact) *
+                      100
+                  )}
+                </div>
+              </div>
+              <span className="ml-2 text-sm font-semibold"></span>
+              <div
+                className={` tooltip absolute left-[100%]  bottom-0 z-10 inline-block translate-y-full -translate-x-full  rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80`}
+              >
+                {Math.round(
+                  (missions[missionId]?.completionsCount /
+                    missions[missionId]?.impact) *
+                    100
+                )}
+                <span className="ml-2">participants</span>
+                
+              </div>
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-5 p-4 md:grid-cols-6">
             {missions[missionId]?.taskIds.map((id, i) => {
