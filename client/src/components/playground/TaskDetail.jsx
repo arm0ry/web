@@ -61,7 +61,7 @@ const TaskDetail = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="">
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate(-1)}
@@ -72,7 +72,7 @@ const TaskDetail = () => {
           {userInfo?.questID &&
           missions[userInfo?.questID]?.taskIds.includes(Number(taskId)) ? (
             userInfo.tasks[taskId]?.state == 1 ? (
-              <PassIcon className="h-14"/>
+              <PassIcon className="h-12"/>
             ) : (
               <div
                 onClick={clickButton}
@@ -80,7 +80,7 @@ const TaskDetail = () => {
               >
                 <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
                   
-                  {userInfo.tasks[taskId]?.state == 1 ? "Submit" : "Edit"}
+                  {userInfo.tasks[taskId]?.state === -1 ? "Submit" : "Edit"}
                 </span>
               </div>
             )

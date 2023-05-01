@@ -6,6 +6,7 @@ export const USER_SIGNOUT = "USER_SIGNOUT";
 export const MINT_PASS = "MINT_PASS";
 export const APPROVE = "APPROVE";
 export const START_QUEST = "START_QUEST";
+// export const UPDATE_TASKS = "UPDATE_TASKS";
 export const UPDATE_TRAVELER_TASK = "UPDATE_TRAVELER_TASK";
 
 export const userInitialState = () => {
@@ -19,6 +20,7 @@ export const userInitialState = () => {
     isManager: false,
     status:0,
     tasks:{},
+    reviewerXP:undefined
   };
 };
 const userReducer = (state, action) => {

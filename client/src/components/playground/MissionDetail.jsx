@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import { writeContract, waitForTransaction } from "@wagmi/core";
-import { ethers, BigNumber } from "ethers";
+import { Arm0ryMissions, Arm0ryQuests } from "@contract";
 
 import { useGlobalContext } from "@context/store";
 import TaskCard from "./TaskCard";
 import Spinner from "../Spinner";
 import { PeopleIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
-import { Arm0ryQuests, Arm0ryTravelers } from "@contract";
+import { getQuest } from "@utils/contract";
+
 import useWriteContract from "@hooks/useWriteContract";
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal, cleanModal } from "@context/actions/modalAction";
@@ -20,6 +20,8 @@ const MissionDetail = () => {
     useGlobalContext();
   const { missions } = playground;
   const { address, isConnected, isDisconnected } = useAccount();
+  const [beClaimed, setBeClaimed] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
   const params = useParams();
   const missionId = params.missionId;
   const navigate = useNavigate();
@@ -30,6 +32,29 @@ const MissionDetail = () => {
       }
     }
   }, [missions]);
+  const { write: _claimTravelerReward, state: claimState } = useWriteContract({
+    ...Arm0ryQuests,
+    functionName: "claimTravelerReward",
+  });
+  const claimTravelerReward = () => {
+    const onSuccess = async () => {
+      setBeClaimed(false);
+    };
+    _claimTravelerReward({
+      args: [parseInt(missionId, 10)],
+      onSuccess,
+    });
+  };
+
+  const { write: _purchase, state } = useWriteContract({
+    ...Arm0ryMissions,
+    functionName: "purchase",
+  });
+  const purchase = () => {
+    _purchase({
+      args: [parseInt(missionId, 10)],
+    });
+  };
 
   const clickButton = () => {
     showModal({
@@ -38,6 +63,22 @@ const MissionDetail = () => {
       content: { missionId: missionId },
     });
   };
+  useEffect(() => {
+    (async () => {
+      if (isConnected) {
+        const [_, , , incomplete, , xp, claimed] = await getQuest(
+          address,
+          missionId
+        );
+        console.log(xp, claimed);
+        if (xp > claimed) setBeClaimed(true);
+        if (incomplete == 0) setIsComplete(true);
+      } else {
+        setIsComplete(false);
+        setBeClaimed(false);
+      }
+    })();
+  }, [address]);
 
   return (
     <>
@@ -60,7 +101,7 @@ const MissionDetail = () => {
             >
               <span className="text-base font-medium">←Go Back</span>
             </button>
-            {isConnected && !userInfo.inQuest ? (
+            {isConnected && !userInfo.inQuest && !isComplete ? (
               <div
                 onClick={clickButton}
                 className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
@@ -78,23 +119,24 @@ const MissionDetail = () => {
               <p className="text-3xl font-bold  text-slate-800 ">
                 {missions[missionId]?.title}
               </p>
-              <p className=" text-sm text-slate-800 ">
+              <p className=" text-slate-80 my-1 text-sm">
                 {/* {console.log(playground.ipfs[missions[missionId]?.details])} */}
                 {playground.ipfs[missions[missionId]?.details]?.detail}
               </p>
-              <div
-                className="relative inline-block text-xs text-gray-600"
-              >
-                <span className="peer"> {shortenAddress(missions[missionId]?.creator)}</span>
-                
+              <div className="relative inline-block text-xs text-gray-600">
+                <span className="peer">
+                  {" "}
+                  {shortenAddress(missions[missionId]?.creator)}
+                </span>
+
                 <div
-                  className={` opacity-0  peer-hover:opacity-70 tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-2 py-1 text-xs  font-medium text-black shadow-sm`}
+                  className={` tooltip  absolute left-[100%]  -top-1 z-10 inline-block rounded-lg bg-gray-200 px-2 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-70`}
                 >
                   {missions[missionId]?.creator}
                 </div>
               </div>
             </div>
-            <div className="mt-2 ml-auto flex w-fit  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end md:self-end">
+            <div className="mt-2 ml-auto flex w-fit  items-end justify-end  self-end">
               <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
                 {/* <div className="inline-flex w-fit items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
                   <PeopleIcon className="h-3" />
@@ -107,13 +149,16 @@ const MissionDetail = () => {
                     {" 人"}
                   </span>
                 </div> */}
-                <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
-                  <span className="peer mr-1 ">
+                <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm  text-[#D6E6F2]">
+                  <span className="peer mr-1 font-bold ">
+                    <span className="mr-1 hidden md:inline">
+                      Mission Impact
+                    </span>
                     {missions[missionId]?.impact}
                   </span>
                   <PercentageIcon className="peer h-3" />
                   <div
-                    className={` tooltip absolute left-[100%]  -top-1 z-10 inline-block -translate-y-full -translate-x-full  rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80`}
+                    className={` tooltip absolute left-[100%]  -top-1 z-10 inline-block -translate-y-full -translate-x-full  rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80 md:hidden`}
                   >
                     Mission Impact
                   </div>
@@ -121,7 +166,7 @@ const MissionDetail = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-row justify-between m-2">
+          <div className="m-2 flex flex-row justify-between">
             <div className="inline-flex w-fit items-center justify-center  whitespace-nowrap rounded-full  px-2  py-1  text-base ">
               <TaskIcon className="h-4 text-gray-700" />
               <span className="ml-1 font-semibold ">
@@ -133,7 +178,11 @@ const MissionDetail = () => {
                 {[...Array(5)].map((_, i) => {
                   return (
                     <>
-                      <Avatar className={"h-7 w-7 "} address={Math.random()} color="f7f0eb" />
+                      <Avatar
+                        className={"h-7 w-7 "}
+                        address={Math.random()}
+                        color="f7f0eb"
+                      />
                     </>
                   );
                 })}
@@ -156,7 +205,6 @@ const MissionDetail = () => {
                     100
                 )}
                 <span className="ml-2">participants</span>
-                
               </div>
             </div>
           </div>
@@ -184,6 +232,46 @@ const MissionDetail = () => {
                 );
               }
             })}
+          </div>
+          {beClaimed && (
+            <div className="mt-5 flex flex-row justify-end  p-3">
+              <button
+                onClick={claimTravelerReward}
+                disabled={claimState.writeStatus > 0}
+                className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#a3e635] bg-[#a3e635] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#65a30d] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#65a30d] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#65a30d,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30"
+              >
+                <span className="text-md flex h-full flex-row items-center justify-center font-PasseroOne font-bold	 tracking-widest text-[#000]">
+                  {claimState.writeStatus === 0 && "Claim"}
+                  {claimState.writeStatus > 0 && <Spinner />}
+                  <div
+                    className={`${claimState.writeStatus > 0 ? "ml-2" : ""}`}
+                  >
+                    {claimState.writeStatus === 1 && "Waiting for approval"}
+                    {claimState.writeStatus === 2 && "Pending"}
+                  </div>
+                </span>
+              </button>
+            </div>
+          )}
+
+          <div className="mt-5 flex flex-row justify-end border-t-2 p-3">
+            <button
+              onClick={purchase}
+              disabled={!isConnected || state.writeStatus > 0}
+              className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#FFD707] bg-[#FFD707] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#DAC400] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#DAC400] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#DAC400,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30"
+            >
+              <span className="text-md flex h-full flex-row items-center justify-center font-PasseroOne font-bold	 tracking-widest text-[#000]">
+                {!isConnected && "Please Connect Wallet"}
+                {isConnected && state.writeStatus === 0 && "Purchase"}
+                {isConnected && state.writeStatus > 0 && <Spinner />}
+                <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
+                  {isConnected &&
+                    state.writeStatus === 1 &&
+                    "Waiting for approval"}
+                  {isConnected && state.writeStatus === 2 && "Pending"}
+                </div>
+              </span>
+            </button>
           </div>
         </div>
       )}

@@ -24,6 +24,7 @@ import {
   isManager,
   questing,
   travelerTaskState,
+  travelerReviewerXP
 } from "@utils/contract";
 
 export const signIn = async ({ address,taskId }) => {
@@ -51,6 +52,7 @@ export const signIn = async ({ address,taskId }) => {
       }
       userState.isManager = await isManager(address);
       userState.tasks = await travelerTaskState(address, taskId);
+      userState.reviewerXP = await travelerReviewerXP(address);
     case zero_address:
       userState.tokenId = tokenId;
     // break;
@@ -69,6 +71,10 @@ export const signOut = () => {
     type: USER_SIGNOUT,
   });
 };
+// export const updateTask = async () =>{
+//   await travelerTaskState(address, taskId);
+
+// }
 export const mintSuccess = async (tokenId) => {
   const _travelerPass = await fetchTravelPass(tokenId);
   dispatch.fn({

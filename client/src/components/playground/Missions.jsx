@@ -7,7 +7,7 @@ const Missions = () => {
   const { missions } = playground;
   return (
     <>
-      <div className="grid grid-cols-1 gap-5 p-4 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 p-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {Object.keys(missions).map((id) => {
           return <MissionCard key={id} missionId={id} />;
         })}

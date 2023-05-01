@@ -44,9 +44,9 @@ const ReviewCard = ({ review }) => {
                 {tasks[rTaskId]?.title}
               </p>
 
-              <div className=" relative h-5 w-5 ml-2 group-hover:opacity-100 opacity-0 ">
+              <div className=" relative h-5 w-5 ml-2 opacity-100 ">
                 <div
-                  className={` visible absolute  left-[40%] top-0  flex  h-5 items-center justify-center rounded-r-full bg-[#B6E4F4] px-1 py-1 pr-3 text-xs font-semibold  text-black opacity-100 shadow-sm`}
+                  className={` visible absolute  left-[40%] top-0  flex  h-5 items-center justify-center rounded-r-full bg-[#B6E4F4] px-1 py-1 pr-3 text-xs font-semibold  text-black  shadow-sm`}
                 >
                   <span className="ml-2 items-center">
                     {shortenAddress(traveler)}

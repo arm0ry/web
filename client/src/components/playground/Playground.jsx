@@ -120,6 +120,7 @@ const Playground = () => {
     if (isConnected) {
       signIn({ address, taskId:playground.taskId });
     }
+    // ?  playground.taskId
   }, [isConnected, playground.taskId]);
   useEffect(() => {
     if (isDisconnected) {

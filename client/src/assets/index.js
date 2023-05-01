@@ -21,6 +21,8 @@ import { ReactComponent as PeopleIcon } from "./people.svg";
 import { ReactComponent as PercentageIcon } from "./percentage.svg";
 import { ReactComponent as PassIcon } from "./pass.svg";
 import { ReactComponent as WaitIcon } from "./wait.svg";
+import { ReactComponent as PauseIcon } from "./pause.svg";
+import { ReactComponent as XpIcon } from "./xp.svg";
 import { ArrowSVG } from "./arrow.js";
 // import arrow from "./arrow.js";
 
@@ -48,5 +50,7 @@ export {
   PeopleIcon,
   PercentageIcon,
   PassIcon,
-  WaitIcon
+  WaitIcon,
+  PauseIcon,
+  XpIcon
 };

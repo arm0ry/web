@@ -182,3 +182,13 @@ export const travelerTaskState = async (address, tasksId) => {
 
   return _travelerTasksState;
 };
+
+export const travelerReviewerXP = async (address) => {
+  const _reviewerXP = await Arm0ryQuests_contract.reviewerXp(address);
+  return _reviewerXP;
+}
+
+export const getQuest = async (address, taskId) => {
+  const Quest = await Arm0ryQuests_contract.getQuest(address, taskId);
+  return Quest
+}

@@ -24,7 +24,6 @@ const ReviewTaskModal = ({ modalPayload }) => {
   const { address, isConnected, isDisconnected } = useAccount();
   const { playground } = useGlobalContext();
   const [detail, setDetail] = useState(undefined);
-  const [tooltip, setTooltip] = useState(false);
   const {
     traveler,
     taskId: rTaskId,
@@ -72,15 +71,10 @@ const ReviewTaskModal = ({ modalPayload }) => {
           traveler
         </button> */}
         <div
-          onMouseEnter={() => setTooltip(true)}
-          onMouseLeave={() => setTooltip(false)}
           className="relative z-10 h-10 w-10"
         >
-          {" "}
           <div
-            className={`${
-              tooltip ? "visible opacity-100" : "invisible opacity-0"
-            }  absolute left-[40%]  top-0 -z-[1] flex h-10 items-center justify-center rounded-r-full bg-[#B6E4F4] px-1 py-1 pr-3 text-xs  font-semibold text-black shadow-sm`}
+            className={`absolute left-[40%]  top-0 -z-[1] flex h-10 items-center justify-center rounded-r-full bg-[#B6E4F4] px-1 py-1 pr-3 text-xs  font-semibold text-black shadow-sm`}
           >
             <span className="ml-5 items-center">
               {shortenAddress(traveler)}
