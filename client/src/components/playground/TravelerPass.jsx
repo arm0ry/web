@@ -5,12 +5,12 @@ import { useAccount } from "wagmi";
 import { useGlobalContext } from "@context/store";
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
-import { mintSuccess } from "@context/actions/userAction";
+import { getTravelerPass } from "@context/actions/userAction";
 import { LockIcon, PassportIdIcon } from "@assets";
 import { Arm0ryTravelers, RPC } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 
-import Spinner from "../Spinner";
+import {Spinner} from "@components";
 
 const TravelerPass = () => {
   const { userInfo, setTravelerPass, setIsMinted } = useGlobalContext();
@@ -24,7 +24,7 @@ const TravelerPass = () => {
 
   const mintClick = () => {
     const onSuccess = () => {
-      mintSuccess(userInfo.tokenId);
+      getTravelerPass(userInfo.tokenId);
     };
     mint({ onSuccess });
   };

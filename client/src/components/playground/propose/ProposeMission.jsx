@@ -6,10 +6,10 @@ import { useAccount } from "wagmi";
 // import makeAnimated from "react-select/animated";
 // const animatedComponents = makeAnimated();
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-import { Arm0ryMissions, KaliDAO } from "../../contract";
+import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
-import Spinner from "../Spinner";
-import MultiSelectSort from "../MultiSelectSort";
+import {Spinner} from "@components";
+import MultiSelectSort from "../../MultiSelectSort";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";

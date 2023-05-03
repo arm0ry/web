@@ -15,6 +15,7 @@ import {
   Review,
   TravelerPass,
   Quest,
+  QuestDetail,
   Manager,
   ProposeMission,
   SetTask,
@@ -55,7 +56,8 @@ const Routers = () => {
           <Route index element={<Navigate to="traveller-pass" replace />} />
           <Route path="traveller-pass" element={<TravelerPass />} />
           <Route path="my-quest" element={<Quest />} />
-          <Route path="my-quest/:taskId" element={<TaskDetail />} />
+          <Route path="my-quest/:questId" element={<QuestDetail />} />
+          <Route path="my-quest/:questId/:taskId" element={<TaskDetail />} />
           <Route path="missions" element={<Missions />} />
           <Route path="missions/:missionId" element={<MissionDetail />} />
           <Route path="missions/:missionId/:taskId" element={<TaskDetail />} />

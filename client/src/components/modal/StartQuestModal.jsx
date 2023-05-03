@@ -6,10 +6,10 @@ import { useAccount } from "wagmi";
 import { TickIcon } from "@assets";
 import { cleanModal } from "@context/actions/modalAction";
 import CloseModalButton from "./CloseModalButton";
-import Spinner from "../Spinner";
+import {Spinner} from "@components";
 
 import { useGlobalContext } from "@context/store";
-import { checkApprove, updateQuestId } from "@context/actions/userAction";
+import { checkApprove, getQuestId } from "@context/actions/userAction";
 import { Arm0ryQuests, Arm0ryTravelers } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 const progressBarW = {
@@ -83,7 +83,7 @@ const StartQuestModal = ({ modalPayload }) => {
   
   const onSuccess = async() => {
     setProgress("3/3")
-    await updateQuestId(address);
+    await getQuestId(address);
   };
   const startQuest = ()=>{
     setProgress("5/6")

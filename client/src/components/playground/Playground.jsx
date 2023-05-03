@@ -33,20 +33,18 @@ import { Arm0ryMissions, Arm0ryQuests, RPC } from "../../contract";
 
 import { fetchMissionsData, fetchTasksData } from "@utils/contract";
 
-import { signIn, signOut } from "@context/actions/userAction";
+import { signIn, signOut, 
+  getTravelerTask,
+  getTravelerQuest } from "@context/actions/userAction";
 import {
-  loadTasks,
-  loadMissions,
-  loadTaskId,
-  loadMissionId,
-  loadTravelerCount,
+  loadTasksData,
+  loadMissionsData,
   loadTravelers,
   loadUnreviews,
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 
-import { Alert } from "../";
-import Avatar from "../Avatar";
+import {Avatar, Alert} from "@components";
 
 // const svg = avatar.toString();
 const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => {} }) => {
@@ -104,7 +102,7 @@ const SidebarMultiLevelMenu = ({ Icon, name, children }) => {
 
 const Playground = () => {
   const { address, isConnected, isDisconnected } = useAccount();
-  const { setTasks, setMissions, playground, userInfo } = useGlobalContext();
+  const { playground, userInfo } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
 
   // const provider = useProvider();
@@ -115,63 +113,30 @@ const Playground = () => {
   //   console.log("chains", chains);
   // }, [chain, chains, provider]);
 
-  // * Traveler Pass
   useEffect(() => {
     if (isConnected) {
-      signIn({ address, taskId:playground.taskId });
+      signIn({ address, taskId:playground.taskId, missionId:playground.missionId });
     }
-    // ?  playground.taskId
-  }, [isConnected, playground.taskId]);
+  }, [isConnected]);
+  useEffect(() => {
+    if (isConnected) {
+      getTravelerTask(address, playground.taskId);
+      getTravelerQuest(address, playground.missionId);
+    }
+  }, [playground.taskId, playground.missionId]);
   useEffect(() => {
     if (isDisconnected) {
       signOut();
     }
   }, [isDisconnected]);
 
-  //
-  // const { data:missionId, refetch:missionsRefetch} = useContractRead({
-  //   ...Arm0ryMissions,
-  //   functionName: "missionId",
-  //   chainId: 5,
-  //   cacheTime: 2_000,
-  //   cacheOnBlock: true,
-  //   onError(error) {
-  //     console.log('Error', error);
-  //     missionsRefetch();
-  //   },
-  // });
-  // useEffect(() => {
-  //   if (missionId > 0) {
-  //     loadMissions(missionId, playground);
-  //   }
-  // }, [missionId])
-
-  // const { data: taskId, refetch:tasksRefetch } = useContractRead({
-  //   ...Arm0ryMissions,
-  //   functionName: "taskId",
-  //   chainId: 5,
-  //   cacheTime: 2_000,
-  //   cacheOnBlock: true,
-  //   onError(error) {
-  //     console.log('Error', error);
-  //     tasksRefetch();
-  //   },
-  // });
-
-  // useEffect(() => {
-  //   console.log("taskId", taskId)
-  //   if (taskId > 0) {
-  //     loadTasks(taskId);
-  //   }
-  // }, [taskId]);
   // *
   useContractEvent({
     ...Arm0ryMissions,
     eventName: "TaskUpdated",
     listener(node, label, owner) {
-      console.log(node, label, owner);
-      // TODO
-      loadTaskId(playground.taskId);
+      console.log("TaskUpdated");
+      loadTasksData();
     },
     chainId: 5,
   });
@@ -179,8 +144,8 @@ const Playground = () => {
     ...Arm0ryMissions,
     eventName: "MissionUpdated",
     listener(node, label, owner) {
-      console.log(node, label, owner);
-      loadMissionId(playground.missionId);
+      console.log("MissionUpdated");
+      loadMissionsData(playground);
     },
     chainId: 5,
   });
@@ -208,42 +173,16 @@ const Playground = () => {
   //   watch: true,
   // });
   useEffect(() => {
-    loadTaskId(playground.taskId);
-    loadMissionId(playground.missionId);
-    loadTravelerCount();
+    loadTasksData();
+    loadMissionsData(playground);
+    loadTravelers();
   }, []);
-  useEffect(() => {
-    if (playground.travelerCount > 0) {
-      loadTravelers(playground.travelerCount);
-    }
-  }, [playground.travelerCount]);
   // load Unreviews
   useEffect(() => {
     if (playground.travelers.length > 0 && playground.taskId > 0) {
       loadUnreviews(playground.travelers, playground.taskId);
     }
   }, [playground.travelers, playground.taskId]);
-  useEffect(() => {
-    if (playground.taskId > 0) {
-      loadTasks(playground.taskId);
-    }
-  }, [playground.taskId]);
-
-  useEffect(() => {
-    if (playground.missionId > 0) {
-      loadMissions(playground.missionId, playground);
-    }
-  }, [playground.missionId]);
-
-  //* fetch missions & tasks data
-  // useEffect(() => {
-  //   fetchMissionsData()
-  //     .then((data) => setMissions(data))
-  //     .catch(console.error);
-  //   fetchTasksData()
-  //     .then((data) => setTasks(data))
-  //     .catch(console.error);
-  // }, []);
 
   return (
     <>
@@ -295,7 +234,7 @@ const Playground = () => {
               Icon={Passport}
               setToggleMenu={setToggleMenu}
             />
-            {userInfo.inQuest ? (
+            {isConnected ? (
               <SidebarItem
                 to="my-quest"
                 name="My Quest"

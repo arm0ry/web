@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import Spinner from "../Spinner";
 
 import { useGlobalContext } from "@context/store";
-import { Money } from "../";
+import { Money } from "../..";
 import { ClockIcon, PassIcon, WaitIcon } from "@assets";
 const secondToDay = (s) => {
   return parseInt(s / 86400);

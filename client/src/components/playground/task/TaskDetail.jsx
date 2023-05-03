@@ -5,8 +5,8 @@ import { useGlobalContext } from "@context/store";
 import { loadIPFS } from "@context/actions/playgroundAction";
 import { fetchIpfsCID } from "@utils/ipfs";
 import { shortenAddress } from "@utils/shortenAddress";
-import Spinner from "../Spinner";
-import { Money, Markdown } from "../";
+import {Spinner} from "@components";
+import { Money, Markdown } from "../..";
 import { ClockIcon, PassIcon } from "@assets";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
@@ -61,7 +61,7 @@ const TaskDetail = () => {
 
   return (
     <>
-      <div className="">
+      <div className="mx-auto md:max-w-[1024px]">
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate(-1)}

@@ -4,10 +4,8 @@ import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 import { shortenAddress } from "@utils/shortenAddress";
-import Spinner from "../Spinner";
 import { useGlobalContext } from "@context/store";
-import { Money } from "../";
-import Avatar from "../Avatar";
+import { Money, Avatar } from "@components";
 import { ClockIcon } from "@assets";
 const secondToDay = (s) => {
   return parseInt(s / 86400);

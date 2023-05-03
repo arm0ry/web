@@ -46,10 +46,6 @@ export const GlobalContextProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        tasks,
-        setTasks,
-        missions,
-        setMissions,
         userInfo,
         playground,
         alerts,

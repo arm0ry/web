@@ -22,7 +22,7 @@ const SpinnerModal = () => {
         {/* <div
           className={`${"h-12 w-12 border-b-4"} animate-spin rounded-full ${"border-gray-500"}`}
         ></div> */}
-        <div class="flex items-center justify-center mb-2">
+        <div className="flex items-center justify-center mb-2">
           <Spinner id={1} />
           <Spinner id={2} />
           <Spinner id={3} />

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "@context/store";
-import { Cube } from "../";
-import Spinner from "../Spinner";
+import { Cube } from "../..";
+import {Spinner} from "@components";
 
 const MissionCard = ({ missionId }) => {
   const { playground } = useGlobalContext();

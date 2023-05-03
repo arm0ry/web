@@ -11,13 +11,8 @@ import { pushAlert } from "@context/actions/alertAction";
 import { shortenAddress } from "@utils/shortenAddress";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 import { unpinCID } from "@utils/ipfs";
-import { createAvatar } from "@dicebear/core";
-import { bigSmile } from "@dicebear/collection";
-import * as style from "@dicebear/open-peeps";
 
-import Markdown from "../Markdown";
-import Spinner from "../Spinner";
-import Avatar from "../Avatar";
+import {Spinner, Markdown, Avatar} from "@components";
 import CloseModalButton from "./CloseModalButton";
 
 const ReviewTaskModal = ({ modalPayload }) => {

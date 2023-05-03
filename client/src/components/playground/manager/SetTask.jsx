@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form";
 import { useAccount } from "wagmi";
 import { KaliLogo, ArrowSVG } from "@assets";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-import { Arm0ryMissions, KaliDAO } from "../../contract";
+import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
-import Spinner from "../Spinner";
-import Modal from "../modal/Modal";
+import {Spinner} from "@components";
+import Modal from "../../modal/Modal";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";

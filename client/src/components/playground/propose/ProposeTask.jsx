@@ -1,104 +1,123 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import {
   prepareWriteContract,
   writeContract,
   waitForTransaction,
 } from "@wagmi/core";
-import makeAnimated from "react-select/animated";
-const animatedComponents = makeAnimated();
 import { KaliLogo, ArrowSVG } from "@assets";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-import { Arm0ryMissions, KaliDAO } from "../../contract";
+import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
-import Spinner from "../Spinner";
-import MultiSelectSort from "../MultiSelectSort";
+import {Spinner} from "@components";
+import Modal from "../../modal/Modal";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 import useWriteContract from "@hooks/useWriteContract";
-import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64";
+import { replaceMarkdownImageUrltoBase64} from "@utils/encodeImageAsBase64"
 
-const prepareData = async (types, data, address) => {
+const encodeFunctionData = async (types, data, address, abi, method) => {
   try {
-    const tasks = data.tasks.map((item) => parseInt(item.value, 10));
-    const detailBase64 = await replaceMarkdownImageUrltoBase64(data.detail);
+    const abiCoder = ethers.utils.defaultAbiCoder;
+    const detailBase64 = await replaceMarkdownImageUrltoBase64(data.detail)
     const ipfsCID = await uploadJSON({
       title: data.title,
-      tasks: tasks,
-      creator: address,
       detail: detailBase64,
-      fee: data.fee,
+      creator: address,
+      xp: data.point,
+      expiration: data.expiration,
     });
     console.log({ ipfsCID });
-    const params = [tasks, ipfsCID, data.title, address, data.fee];
-    return { ipfsCID, params };
+    const values = [
+      parseInt(data.point, 10),
+      parseInt(data.expiration, 10),
+      address,
+      data.title,
+      ipfsCID,
+    ];
+    const params = abiCoder.encode(
+      types, // encode as address array
+      values
+    );
+    console.log({ params });
+    // encode Function Data
+    const mInterface = new ethers.utils.Interface(abi);
+    const callData = mInterface.encodeFunctionData(method, [[params]]);
+    return { ipfsCID, callData };
   } catch (error) {
-    if (ipfsCID) unpinCID(ipfsCID);
+    if(ipfsCID) unpinCID(ipfsCID);
     throw error;
   }
 };
 
-const SetMission = () => {
-  const { playground } = useGlobalContext();
-  const { tasks } = playground;
-  const [taskOptions, setTaskOptions] = useState([]);
-  const [inPrepare, setInPrepare] = useState(false);
+const ProposeTask = () => {
+  // const { alerts } = useGlobalContext();
   const { address, isConnected, isDisconnected } = useAccount();
-  useEffect(() => {
-    setTaskOptions(
-      Object.keys(tasks).map((id) => {
-        return { value: id, label: tasks[id].title };
-      })
-    );
-  }, [tasks]);
-
+  const [inPrepare, setInPrepare] = useState(false);
   const {
     register,
     handleSubmit,
     getValues,
-    watch,
     reset,
-    control,
+    watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { tasks: [] },
+    defaultValues: { point: 0, expiration: 0 },
   });
-  const { write: setMission, state } = useWriteContract({
-    ...Arm0ryMissions,
-    functionName: "setMission",
+  // *
+  const { write: propose, state } = useWriteContract({
+    ...KaliDAO,
+    functionName: "propose",
   });
-  // console.log("tasks", watch("tasks"));
+
   const onSubmit = async (data) => {
     setInPrepare(true);
-    prepareData(
-      ["uint8[]", "string", "string", "address", "uint256"],
+    encodeFunctionData(
+      ["uint8", "uint40", "address", "string", "string"],
       data,
-      address
-    )
-      .then(({ ipfsCID, params }) => {
-        setInPrepare(false);
-        const onSuccess = () => {
-          reset();
-        };
-        const onError = () => {
-          unpinCID(ipfsCID);
-        };
-        setMission({ args: params, onSuccess, onError });
-      })
-      .catch((error) => {
-        pushAlert({ msg: `Error! ${error}`, type: "failure" });
-      })
-      .finally(() => {
-        setInPrepare(false);
+      address,
+      Arm0ryMissions.abi,
+      "setTasks"
+    ).then(({ ipfsCID, callData }) => {
+      setInPrepare(false);
+      const onSuccess = () => {
+        reset();
+      };
+      const onError = () => {
+        unpinCID(ipfsCID);
+      };
+      propose({
+        args: [
+          2,
+          `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
+            data.expiration / 86400
+          )}${" days"}\n${"     "}point:${
+            data.point
+          }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${
+            data.detail
+          }`,
+          [Arm0ryMissions.address],
+          [0],
+          [callData],
+        ],
+        onSuccess,
+        onError,
       });
+    })
+    .catch((error) => {
+      pushAlert({ msg: `Error! ${error}`, type: "failure" });
+    }).finally(() => {
+      setInPrepare(false);
+    });
   };
 
   return (
     <>
+      {/* <Modal></Modal> */}
       <div className=" rounded-lg border-2 border-dashed border-gray-200 p-4 ">
         <div className="container ">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -118,59 +137,56 @@ const SetMission = () => {
                 {...register("title")}
               />
             </div>
-            <div className="mb-6 ">
+            <div className="mb-6 grid gap-6 md:grid-cols-2">
               <div>
                 <label
-                  for="fee"
+                  for="point"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  Fee
+                  Point
                 </label>
 
-                <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  id="fee"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                  placeholder="0"
+                <select
+                  id="point"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;charset=utf-8,${ArrowSVG}")`,
+                  }}
+                  className={`block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat p-2.5 pr-[2.5rem] text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500`}
+                  // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
                   required
-                  {...register("fee")}
-                />
+                  defaultValue=""
+                  {...register("point")}
+                >
+                  <option selected value="">
+                    Choose a point
+                  </option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
               </div>
-            </div>
-            <div className="mb-6 ">
               <div>
                 <label
-                  for="tasks"
+                  for="expiration"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  Tasks
+                  Expiration
                 </label>
-                <Controller
-                  control={control}
-                  name="tasks"
-                  render={({
-                    field: { onChange, onBlur, value, name, ref },
-                  }) => (
-                    <MultiSelectSort
-                      ref={ref}
-                      placeholder={"Select Text..."}
-                      options={taskOptions}
-                      // options={[
-                      //   { label: "Defi", value: "1" },
-                      //   { label: "UniSwap", value: "2" },
-                      //   { label: "BlockChain", value: "3" },
-                      //   { label: "DAO", value: "4" },
-                      //   { label: "NFT", value: "5" },
-                      // ]}
-                      value={value}
-                      name={name}
-                      onBlur={onBlur}
-                      onChange={onChange}
-                    />
-                  )}
-                />
+                <select
+                  id="expiration"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;charset=utf-8,${ArrowSVG}")`,
+                  }}
+                  className={`block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat p-2.5 pr-[2.5rem] text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500`}
+                  {...register("expiration")}
+                >
+                  <option value="">Choose...</option>
+                  <option value="86400">1 Day</option>
+                  <option value="172800">2 Days</option>
+                  <option value="259200">3 Days</option>
+                </select>
               </div>
             </div>
             <div className="mb-6">
@@ -236,7 +252,7 @@ const SetMission = () => {
                 {!isConnected && "Please Connect Wallet"}
                 {isConnected && state.writeStatus === 0 &&  (inPrepare? "Wait...": "Submit!")}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
-                <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
+                <div className={`${state.writeStatus > 0?"ml-2":""}`}>
                   {isConnected &&
                     state.writeStatus === 1 &&
                     "Waiting for approval"}
@@ -245,11 +261,23 @@ const SetMission = () => {
               </button>
             </div>
           </form>
-          <div></div>
+          <div>
+            {/* <button
+            onClick={() =>
+              window.open(
+                "https://app.kali.gg/daos/5/0x5e3255fee519ef9b7b41339d20abf5591f393c4d"
+              )
+            }
+            className="text-center  gap-2  flex justify-center items-center  align-middle transition duration-300 ease-in-out w-full text-gray bg-black hover:ring-4 hover:ring-black active:ring-2 rounded-lg text-base  px-5 py-2  mt-5"
+          >
+            <KaliLogo className=" max-h-6 fill-current text-[#F40001]" />
+            <span className="text-white font-bold"> Arm0ry Dao</span>
+          </button> */}
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default SetMission;
+export default ProposeTask;

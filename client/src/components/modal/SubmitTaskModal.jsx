@@ -12,8 +12,7 @@ import { pushAlert } from "@context/actions/alertAction";
 import { cleanModal } from "@context/actions/modalAction";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
 
-import Markdown from "../Markdown";
-import Spinner from "../Spinner";
+import {Spinner, Markdown} from "@components";
 import CloseModalButton from "./CloseModalButton";
 
 const prepareData = async (types, questId, taskId, homework, address) => {
