@@ -19,6 +19,7 @@ import StartQuestModal from "./StartQuestModal";
 import SubmitTaskModal from "./SubmitTaskModal";
 import ReviewTaskModal from "./ReviewTaskModal";
 import SpinnerModal from "./SpinnerModal";
+import FallingFlowerModal from "./FallingFlowerModal";
 
 const sizeVariants = {
   lg: "max-w-lg",
@@ -104,6 +105,12 @@ const Modal = ({ children }) => {
         return (
           <>
             <SpinnerModal modalPayload={modalPayload} />
+          </>
+        );
+      case 8:
+        return (
+          <>
+            <FallingFlowerModal modalPayload={modalPayload} />
           </>
         );
 

@@ -24,7 +24,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   useEffect(() => {
     switch (true) {
       case isConnected != true:
-        setButtonState(0); 
+        setButtonState(0);
         break;
       case userInfo.questID == missionId:
         setButtonState(2); //pause
@@ -53,7 +53,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
     ...Arm0ryMissions,
     functionName: "purchase",
   });
-  
+
   const purchase = () => {
     _purchase({
       args: [parseInt(missionId, 10)],
@@ -67,6 +67,9 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   const claimTravelerReward = () => {
     const onSuccess = async () => {
       updateTravelerQuest(address, missionId);
+      showModal({
+        type: 8,
+      });
     };
     _claimTravelerReward({
       args: [parseInt(missionId, 10)],
@@ -74,11 +77,11 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
     });
   };
 
-  const { write: _pauseQuest, state: pauseState  } = useWriteContract({
+  const { write: _pauseQuest, state: pauseState } = useWriteContract({
     ...Arm0ryQuests,
     functionName: "pauseQuest",
   });
-  
+
   const pauseQuest = () => {
     const onSuccess = async () => {
       navigate("/playground/missions");
@@ -148,7 +151,9 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                     {pauseState.writeStatus > 0 && (
                       <Spinner pathColor="border-[#2b328e]" />
                     )}
-                    <div className={`${pauseState.writeStatus > 0 ? "ml-2" : ""}`}>
+                    <div
+                      className={`${pauseState.writeStatus > 0 ? "ml-2" : ""}`}
+                    >
                       {pauseState.writeStatus === 1 && "Waiting for approval"}
                       {pauseState.writeStatus === 2 && "pending"}
                     </div>
@@ -158,24 +163,22 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
             )}
             {buttonState == 3 && (
               <>
-                  <button
-                    onClick={claimTravelerReward}
-                    disabled={claimState.writeStatus > 0}
-                    className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#a3e635] bg-[#a3e635] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#65a30d] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#65a30d] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#65a30d,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30"
-                  >
-                    <span className="text-md flex h-full flex-row items-center justify-center font-PasseroOne font-bold	 tracking-widest text-[#000]">
-                      {claimState.writeStatus === 0 && "Claim"}
-                      {claimState.writeStatus > 0 && <Spinner />}
-                      <div
-                        className={`${
-                          claimState.writeStatus > 0 ? "ml-2" : ""
-                        }`}
-                      >
-                        {claimState.writeStatus === 1 && "Waiting for approval"}
-                        {claimState.writeStatus === 2 && "Pending"}
-                      </div>
-                    </span>
-                  </button>
+                <button
+                  onClick={claimTravelerReward}
+                  disabled={claimState.writeStatus > 0}
+                  className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#a3e635] bg-[#a3e635] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#65a30d] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#65a30d] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#65a30d,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30"
+                >
+                  <span className="text-md flex h-full flex-row items-center justify-center font-PasseroOne font-bold	 tracking-widest text-[#000]">
+                    {claimState.writeStatus === 0 && "Claim"}
+                    {claimState.writeStatus > 0 && <Spinner />}
+                    <div
+                      className={`${claimState.writeStatus > 0 ? "ml-2" : ""}`}
+                    >
+                      {claimState.writeStatus === 1 && "Waiting for approval"}
+                      {claimState.writeStatus === 2 && "Pending"}
+                    </div>
+                  </span>
+                </button>
               </>
             )}
           </div>
