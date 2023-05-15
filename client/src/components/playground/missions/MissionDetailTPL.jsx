@@ -19,7 +19,17 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   const { missions } = playground;
   const { address, isConnected, isDisconnected } = useAccount();
   const [buttonState, setButtonState] = useState(0);
+  const [participants, setParticipants] = useState(0);
   const navigate = useNavigate();
+  useEffect(() => {
+    const _p = Math.round(
+      (missions[missionId]?.completionsCount / missions[missionId]?.impact) *
+        100
+    );
+    if (!Number.isNaN(_p)) {
+      setParticipants(_p);
+    }
+  }, [missions]);
 
   useEffect(() => {
     switch (true) {
@@ -231,23 +241,14 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                   );
                 })}
                 <div className="border-1 ml-2 flex h-7 w-7 cursor-cell	items-center justify-center rounded-full border-white bg-[#f7f0eb] text-xs font-semibold text-black hover:bg-[#ece2dc]">
-                  +{" "}
-                  {Math.round(
-                    (missions[missionId]?.completionsCount /
-                      missions[missionId]?.impact) *
-                      100
-                  )}
+                  + {participants}
                 </div>
               </div>
               <span className="ml-2 text-sm font-semibold"></span>
               <div
                 className={` tooltip absolute left-[100%]  bottom-0 z-10 inline-block translate-y-full -translate-x-full  rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80`}
               >
-                {Math.round(
-                  (missions[missionId]?.completionsCount /
-                    missions[missionId]?.impact) *
-                    100
-                )}
+                {participants}
                 <span className="ml-2">participants</span>
               </div>
             </div>

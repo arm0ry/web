@@ -168,8 +168,8 @@ export const getTravelerQuest = async (address, missionId) => {
       [...Array(missionId)].map(async (_, _id) => {
         const id = _id + 1;
         const [start, duration, complete, incomplete, progress, xp, claimed] = await getQuest(address, id);
-        
-        if(complete+incomplete > 0){
+        // TODO: Remove "start > 0" when contract is updated
+        if(complete+incomplete > 0 || start > 0){
           _quests[id] = {
             start, duration, complete, incomplete, progress, xp, claimed
           };

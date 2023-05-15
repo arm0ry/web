@@ -62,9 +62,9 @@ const userReducer = (state, action) => {
     case CHECK_APPROVE:
       return {
         ...state,
-        isMinted: true,
-        isApproved: true,
-        // ...action?.payload
+        // isMinted: true,
+        isApproved: action?.payload?.isApproved,
+        // ...action?.payload?.isApproved
       };
     case GET_REVIEWER_XP:
       return {
