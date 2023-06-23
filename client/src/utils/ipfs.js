@@ -2,10 +2,10 @@ import axios from "axios";
 
 export const convertIpfsHash = (source, gateway = 0) => {
   const gatewayPrefix = [
-    "https://content.wrappr.wtf/ipfs/",
-    "https://ipfs.filebase.io/ipfs/",
     "https://gateway.pinata.cloud/ipfs/",
     "https://cloudflare-ipfs.com/ipfs/",
+    "https://content.wrappr.wtf/ipfs/",
+    "https://ipfs.filebase.io/ipfs/",
     "https://ipfs.io/ipfs/",
   ];
   // const wrapprGatewayPrefix = "https://content.wrappr.wtf/ipfs/";

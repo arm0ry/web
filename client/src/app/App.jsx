@@ -33,7 +33,7 @@ const evmNetworks = [
       symbol: "ETH",
     },
     networkId: 5,
-    rpcUrls: ["https://rpc.ankr.com/eth_goerli"],
+    rpcUrls: [ "https://ethereum-goerli.publicnode.com", "https://rpc.ankr.com/eth_goerli"],
     shortName: "eth",
     vanityName: "Goerli",
   },
@@ -84,7 +84,7 @@ const App = () => (
         }}
       >
       {/* evmNetworks={evmNetworks} */}
-        <DynamicWagmiConnector  >
+        <DynamicWagmiConnector evmNetworks={evmNetworks}>
           <Modal/>
           <Routers />
         </DynamicWagmiConnector>
