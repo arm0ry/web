@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from "react";
+import axios from "axios";
+import { getAuthToken } from "@dynamic-labs/sdk-react";
 import { ethers, BigNumber } from "ethers";
 import { useAccount } from "wagmi";
 
@@ -10,7 +12,7 @@ import { LockIcon, PassportIdIcon } from "@assets";
 import { Arm0ryTravelers, RPC } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 
-import {Spinner} from "@components";
+import { Spinner } from "@components";
 
 const TravelerPass = () => {
   const { userInfo, setTravelerPass, setIsMinted } = useGlobalContext();
@@ -29,8 +31,58 @@ const TravelerPass = () => {
     mint({ onSuccess });
   };
 
+  const facuet = async () => {
+    console.log("facuet")
+    const authToken = getAuthToken();
+    // Headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${authToken}`,
+      },
+    };
+    const body = JSON.stringify({ address });
+    axios
+      .post("/api/users/facuet", body, config)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.error("user login() Error");
+        console.error(err);
+        // try {
+        //   if (err.response.status === 403) {
+        //     dispatch({
+        //       type: LOGIN_FAIL,
+        //     });
+        //     dispatch({
+        //       type: DELETE_ALL_APPT_DATA,
+        //     });
+        //   } else {
+        //     returnErrors(dispatch, {
+        //       msg: err.response.data.msg || JSON.stringify(err, null, 2),
+        //       status: err.response.status,
+        //       id: null,
+        //     });
+        //   }
+        // } catch (error) {
+        //   console.error(error);
+        // }
+        // throw err;
+      });
+
+  };
+
   return (
     <>
+      <button
+        type="button"
+        onClick={facuet}
+        className="hidden mr-2 mb-2 rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+      >
+        🪙🪙
+      </button>
+
       <div className=" relative flex  h-[calc(100vh_-_8rem)] items-center justify-center p-4  text-center  align-middle">
         {userInfo.status === 1 ? (
           <div
@@ -50,7 +102,7 @@ const TravelerPass = () => {
                     ? "opacity-100"
                     : "opacity-0"
                   : "hidden"
-              } flex  absolute top-1/2 left-1/2 z-[11] h-[95vw] w-[95vw] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg bg-gray-100 bg-opacity-60 p-6  pt-5 transition-all   duration-500 md:h-[40vw]  md:w-[40vw]`}
+              } absolute  top-1/2 left-1/2 z-[11] flex h-[95vw] w-[95vw] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg bg-gray-100 bg-opacity-60 p-6  pt-5 transition-all   duration-500 md:h-[40vw]  md:w-[40vw]`}
             >
               <LockIcon className={"h-40 w-40 opacity-80 "} />
             </div>
