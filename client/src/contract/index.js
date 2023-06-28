@@ -18,7 +18,7 @@ export const Arm0ryQuests = {
 };
 
 export const KaliDAO = {
-  address: "0x5e3255fee519ef9b7b41339d20abf5591f393c4d",
+  address: "0xd758a44e66f1702c92761110dd90168f57007b8f",
   abi: KaliDAO_abi,
 };
 
