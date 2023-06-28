@@ -8,12 +8,11 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       default: "",
+      unique: true,
     },
-    lastRequestAt: { type: Date, required: true, default: Date.now },
+    lastRequestAt: { type: Date, required: true, default: 0 },
   },
   { timestamps: true }
 );
 
 module.exports = User = mongoose.model("users", UserSchema);
-
-mongoose.model("User", UserSchema);

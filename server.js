@@ -3,6 +3,7 @@ const cors = require('cors')
 const bodyParser = require("body-parser");
 const path = require("path");
 const morgan = require('morgan')
+const mongoose = require('mongoose');
 
 
 require("dotenv").config();
@@ -15,6 +16,17 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+
+// DB Config
+const db = require('./config/keys').mongoURI
+// Connect to Mongo
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.dir(err));
 
 // API calls
 app.use("/api/users", require("./routes/api/users"));
