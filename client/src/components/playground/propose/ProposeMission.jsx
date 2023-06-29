@@ -37,6 +37,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
       ipfsCID,
       data.title,
       address,
+      0,
       data.fee,
     ]);
     return { ipfsCID, callData };
@@ -79,7 +80,7 @@ const ProposeMission = () => {
   const onSubmit = async (data) => {
     setInPrepare(true);
     encodeFunctionData(
-      ["uint8[]", "string", "string", "address", "uint256"],
+      ["uint8[]", "string", "string", "address", "uint8", "uint256"],
       data,
       address,
       Arm0ryMissions.abi,
@@ -112,6 +113,7 @@ const ProposeMission = () => {
         });
       })
       .catch((error) => {
+        console.log("error123",error);
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
       })
       .finally(() => {

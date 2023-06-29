@@ -278,7 +278,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               }
             })}
           </div>
-          <footer class="fixed bottom-0 left-0 z-20 h-fit w-full bg-[#fffcfa] pb-2 md:pl-64 md:pb-0">
+          <footer className="fixed bottom-0 left-0 z-20 h-fit w-full bg-[#fffcfa] pb-2 md:pl-64 md:pb-0">
             <div className="mx-auto flex max-w-[1024px] flex-row items-center justify-between border-t-2 p-3">
               <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
                 <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm  text-[#D6E6F2]">

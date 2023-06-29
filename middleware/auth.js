@@ -17,7 +17,7 @@ function auth(req, res, next) {
     const decoded = jwt.verify(token, process.env.VITE_DYNAMIC_PUBLIC_TOKEN.replace(/\\n/g, '\n'),);
     // const decoded = jwt.verify(token, "cd");
     // Add user from payload
-    console.log(decoded);
+    // console.log(decoded);
     req.user = decoded;
     next();
   } catch (e) {

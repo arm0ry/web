@@ -52,8 +52,9 @@ const useWriteContract = ({ address, abi, functionName }) => {
                 href={`https://goerli.etherscan.io/tx/${hash}`}
                 target="_blank"
                 rel="noreferrer"
+                className="font-extrabold text-green-900"
               >
-                View on Etherscan
+                &nbsp;View on Etherscan &#128279;
               </a>
             </span>
           ),
@@ -68,7 +69,7 @@ const useWriteContract = ({ address, abi, functionName }) => {
 
         await _onSuccess();
       } catch (error) {
-        console.log(error)
+        console.log(error);
         dispatch({ type: "error", payload: error });
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
         await _onError();

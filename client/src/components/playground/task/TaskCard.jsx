@@ -46,7 +46,7 @@ const TaskCard = ({ taskId, className="" }) => {
               <div className="inline-flex items-center w-fit px-2 py-1 bg-[#303481]  rounded-full text-sm font-bold text-[#D6E6F2]">
                 <ClockIcon />
                 <span className="ml-1">{secondToDay(tasks[taskId]?.duration)}{" days"}</span>
-                {/* <span class="ml-1">10{" days"}</span> */}
+                {/* <span className="ml-1">10{" days"}</span> */}
               </div>
               <Money>
                 {tasks[taskId]?.xp}<span className="text-xs ml-1">AMG</span>

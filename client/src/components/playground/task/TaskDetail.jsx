@@ -123,13 +123,13 @@ const TaskDetail = () => {
               </div>
               <div className="mt-2 ml-auto flex min-w-[7rem]  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end">
                 <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
-                  <div class="inline-flex w-fit items-center rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
+                  <div className="inline-flex w-fit items-center rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
                     <ClockIcon />
-                    <span class="ml-1">
+                    <span className="ml-1">
                       {parseInt(tasks[taskId]?.duration / 86400)}
                       {" days"}
                     </span>
-                    {/* <span class="ml-1">10{" days"}</span> */}
+                    {/* <span className="ml-1">10{" days"}</span> */}
                   </div>
                   <Money>
                     {tasks[taskId]?.xp}

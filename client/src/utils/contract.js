@@ -78,7 +78,7 @@ export const fetchMissionsData = async () => {
   return _missions;
 };
 export const isManager = async (address) => {
-  const _bool = await Arm0ryMissions_contract.isManager(address);//isReviewer
+  const _bool = await Arm0ryMissions_contract.isReviewer(address);//isReviewer
   return _bool;
 };
 export const whoOwnsPass = async (tokenId) => {

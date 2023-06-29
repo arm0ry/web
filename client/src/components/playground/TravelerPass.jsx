@@ -1,6 +1,4 @@
 import React, { useCallback, useState } from "react";
-import axios from "axios";
-import { getAuthToken } from "@dynamic-labs/sdk-react";
 import { ethers, BigNumber } from "ethers";
 import { useAccount } from "wagmi";
 
@@ -31,57 +29,9 @@ const TravelerPass = () => {
     mint({ onSuccess });
   };
 
-  const facuet = async () => {
-    console.log("facuet")
-    const authToken = getAuthToken();
-    // Headers
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${authToken}`,
-      },
-    };
-    const body = JSON.stringify({ address });
-    axios
-      .post("/api/users/facuet", body, config)
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.error("user login() Error");
-        console.error(err);
-        // try {
-        //   if (err.response.status === 403) {
-        //     dispatch({
-        //       type: LOGIN_FAIL,
-        //     });
-        //     dispatch({
-        //       type: DELETE_ALL_APPT_DATA,
-        //     });
-        //   } else {
-        //     returnErrors(dispatch, {
-        //       msg: err.response.data.msg || JSON.stringify(err, null, 2),
-        //       status: err.response.status,
-        //       id: null,
-        //     });
-        //   }
-        // } catch (error) {
-        //   console.error(error);
-        // }
-        // throw err;
-      });
-
-  };
 
   return (
     <>
-      <button
-        type="button"
-        onClick={facuet}
-        className="hidden mr-2 mb-2 rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
-      >
-        🪙🪙
-      </button>
 
       <div className=" relative flex  h-[calc(100vh_-_8rem)] items-center justify-center p-4  text-center  align-middle">
         {userInfo.status === 1 ? (

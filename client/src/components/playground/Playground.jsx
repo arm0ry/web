@@ -14,6 +14,7 @@ import {
   ArrowSVG,
   QuestIcon,
 } from "@assets";
+import FacuetButton from "../FacuetButton";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
 
 import { ethers } from "ethers";
@@ -33,9 +34,12 @@ import { Arm0ryMissions, Arm0ryQuests, RPC } from "../../contract";
 
 import { fetchMissionsData, fetchTasksData } from "@utils/contract";
 
-import { signIn, signOut, 
+import {
+  signIn,
+  signOut,
   getTravelerTask,
-  getTravelerQuest } from "@context/actions/userAction";
+  getTravelerQuest,
+} from "@context/actions/userAction";
 import {
   loadTasksData,
   loadMissionsData,
@@ -44,7 +48,7 @@ import {
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 
-import {Avatar, Alert} from "@components";
+import { Avatar, Alert } from "@components";
 
 // const svg = avatar.toString();
 const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => {} }) => {
@@ -115,7 +119,11 @@ const Playground = () => {
 
   useEffect(() => {
     if (isConnected) {
-      signIn({ address, taskId:playground.taskId, missionId:playground.missionId });
+      signIn({
+        address,
+        taskId: playground.taskId,
+        missionId: playground.missionId,
+      });
     }
   }, [isConnected]);
   useEffect(() => {
@@ -207,6 +215,7 @@ const Playground = () => {
               </Link>
             </div>
             <div className="flex items-center">
+              <FacuetButton />
               <div className="relative ml-3 flex items-center ">
                 <DynamicWidget
                   buttonClassName="connectButton"
@@ -284,7 +293,7 @@ const Playground = () => {
               <div
                 onClick={() => {
                   window.open(
-                    "https://app.kali.gg/daos/5/0x5e3255fee519ef9b7b41339d20abf5591f393c4d"
+                    "https://app.kali.gg/daos/5/0xd758a44e66f1702c92761110dd90168f57007b8f"
                   );
                   setToggleMenu(false);
                 }}
@@ -295,7 +304,7 @@ const Playground = () => {
               </div>
             </li>
           </ul>
-          {userInfo.isManager ? (
+          {/* {userInfo.isManager ? (
             <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
               <SidebarMultiLevelMenu name="Manager" Icon={ManagerIcon}>
                 <SidebarItem
@@ -314,8 +323,11 @@ const Playground = () => {
             </ul>
           ) : (
             <></>
-          )}
-          <Avatar className="mt-auto mb-3 h-12 w-12  shadow-lg " address={address}/>
+          )} */}
+          <Avatar
+            className="mt-auto mb-3 h-12 w-12  shadow-lg "
+            address={address}
+          />
         </div>
       </aside>
 

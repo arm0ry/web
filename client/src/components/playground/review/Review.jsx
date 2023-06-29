@@ -14,7 +14,7 @@ const Review = () => {
     <>
       {userInfo.reviewerXP >= 0 ? (
         <div className=" flex flex-row justify-end border-b-2 p-3">
-          <div class="inline-flex w-fit items-center  ">
+          <div className="inline-flex w-fit items-center  ">
             <span className="mr-1 font-PasseroOne text-lg font-semibold text-gray-600">
               Reviewer
             </span>

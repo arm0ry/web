@@ -7,7 +7,7 @@ const delay = {
 };
 const Spinner = ({ id }) => {
   return (
-    <div class="rotate-45">
+    <div className="rotate-45">
       <div
         className={`text-primary inline-block h-8 w-8 ${delay[id]} rounded-lg border-4 border-gray-400 opacity-100 motion-reduce:${delay[id]}`}
       ></div>

@@ -148,19 +148,19 @@ const Modal = ({ children }) => {
               </div>
             </div>
           </div>
-          {/* <div class="fixed top-0 left-0 right-0 z-[999]  w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
-            <div class="relative h-full w-full max-w-2xl md:h-auto">
-              <div class="relative rounded-lg bg-white shadow ">
-                <div class="flex items-start justify-between rounded-t border-b p-4 ">
-                  <h3 class="text-xl font-semibold text-gray-900 ">
+          {/* <div className="fixed top-0 left-0 right-0 z-[999]  w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
+            <div className="relative h-full w-full max-w-2xl md:h-auto">
+              <div className="relative rounded-lg bg-white shadow ">
+                <div className="flex items-start justify-between rounded-t border-b p-4 ">
+                  <h3 className="text-xl font-semibold text-gray-900 ">
                     Terms of Service
                   </h3>
                   <button
                     type="button"
-                    class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 "
+                    className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 "
                     data-modal-hide="defaultModal"
                   ><MenuUpIcon className="h-5 w-5" />
-                    <span class="sr-only">Close modal</span>
+                    <span className="sr-only">Close modal</span>
                   </button>
                 </div>
               </div>
