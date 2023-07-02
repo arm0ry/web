@@ -47,8 +47,9 @@ const ReviewTaskModal = ({ modalPayload }) => {
       loadUnreviews(playground.travelers, playground.taskId);
     };
     // TODO
+    console.log(traveler, questing, rTaskId, state);
     reviewTasks({
-      args: [traveler, questing, rTaskId, state, 0],
+      args: [traveler, questing, rTaskId, state],
       onSuccess,
       onError,
     });

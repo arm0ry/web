@@ -52,7 +52,7 @@ const useWriteContract = ({ address, abi, functionName }) => {
                 href={`https://goerli.etherscan.io/tx/${hash}`}
                 target="_blank"
                 rel="noreferrer"
-                className="font-extrabold text-green-900"
+                className="font-extrabold text-blue-900"
               >
                 &nbsp;View on Etherscan &#128279;
               </a>
