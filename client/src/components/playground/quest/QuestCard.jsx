@@ -18,7 +18,7 @@ const QuestCard = ({ missionId }) => {
           {missions[missionId]?.title}
         </h5>
         {playground.ipfs[missions[missionId]?.details] ? (
-          <p className="mb-3 font-normal text-gray-500 ">
+          <p className="mb-3 font-normal text-gray-500 line-clamp-2">
             {playground.ipfs[missions[missionId]?.details].detail}
           </p>
         ) : (

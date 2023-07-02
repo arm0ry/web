@@ -95,7 +95,7 @@ export const isApproved = async (tokenId) => {
 };
 export const fetchTravelPass = async (tokenId) => {
   const svg = await Arm0ryTravelers_contract.generateImage(tokenId);
-  const blob = new Blob([svg], { type: "image/svg+xml" });
+  const blob = new Blob([svg.replace(/&(?!#?[a-z0-9]+;)/g, '&amp;')], { type: "image/svg+xml" });
   return URL.createObjectURL(blob);
 };
 export const questing = async (address) => {
