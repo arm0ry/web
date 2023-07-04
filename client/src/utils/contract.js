@@ -192,3 +192,13 @@ export const getQuest = async (address, taskId) => {
   const Quest = await Arm0ryQuests_contract.getQuest(address, taskId);
   return Quest
 }
+export const isQuestComeplete = async (address, taskId) => {
+  // const Quest = await Arm0ryQuests_contract.getQuest(address, taskId);
+  const [, , , incomplete, , , ] = await getQuest(address, taskId);
+  console.log("incomplete", incomplete)
+  if(incomplete != 0){
+    return false
+  }else{
+    return true
+  }
+}

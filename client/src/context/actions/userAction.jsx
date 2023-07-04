@@ -30,6 +30,7 @@ import {
   isManager,
   questing,
   getQuest,
+  isQuestComeplete,
   travelerTaskState,
   travelerReviewerXP,
 } from "@utils/contract";
@@ -125,9 +126,19 @@ export const checkManager = async (address) => {
 export const getQuestId = async (address) => {
   try {
     const _questID = await questing(address);
+    let _inQuest = false;
+    // * *******************
+    if (_questID != 0){
+      const _isQuestComeplete = await isQuestComeplete(address, _questID)
+      if(!_isQuestComeplete){
+        _inQuest = true;
+        
+      }
+    }
+    console.log("_inQuest", _inQuest)
     dispatch.fn({
       type: GET_QUEST_ID,
-      payload: { questID: _questID },
+      payload: { questID: _questID, inQuest: _inQuest },
     });
   } catch (error) {
     console.error(error);

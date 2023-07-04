@@ -39,12 +39,6 @@ const userReducer = (state, action) => {
     case USER_SIGNIN:
       return {
         ...state,
-        // isMinted: action?.payload?.isMinted,
-        // isApproved: action?.payload?.isApproved,
-        // inQuest: action?.payload?.inQuest,
-        // questID: action?.payload?.questID,
-        // tokenId:action?.payload?.tokenId,
-        // travelerPass: action?.payload?.travelerPass,
         ...action?.payload,
       };
     case GET_TRAVELER_PASS:
@@ -74,7 +68,7 @@ const userReducer = (state, action) => {
     case GET_QUEST_ID:
       return {
         ...state,
-        inQuest: true,
+        inQuest: action?.payload?.inQuest,
         isApproved: false,
         questID: action?.payload?.questID,
         // ...action?.payload

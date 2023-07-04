@@ -9,6 +9,7 @@ import { Spinner, Avatar } from "@components";
 import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
 import { getQuest } from "@utils/contract";
+import { updateTravelerQuest } from "@context/actions/userAction";
 
 import useWriteContract from "@hooks/useWriteContract";
 import { pushAlert } from "@context/actions/alertAction";
@@ -36,7 +37,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
       case isConnected != true:
         setButtonState(0);
         break;
-      case userInfo.questID == missionId:
+      case userInfo.inQuest && userInfo.questID == missionId:
         setButtonState(2); //pause
         break;
       case userInfo.quests[missionId] === undefined && !userInfo.inQuest:
@@ -46,11 +47,12 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
         break;
 
       case userInfo.inQuest &&
-        userInfo.quests[missionId]?.inComplete == 0 &&
-        userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claim:
+        userInfo.quests[missionId]?.incomplete == 0 &&
+        userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
       case !userInfo.inQuest &&
-        userInfo.quests[missionId]?.inComplete == 0 &&
-        userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claim:
+        userInfo.quests[missionId]?.incomplete == 0 &&
+        userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
+        console.log("Claim");
         setButtonState(3); //Claim
         break;
       default:
