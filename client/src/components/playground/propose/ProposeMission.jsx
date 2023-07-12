@@ -101,7 +101,7 @@ const ProposeMission = () => {
               .map((item) => item.label)
               .join(", ")}\n\Creator:${address}\nFee:${
               data.fee
-            }${" AMG"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${
+            }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${
               data.detail
             }`,
             [Arm0ryMissions.address],

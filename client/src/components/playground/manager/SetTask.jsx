@@ -160,6 +160,10 @@ const SetTask = () => {
                   <option value="86400">1 Day</option>
                   <option value="172800">2 Days</option>
                   <option value="259200">3 Days</option>
+                  <option value="345600">4 Days</option>
+                  <option value="432000">5 Days</option>
+                  <option value="518400">6 Days</option>
+                  <option value="604800">7 Days</option>
                 </select>
               </div>
             </div>

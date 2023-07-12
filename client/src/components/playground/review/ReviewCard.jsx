@@ -86,7 +86,7 @@ const ReviewCard = ({ review }) => {
               </div>
               <Money>
                 {tasks[rTaskId]?.xp}
-                <span className="ml-1 text-xs">AMG</span>
+                <span className="ml-1 text-xs">xp</span>
               </Money>
             </div>
           </div>
