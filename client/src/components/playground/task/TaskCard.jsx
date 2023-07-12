@@ -49,7 +49,7 @@ const TaskCard = ({ taskId, className="" }) => {
                 {/* <span className="ml-1">10{" days"}</span> */}
               </div>
               <Money>
-                {tasks[taskId]?.xp}<span className="text-xs ml-1">AMG</span>
+                {tasks[taskId]?.xp}<span className="text-xs ml-1">xp</span>
               </Money>
             </div>
           </div>

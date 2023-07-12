@@ -134,7 +134,7 @@ const TaskDetail = () => {
                   <Money>
                     {tasks[taskId]?.xp}
 
-                    <span className="ml-1 text-sm">AMG</span>
+                    <span className="ml-1 text-sm">xp</span>
                   </Money>
                 </div>
               </div>
