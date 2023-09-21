@@ -5,7 +5,7 @@ import { Arm0ryMissions, Arm0ryQuests } from "@contract";
 
 import { useGlobalContext } from "@context/store";
 import TaskCard from "../task/TaskCard";
-import { Spinner, Avatar } from "@components";
+import { Spinner, Avatar, Markdown } from "@components";
 import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
 import { getQuest } from "@utils/contract";
@@ -21,6 +21,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   const { address, isConnected, isDisconnected } = useAccount();
   const [buttonState, setButtonState] = useState(0);
   const [participants, setParticipants] = useState(0);
+  const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const _p = Math.round(
@@ -199,10 +200,26 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               <p className="text-2xl font-bold text-slate-800  md:text-3xl ">
                 {missions[missionId]?.title}
               </p>
-              <p className=" text-slate-80 my-1 text-sm">
+              <div className={`flex-col mt-1 text-md z-0   ${expanded ? "" : "cursor-pointer"}`}>
                 {/* {console.log(playground.ipfs[missions[missionId]?.details])} */}
-                {playground.ipfs[missions[missionId]?.details]?.detail}
-              </p>
+                {/* // TODO */}
+                <div className={`${expanded ? "" : "line-clamp-3"}`}  onClick={() => setExpanded(true)}>
+                  <Markdown>
+                  {playground.ipfs[missions[missionId]?.details]?.detail}
+                  </Markdown>
+                </div>
+
+                <div
+                  className={`w-100 text-right text-blue-500 underline cursor-pointer z-10 ${expanded ? "-translate-y-4" : ""}`}
+                  onClick={() => setExpanded(!expanded)}
+                >
+                  <span className="">
+                    {expanded ? "Hide" : "Read more"}
+                  </span>
+                </div>
+
+                {/* {playground.ipfs[missions[missionId]?.details]?.detail} */}
+              </div>
               <div className="relative inline-block text-xs text-gray-600">
                 <span className="peer">
                   {" "}
@@ -255,6 +272,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               </div>
             </div>
           </div>
+
           <div className="mb-14 grid grid-cols-1 gap-5 p-4 md:grid-cols-6">
             {missions[missionId]?.taskIds.map((id, i) => {
               if (i % 2 === 0) {
@@ -280,6 +298,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               }
             })}
           </div>
+
           <footer className="fixed bottom-0 left-0 z-20 h-fit w-full bg-[#fffcfa] pb-2 md:pl-64 md:pb-0">
             <div className="mx-auto flex max-w-[1024px] flex-row items-center justify-between border-t-2 p-3">
               <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">

@@ -55,6 +55,14 @@ body {
   text-overflow: ellipsis;
   -webkit-box-pack: end;
 }
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  -webkit-box-pack: end;
+}
 
 @tailwind base;
 @tailwind components;

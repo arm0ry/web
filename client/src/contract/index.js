@@ -22,7 +22,8 @@ export const KaliDAO = {
   abi: KaliDAO_abi,
 };
 
-const goerli = "https://rpc.ankr.com/eth_goerli";
+// const goerli = "https://rpc.ankr.com/eth_goerli";
+const goerli = "https://ethereum-goerli.publicnode.com";
 
 export const RPC = { goerli };
 export const zero_address = "0x0000000000000000000000000000000000000000"
