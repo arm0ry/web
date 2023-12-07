@@ -20,6 +20,7 @@ import SubmitTaskModal from "./SubmitTaskModal";
 import ReviewTaskModal from "./ReviewTaskModal";
 import SpinnerModal from "./SpinnerModal";
 import FallingFlowerModal from "./FallingFlowerModal";
+import StateYourName from "./StateYourName";
 
 const sizeVariants = {
   lg: "max-w-lg",
@@ -111,6 +112,12 @@ const Modal = ({ children }) => {
         return (
           <>
             <FallingFlowerModal modalPayload={modalPayload} />
+          </>
+        );
+      case 9:
+        return (
+          <>
+            <StateYourName modalPayload={modalPayload} />
           </>
         );
 
