@@ -237,7 +237,7 @@ const Playground = () => {
       >
         <div className="flex h-full flex-col overflow-y-auto bg-white px-3 pb-4  ">
           <ul className="space-y-2">
-            <SidebarItem
+            {/* <SidebarItem
               to="traveller-pass"
               name="Passport"
               Icon={Passport}
@@ -252,7 +252,7 @@ const Playground = () => {
               />
             ) : (
               <></>
-            )}
+            )} */}
 
             <SidebarItem
               to="missions"
@@ -281,7 +281,7 @@ const Playground = () => {
              <SidebarItem
               to="responses"
               name="Responses"
-              Icon={BuddiesIcon}
+              Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
             />
           </ul>

@@ -31,6 +31,8 @@ const ResponseCard = ({ review }) => {
     });
   };
 
+  console.log(traveler, rTaskId, taskHomework, questing)
+
   return (
     <>
       <div className={`h-30 group relative w-full overflow-hidden`}>
@@ -76,9 +78,6 @@ const ResponseCard = ({ review }) => {
           </div>
           <div className="mt-2 ml-auto flex shrink-0  items-start justify-end justify-items-end md:mt-0 md:items-end ">
             <div className="flex flex-col flex-nowrap gap-2 md:p-2">
-              <div className="inline-flex w-fit items-center rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
-                <ClockIcon />
-              </div>
             </div>
           </div>
         </div>

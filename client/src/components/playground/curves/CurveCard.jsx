@@ -1,45 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import KaliDAO_abi from "../../../contract/KaliDAO.json";
-import KaliCurve_abi from "../../../contract/KaliCurve.json";
+import React from "react";
+import { KaliCurve } from "../../../contract";
 import { ethers } from "ethers";
 import { useAccount, useContractWrite, useContractRead } from "wagmi";
-import { showModal, cleanModal } from "@context/actions/modalAction";
 import { shortenAddress } from "@utils/shortenAddress";
-import { useGlobalContext } from "@context/store";
-import { Money, Avatar } from "@components";
-import { ClockIcon } from "@assets";
+import { Avatar } from "@components";
 
+const CurveCard = ({ curve }) => {
+  // console.log(ethers.utils.formatUnits(curve[1], 'wei'))
+  // console.log(ethers.utils.formatUnits(curve[2], 'wei'))
 
-const CurveCard = ({ review }) => {
-  console.log(review)
-  const { playground } = useGlobalContext();
-  const { tasks } = playground;
-  // const { traveler, taskId: rTaskId, taskHomework, questing } = review;
-  const { address, isConnected, isDisconnected } = useAccount();
-  const { data: mintPrice, isLoading, isFetched } = useContractRead({
-    address: '0xDd1189bd8d9f2D6Cc838798356DF84F79e4a3cD3',
-    abi: KaliCurve_abi,
-    functionName: 'getPrice',
-    args:[true, 1]
-  })
-
-console.log(ethers.utils.formatEther(mintPrice))
-  
+  const { address: user } = useAccount();
   const { write: clickMint } = useContractWrite({
-    address: '0xDd1189bd8d9f2D6Cc838798356DF84F79e4a3cD3',
-    abi: KaliCurve_abi,
+    address: KaliCurve.address,
+    abi: KaliCurve.abi,
     functionName: 'donate',
-        args: [1, address, ethers.utils.formatUnits(mintPrice, 'wei')],
-    account: address,
-    overrides: { value: mintPrice },
+    args: [1, user, ethers.utils.formatUnits(curve[1], 'wei')],
+    overrides: { value: curve[1] },
   })
 
   const { write: clickBurn } = useContractWrite({
-    address: '0xDd1189bd8d9f2D6Cc838798356DF84F79e4a3cD3',
-    abi: KaliCurve_abi,
+    address: KaliCurve.address,
+    abi: KaliCurve.abi,
     functionName: 'leave',
-    args: [1, address]
+    args: [1, user]
   })
 
   return (
@@ -52,58 +35,60 @@ console.log(ethers.utils.formatEther(mintPrice))
               <div
                 className={`flex shrink-0 flex-row items-center justify-center rounded-full bg-[#B6E4F4] h-fit md:px-2 md:py-1 text-xs font-semibold  text-black  shadow-sm`}
               >
-                <Avatar className={`h-5 w-5 `} address={review[0]} />
+                <Avatar className={`h-5 w-5 `} address={curve[0]} />
                 <span className="ml-1 hidden items-center md:block">
-                  {shortenAddress(review[0])}
+                  {shortenAddress(curve[0])}
                 </span>
               </div>
             </div>
-    
+          </div>
+          <div>
 
+            <div className="text-xs">
+              Mint Status: {curve[3] ? "Open" : "Closed"}
+            </div>
+            <div className="text-xs">
+              Curve Supply: {ethers.utils.formatUnits(curve[4], "wei")}
+            </div>
+            <div className="text-xs">
+              Burn Ratio: {ethers.utils.formatUnits(curve[5][1], "wei")} %
+            </div>
+            <div className="text-xs">
+              y = ({ethers.utils.formatUnits(curve[5][2], "wei")}x + {ethers.utils.formatUnits(curve[5][3], "wei")}) * {ethers.utils.formatEther(curve[5][0])} ether
+            </div>
+          </div>
+
+
+          <div className="mt-2 ml-auto flex shrink-0  items-start justify-end justify-items-end md:mt-0 md:items-end ">
+            <div className="flex flex-col flex-nowrap gap-2 md:p-2">
+            </div>
+          </div>
+          <div>
             <span
               className={`block cursor-pointer	 transition duration-200 `}
             >
               <button
                 disabled={!clickMint}
                 onClick={() => clickMint({
-                   overrides: { value: mintPrice }
+                  overrides: { value: curve[1] }
                 })}
                 className="rounded-lg p-2 text-blue-900 hover:bg-blue-100"
               >
-              <span className="text-base font-medium">Mint</span>
+                <div className="text-base font-medium">Mint</div>
+                <div className="text-xs">{ethers.utils.formatEther(curve[1])} ether</div>
               </button>
               <button
                 disabled={!clickBurn}
                 onClick={() => clickBurn({
-                    args: [1, address],
-                    from: address,
                 })}
                 className="rounded-lg p-2 text-blue-900 hover:bg-blue-100"
               >
-              <span className="text-base font-medium">Burn</span>
-            </button>
+                <span className="text-base font-medium">Burn</span>
+                <div className="text-xs">{ethers.utils.formatEther(curve[2])} ether</div>
+              </button>
             </span>
-          </div>
-          <div className="mt-2 ml-auto flex shrink-0  items-start justify-end justify-items-end md:mt-0 md:items-end ">
-            <div className="flex flex-col flex-nowrap gap-2 md:p-2">
-            </div>
-          </div>
-                  <div>
 
-              <div>
-              Mint Status: {review[1] ? "Open" : "Closed"}
-              </div>
-              <div>
-              Curve Supply: {ethers.utils.formatUnits(review[2], "wei")}
-              </div>
-              <div>
-                Burn Ratio: {ethers.utils.formatUnits(review[3][1], "wei")}
-              </div>
-              <div>
-
-              Curve Formula: y = ({ethers.utils.formatUnits(review[3][2], "wei")}x + {ethers.utils.formatUnits(review[3][3], "wei")}) * {ethers.utils.formatEther(review[3][0])} ether
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </>

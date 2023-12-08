@@ -37,7 +37,7 @@ export const Quest = {
 };
 
 export const KaliCurve = {
-  address: "0xDd1189bd8d9f2D6Cc838798356DF84F79e4a3cD3",
+  address: "0x1bf872b4a7d61ec57a42912671c69935154933fd",
   abi: KaliCurve_abi,
 };
 
