@@ -19,7 +19,9 @@ import {
   Manager,
   ProposeMission,
   SetTask,
-  SetMission
+  SetMission,
+  Curves,
+  Responses
 } from "../components";
 import { Navbar, Footer } from "../components/layout";
 import { useGlobalContext } from "@context/store";
@@ -64,6 +66,8 @@ const Routers = () => {
           <Route path="tasks" element={<Tasks />} />
           <Route path="tasks/:taskId" element={<TaskDetail />} />
           <Route path="review" element={<Review />} />
+          <Route path="curves" element={<Curves />} />
+          <Route path="responses" element={<Responses />} />
           <Route path="propose-task" element={<ProposeTask />} />
           <Route path="propose-mission" element={<ProposeMission />} />
           <Route path="manager" element={<Manager />} />

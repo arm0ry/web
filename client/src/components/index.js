@@ -23,6 +23,8 @@ export { default as Missions } from "./playground/missions/Missions";
 export { default as MissionDetail } from "./playground/missions/MissionDetail";
 export { default as ProposeMission } from "./playground/propose/ProposeMission";
 export { default as Review } from "./playground/review/Review";
+export { default as Curves } from "./playground/curves/Curves";
+export { default as Responses } from "./playground/responses/Responses";
 export { default as TravelerPass } from "./playground/TravelerPass";
 export { default as Quest } from "./playground/quest/Quest";
 export { default as QuestDetail } from "./playground/quest/QuestDetail";

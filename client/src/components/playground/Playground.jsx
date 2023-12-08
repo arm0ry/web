@@ -57,7 +57,7 @@ const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => {} }) => {
       <NavLink
         to={to}
         onClick={() => {
-          // console.log(to);
+          console.log(to);
           setToggleMenu(false);
           onClick();
         }}
@@ -266,9 +266,21 @@ const Playground = () => {
               Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             /> */}
-            <SidebarItem
+             <SidebarItem
+              to="curves"
+              name="Curve"
+              Icon={BuddiesIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            {/* <SidebarItem
               to="review"
               name="Review"
+              Icon={BuddiesIcon}
+              setToggleMenu={setToggleMenu}
+            /> */}
+             <SidebarItem
+              to="responses"
+              name="Responses"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
