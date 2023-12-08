@@ -76,7 +76,7 @@ const Curves = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-10 p-4 xl:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-10 p-4">
 
         {curves !== undefined ? curves?.map((curve, id) => {
           return <CurveCard key={id} curve={curve} />;
