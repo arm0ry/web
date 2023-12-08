@@ -91,7 +91,7 @@ const SubmitTaskModal = ({ modalPayload }) => {
           // reset();
           updateTravelerTask(taskId);
           cleanModal();
-          navigate("/playground/review");
+          // navigate("/playground/review");
         };
         const onError = () => {
           unpinCID(ipfsCID);
@@ -122,33 +122,24 @@ const SubmitTaskModal = ({ modalPayload }) => {
               </label> */}
             <div className="flex flex-row items-center justify-between">
               <MoodRadio moon="😁" value={"1"} register={register} />
-              <MoodRadio moon="🤨" value={"2"} register={register} />
-              <MoodRadio moon="🥲" value={"3"} register={register} />
+              <MoodRadio moon="🥱" value={"2"} register={register} />
+              <MoodRadio moon="🤩" value={"3"} register={register} />
             </div>
             {errors.firstName?.type === "required" && (
               <p role="alert">Required</p>
             )}
           </div>
           <div className="mb-6">
-            {/* <label
-                for="homework"
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                Homework
-              </label> */}
             <textarea
               id="homework"
-              // rows="10"
-              className={` ${
-                view ? "hidden" : "block"
-              } h-[calc(100vh_-_17rem)] w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 `}
+              className={` ${view ? "hidden" : "block"
+                } h-[calc(100vh_-_17rem)] w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 `}
               placeholder="Homework..."
               {...register("homework")}
             ></textarea>
             <div
-              className={`${
-                !view ? "hidden" : "block"
-              } h-[calc(100vh_-_17rem)] space-y-6 overflow-y-scroll  rounded-lg border-2 border-gray-400 p-6`}
+              className={`${!view ? "hidden" : "block"
+                } h-[calc(100vh_-_17rem)] space-y-6 overflow-y-scroll  rounded-lg border-2 border-gray-400 p-6`}
             >
               <Markdown>{watch("homework")}</Markdown>
             </div>

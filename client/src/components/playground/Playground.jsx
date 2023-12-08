@@ -51,7 +51,7 @@ import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
 
 // const svg = avatar.toString();
-const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => {} }) => {
+const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => { } }) => {
   return (
     <li>
       <NavLink
@@ -230,20 +230,19 @@ const Playground = () => {
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 h-screen w-64 pt-20 transition-transform ${
-          toggleMenu ? "transform-none" : "-translate-x-full"
-        } border-r border-gray-200 bg-white md:translate-x-0 `}
+        className={`fixed top-0 left-0 z-40 h-screen w-64 pt-20 transition-transform ${toggleMenu ? "transform-none" : "-translate-x-full"
+          } border-r border-gray-200 bg-white md:translate-x-0 `}
         aria-label="Sidebar"
       >
         <div className="flex h-full flex-col overflow-y-auto bg-white px-3 pb-4  ">
           <ul className="space-y-2">
-            {/* <SidebarItem
+            <SidebarItem
               to="traveller-pass"
               name="Passport"
               Icon={Passport}
               setToggleMenu={setToggleMenu}
             />
-            {isConnected ? (
+            {/* {isConnected ? (
               <SidebarItem
                 to="my-quest"
                 name="My Quest"
@@ -266,7 +265,7 @@ const Playground = () => {
               Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             /> */}
-             <SidebarItem
+            <SidebarItem
               to="curves"
               name="Curve"
               Icon={BuddiesIcon}
@@ -278,7 +277,7 @@ const Playground = () => {
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             /> */}
-             <SidebarItem
+            <SidebarItem
               to="responses"
               name="Responses"
               Icon={QuestIcon}

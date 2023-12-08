@@ -26,7 +26,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   useEffect(() => {
     const _p = Math.round(
       (missions[missionId]?.completionsCount / missions[missionId]?.impact) *
-        100
+      100
     );
     if (!Number.isNaN(_p)) {
       setParticipants(_p);
@@ -203,9 +203,9 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               <div className={`flex-col mt-1 text-md z-0   ${expanded ? "" : "cursor-pointer"}`}>
                 {/* {console.log(playground.ipfs[missions[missionId]?.details])} */}
                 {/* // TODO */}
-                <div className={`${expanded ? "" : "line-clamp-3"}`}  onClick={() => setExpanded(true)}>
+                <div className={`${expanded ? "" : "line-clamp-3"}`} onClick={() => setExpanded(true)}>
                   <Markdown>
-                  {playground.ipfs[missions[missionId]?.details]?.detail}
+                    {playground.ipfs[missions[missionId]?.details]?.detail}
                   </Markdown>
                 </div>
 
@@ -318,7 +318,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                 </div>
               </div>
               <div>
-                <button
+                {/* <button
                   onClick={purchase}
                   disabled={!isConnected || state.writeStatus > 0}
                   className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#FFD707] bg-[#FFD707] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#DAC400] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#DAC400] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#DAC400,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30"
@@ -334,7 +334,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                       {isConnected && state.writeStatus === 2 && "Pending"}
                     </div>
                   </span>
-                </button>
+                </button> */}
               </div>
             </div>
           </footer>

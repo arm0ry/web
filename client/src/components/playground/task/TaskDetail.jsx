@@ -5,7 +5,7 @@ import { useGlobalContext } from "@context/store";
 import { loadIPFS } from "@context/actions/playgroundAction";
 import { fetchIpfsCID } from "@utils/ipfs";
 import { shortenAddress } from "@utils/shortenAddress";
-import {Spinner} from "@components";
+import { Spinner } from "@components";
 import { Money, Markdown } from "../..";
 import { ClockIcon, PassIcon } from "@assets";
 import { showModal, cleanModal } from "@context/actions/modalAction";
@@ -20,27 +20,7 @@ const TaskDetail = () => {
   const { tasks } = playground;
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchData = async (cdi) => {
-  //     const res = await fetchIpfsCID(cdi);
-  //     setDetail(res.data.detail);
-  //     setTasks((p) => {
-  //       return { ...p, [taskId]: { ...p[taskId], content: res.data.detail } };
-  //     });
-  //   };
-  // if (Object.keys(tasks).length > 0) {
-  //   if (tasks[taskId] === undefined) {
-  //     return navigate("/playground/tasks");
-  //   }
-  // }
-  //   if (tasks[taskId]?.content !== "") {
-  //     setDetail(tasks[taskId]?.content);
-  //   } else {
-  //     fetchData(tasks[taskId]?.details).catch((err) => console.error(err));
-  //   }
-  // }, [tasks]);
   useEffect(() => {
-    // TODO
     if (Object.keys(tasks).length > 0) {
       if (tasks[taskId] === undefined) {
         return navigate("/playground/tasks");
@@ -70,16 +50,16 @@ const TaskDetail = () => {
             <span className="text-base font-medium">←Go Back</span>
           </button>
           {userInfo?.questID &&
-          missions[userInfo?.questID]?.taskIds.includes(Number(taskId)) ? (
+            missions[userInfo?.questID]?.taskIds.includes(Number(taskId)) ? (
             userInfo.tasks[taskId]?.state == 1 ? (
-              <PassIcon className="h-12"/>
+              <PassIcon className="h-12" />
             ) : (
               <div
                 onClick={clickButton}
                 className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
               >
                 <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
-                  
+
                   {userInfo.tasks[taskId]?.state === -1 ? "Submit" : "Edit"}
                 </span>
               </div>
@@ -88,7 +68,6 @@ const TaskDetail = () => {
             <></>
           )}
         </div>
-        {/* missions[missionId]?.taskIds.includes(taskId) */}
         {detail === undefined ? (
           <div className="w-100 flex h-[calc(100vh_-_6rem)] flex-col items-center justify-center">
             <Spinner
@@ -113,9 +92,8 @@ const TaskDetail = () => {
                 >
                   {shortenAddress(tasks[taskId]?.creator)}
                   <div
-                    className={`${
-                      tooltip ? "visible opacity-70" : "invisible opacity-0"
-                    } tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-1 py-1 text-xs  font-medium text-black shadow-sm`}
+                    className={`${tooltip ? "visible opacity-70" : "invisible opacity-0"
+                      } tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-1 py-1 text-xs  font-medium text-black shadow-sm`}
                   >
                     {tasks[taskId]?.creator}
                   </div>
@@ -129,17 +107,10 @@ const TaskDetail = () => {
                       {parseInt(tasks[taskId]?.duration / 86400)}
                       {" days"}
                     </span>
-                    {/* <span className="ml-1">10{" days"}</span> */}
                   </div>
-                  <Money>
-                    {tasks[taskId]?.xp}
-
-                    <span className="ml-1 text-sm">xp</span>
-                  </Money>
                 </div>
               </div>
             </div>
-            {/* <Markdown>{detail}</Markdown> */}
             <Markdown>{playground.ipfs[tasks[taskId].details].detail}</Markdown>
           </>
         )}
