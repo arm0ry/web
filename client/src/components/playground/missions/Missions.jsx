@@ -2,7 +2,11 @@ import React from "react";
 import { LegoBrickIcon } from "@assets";
 import { useGlobalContext } from "@context/store";
 import MissionCard from "./MissionCard";
+
+import { useSearchParams } from "react-router-dom";
+
 const Missions = () => {
+  
   const { playground } = useGlobalContext();
   const { missions } = playground;
   return (

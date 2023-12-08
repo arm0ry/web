@@ -94,7 +94,8 @@ const StartQuestModal = ({ modalPayload }) => {
   }
   const approveOnSuccess = async() => {
     setProgress("1/2")
-    await checkApprove(userInfo.tokenId)
+    // TODO remove checkApprove
+    // await checkApprove(userInfo.tokenId)
   };
   const approve = ()=>{
     setProgress("1/6")

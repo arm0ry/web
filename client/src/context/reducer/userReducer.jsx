@@ -13,20 +13,23 @@ export const GET_TRAVELER_QUESTS = "GET_TRAVELER_QUESTS";
 export const UPDATE_TRAVELER_QUESTS = "UPDATE_TRAVELER_QUESTS";
 // export const UPDATE_TASKS = "UPDATE_TASKS";
 export const UPDATE_TRAVELER_TASK = "UPDATE_TRAVELER_TASK";
+export const STRANGER_CONNECT = "STRANGER_CONNECT";
 
 export const userInitialState = () => {
   return {
-    isMinted: false,
-    isApproved: false,
+    // isMinted: false,
+    // isApproved: false,
     inQuest: false,
     questID: undefined, //undefined
-    tokenId: "",
-    travelerPass: "",
+    // tokenId: "",
+    // travelerPass: "",
     isManager: false,
     status:0,
     tasks:{},
     quests:{},
-    reviewerXP:undefined
+    // reviewerXP:undefined
+    isStranger: false,
+    strangerWallet: undefined
   };
 };
 const userReducer = (state, action) => {
@@ -41,35 +44,40 @@ const userReducer = (state, action) => {
         ...state,
         ...action?.payload,
       };
-    case GET_TRAVELER_PASS:
+    case STRANGER_CONNECT:
       return {
         ...state,
-        isMinted: true,
-        travelerPass: action?.payload?.travelerPass,
-        // ...action?.payload
+        ...action?.payload,
       };
-    case CHECK_MANAGER:
-      return {
-        ...state,
-        isManager: action?.payload?.isManager,
-      };
-    case CHECK_APPROVE:
-      return {
-        ...state,
-        // isMinted: true,
-        isApproved: action?.payload?.isApproved,
-        // ...action?.payload?.isApproved
-      };
-    case GET_REVIEWER_XP:
-      return {
-        ...state,
-        reviewerXP: action?.payload?.reviewerXP,
-      };
+    // !case GET_TRAVELER_PASS:
+    //   return {
+    //     ...state,
+    //     isMinted: true,
+    //     travelerPass: action?.payload?.travelerPass,
+    //     // ...action?.payload
+    //   };
+    // !case CHECK_MANAGER:
+    //   return {
+    //     ...state,
+    //     isManager: action?.payload?.isManager,
+    //   };
+    // !case CHECK_APPROVE:
+    //   return {
+    //     ...state,
+    //     // isMinted: true,
+    //     isApproved: action?.payload?.isApproved,
+    //     // ...action?.payload?.isApproved
+    //   };
+    // !case GET_REVIEWER_XP:
+    //   return {
+    //     ...state,
+    //     reviewerXP: action?.payload?.reviewerXP,
+    //   };
     case GET_QUEST_ID:
       return {
         ...state,
         inQuest: action?.payload?.inQuest,
-        isApproved: false,
+        // isApproved: false,
         questID: action?.payload?.questID,
         // ...action?.payload
       };

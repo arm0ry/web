@@ -55,8 +55,8 @@ const Routers = () => {
         <Route path="/" element={HomeLayout(<Home />)} />
         <Route path="/onboard" element={HomeLayout(<Onboard />)} />
         <Route path="/playground" element={<Playground />}>
-          <Route index element={<Navigate to="traveller-pass" replace />} />
-          <Route path="traveller-pass" element={<TravelerPass />} />
+          <Route index element={<Navigate to="missions" replace />} />
+          {/* <Route path="traveller-pass" element={<TravelerPass />} /> */}
           <Route path="my-quest" element={<Quest />} />
           <Route path="my-quest/:questId" element={<QuestDetail />} />
           <Route path="my-quest/:questId/:taskId" element={<TaskDetail />} />

@@ -108,7 +108,6 @@ const Playground = () => {
   const { address, isConnected, isDisconnected } = useAccount();
   const { playground, userInfo } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
-
   // const provider = useProvider();
   // const { chain, chains } = useNetwork();
   // useEffect(() => {

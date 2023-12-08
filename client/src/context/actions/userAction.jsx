@@ -13,6 +13,7 @@ import {
   GET_TRAVELER_TASK,
   CHECK_MANAGER,
   userInitialState,
+  STRANGER_CONNECT
 } from "../reducer/userReducer";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 import { pushAlert } from "@context/actions/alertAction";
@@ -43,49 +44,69 @@ export const signIn = async ({ address, taskId, missionId }) => {
   showModal({
     type: 7,
   });
-  const tokenId = BigNumber.from(address).toBigInt().toString(10);
-  const _ownerOf = await whoOwnsPass(tokenId);
-  switch (_ownerOf) {
-    case Arm0ryQuests.address:
-      // userState.inQuest = true;
-      // const _questID = await questing(address);
-      // userState.questID = _questID;
-      await getQuestId(address);
-    case address:
-      // const _travelerPass = await fetchTravelPass(tokenId);
-      // userState.travelerPass = _travelerPass;
-      // userState.isMinted = true;
-      await getTravelerPass(tokenId);
-      // const _isApproved = await isApproved(tokenId);
-      // if (_isApproved) {
-      //   userState.isApproved = true;
-      // }
-      await checkApprove(tokenId);
-      // userState.isManager = await isManager(address);
-      await checkManager(address);
-      // userState.tasks = await travelerTaskState(address, taskId);
-      await getTravelerTask(address, taskId);
-      // userState.reviewerXP = await travelerReviewerXP(address);
-      await getReviewerXP(address);
-      await getTravelerQuest(address, missionId);
-    case zero_address:
-    // userState.tokenId = tokenId;
-    // break;
-    default:
-      break;
-  }
-
+  // const tokenId = BigNumber.from(address).toBigInt().toString(10);
+  // const _ownerOf = await whoOwnsPass(tokenId);
+  // switch (_ownerOf) {
+  //   case Arm0ryQuests.address:
+  //     // userState.inQuest = true;
+  //     // const _questID = await questing(address);
+  //     // userState.questID = _questID;
+  //     await getQuestId(address);
+  //   case address:
+  //     // const _travelerPass = await fetchTravelPass(tokenId);
+  //     // userState.travelerPass = _travelerPass;
+  //     // userState.isMinted = true;
+  //     await getTravelerPass(tokenId);
+  //     // const _isApproved = await isApproved(tokenId);
+  //     // if (_isApproved) {
+  //     //   userState.isApproved = true;
+  //     // }
+  //     await checkApprove(tokenId);
+  //     // userState.isManager = await isManager(address);
+  //     await checkManager(address);
+  //     // userState.tasks = await travelerTaskState(address, taskId);
+  //     await getTravelerTask(address, taskId);
+  //     // userState.reviewerXP = await travelerReviewerXP(address);
+  //     await getReviewerXP(address);
+  //     await getTravelerQuest(address, missionId);
+  //   case zero_address:
+  //   // userState.tokenId = tokenId;
+  //   // break;
+  //   default:
+  //     break;
+  // }
+  
+  await getTravelerTask(address, taskId);
+  await getTravelerQuest(address, missionId);
   dispatch.fn({
     type: USER_SIGNIN,
     payload: { tokenId: tokenId, status: 2 },
   });
   cleanModal();
 };
+export const createStranger = async () => {
+  // TODO
+  let pk = localStorage.getItem('arm0ry');
+  if(pk=== null){
+    const w = ethers.Wallet.createRandom()
+    pk = w.privateKey;
+    localStorage.setItem('arm0ry',pk);
+  }
+  const strangerWallet = new ethers.Wallet(pk);
+
+  dispatch.fn({
+    type: STRANGER_CONNECT,
+    payload: { isStranger: true, strangerWallet },
+  });
+  cleanModal();
+
+}
 export const signOut = () => {
   dispatch.fn({
     type: USER_SIGNOUT,
   });
 };
+// ! 
 export const getTravelerPass = async (tokenId) => {
   try {
     const _travelerPass = await fetchTravelPass(tokenId);
@@ -128,14 +149,13 @@ export const getQuestId = async (address) => {
     const _questID = await questing(address);
     let _inQuest = false;
     // * *******************
-    if (_questID != 0){
-      const _isQuestComeplete = await isQuestComeplete(address, _questID)
-      if(!_isQuestComeplete){
+    if (_questID != 0) {
+      const _isQuestComeplete = await isQuestComeplete(address, _questID);
+      if (!_isQuestComeplete) {
         _inQuest = true;
-        
       }
     }
-    console.log("_inQuest", _inQuest)
+    console.log("_inQuest", _inQuest);
     dispatch.fn({
       type: GET_QUEST_ID,
       payload: { questID: _questID, inQuest: _inQuest },
@@ -178,11 +198,18 @@ export const getTravelerQuest = async (address, missionId) => {
     await Promise.all(
       [...Array(missionId)].map(async (_, _id) => {
         const id = _id + 1;
-        const [start, duration, complete, incomplete, progress, xp, claimed] = await getQuest(address, id);
+        const [start, duration, complete, incomplete, progress, xp, claimed] =
+          await getQuest(address, id);
         // TODO: Remove "start > 0" when contract is updated
-        if(complete+incomplete > 0 || start > 0){
+        if (complete + incomplete > 0 || start > 0) {
           _quests[id] = {
-            start, duration, complete, incomplete, progress, xp, claimed
+            start,
+            duration,
+            complete,
+            incomplete,
+            progress,
+            xp,
+            claimed,
           };
         }
       })
@@ -198,10 +225,14 @@ export const getTravelerQuest = async (address, missionId) => {
 };
 export const updateTravelerQuest = async (address, missionId) => {
   try {
-    const [start, duration, complete, incomplete, progress, xp, claimed] = await getQuest(address, missionId);
+    const [start, duration, complete, incomplete, progress, xp, claimed] =
+      await getQuest(address, missionId);
     dispatch.fn({
       type: UPDATE_TRAVELER_QUESTS,
-      payload: {missionId,  quest: {start, duration, complete, incomplete, progress, xp, claimed} },
+      payload: {
+        missionId,
+        quest: { start, duration, complete, incomplete, progress, xp, claimed },
+      },
     });
   } catch (error) {
     console.error(error);
