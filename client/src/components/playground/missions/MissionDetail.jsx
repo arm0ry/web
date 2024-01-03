@@ -23,7 +23,7 @@ const MissionDetail = () => {
 
   return (
     <>
-      <MissionDetailTPL missionId={missionId} magicButton="" / >
+      <MissionDetailTPL missionId={missionId} magicButton="" />
 
     </>
   );

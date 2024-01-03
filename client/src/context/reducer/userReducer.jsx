@@ -23,10 +23,10 @@ export const userInitialState = () => {
     tokenId: "",
     travelerPass: "",
     isManager: false,
-    status:0,
-    tasks:{},
-    quests:{},
-    reviewerXP:undefined
+    status: 0,
+    tasks: {},
+    quests: {},
+    reviewerXP: undefined
   };
 };
 const userReducer = (state, action) => {
@@ -34,32 +34,32 @@ const userReducer = (state, action) => {
     case USER_LOADING:
       return {
         ...state,
-        status:1
+        status: 1
       };
     case USER_SIGNIN:
       return {
         ...state,
         ...action?.payload,
       };
-    case GET_TRAVELER_PASS:
-      return {
-        ...state,
-        isMinted: true,
-        travelerPass: action?.payload?.travelerPass,
-        // ...action?.payload
-      };
-    case CHECK_MANAGER:
-      return {
-        ...state,
-        isManager: action?.payload?.isManager,
-      };
-    case CHECK_APPROVE:
-      return {
-        ...state,
-        // isMinted: true,
-        isApproved: action?.payload?.isApproved,
-        // ...action?.payload?.isApproved
-      };
+    // case GET_TRAVELER_PASS:
+    //   return {
+    //     ...state,
+    //     isMinted: true,
+    //     travelerPass: action?.payload?.travelerPass,
+    //     // ...action?.payload
+    //   };
+    // case CHECK_MANAGER:
+    //   return {
+    //     ...state,
+    //     isManager: action?.payload?.isManager,
+    //   };
+    // case CHECK_APPROVE:
+    //   return {
+    //     ...state,
+    //     // isMinted: true,
+    //     isApproved: action?.payload?.isApproved,
+    //     // ...action?.payload?.isApproved
+    //   };
     case GET_REVIEWER_XP:
       return {
         ...state,
@@ -76,22 +76,22 @@ const userReducer = (state, action) => {
     case GET_TRAVELER_TASK:
       return {
         ...state,
-        tasks:action?.payload?.tasks,
+        tasks: action?.payload?.tasks,
       };
     case GET_TRAVELER_QUESTS:
       return {
         ...state,
-        quests:action?.payload?.quests,
+        quests: action?.payload?.quests,
       };
     case UPDATE_TRAVELER_QUESTS:
       return {
         ...state,
-        quests:{...state.quests,[action?.payload?.missionId]: action?.payload?.quest},
+        quests: { ...state.quests, [action?.payload?.missionId]: action?.payload?.quest },
       };
     case UPDATE_TRAVELER_TASK:
       return {
         ...state,
-        tasks:{...state.tasks,[action?.payload?.taskId]:{...state.tasks[action?.payload?.taskId], state:0} }
+        tasks: { ...state.tasks, [action?.payload?.taskId]: { ...state.tasks[action?.payload?.taskId], state: 0 } }
       };
     case USER_SIGNOUT:
       return userInitialState();

@@ -25,9 +25,10 @@ const TaskDetail = () => {
       if (tasks[taskId] === undefined) {
         return navigate("/playground/tasks");
       } else {
-        loadIPFS(tasks[taskId]?.details, playground, () => {
-          setDetail(true);
-        });
+        setDetail(true);
+        // loadIPFS(tasks[taskId]?.details, playground, () => {
+        //   setDetail(true);
+        // });
       }
     }
   }, [tasks]);
@@ -39,6 +40,7 @@ const TaskDetail = () => {
     });
   };
 
+  // console.log(tasks[taskId]);
   return (
     <>
       <div className="mx-auto md:max-w-[1024px]">
@@ -99,7 +101,7 @@ const TaskDetail = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-2 ml-auto flex min-w-[7rem]  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end">
+              {/* <div className="mt-2 ml-auto flex min-w-[7rem]  items-start justify-end justify-items-end md:mt-0 md:items-end md:justify-end">
                 <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
                   <div className="inline-flex w-fit items-center rounded-full bg-[#303481] px-2  py-1 text-sm font-bold text-[#D6E6F2]">
                     <ClockIcon />
@@ -109,9 +111,10 @@ const TaskDetail = () => {
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
-            <Markdown>{playground.ipfs[tasks[taskId].details].detail}</Markdown>
+            {/* <Markdown>{playground.ipfs[tasks[taskId].details].detail}</Markdown> */}
+            <Markdown>{tasks[taskId].content}</Markdown>
           </>
         )}
       </div>

@@ -5,7 +5,7 @@ import { useAccount } from "wagmi";
 import { useGlobalContext } from "@context/store";
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
-import { getTravelerPass } from "@context/actions/userAction";
+// import { getTravelerPass } from "@context/actions/userAction";
 import { LockIcon, PassportIdIcon } from "@assets";
 import { Arm0ryTravelers, RPC } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
@@ -24,7 +24,7 @@ const TravelerPass = () => {
 
   const mintClick = () => {
     const onSuccess = () => {
-      getTravelerPass(userInfo.tokenId);
+      // getTravelerPass(userInfo.tokenId);
     };
     mint({ onSuccess });
   };
@@ -46,22 +46,20 @@ const TravelerPass = () => {
         ) : userInfo.isMinted ? (
           <>
             <div
-              className={`${
-                userInfo.inQuest
+              className={`${userInfo.inQuest
                   ? isLoaded
                     ? "opacity-100"
                     : "opacity-0"
                   : "hidden"
-              } absolute  top-1/2 left-1/2 z-[11] flex h-[95vw] w-[95vw] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg bg-gray-100 bg-opacity-60 p-6  pt-5 transition-all   duration-500 md:h-[40vw]  md:w-[40vw]`}
+                } absolute  top-1/2 left-1/2 z-[11] flex h-[95vw] w-[95vw] -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center justify-center rounded-lg bg-gray-100 bg-opacity-60 p-6  pt-5 transition-all   duration-500 md:h-[40vw]  md:w-[40vw]`}
             >
               <LockIcon className={"h-40 w-40 opacity-80 "} />
             </div>
             <img
-              className={`${
-                isLoaded
+              className={`${isLoaded
                   ? " opacity-100 blur-0"
                   : " bg-gray-200 opacity-20  blur-2xl"
-              } z-[10] m-1 h-[95vw] w-[95vw] max-w-full rounded-lg transition  duration-300 md:h-[40vw] md:w-[40vw]`}
+                } z-[10] m-1 h-[95vw] w-[95vw] max-w-full rounded-lg transition  duration-300 md:h-[40vw] md:w-[40vw]`}
               src={userInfo.travelerPass}
               alt="Traveler Pass"
               onLoad={() => setIsLoaded(true)}
@@ -71,9 +69,8 @@ const TravelerPass = () => {
           <div className="flex min-h-[95vw] min-w-[95vw] max-w-full select-none flex-col items-center justify-center rounded-lg border-4 border-dotted border-gray-400 pt-5 pb-6 md:min-h-[40vw] md:min-w-[40vw]">
             <PassportIdIcon className="mb-3 h-28  w-28 stroke-[17px] text-gray-300" />
             <div
-              className={`group h-14 w-52 min-w-fit p-1.5 transition-all duration-150 active:p-0 ${
-                (!isConnected || state.writeStatus > 0) && "pointer-events-none"
-              }`}
+              className={`group h-14 w-52 min-w-fit p-1.5 transition-all duration-150 active:p-0 ${(!isConnected || state.writeStatus > 0) && "pointer-events-none"
+                }`}
             >
               <button
                 type="button"

@@ -5,6 +5,9 @@ import MissionCard from "./MissionCard";
 const Missions = () => {
   const { playground } = useGlobalContext();
   const { missions } = playground;
+
+  console.log(missions)
+  console.log(playground)
   return (
     <>
       <div className="grid grid-cols-1 gap-5 p-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

@@ -13,19 +13,19 @@ import dispatch, { alertReducer, modalReducer, userReducer, playgroundReducer } 
 const GlobalContext = createContext();
 const combineDispatch =
   (...dispatches) =>
-  (action) =>
-    dispatches.forEach((dispatch) => dispatch(action));
+    (action) =>
+      dispatches.forEach((dispatch) => dispatch(action));
 
 export const GlobalContextProvider = ({ children }) => {
   const { address, isConnected, isDisconnected } = useAccount();
-// 
+  // 
   const [tasks, setTasks] = useState({});
   const [missions, setMissions] = useState({});
   // 
   const [alerts, _alertDispatch] = alertReducer();
   const [modalPayload, _modalDispatch] = modalReducer();
   const [userInfo, _userDispatch] = userReducer();
-  const  [playground, _playgroundDispatch] = playgroundReducer();
+  const [playground, _playgroundDispatch] = playgroundReducer();
 
   // * dispatch set
   if (!dispatch.isReady) {
@@ -41,7 +41,7 @@ export const GlobalContextProvider = ({ children }) => {
     Object.freeze(dispatch);
   }
 
-  
+
 
   return (
     <GlobalContext.Provider

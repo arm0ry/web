@@ -9,7 +9,7 @@ import { useGlobalContext } from "@context/store";
 import QuestCard from "./QuestCard";
 
 const Quest = () => {
-  const { playground, userInfo, isApproved, setIsApproved } =
+  const { playground, userInfo } =
     useGlobalContext();
 
   return (

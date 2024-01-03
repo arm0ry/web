@@ -18,29 +18,30 @@ export const UPDATE_MISSION = "UPDATE_MISSION";
 export const DELETE_MISSION = "DELETE_MISSION";
 
 export const playgroundInitialState = {
-  travelerCount:0,
+  travelerCount: 0,
   travelers: [],
-  unreviews:[],
-  tasks:{},
-  taskId:0,
-  missions:{},
-  missionId:0,
-  ipfs:{},
-  managers:[],//pass
-  
-
+  unreviews: [],
+  tasks: {},
+  taskId: 0,
+  missions: {},
+  missionId: 0,
+  ipfs: {},
+  managers: [],//pass
 };
+
 const playgroundReducer = (state, action) => {
+  console.log(state, action)
+
   switch (action?.type) {
     case LOAD_TRAVELERCOUNT:
       return {
         ...state,
-        travelerCount:action?.payload
+        travelerCount: action?.payload
       };
     case LOAD_TRAVELERS:
       return {
         ...state,
-        travelers:action?.payload
+        travelers: action?.payload
       };
     case LOAD_UNREVIEWS:
       return {
@@ -48,9 +49,9 @@ const playgroundReducer = (state, action) => {
         unreviews: action?.payload
       };
     case LOAD_CID:
-      return{
+      return {
         ...state,
-        ipfs: {...state.ipfs, ...action?.payload},
+        ipfs: { ...state.ipfs, ...action?.payload },
       }
     case LOAD_TASKID:
       return {

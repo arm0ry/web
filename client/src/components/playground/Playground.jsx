@@ -1,53 +1,34 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate, NavLink, Link, Outlet, redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, Link, Outlet } from "react-router-dom";
 import {
   logo,
   MenuUpIcon,
   MenuDownIcon,
-  Passport,
-  TaskIcon,
   MissionIcon,
   BuddiesIcon,
   ProposeIcon,
   KaliLogo,
-  ManagerIcon,
   ArrowSVG,
   QuestIcon,
 } from "@assets";
 import FacuetButton from "../FacuetButton";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
-
-import { ethers } from "ethers";
 import {
-  useContractRead,
   useAccount,
-  useProvider,
-  useNetwork,
   useContractEvent,
-  useBlockNumber,
 } from "wagmi";
-import { createClient, configureChains, mainnet, goerli } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
-
-import { getContract } from "@wagmi/core";
-import { Arm0ryMissions, Arm0ryQuests, RPC } from "../../contract";
-
-import { fetchMissionsData, fetchTasksData } from "@utils/contract";
-
+import { Arm0ryMissions, Arm0ryQuests, Mission, Quest, RPC } from "../../contract";
 import {
   signIn,
   signOut,
-  getTravelerTask,
-  getTravelerQuest,
+  // getTravelerTask,
+  // getTravelerQuest,
 } from "@context/actions/userAction";
 import {
   loadTasksData,
   loadMissionsData,
-  loadTravelers,
-  loadUnreviews,
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
-
 import { Avatar, Alert } from "@components";
 
 // const svg = avatar.toString();
@@ -128,8 +109,8 @@ const Playground = () => {
   }, [isConnected]);
   useEffect(() => {
     if (isConnected) {
-      getTravelerTask(address, playground.taskId);
-      getTravelerQuest(address, playground.missionId);
+      // getTravelerTask(address, playground.taskId);
+      // getTravelerQuest(address, playground.missionId);
     }
   }, [playground.taskId, playground.missionId]);
   useEffect(() => {
@@ -162,7 +143,7 @@ const Playground = () => {
     eventName: "TaskSubmitted",
     listener(node, label, owner) {
       // console.log(node, label, owner);
-      loadUnreviews(playground.travelers, playground.taskId);
+      // loadUnreviews(playground.travelers, playground.taskId);
     },
     chainId: 5,
   });
@@ -171,7 +152,7 @@ const Playground = () => {
     eventName: "TaskReviewed",
     listener(node, label, owner) {
       // console.log(node, label, owner);
-      loadUnreviews(playground.travelers, playground.taskId);
+      // loadUnreviews(playground.travelers, playground.taskId);
     },
     chainId: 5,
   });
@@ -183,12 +164,12 @@ const Playground = () => {
   useEffect(() => {
     loadTasksData();
     loadMissionsData(playground);
-    loadTravelers();
+    // loadTravelers();
   }, []);
   // load Unreviews
   useEffect(() => {
     if (playground.travelers.length > 0 && playground.taskId > 0) {
-      loadUnreviews(playground.travelers, playground.taskId);
+      // loadUnreviews(playground.travelers, playground.taskId);
     }
   }, [playground.travelers, playground.taskId]);
 
@@ -237,46 +218,17 @@ const Playground = () => {
         <div className="flex h-full flex-col overflow-y-auto bg-white px-3 pb-4  ">
           <ul className="space-y-2">
             <SidebarItem
-              to="traveller-pass"
-              name="Passport"
-              Icon={Passport}
-              setToggleMenu={setToggleMenu}
-            />
-            {/* {isConnected ? (
-              <SidebarItem
-                to="my-quest"
-                name="My Quest"
-                Icon={QuestIcon}
-                setToggleMenu={setToggleMenu}
-              />
-            ) : (
-              <></>
-            )} */}
-
-            <SidebarItem
               to="missions"
               name="Missions"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
-            {/* <SidebarItem
-              to="tasks"
-              name="Tasks"
-              Icon={TaskIcon}
-              setToggleMenu={setToggleMenu}
-            /> */}
             <SidebarItem
               to="curves"
               name="Curve"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
-            {/* <SidebarItem
-              to="review"
-              name="Review"
-              Icon={BuddiesIcon}
-              setToggleMenu={setToggleMenu}
-            /> */}
             <SidebarItem
               to="responses"
               name="Responses"
@@ -315,26 +267,6 @@ const Playground = () => {
               </div>
             </li>
           </ul>
-          {/* {userInfo.isManager ? (
-            <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-              <SidebarMultiLevelMenu name="Manager" Icon={ManagerIcon}>
-                <SidebarItem
-                  to="manager/set-task"
-                  name="Set Task"
-                  Icon={() => <div className="pl-6" />}
-                  setToggleMenu={setToggleMenu}
-                />
-                <SidebarItem
-                  to="manager/set-mission"
-                  name="Set Mission"
-                  Icon={() => <div className="pl-6" />}
-                  setToggleMenu={setToggleMenu}
-                />
-              </SidebarMultiLevelMenu>
-            </ul>
-          ) : (
-            <></>
-          )} */}
           <Avatar
             className="mt-auto mb-3 h-12 w-12  shadow-lg "
             address={address}

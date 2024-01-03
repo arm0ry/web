@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useGlobalContext } from "@context/store";
-import { KaliCurve } from "../../../contract";
+import { ImpactCurves } from "../../../contract";
 import { ethers } from "ethers";
 import {
   useContractInfiniteReads,
@@ -17,44 +17,44 @@ const Curves = () => {
       (index) => {
         return [
           {
-            address: KaliCurve.address,
-            abi: KaliCurve.abi,
+            address: ImpactCurves.address,
+            abi: ImpactCurves.abi,
             functionName: "getCurveOwner",
             args: [index],
           },
           {
-            address: KaliCurve.address,
-            abi: KaliCurve.abi,
+            address: ImpactCurves.address,
+            abi: ImpactCurves.abi,
             functionName: "getPrice",
             args: [true, index],
           },
           {
-            address: KaliCurve.address,
-            abi: KaliCurve.abi,
+            address: ImpactCurves.address,
+            abi: ImpactCurves.abi,
             functionName: "getPrice",
             args: [false, index],
           },
           {
-            address: KaliCurve.address,
-            abi: KaliCurve.abi,
+            address: ImpactCurves.address,
+            abi: ImpactCurves.abi,
             functionName: "getCurveTreasury",
             args: [index],
           },
           {
-            address: KaliCurve.address,
-            abi: KaliCurve.abi,
+            address: ImpactCurves.address,
+            abi: ImpactCurves.abi,
             functionName: "getCurveSupply",
             args: [index],
           },
           {
-            address: KaliCurve.address,
-            abi: KaliCurve.abi,
+            address: ImpactCurves.address,
+            abi: ImpactCurves.abi,
             functionName: "getCurveData",
             args: [index],
           },
           {
-            address: KaliCurve.address,
-            abi: KaliCurve.abi,
+            address: ImpactCurves.address,
+            abi: ImpactCurves.abi,
             functionName: "getImpactDao",
             args: [index],
           },

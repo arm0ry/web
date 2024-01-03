@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 
 import { useGlobalContext } from "@context/store";
-import { updateTravelerTask } from "@context/actions/userAction";
+// import { updateTravelerTask } from "@context/actions/userAction";
 import { cleanModal } from "@context/actions/modalAction";
 
 import { Spinner, Markdown } from "@components";

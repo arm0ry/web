@@ -9,7 +9,7 @@ import { useGlobalContext } from "@context/store";
 import MissionDetailTPL from "../missions/MissionDetailTPL";
 
 const QuestDetail = () => {
-  const { playground, userInfo, isApproved, setIsApproved } =
+  const { playground, userInfo } =
     useGlobalContext();
   const { missions } = playground;
   const { address, isConnected, isDisconnected } = useAccount();

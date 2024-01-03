@@ -5,14 +5,14 @@ import { useAccount } from "wagmi";
 import useWriteContract from "@hooks/useWriteContract";
 import { Arm0ryQuests } from "@contract";
 
-import { loadIPFS, loadUnreviews } from "@context/actions/playgroundAction";
+import { loadIPFS } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 import { pushAlert } from "@context/actions/alertAction";
 import { shortenAddress } from "@utils/shortenAddress";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 import { unpinCID } from "@utils/ipfs";
 
-import {Spinner, Markdown, Avatar} from "@components";
+import { Spinner, Markdown, Avatar } from "@components";
 import CloseModalButton from "./CloseModalButton";
 
 const ReviewTaskModal = ({ modalPayload }) => {
@@ -39,12 +39,12 @@ const ReviewTaskModal = ({ modalPayload }) => {
   const review = async (state) => {
     const onSuccess = () => {
       cleanModal();
-      loadUnreviews(playground.travelers, playground.taskId);
+      // loadUnreviews(playground.travelers, playground.taskId);
       unpinCID(taskHomework);
     };
     const onError = () => {
       // cleanModal();
-      loadUnreviews(playground.travelers, playground.taskId);
+      // loadUnreviews(playground.travelers, playground.taskId);
     };
     // TODO
     console.log(traveler, questing, rTaskId, state);

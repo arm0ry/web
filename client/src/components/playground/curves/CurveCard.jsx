@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { KaliCurve } from "../../../contract";
+import { ImpactCurves } from "../../../contract";
 import { ethers } from "ethers";
 import { useAccount, useContractWrite, useContractRead } from "wagmi";
 import { shortenAddress } from "@utils/shortenAddress";
@@ -11,16 +11,16 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 const CurveCard = ({ curve }) => {
   const { address: user } = useAccount();
   const { write: clickMint } = useContractWrite({
-    address: KaliCurve.address,
-    abi: KaliCurve.abi,
+    address: ImpactCurves.address,
+    abi: ImpactCurves.abi,
     functionName: 'donate',
     args: [1, user, ethers.utils.formatUnits(curve[1], 'wei')],
     overrides: { value: curve[1] },
   })
 
   const { write: clickBurn } = useContractWrite({
-    address: KaliCurve.address,
-    abi: KaliCurve.abi,
+    address: ImpactCurves.address,
+    abi: ImpactCurves.abi,
     functionName: 'leave',
     args: [1, user]
   })

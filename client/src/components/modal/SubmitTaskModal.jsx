@@ -7,7 +7,7 @@ import useWriteContract from "@hooks/useWriteContract";
 import { Arm0ryQuests } from "@contract";
 
 import { useGlobalContext } from "@context/store";
-import { updateTravelerTask } from "@context/actions/userAction";
+// import { updateTravelerTask } from "@context/actions/userAction";
 import { pushAlert } from "@context/actions/alertAction";
 import { cleanModal } from "@context/actions/modalAction";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
@@ -89,7 +89,7 @@ const SubmitTaskModal = ({ modalPayload }) => {
         setInPrepare(false);
         const onSuccess = () => {
           // reset();
-          updateTravelerTask(taskId);
+          // updateTravelerTask(taskId);
           cleanModal();
           // navigate("/playground/review");
         };

@@ -200,14 +200,22 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               <p className="text-2xl font-bold text-slate-800  md:text-3xl ">
                 {missions[missionId]?.title}
               </p>
+              <p className="text-2xl font-bold text-slate-800  md:text-3xl ">
+                34253245 seconds
+              </p>
               <div className={`flex-col mt-1 text-md z-0   ${expanded ? "" : "cursor-pointer"}`}>
-                {/* {console.log(playground.ipfs[missions[missionId]?.details])} */}
-                {/* // TODO */}
+                <div className={`${expanded ? "" : "line-clamp-3"}`} onClick={() => setExpanded(true)}>
+                  <Markdown>
+                    {missions[missionId]?.details}
+                  </Markdown>
+                </div>
+
+                {/* // TODO: Restore after testing completes
                 <div className={`${expanded ? "" : "line-clamp-3"}`} onClick={() => setExpanded(true)}>
                   <Markdown>
                     {playground.ipfs[missions[missionId]?.details]?.detail}
                   </Markdown>
-                </div>
+                </div> */}
 
                 <div
                   className={`w-100 text-right text-blue-500 underline cursor-pointer z-10 ${expanded ? "-translate-y-4" : ""}`}
@@ -217,8 +225,6 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                     {expanded ? "Hide" : "Read more"}
                   </span>
                 </div>
-
-                {/* {playground.ipfs[missions[missionId]?.details]?.detail} */}
               </div>
               <div className="relative inline-block text-xs text-gray-600">
                 <span className="peer">
@@ -235,7 +241,6 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
             </div>
             <div className="mt-2 ml-auto flex w-fit  items-end justify-end  self-end">
               <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
-                {/* // TODO */}
               </div>
             </div>
           </div>
