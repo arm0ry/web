@@ -4,7 +4,7 @@ import Arm0ryQuests_abi from "./Arm0ryQuests.json";
 import KaliDAO_abi from "./KaliDAO.json";
 import Mission_abi from "./Mission.json";
 import Quest_abi from "./Quest.json";
-import KaliCurve_abi from "./KaliCurve.json";
+import ImpactCurves_abi from "./ImpactCurves.json";
 
 export const Arm0ryMissions = {
   address: "0xf3dc858aB0b39daB2E382128c20A3f1f836a39C3",
@@ -27,18 +27,18 @@ export const KaliDAO = {
 };
 
 export const Mission = {
-  address: "0x992341e2f5e05f76bb122622903ff488db5fc8d3",
+  address: "0x95577cc92c8EA9E31C15F977a5A1462E8110672A",
   abi: Mission_abi,
 };
 
 export const Quest = {
-  address: "0x31383bB72F1F98e6e28A8CB1a10aaF60AE39146c",
+  address: "0x4A8A96dc4e98C07f2F81cc665a810757d6652364",
   abi: Quest_abi,
 };
 
-export const KaliCurve = {
+export const ImpactCurves = {
   address: "0x1bf872b4a7d61ec57a42912671c69935154933fd",
-  abi: KaliCurve_abi,
+  abi: ImpactCurves_abi,
 };
 
 // const goerli = "https://rpc.ankr.com/eth_goerli";
