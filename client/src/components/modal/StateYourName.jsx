@@ -16,10 +16,10 @@ const StateYourNameModal = ({ modalPayload }) => {
   const navigate = useNavigate();
   const { address, isConnected, isDisconnected } = useAccount();
   const { questID: questId, taskId } = modalPayload.content;
-
+  console.log(modalPayload)
   useEffect(() => {
     if (isConnected) {
-      cleanModal();
+      // cleanModal();
     }
   }, [isConnected]);
   const onSubmit = async (data) => {
@@ -31,7 +31,7 @@ const StateYourNameModal = ({ modalPayload }) => {
       <div className="flex items-start justify-between rounded-t px-4 pt-4 pb-2 ">
         <CloseModalButton />
       </div>
-      <div className="flex h-[calc(100vh_-_6rem)]  space-y-6 overflow-y-scroll px-6 py-4">
+      <div className="flex h-[calc(100vh_-_50rem)]  space-y-6 overflow-y-scroll px-6 py-4 bg-slate-100" >
         <h2>Hello!</h2>
         <div className="flex flex-col mx-auto items-center justify-center gap-3">
           <DynamicWidget

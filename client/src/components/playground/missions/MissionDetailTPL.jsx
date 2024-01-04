@@ -135,7 +135,6 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               <span className="text-base font-medium">←Go Back</span>
             </button>
             {magicButton}
-            {/* // TODO */}
             {buttonState == 1 && (
               <>
                 <div

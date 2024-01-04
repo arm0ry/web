@@ -18,6 +18,7 @@ import ConfirmModal from "./ConfirmModal";
 import StartQuestModal from "./StartQuestModal";
 import SubmitTaskModal from "./SubmitTaskModal";
 import ReviewTaskModal from "./ReviewTaskModal";
+import StateYourNameModal from "./StateYourName";
 import SpinnerModal from "./SpinnerModal";
 import FallingFlowerModal from "./FallingFlowerModal";
 import StateYourName from "./StateYourName";
@@ -87,7 +88,8 @@ const Modal = ({ children }) => {
       case 4:
         return (
           <>
-            <StartQuestModal modalPayload={modalPayload} />
+            <StateYourNameModal modalPayload={modalPayload} />
+            {/* <StartQuestModal modalPayload={modalPayload} /> */}
           </>
         );
       case 5:
@@ -140,16 +142,14 @@ const Modal = ({ children }) => {
           <LockBodyScroll />
           <div className="fixed  inset-0 z-[100] flex h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-white bg-opacity-10  backdrop-blur backdrop-filter">
             <div
-              className={`relative h-auto w-full ${
-                sizeVariants[modalPayload.size]
-              } mx-2 md:h-auto`}
-              // className={`relative h-auto w-full max-w-3xl mx-2 md:h-auto`}
+              className={`relative h-auto w-full ${sizeVariants[modalPayload.size]
+                } mx-2 md:h-auto`}
+            // className={`relative h-auto w-full max-w-3xl mx-2 md:h-auto`}
             >
               <div
                 ref={ref}
-                className={`relative rounded-lg ${
-                  modalPayload.type !== 7 ? "bg-white shadow" : ""
-                } `}
+                className={`relative rounded-lg ${modalPayload.type !== 7 ? "bg-white shadow" : ""
+                  } `}
               >
                 {generateModal}
               </div>
