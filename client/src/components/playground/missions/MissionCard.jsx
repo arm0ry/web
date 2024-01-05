@@ -18,14 +18,14 @@ const MissionCard = ({ missionId }) => {
           {missions[missionId]?.title}
         </h5>
         {missions[missionId].details ? (
-          <p className="mb-3 font-normal text-gray-500 line-clamp-2 ">
+          <p className="mb-3 font-normal text-gray-500 line-clamp-4 ">
             {missions[missionId].details}
           </p>
         ) : (
           <Spinner className="h-4 w-4 border-b-2" pathColor="border-gray-500" />
         )}
 
-        // TODO: Restore after testing completes
+        {/* // TODO: Restore after testing completes */}
         {/* {playground.ipfs[missions[missionId]?.details] ? (
           <p className="mb-3 font-normal text-gray-500 line-clamp-2 ">
             {playground.ipfs[missions[missionId]?.details].detail}

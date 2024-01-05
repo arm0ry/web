@@ -27,12 +27,12 @@ export const KaliDAO = {
 };
 
 export const Mission = {
-  address: "0x95577cc92c8EA9E31C15F977a5A1462E8110672A",
+  address: "0xA5aA397A681F386094DF1664F706d13c1842AD58",
   abi: Mission_abi,
 };
 
 export const Quest = {
-  address: "0x4A8A96dc4e98C07f2F81cc665a810757d6652364",
+  address: "0xcDEA3E2Ce9bc2360CdD6E66813B257f90E4eB0A6",
   abi: Quest_abi,
 };
 

@@ -34,32 +34,34 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   }, [missions]);
 
   useEffect(() => {
-    switch (true) {
-      case isConnected != true:
-        setButtonState(0);
-        break;
-      case userInfo.inQuest && userInfo.questID == missionId:
-        setButtonState(2); //pause
-        break;
-      case userInfo.quests[missionId] === undefined && !userInfo.inQuest:
-      // case userInfo.quests[missionId] !== undefined && !userInfo.inQuest && userInfo.quests[missionId]?.inComplete > 0:
-      case !userInfo.inQuest && userInfo.quests[missionId]?.inComplete > 0:
-        setButtonState(1); //Activate
-        break;
+    setButtonState(1); //Activate
 
-      case userInfo.inQuest &&
-        userInfo.quests[missionId]?.incomplete == 0 &&
-        userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
-      case !userInfo.inQuest &&
-        userInfo.quests[missionId]?.incomplete == 0 &&
-        userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
-        console.log("Claim");
-        setButtonState(3); //Claim
-        break;
-      default:
-        setButtonState(0);
-        break;
-    }
+    // switch (true) {
+    //   case isConnected != true:
+    //     setButtonState(0);
+    //     break;
+    //   case userInfo.inQuest && userInfo.questID == missionId:
+    //     setButtonState(2); //pause
+    //     break;
+    //   case userInfo.quests[missionId] === undefined && !userInfo.inQuest:
+    //   // case userInfo.quests[missionId] !== undefined && !userInfo.inQuest && userInfo.quests[missionId]?.inComplete > 0:
+    //   case !userInfo.inQuest && userInfo.quests[missionId]?.inComplete > 0:
+    //     setButtonState(1); //Activate
+    //     break;
+
+    //   case userInfo.inQuest &&
+    //     userInfo.quests[missionId]?.incomplete == 0 &&
+    //     userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
+    //   case !userInfo.inQuest &&
+    //     userInfo.quests[missionId]?.incomplete == 0 &&
+    //     userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
+    //     console.log("Claim");
+    //     setButtonState(3); //Claim
+    //     break;
+    //   default:
+    //     setButtonState(0);
+    //     break;
+    // }
   }, [userInfo.questID, userInfo.quests, userInfo.inQuest, isConnected]);
 
   const { write: _purchase, state } = useWriteContract({
@@ -200,7 +202,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                 {missions[missionId]?.title}
               </p>
               <p className="text-2xl font-bold text-slate-800  md:text-3xl ">
-                34253245 seconds
+                {/* 34253245 seconds */}
               </p>
               <div className={`flex-col mt-1 text-md z-0   ${expanded ? "" : "cursor-pointer"}`}>
                 <div className={`${expanded ? "" : "line-clamp-3"}`} onClick={() => setExpanded(true)}>

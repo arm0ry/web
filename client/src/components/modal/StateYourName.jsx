@@ -49,7 +49,7 @@ const StateYourNameModal = ({ modalPayload }) => {
       <div className="flex items-start justify-between rounded-t px-4 pt-4 pb-2 ">
         <CloseModalButton />
       </div>
-      <div className="flex h-[calc(100vh_-_50rem)]  space-y-6 overflow-y-scroll px-6 py-4 bg-slate-100" >
+      <div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
         <div className="flex flex-col mx-auto items-center justify-center gap-3">
           {/* <DynamicWidget
             buttonClassName="connectButton"
