@@ -30,7 +30,7 @@ export const playgroundInitialState = {
 };
 
 const playgroundReducer = (state, action) => {
-  console.log(state, action)
+  // console.log(state, action)
 
   switch (action?.type) {
     case LOAD_TRAVELERCOUNT:

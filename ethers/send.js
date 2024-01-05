@@ -24,8 +24,8 @@ const signer = new Wallet(ACCOUNT_KEY, provider);
 // const contractInstance = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
 async function send_token(to_address) {
-  const SEND_TOKEN_AMOUNT = "0.02";  
-  
+  const SEND_TOKEN_AMOUNT = "0.02";
+
   const currentGasPrice = await provider.getGasPrice();
   const gas_price = ethers.utils.hexlify(parseInt(currentGasPrice));
   console.log(`gas_price: ${currentGasPrice}`);

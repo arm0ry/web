@@ -29,7 +29,7 @@ export const loadTasksData = async () => {
   try {
     const _taskId = await Mission_contract.getTaskId();
     const taskId = parseInt(_taskId._hex);
-    console.log(taskId)
+    // console.log(taskId)
     dispatch.fn({
       type: LOAD_TASKID,
       payload: taskId,
@@ -50,7 +50,7 @@ export const loadTasksData = async () => {
         _tasks[id] = { creator: _taskCreator, deadline: parseInt(_taskDeadline._hex), content: _taskDetail, completions: parseInt(_totalTaskCompletions._hex), completionsByMission: ethers.utils.formatUnits(_totalTaskCompletionsByMission, "wei") };
       })
     );
-    console.log(_tasks);
+    // console.log(_tasks);
 
     dispatch.fn({
       type: LOAD_TASKS,
@@ -138,43 +138,3 @@ export const loadIPFS = async (CID, playground, callback = () => { }) => {
     dispatch.fn({ type: LOAD_CID, payload: { [CID]: response.data } });
   }
 };
-
-
-// export const loadTravelers = async () => {
-//   try {
-//     const _travelerCount = await Arm0ryTravelers_contract.travelerCount();
-//     const travelerCount = parseInt(_travelerCount._hex)
-//     dispatch.fn({
-//       type: LOAD_TRAVELERCOUNT,
-//       payload: travelerCount,
-//     });
-
-//     if (travelerCount <= 0) return;
-
-//     let _travelers = [];
-
-//     await Promise.all(
-//       [...Array(travelerCount)].map(async (_, id) => {
-//         const _traveler = await Arm0ryTravelers_contract.travelers(id);
-//         _travelers.push(_traveler);
-//       })
-//     );
-//     dispatch.fn({
-//       type: LOAD_TRAVELERS,
-//       payload: _travelers,
-//     });
-//   } catch (error) {
-
-//     console.error(error);
-//     pushAlert({ msg: `Loading Travelers  Error`, type: "failure" });
-//   }
-// };
-// export const loadUnreviews = async (travelers, taskId) => {
-//   // taskReadyForReviewList
-
-//   const _unreviews = await taskReadyForReviewList(travelers, taskId);
-//   dispatch.fn({
-//     type: LOAD_UNREVIEWS,
-//     payload: _unreviews,
-//   });
-// };

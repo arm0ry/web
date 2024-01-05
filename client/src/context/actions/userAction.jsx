@@ -120,7 +120,6 @@ export const getQuestId = async (address) => {
   try {
     const _questID = await questing(address);
     let _inQuest = false;
-    // * *******************
     if (_questID != 0) {
       const _isQuestComeplete = await isQuestComeplete(address, _questID)
       if (!_isQuestComeplete) {
@@ -128,7 +127,6 @@ export const getQuestId = async (address) => {
 
       }
     }
-    console.log("_inQuest", _inQuest)
     dispatch.fn({
       type: GET_QUEST_ID,
       payload: { questID: _questID, inQuest: _inQuest },

@@ -107,4 +107,69 @@ router.post("/facuet", auth, (req, res) => {
       res.status(400).json({ msg: `Failed to open facuet`, err });
     });
 });
-module.exports = router;
+
+// @route   POST api/users/facuet
+// @desc    Open Facuet
+// @access  Private
+router.post("/sponsored_start", auth, (req, res) => {
+  const { address } = req.body;
+  console.log(address);
+
+  // const query = {
+  //   address: new RegExp(address, "i"),
+  // };
+
+  // User.findOne(query)
+  //   .then(async (user) => {
+  //     let lastRequestAt = 0;
+  //     if (!user) {
+  //       res.status(404).json({
+  //         msg: `You are not a member yet. Please join our community.`,
+  //       });
+  //       return;
+  //       // const newUser = new User({
+  //       //   address: address,
+  //       // });
+  //       // await newUser.save()
+  //     } else {
+  //       lastRequestAt = Date.parse(user.lastRequestAt);
+  //     }
+
+  //   if (Date.now() >= lastRequestAt + 86400000 * 2) {
+  //     const txhash = await send_token(address);
+
+  //     User.updateOne({ address }, { lastRequestAt: Date.now() })
+  //       .then((result) => {
+  //         const { ok } = result;
+  //         if (ok) {
+  //           console.log(`You successfully received ETH.`);
+  //         }
+  //         return res.json({
+  //           ...result,
+  //           txhash,
+  //           msg: "You successfully received ETH.",
+  //         });
+  //       })
+  //       .catch((err) => {
+  //         console.error(`Failed to uppdate "lastRequestAt": ${err}`);
+  //         return res.json({
+  //           ...result,
+  //           txhash,
+  //           msg: "You successfully received ETH.",
+  //         });
+  //       });
+  //   } else {
+  //     res
+  //       .status(202)
+  //       .json({
+  //         msg: `Wait! You can only receive 0.02 tokens for two days.`,
+  //         lastRequestAt: lastRequestAt,
+  //       });
+  //   }
+  // })
+  // .catch((err) => {
+  //   console.error(`Somthing wrong: ${err}`);
+  //   res.status(400).json({ msg: `Failed to open facuet`, err });
+  // });
+  // });
+  module.exports = router;
