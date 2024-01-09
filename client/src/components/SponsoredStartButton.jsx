@@ -30,23 +30,23 @@ function SponsoredStartButton() {
   const sponsoredStart = async () => {
     setFetching(true);
     try {
-      const authToken = getAuthToken();
-      if (!authToken) {
-        pushAlert({ msg: "Please connect your wallet", type: "failure" });
-        setFetching(false);
-        return;
-      }
-      // Headers
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      };
+      // const authToken = getAuthToken();
+      // if (!authToken) {
+      //   pushAlert({ msg: "Please connect your wallet", type: "failure" });
+      //   setFetching(false);
+      //   return;
+      // }
+      // // Headers
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${authToken}`,
+      //   },
+      // };
 
       const body = JSON.stringify({ address });
       axios
-        .post("/api/users/sponsored_start", body, config)
+        .post("/api/users/sponsored_start", body)
         .then((res) => {
           console.log(res);
           if (res.status === 202) {

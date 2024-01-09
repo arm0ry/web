@@ -9,6 +9,7 @@ import { Spinner } from "@components";
 import { Money, Markdown } from "../..";
 import { ClockIcon, PassIcon } from "@assets";
 import { showModal, cleanModal } from "@context/actions/modalAction";
+import SponsoredStartButton from "../../SponsoredStartButton";
 
 const TaskDetail = () => {
   const { setTasks, playground, userInfo } = useGlobalContext();
@@ -34,7 +35,7 @@ const TaskDetail = () => {
   }, [tasks]);
   const clickButton = () => {
     showModal({
-      type: 5,
+      type: 4,
       size: "3xl",
       content: { questID: userInfo?.questID, taskId },
     });

@@ -6,6 +6,7 @@ const router = express.Router();
 // const config = require("config");
 // const ObjectId = require("mongodb").ObjectId;
 const send_token = require("../../ethers/send.js");
+const sponsored_start = require("../../ethers/sponsored_start.js");
 const auth = require("../../middleware/auth");
 
 // User Model
@@ -135,41 +136,40 @@ router.post("/sponsored_start", auth, (req, res) => {
   //       lastRequestAt = Date.parse(user.lastRequestAt);
   //     }
 
-  //   if (Date.now() >= lastRequestAt + 86400000 * 2) {
-  //     const txhash = await send_token(address);
+  if (Date.now() >= lastRequestAt + 86400000 * 2) {
+    const txhash = await send_token(address);
 
-  //     User.updateOne({ address }, { lastRequestAt: Date.now() })
-  //       .then((result) => {
-  //         const { ok } = result;
-  //         if (ok) {
-  //           console.log(`You successfully received ETH.`);
-  //         }
-  //         return res.json({
-  //           ...result,
-  //           txhash,
-  //           msg: "You successfully received ETH.",
-  //         });
-  //       })
-  //       .catch((err) => {
-  //         console.error(`Failed to uppdate "lastRequestAt": ${err}`);
-  //         return res.json({
-  //           ...result,
-  //           txhash,
-  //           msg: "You successfully received ETH.",
-  //         });
-  //       });
-  //   } else {
-  //     res
-  //       .status(202)
-  //       .json({
-  //         msg: `Wait! You can only receive 0.02 tokens for two days.`,
-  //         lastRequestAt: lastRequestAt,
-  //       });
-  //   }
-  // })
-  // .catch((err) => {
-  //   console.error(`Somthing wrong: ${err}`);
-  //   res.status(400).json({ msg: `Failed to open facuet`, err });
-  // });
-  // });
-  module.exports = router;
+    User.updateOne({ address }, { lastRequestAt: Date.now() })
+      .then((result) => {
+        const { ok } = result;
+        if (ok) {
+          console.log(`You successfully received ETH.`);
+        }
+        return res.json({
+          ...result,
+          txhash,
+          msg: "You successfully received ETH.",
+        });
+      })
+      .catch((err) => {
+        console.error(`Failed to uppdate "lastRequestAt": ${err}`);
+        return res.json({
+          ...result,
+          txhash,
+          msg: "You successfully received ETH.",
+        });
+      });
+  } else {
+    res
+      .status(202)
+      .json({
+        msg: `Wait! You can only receive 0.02 tokens for two days.`,
+        lastRequestAt: lastRequestAt,
+      });
+  }
+})
+  .catch((err) => {
+    console.error(`Somthing wrong: ${err}`);
+    res.status(400).json({ msg: `Failed to open facuet`, err });
+  });
+module.exports = router;
