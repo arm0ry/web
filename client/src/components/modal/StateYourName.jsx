@@ -91,21 +91,6 @@ const StateYourNameModal = ({ modalPayload }) => {
             </div>
             <div className="w-full">
               <SponsoredStartButton />
-              {/* <button
-                type="submit"
-                disabled={!isConnected || state.writeStatus > 0 || inPrepare}
-                className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
-              >
-                {!isConnected && "Please Connect Wallet"}
-                {isConnected && state.writeStatus === 0 && (inPrepare ? "Wait..." : "Participate!")}
-                {isConnected && state.writeStatus > 0 && <Spinner />}
-                <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
-                  {isConnected &&
-                    state.writeStatus === 1 &&
-                    "Waiting for approval"}
-                  {isConnected && state.writeStatus === 2 && "pending"}
-                </div>
-              </button> */}
             </div>
           </form>
         </div>

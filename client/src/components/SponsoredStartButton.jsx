@@ -4,28 +4,10 @@ import { useAccount } from "wagmi";
 import { getAuthToken } from "@dynamic-labs/sdk-react";
 import { pushAlert } from "@context/actions/alertAction";
 
-function SponsoredStartButton() {
+function SponsoredStartButton({ username }) {
   const [fetching, setFetching] = useState(false);
   const [iSstudent, setISstudent] = useState(false);
   const { address, isConnected, isDisconnected } = useAccount();
-  // useEffect(() => {
-  //   const authToken = getAuthToken();
-  //   if (!authToken) { setISstudent(false); return; }
-  //   const config = {
-  //     headers: {
-  //       Authorization: `Bearer ${authToken}`,
-  //     },
-  //   };
-  //   axios
-  //     .get("/api/users", config)
-  //     .then((res) => {
-  //       setISstudent(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setISstudent(false);
-  //     });
-  // }, [isConnected]);
 
   const sponsoredStart = async () => {
     setFetching(true);
@@ -44,7 +26,7 @@ function SponsoredStartButton() {
       //   },
       // };
 
-      const body = JSON.stringify({ address });
+      const body = JSON.stringify({ username });
       axios
         .post("/api/users/sponsored_start", body)
         .then((res) => {
@@ -71,7 +53,7 @@ function SponsoredStartButton() {
           });
         })
         .catch((err) => {
-          console.error(err.response.data.msg);
+          console.error(err);
           pushAlert({
             msg: `Error! ${err.response.data.msg}`,
             type: "failure",

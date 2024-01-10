@@ -16,7 +16,6 @@ const User = require("../../models/User");
 // @desc
 // @access  Private
 router.get("/", auth, (req, res) => {
-  console.log();
 
   const query = {
     address: new RegExp(req.user.verified_account.address, "i"),
@@ -31,6 +30,7 @@ router.get("/", auth, (req, res) => {
     return res.status(400).send(`${error}`);
   })
 });
+
 // @route   GET api/users/add
 // @desc
 // @access  Private
@@ -112,64 +112,43 @@ router.post("/facuet", auth, (req, res) => {
 // @route   POST api/users/facuet
 // @desc    Open Facuet
 // @access  Private
-router.post("/sponsored_start", auth, (req, res) => {
-  const { address } = req.body;
-  console.log(address);
+router.post("/sponsored_start", async (req, res) => {
+  const { username } = req.body;
+  console.log(username);
 
-  // const query = {
-  //   address: new RegExp(address, "i"),
-  // };
+  const txhash = await sponsored_start("username", 123, "0x6b598dd9dBd13f0886bBDe2a71BC0A4965c40982", 1);
+  console.log(txhash);
 
-  // User.findOne(query)
-  //   .then(async (user) => {
-  //     let lastRequestAt = 0;
-  //     if (!user) {
-  //       res.status(404).json({
-  //         msg: `You are not a member yet. Please join our community.`,
+  // if (Date.now() >= lastRequestAt + 86400000 * 2) {
+
+  //   User.updateOne({ address }, { lastRequestAt: Date.now() })
+  //     .then((result) => {
+  //       const { ok } = result;
+  //       if (ok) {
+  //         console.log(`You successfully received ETH.`);
+  //       }
+  //       return res.json({
+  //         ...result,
+  //         txhash,
+  //         msg: "You successfully received ETH.",
   //       });
-  //       return;
-  //       // const newUser = new User({
-  //       //   address: address,
-  //       // });
-  //       // await newUser.save()
-  //     } else {
-  //       lastRequestAt = Date.parse(user.lastRequestAt);
-  //     }
-
-  if (Date.now() >= lastRequestAt + 86400000 * 2) {
-    const txhash = await send_token(address);
-
-    User.updateOne({ address }, { lastRequestAt: Date.now() })
-      .then((result) => {
-        const { ok } = result;
-        if (ok) {
-          console.log(`You successfully received ETH.`);
-        }
-        return res.json({
-          ...result,
-          txhash,
-          msg: "You successfully received ETH.",
-        });
-      })
-      .catch((err) => {
-        console.error(`Failed to uppdate "lastRequestAt": ${err}`);
-        return res.json({
-          ...result,
-          txhash,
-          msg: "You successfully received ETH.",
-        });
-      });
-  } else {
-    res
-      .status(202)
-      .json({
-        msg: `Wait! You can only receive 0.02 tokens for two days.`,
-        lastRequestAt: lastRequestAt,
-      });
-  }
+  //     })
+  //     .catch((err) => {
+  //       console.error(`Failed to uppdate "lastRequestAt": ${err}`);
+  //       return res.json({
+  //         ...result,
+  //         txhash,
+  //         msg: "You successfully received ETH.",
+  //       });
+  //     });
+  // } else {
+  //   res
+  //     .status(202)
+  //     .json({
+  //       msg: `Wait! You can only receive 0.02 tokens for two days.`,
+  //       lastRequestAt: lastRequestAt,
+  //     });
+  // }
 })
-  .catch((err) => {
-    console.error(`Somthing wrong: ${err}`);
-    res.status(400).json({ msg: `Failed to open facuet`, err });
-  });
+
 module.exports = router;
