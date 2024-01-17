@@ -21,11 +21,13 @@ const { ethers, Wallet } = require("ethers");
 const provider = new ethers.providers.JsonRpcProvider(RPC_ENDPOINT);
 
 
+
 // account key loaded from env file previously
 const signer = new Wallet(ACCOUNT_KEY, provider);
 
+
 const Quest = {
-  address: "0xDCa81BF85B8A305A1Eb66BeD401D7ceA138e47dd",
+  address: "0x678B60a491d2802EcECc5c8B1d9bEa64De960a9D",
   abi: Quest_abi,
 };
 
@@ -33,12 +35,12 @@ const questInstance = new ethers.Contract(Quest.address, Quest.abi, signer)
 
 // const contractInstance = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
-async function sponsored_start(username, salt, missions, missionId) {
-  // console.log(username, salt, missions, missionId);
+async function sponsored_start(username, missions, missionId) {
+  console.log(username, missions, missionId);
   const currentGasPrice = await provider.getGasPrice();
   const gas_price = ethers.utils.hexlify(parseInt(currentGasPrice));
   const iface = new ethers.utils.Interface(Quest.abi);
-  const data = iface.encodeFunctionData("sponsoredStart", [username, salt, missions, missionId])
+  const data = iface.encodeFunctionData("sponsoredStart", [username, missions, missionId])
   // const data = await questInstance.sponsoredStart(username, salt, missions, missionId);
 
   const sendTokenTx = {

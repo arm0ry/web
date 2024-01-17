@@ -8,6 +8,12 @@ const router = express.Router();
 const send_token = require("../../ethers/send.js");
 const sponsored_start = require("../../ethers/sponsored_start.js");
 const auth = require("../../middleware/auth");
+const Mission_abi = require("../../client/src/contract/Mission.json");
+
+const Mission = {
+  address: "0xB735D54D84Ff566C1147B4F292791F683EAa061e",
+  abi: Mission_abi,
+};
 
 // User Model
 const User = require("../../models/User");
@@ -30,19 +36,6 @@ router.get("/", auth, (req, res) => {
     return res.status(400).send(`${error}`);
   })
 });
-
-// @route   GET api/users/add
-// @desc
-// @access  Private
-// TODO
-// router.post("/add", (req, res) => {
-//   const newUser = new User({
-//     address: "0x3c0b9c1690A94Fcc6994402d1ed8754439941835",
-//   });
-//   newUser.save().then((user) => {
-//     res.json(user);
-//   });
-// });
 
 // @route   POST api/users/facuet
 // @desc    Open Facuet
@@ -113,42 +106,11 @@ router.post("/facuet", auth, (req, res) => {
 // @desc    Open Facuet
 // @access  Private
 router.post("/sponsored_start", async (req, res) => {
-  const { username } = req.body;
-  console.log(username);
+  const { seed, mission, missionId } = req.body;
+  console.log(req.body);
 
-  const txhash = await sponsored_start("username", 123, "0x6b598dd9dBd13f0886bBDe2a71BC0A4965c40982", 1);
+  const txhash = await sponsored_start(seed, mission, missionId);
   console.log(txhash);
-
-  // if (Date.now() >= lastRequestAt + 86400000 * 2) {
-
-  //   User.updateOne({ address }, { lastRequestAt: Date.now() })
-  //     .then((result) => {
-  //       const { ok } = result;
-  //       if (ok) {
-  //         console.log(`You successfully received ETH.`);
-  //       }
-  //       return res.json({
-  //         ...result,
-  //         txhash,
-  //         msg: "You successfully received ETH.",
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.error(`Failed to uppdate "lastRequestAt": ${err}`);
-  //       return res.json({
-  //         ...result,
-  //         txhash,
-  //         msg: "You successfully received ETH.",
-  //       });
-  //     });
-  // } else {
-  //   res
-  //     .status(202)
-  //     .json({
-  //       msg: `Wait! You can only receive 0.02 tokens for two days.`,
-  //       lastRequestAt: lastRequestAt,
-  //     });
-  // }
 })
 
 module.exports = router;

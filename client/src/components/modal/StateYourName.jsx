@@ -10,13 +10,15 @@ import CloseModalButton from "./CloseModalButton";
 import useWriteContract from "@hooks/useWriteContract";
 import { Arm0ryMissions, KaliDAO, Quest, Mission } from "@contract";
 import SponsoredStartButton from "../SponsoredStartButton";
+import axios from "axios";
+import { pushAlert } from "@context/actions/alertAction";
 
 const StateYourNameModal = ({ modalPayload }) => {
-  const [view, setView] = useState(false);
-  const [inPrepare, setInPrepare] = useState(false);
-  const navigate = useNavigate();
+  const [fetching, setFetching] = useState(false);
+
+
+  console.log(modalPayload.content.missionId)
   const { address, isConnected, isDisconnected } = useAccount();
-  const { questID: questId, taskId } = modalPayload.content;
   const {
     register,
     handleSubmit,
@@ -25,7 +27,7 @@ const StateYourNameModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { point: 0, expiration: 0 },
+    defaultValues: { seed: "" },
   });
 
   useEffect(() => {
@@ -34,13 +36,58 @@ const StateYourNameModal = ({ modalPayload }) => {
     }
   }, [isConnected]);
 
+  const sponsoredStart = async (username) => {
+    setFetching(true);
+    try {
+      // const body = JSON.stringify({ seed: username, mission: 0x0, missionId: modalPayload.content.missionId });
+      const body = { seed: username, mission: Mission.address, missionId: modalPayload.content.missionId };
+      axios
+        .post("/api/users/sponsored_start", body)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 202) {
+            pushAlert({ msg: `${res.data.msg}`, type: "info" });
+            return;
+          }
+          pushAlert({
+            msg: (
+              <span>
+                {res.data.msg}
+                <a
+                  href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-extrabold text-green-900"
+                >
+                  &nbsp;View on Etherscan &#128279;
+                </a>
+              </span>
+            ),
+            type: "success",
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          pushAlert({
+            msg: `Error! ${err.response.data.msg}`,
+            type: "failure",
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFetching(false);
+    }
+  };
+
   const onSubmit = async (data) => {
     // setInPrepare(true);
 
     // const tx = await sponsored_start(data.seed, 0, Mission.address, questId);
     // console.log(tx)
+    console.log(data.seed);
 
-
+    sponsoredStart(data.seed);
 
   };
 
@@ -51,10 +98,6 @@ const StateYourNameModal = ({ modalPayload }) => {
       </div>
       <div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
         <div className="flex flex-col mx-auto items-center justify-center gap-3">
-          {/* <DynamicWidget
-            buttonClassName="connectButton"
-            innerButtonComponent="Connect Wallet"
-          /> */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-6">
               <label
@@ -90,7 +133,14 @@ const StateYourNameModal = ({ modalPayload }) => {
               </label>
             </div>
             <div className="w-full">
-              <SponsoredStartButton />
+              <button
+                type="submit"
+                disabled={fetching}
+                className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
+              >
+                Hello
+              </button>
+              {/* <SponsoredStartButton /> */}
             </div>
           </form>
         </div>

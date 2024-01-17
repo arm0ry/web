@@ -27,18 +27,17 @@ export const KaliDAO = {
 };
 
 export const Mission = {
-  address: "0x6b598dd9dBd13f0886bBDe2a71BC0A4965c40982",
+  address: "0xB735D54D84Ff566C1147B4F292791F683EAa061e",
   abi: Mission_abi,
 };
 
 export const Quest = {
-  address: "0xDCa81BF85B8A305A1Eb66BeD401D7ceA138e47dd",
+  address: "0x678B60a491d2802EcECc5c8B1d9bEa64De960a9D",
   abi: Quest_abi,
 };
 
-// TODO: ABI WAS KALICURVE SO NEED TO UPDATE
 export const ImpactCurves = {
-  address: "0x13DAc5c41817b540FB86e4C004Afcf1551587b7c",
+  address: "0x80179A82472F950e3ae5235D7934E5A5BC161170",
   abi: ImpactCurves_abi,
 };
 
