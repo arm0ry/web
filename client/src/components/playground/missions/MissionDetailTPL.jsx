@@ -35,33 +35,6 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
 
   useEffect(() => {
     setButtonState(1); //Activate
-
-    // switch (true) {
-    //   case isConnected != true:
-    //     setButtonState(0);
-    //     break;
-    //   case userInfo.inQuest && userInfo.questID == missionId:
-    //     setButtonState(2); //pause
-    //     break;
-    //   case userInfo.quests[missionId] === undefined && !userInfo.inQuest:
-    //   // case userInfo.quests[missionId] !== undefined && !userInfo.inQuest && userInfo.quests[missionId]?.inComplete > 0:
-    //   case !userInfo.inQuest && userInfo.quests[missionId]?.inComplete > 0:
-    //     setButtonState(1); //Activate
-    //     break;
-
-    //   case userInfo.inQuest &&
-    //     userInfo.quests[missionId]?.incomplete == 0 &&
-    //     userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
-    //   case !userInfo.inQuest &&
-    //     userInfo.quests[missionId]?.incomplete == 0 &&
-    //     userInfo.quests[missionId]?.xp > userInfo.quests[missionId]?.claimed:
-    //     console.log("Claim");
-    //     setButtonState(3); //Claim
-    //     break;
-    //   default:
-    //     setButtonState(0);
-    //     break;
-    // }
   }, [userInfo.questID, userInfo.quests, userInfo.inQuest, isConnected]);
 
   const { write: _purchase, state } = useWriteContract({
@@ -111,7 +84,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { missionId: missionId },
+      content: { missionId: missionId, taskId: 0 },
     });
   };
 

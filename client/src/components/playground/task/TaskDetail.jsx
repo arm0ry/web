@@ -9,7 +9,6 @@ import { Spinner } from "@components";
 import { Money, Markdown } from "../..";
 import { ClockIcon, PassIcon } from "@assets";
 import { showModal, cleanModal } from "@context/actions/modalAction";
-import SponsoredStartButton from "../../SponsoredStartButton";
 
 const TaskDetail = () => {
   const { setTasks, playground, userInfo } = useGlobalContext();
@@ -17,10 +16,10 @@ const TaskDetail = () => {
   const [detail, setDetail] = useState(undefined);
   const [tooltip, setTooltip] = useState(false);
   const params = useParams();
+  const missionId = params.missionId;
   const taskId = params.taskId;
   const { tasks } = playground;
   const navigate = useNavigate();
-  console.log(userInfo);
   useEffect(() => {
     if (Object.keys(tasks).length > 0) {
       if (tasks[taskId] === undefined) {
@@ -37,7 +36,7 @@ const TaskDetail = () => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { questID: userInfo?.questID, taskId },
+      content: { missionId: missionId, taskId: taskId },
     });
   };
 

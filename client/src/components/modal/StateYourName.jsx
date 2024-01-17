@@ -1,33 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAccount } from "wagmi";
-import { useGlobalContext } from "@context/store";
-import { cleanModal } from "@context/actions/modalAction";
 import { Spinner, Markdown } from "@components";
-import { DynamicWidget } from "@dynamic-labs/sdk-react";
 import CloseModalButton from "./CloseModalButton";
-import useWriteContract from "@hooks/useWriteContract";
-import { Arm0ryMissions, KaliDAO, Quest, Mission } from "@contract";
-import SponsoredStartButton from "../SponsoredStartButton";
+import { Mission } from "@contract";
 import axios from "axios";
 import { pushAlert } from "@context/actions/alertAction";
 
 const StateYourNameModal = ({ modalPayload }) => {
+  const [view, setView] = useState(false);
   const [fetching, setFetching] = useState(false);
 
-
-  console.log(modalPayload.content.missionId)
+  const taskId = modalPayload.content.taskId;
+  const missionId = modalPayload.content.missionId;
   const { address, isConnected, isDisconnected } = useAccount();
   const {
     register,
     handleSubmit,
-    getValues,
-    reset,
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { seed: "" },
+    defaultValues: { seed: "", moon: "1" },
   });
 
   useEffect(() => {
@@ -36,13 +29,79 @@ const StateYourNameModal = ({ modalPayload }) => {
     }
   }, [isConnected]);
 
-  const sponsoredStart = async (username) => {
+  const MoodRadio = ({ moon, value, register }) => {
+    return (
+      <>
+        <div className="flex items-center">
+          <input
+            type="radio"
+            value={value}
+            className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:ring-offset-gray-800 dark:focus:ring-blue-600 "
+            {...register("moon", { required: true })}
+          />
+
+          <label
+            for="default-radio-2"
+            className="ml-2 text-xl font-medium text-gray-900 "
+          >
+            {moon}
+          </label>
+        </div>
+      </>
+    );
+  };
+
+  const sponsorStart = async (username) => {
     setFetching(true);
     try {
-      // const body = JSON.stringify({ seed: username, mission: 0x0, missionId: modalPayload.content.missionId });
-      const body = { seed: username, mission: Mission.address, missionId: modalPayload.content.missionId };
+      const body = { seed: username, mission: Mission.address, missionId: missionId };
       axios
         .post("/api/users/sponsored_start", body)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 202) {
+            pushAlert({ msg: `${res.data.msg}`, type: "info" });
+            return;
+          }
+          pushAlert({
+            msg: (
+              <span>
+                {res.data.msg}
+                <a
+                  href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-extrabold text-green-900"
+                >
+                  &nbsp;View on Etherscan &#128279;
+                </a>
+              </span>
+            ),
+            type: "success",
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          pushAlert({
+            msg: `Error! ${err.response.data.msg}`,
+            type: "failure",
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFetching(false);
+    }
+  };
+
+  const sponsorRespond = async (username, response, feedback) => {
+
+    // console.log(username, missionId, taskId, response, feedback)
+    setFetching(true);
+    try {
+      const body = { seed: username, mission: Mission.address, missionId: missionId, taskId: taskId, response: response, feedback: feedback };
+      axios
+        .post("/api/users/sponsored_respond", body)
         .then((res) => {
           console.log(res);
           if (res.status === 202) {
@@ -83,68 +142,145 @@ const StateYourNameModal = ({ modalPayload }) => {
   const onSubmit = async (data) => {
     // setInPrepare(true);
 
-    // const tx = await sponsored_start(data.seed, 0, Mission.address, questId);
-    // console.log(tx)
-    console.log(data.seed);
-
-    sponsoredStart(data.seed);
-
+    console.log(taskId)
+    if (taskId == 0) sponsorStart(data.seed);
+    else sponsorRespond(data.seed, data.moon, data.feedback);
   };
 
   return (
     <>
-      <div className="flex items-start justify-between rounded-t px-4 pt-4 pb-2 ">
+      <div className="flex items-start justify-between rounded-t px-4 pt-4 pb-2 text-gray-500">
+        跟大家分享一下你的參與過程吧！
         <CloseModalButton />
       </div>
-      <div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
-        <div className="flex flex-col mx-auto items-center justify-center gap-3">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6">
-              <label
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                Visitor
-              </label>
-              <input
-                type="text"
-                id="seed"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                placeholder="seed"
-                required
-                {...register("seed")}
-              />
-            </div>
+      {taskId == 0 ?
+        (<div div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
+          <div className="flex flex-col mx-auto items-center justify-center gap-3">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-6">
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  Visitor
+                </label>
+                <input
+                  type="text"
+                  id="seed"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                  placeholder="seed"
+                  required
+                  {...register("seed")}
+                />
+              </div>
 
-            <div className="mb-6">
-              <label
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                We do not store seed.
-              </label>
-              <label
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                Seed is used to simulate a blockchain address as visitor id.
-              </label>
-              <label
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                Please use this feature only for experimental purposes.
-              </label>
-            </div>
-            <div className="w-full">
-              <button
-                type="submit"
-                disabled={fetching}
-                className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
-              >
-                Hello
-              </button>
-              {/* <SponsoredStartButton /> */}
-            </div>
-          </form>
-        </div>
-      </div>
+              <div className="mb-6">
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  We do not store seed.
+                </label>
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  Seed is used to simulate a blockchain address as visitor id.
+                </label>
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  Please use this feature only for experimental purposes.
+                </label>
+              </div>
+              <div className="w-full">
+                <button
+                  type="submit"
+                  disabled={fetching}
+                  className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
+                >
+                  Start
+                </button>
+              </div>
+            </form>
+          </div>
+        </div >) :
+        (<div div className="flex h-auto h-space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
+          <div className="w-1/2 mx-auto items-center justify-center gap-3">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-6">
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  稱呼
+                </label>
+                <input
+                  type="text"
+                  id="seed"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                  placeholder="沒有人"
+                  required
+                  {...register("seed")}
+                />
+              </div>
+              <div className="mb-6 ">
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  心情
+                </label>
+                <div className="flex flex-row items-center justify-between">
+                  <MoodRadio moon="😁" value={"1"} register={register} />
+                  <MoodRadio moon="🥱" value={"2"} register={register} />
+                  <MoodRadio moon="🤩" value={"3"} register={register} />
+                </div>
+                {/* {errors.firstName?.type === "required" && (
+                  <p role="alert">Required</p>
+                )} */}
+              </div>
+
+
+              <div className="mb-6">
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  心得
+                </label>
+                <textarea
+                  id="feedback"
+                  className="w-full h-100vh rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="炸雞超好吃～"
+                  {...register("feedback")}
+                ></textarea>
+              </div>
+
+              {/* <div className="mb-6">
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  We do not store seed.
+                </label>
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  Seed is used to simulate a blockchain address as visitor id.
+                </label>
+                <label
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  Please use this feature only for experimental purposes.
+                </label>
+              </div> */}
+
+              <div className="w-full">
+                <button
+                  type="submit"
+                  disabled={fetching}
+                  className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
+                >
+                  Share
+                </button>
+              </div>
+            </form>
+          </div>
+        </div >)}
     </>
   );
 };

@@ -7,13 +7,8 @@ const router = express.Router();
 // const ObjectId = require("mongodb").ObjectId;
 const send_token = require("../../ethers/send.js");
 const sponsored_start = require("../../ethers/sponsored_start.js");
+const sponsored_respond = require("../../ethers/sponsored_respond.js");
 const auth = require("../../middleware/auth");
-const Mission_abi = require("../../client/src/contract/Mission.json");
-
-const Mission = {
-  address: "0xB735D54D84Ff566C1147B4F292791F683EAa061e",
-  abi: Mission_abi,
-};
 
 // User Model
 const User = require("../../models/User");
@@ -111,6 +106,16 @@ router.post("/sponsored_start", async (req, res) => {
 
   const txhash = await sponsored_start(seed, mission, missionId);
   console.log(txhash);
+})
+
+// @route   POST api/users/facuet
+// @desc    Open Facuet
+// @access  Private
+router.post("/sponsored_respond", async (req, res) => {
+  const { seed, mission, missionId, taskId, response, feedback } = req.body;
+  console.log(req.body);
+
+  await sponsored_respond(seed, mission, missionId, taskId, response, feedback);
 })
 
 module.exports = router;
