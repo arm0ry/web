@@ -95,8 +95,6 @@ const StateYourNameModal = ({ modalPayload }) => {
   };
 
   const sponsorRespond = async (username, response, feedback) => {
-
-    // console.log(username, missionId, taskId, response, feedback)
     setFetching(true);
     try {
       const body = { seed: username, mission: Mission.address, missionId: missionId, taskId: taskId, response: response, feedback: feedback };
@@ -154,56 +152,40 @@ const StateYourNameModal = ({ modalPayload }) => {
         <CloseModalButton />
       </div>
       {taskId == 0 ?
-        (<div div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
-          <div className="flex flex-col mx-auto items-center justify-center gap-3">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-6">
-                <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  Visitor
-                </label>
-                <input
-                  type="text"
-                  id="seed"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                  placeholder="seed"
-                  required
-                  {...register("seed")}
-                />
-              </div>
+        (
+          <div div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
+            <div className="w-full mx-auto items-center justify-center gap-3">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-6">
+                  <label
+                    className="mb-2 block text-sm font-medium text-gray-900 "
+                  >
+                    稱呼
+                  </label>
+                  <input
+                    type="text"
+                    id="seed"
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                    placeholder="沒有人"
+                    required
+                    {...register("seed")}
+                  />
+                </div>
 
-              <div className="mb-6">
-                <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  We do not store seed.
-                </label>
-                <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  Seed is used to simulate a blockchain address as visitor id.
-                </label>
-                <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  Please use this feature only for experimental purposes.
-                </label>
-              </div>
-              <div className="w-full">
-                <button
-                  type="submit"
-                  disabled={fetching}
-                  className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
-                >
-                  Start
-                </button>
-              </div>
-            </form>
-          </div>
-        </div >) :
+                <div className="w-full">
+                  <button
+                    type="submit"
+                    disabled={fetching}
+                    className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
+                  >
+                    Start
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div >) :
         (<div div className="flex h-auto h-space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
-          <div className="w-1/2 mx-auto items-center justify-center gap-3">
+          <div className="w-full mx-auto items-center justify-center gap-3">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-6">
                 <label

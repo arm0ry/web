@@ -140,9 +140,9 @@ const Modal = ({ children }) => {
             onClick={cleanModal}
           /> */}
           <LockBodyScroll />
-          <div className="fixed  inset-0 z-[100] flex h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-white bg-opacity-10  backdrop-blur backdrop-filter">
+          <div className="fixed inset-0 z-[100] flex h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-white bg-opacity-10  backdrop-blur backdrop-filter">
             <div
-              className={`relative h-auto w-full ${sizeVariants[modalPayload.size]
+              className={`relative h-auto w-1/3 ${sizeVariants[modalPayload.size]
                 } mx-2 md:h-auto`}
             // className={`relative h-auto w-full max-w-3xl mx-2 md:h-auto`}
             >

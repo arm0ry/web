@@ -24,12 +24,8 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const _p = Math.round(
-      (missions[missionId]?.completionsCount / missions[missionId]?.impact) *
-      100
-    );
-    if (!Number.isNaN(_p)) {
-      setParticipants(_p);
+    if (!Number.isNaN(missions[missionId]?.startsCount)) {
+      setParticipants(missions[missionId]?.startsCount);
     }
   }, [missions]);
 
@@ -238,16 +234,9 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                     </>
                   );
                 })}
-                <div className="border-1 ml-2 flex h-7 w-7 cursor-cell	items-center justify-center rounded-full border-white bg-[#f7f0eb] text-xs font-semibold text-black hover:bg-[#ece2dc]">
-                  + {participants}
+                <div className="border-1 ml-2 flex h-7 w-12 cursor-cell	items-center justify-center rounded-full border-white bg-[#f7f0eb] text-xs font-semibold text-black hover:bg-[#ece2dc]">
+                  + {participants} 人
                 </div>
-              </div>
-              <span className="ml-2 text-sm font-semibold"></span>
-              <div
-                className={` tooltip absolute left-[100%]  bottom-0 z-10 inline-block translate-y-full -translate-x-full  rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80`}
-              >
-                {participants}
-                <span className="ml-2">participants</span>
               </div>
             </div>
           </div>
@@ -284,36 +273,18 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                 <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm  text-[#D6E6F2]">
                   <span className="peer mr-1 font-bold ">
                     <span className="mr-1 hidden md:inline">
-                      Mission Impact
+                      完成人數：
                     </span>
-                    {missions[missionId]?.impact}
+                    {missions[missionId]?.completionsCount} 人
                   </span>
-                  <PercentageIcon className="peer h-3" />
                   <div
-                    className={` tooltip absolute left-[0%]  -top-1 z-10 inline-block -translate-y-full   rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80 md:hidden`}
+                    className={` tooltip absolute left-[0%]  -top-1 z-10 inline-block -translate-y-full rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80 md:hidden`}
                   >
                     Mission Impact
                   </div>
                 </div>
               </div>
               <div>
-                {/* <button
-                  onClick={purchase}
-                  disabled={!isConnected || state.writeStatus > 0}
-                  className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#FFD707] bg-[#FFD707] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#DAC400] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#DAC400] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#DAC400,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30"
-                >
-                  <span className="text-md flex h-full flex-row items-center justify-center font-PasseroOne font-bold	 tracking-widest text-[#000]">
-                    {!isConnected && "Please Connect Wallet"}
-                    {isConnected && state.writeStatus === 0 && "Purchase"}
-                    {isConnected && state.writeStatus > 0 && <Spinner />}
-                    <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
-                      {isConnected &&
-                        state.writeStatus === 1 &&
-                        "Waiting for approval"}
-                      {isConnected && state.writeStatus === 2 && "Pending"}
-                    </div>
-                  </span>
-                </button> */}
               </div>
             </div>
           </footer>

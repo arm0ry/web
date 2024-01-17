@@ -11,6 +11,8 @@ const secondToDay = (s) => {
 const TaskCard = ({ taskId, className = "" }) => {
   const { playground, userInfo } = useGlobalContext();
   const { tasks } = playground;
+
+  console.log(tasks)
   return (
     <>
       <div className={`relative group h-34 w-full ${className}`}>
@@ -19,10 +21,14 @@ const TaskCard = ({ taskId, className = "" }) => {
         {userInfo.tasks[taskId]?.state === 0 && (<div className="absolute  top-1 left-1 z-10 -rotate-12 -translate-x-1/2 -translate-y-1/2"><WaitIcon className="h-6" /></div>)}
 
 
-        <div className="relative h-full w-full px-4 py-3 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex justify-between flex-row items-center space-x-1">
+        <div className="relative h-full w-full px-4 py-3 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex justify-between flex-row items-center">
           <div className="space-y-2 ml-2 ">
             <p className="text-slate-800 line-clamp-2 my-0 mx-auto leading-5 font-medium  group-hover:font-semibold ">
               {tasks[taskId]?.content}
+            </p>
+
+            <p className="text-slate-800 line-clamp-2 my-0 mx-auto  leading-5 font-medium  group-hover:font-semibold ">
+              參與人數：  {tasks[taskId]?.completions}
             </p>
             <Link
               to={`${taskId}`}
