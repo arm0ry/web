@@ -219,19 +219,25 @@ const Playground = () => {
           <ul className="space-y-2">
             <SidebarItem
               to="missions"
-              name="Missions"
+              name="任務"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="curves"
-              name="Curve"
+              name="曲線"
+              Icon={BuddiesIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            <SidebarItem
+              to="supporters"
+              name="支持"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="responses"
-              name="Responses"
+              name="任務心得"
               Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
             />

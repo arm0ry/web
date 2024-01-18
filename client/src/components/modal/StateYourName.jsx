@@ -6,6 +6,8 @@ import CloseModalButton from "./CloseModalButton";
 import { Mission } from "@contract";
 import axios from "axios";
 import { pushAlert } from "@context/actions/alertAction";
+import { DynamicWidget } from "@dynamic-labs/sdk-react";
+
 
 const StateYourNameModal = ({ modalPayload }) => {
   const [view, setView] = useState(false);
@@ -147,10 +149,14 @@ const StateYourNameModal = ({ modalPayload }) => {
 
   return (
     <>
-      <div className="flex items-start justify-between rounded-t px-4 pt-4 pb-2 text-gray-500">
+      <div className="flex items-start justify-between rounded-t px-4 pt-4 pb-2 text-gray-500  bg-slate-100">
         跟大家分享一下你的參與過程吧！
         <CloseModalButton />
       </div>
+      {/* <DynamicWidget
+        buttonClassName="connectButton"
+        innerButtonComponent="Connect Wallet"
+      /> */}
       {taskId == 0 ?
         (
           <div div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
@@ -171,7 +177,11 @@ const StateYourNameModal = ({ modalPayload }) => {
                     {...register("seed")}
                   />
                 </div>
+                <label
+                  className="mt-2 mb-4 block text-sm font-medium text-gray-900 "
+                >
 
+                </label>
                 <div className="w-full">
                   <button
                     type="submit"

@@ -6,14 +6,13 @@ import { shortenAddress } from "@utils/shortenAddress";
 import { Avatar } from "@components";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-
-
 const CurveCard = ({ curve }) => {
   const { address: user } = useAccount();
+
   const { write: clickMint } = useContractWrite({
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
-    functionName: 'donate',
+    functionName: 'support',
     args: [1, user, ethers.utils.formatUnits(curve[1], 'wei')],
     overrides: { value: curve[1] },
   })
@@ -21,38 +20,40 @@ const CurveCard = ({ curve }) => {
   const { write: clickBurn } = useContractWrite({
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
-    functionName: 'leave',
+    functionName: 'burn',
     args: [1, user]
   })
+
+  console.log(curve)
 
   const data = [
     {
       supply: '1',
-      price: (Number(ethers.utils.formatUnits(curve[5][2], "wei")) + Number(ethers.utils.formatUnits(curve[5][3], "wei"))) * Number(ethers.utils.formatEther(curve[5][0])),
+      price: (Number(ethers.utils.formatUnits(curve[4][2], "wei")) + Number(ethers.utils.formatUnits(curve[4][3], "wei"))) * Number(ethers.utils.formatEther(curve[4][0])),
     },
     {
       supply: '5',
-      price: (Number(ethers.utils.formatUnits(curve[5][2], "wei")) * 5 + Number(ethers.utils.formatUnits(curve[5][3], "wei"))) * Number(ethers.utils.formatEther(curve[5][0])),
+      price: (Number(ethers.utils.formatUnits(curve[4][2], "wei")) * 5 + Number(ethers.utils.formatUnits(curve[4][3], "wei"))) * Number(ethers.utils.formatEther(curve[4][0])),
     },
     {
       supply: '10',
-      price: (Number(ethers.utils.formatUnits(curve[5][2], "wei")) * 10 + Number(ethers.utils.formatUnits(curve[5][3], "wei"))) * Number(ethers.utils.formatEther(curve[5][0])),
+      price: (Number(ethers.utils.formatUnits(curve[4][2], "wei")) * 10 + Number(ethers.utils.formatUnits(curve[4][3], "wei"))) * Number(ethers.utils.formatEther(curve[4][0])),
     },
     {
       supply: '15',
-      price: (Number(ethers.utils.formatUnits(curve[5][2], "wei")) * 15 + Number(ethers.utils.formatUnits(curve[5][3], "wei"))) * Number(ethers.utils.formatEther(curve[5][0])),
+      price: (Number(ethers.utils.formatUnits(curve[4][2], "wei")) * 15 + Number(ethers.utils.formatUnits(curve[4][3], "wei"))) * Number(ethers.utils.formatEther(curve[4][0])),
     },
     {
       supply: '20',
-      price: (Number(ethers.utils.formatUnits(curve[5][2], "wei")) * 20 + Number(ethers.utils.formatUnits(curve[5][3], "wei"))) * Number(ethers.utils.formatEther(curve[5][0])),
+      price: (Number(ethers.utils.formatUnits(curve[4][2], "wei")) * 20 + Number(ethers.utils.formatUnits(curve[4][3], "wei"))) * Number(ethers.utils.formatEther(curve[4][0])),
     },
     {
       supply: '25',
-      price: (Number(ethers.utils.formatUnits(curve[5][2], "wei")) * 25 + Number(ethers.utils.formatUnits(curve[5][3], "wei"))) * Number(ethers.utils.formatEther(curve[5][0])),
+      price: (Number(ethers.utils.formatUnits(curve[4][2], "wei")) * 25 + Number(ethers.utils.formatUnits(curve[4][3], "wei"))) * Number(ethers.utils.formatEther(curve[4][0])),
     },
     {
       supply: '30',
-      price: (Number(ethers.utils.formatUnits(curve[5][2], "wei")) * 30 + Number(ethers.utils.formatUnits(curve[5][3], "wei"))) * Number(ethers.utils.formatEther(curve[5][0])),
+      price: (Number(ethers.utils.formatUnits(curve[4][2], "wei")) * 30 + Number(ethers.utils.formatUnits(curve[4][3], "wei"))) * Number(ethers.utils.formatEther(curve[4][0])),
     },
   ];
 
@@ -76,11 +77,11 @@ const CurveCard = ({ curve }) => {
               {/* {curve[3] ? "Open" : "Closed"} */}
             </div>
             <div className="text-xs">
-              Burn: {ethers.utils.formatUnits(curve[5][1], "wei")} %
+              Burn: {ethers.utils.formatUnits(curve[4][1], "wei")} %
             </div>
 
             <div className="text-xs">
-              y = ({ethers.utils.formatUnits(curve[5][2], "wei")} x + {ethers.utils.formatUnits(curve[5][3], "wei")}) * {ethers.utils.formatEther(curve[5][0])} ether
+              y = ({ethers.utils.formatUnits(curve[4][2], "wei")} x + {ethers.utils.formatUnits(curve[4][3], "wei")}) * {ethers.utils.formatEther(curve[4][0])} ether
             </div>
           </div>
           <ResponsiveContainer width="80%" height="100%">

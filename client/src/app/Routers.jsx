@@ -23,6 +23,7 @@ import {
   Curves,
   Responses
 } from "../components";
+import Supporters from "../components/playground/supporters/Supporters";
 import { Navbar, Footer } from "../components/layout";
 import { useGlobalContext } from "@context/store";
 import ScrollToTop from "@utils/ScrollToTop";
@@ -55,8 +56,9 @@ const Routers = () => {
         <Route path="/" element={HomeLayout(<Home />)} />
         <Route path="/onboard" element={HomeLayout(<Onboard />)} />
         <Route path="/playground" element={<Playground />}>
-          <Route index element={<Navigate to="traveller-pass" replace />} />
-          <Route path="traveller-pass" element={<TravelerPass />} />
+          <Route index element={<Navigate to="supporters" replace />} />
+          <Route path="traveler-pass" element={<TravelerPass />} />
+          <Route path="supporters" element={<Supporters />} />
           <Route path="my-quest" element={<Quest />} />
           <Route path="my-quest/:questId" element={<QuestDetail />} />
           <Route path="my-quest/:questId/:taskId" element={<TaskDetail />} />

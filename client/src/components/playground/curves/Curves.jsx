@@ -26,52 +26,41 @@ const Curves = () => {
             address: ImpactCurves.address,
             abi: ImpactCurves.abi,
             functionName: "getPrice",
-            args: [true, index],
+            args: [true, index, 0],
           },
           {
             address: ImpactCurves.address,
             abi: ImpactCurves.abi,
             functionName: "getPrice",
-            args: [false, index],
+            args: [false, index, 0],
           },
           {
             address: ImpactCurves.address,
             abi: ImpactCurves.abi,
-            functionName: "getCurveTreasury",
+            functionName: "getCurvePool",
             args: [index],
           },
           {
             address: ImpactCurves.address,
             abi: ImpactCurves.abi,
-            functionName: "getCurveSupply",
-            args: [index],
-          },
-          {
-            address: ImpactCurves.address,
-            abi: ImpactCurves.abi,
-            functionName: "getCurveData",
-            args: [index],
-          },
-          {
-            address: ImpactCurves.address,
-            abi: ImpactCurves.abi,
-            functionName: "getImpactDao",
+            functionName: "getCurveFormula",
             args: [index],
           },
         ];
       },
-      { start: 1, perPage: 5, direction: "increment" }
+      { start: 1, perPage: 1, direction: "increment" }
     ),
   });
 
   useEffect(() => {
     if (data) {
       const tempData = data.pages[0];
+      console.log(tempData)
       let innerArry = [];
       let outerArry = [];
       for (let i = 0; i < tempData.length; i++) {
         innerArry.push(tempData[i]);
-        if (i % 7 === 6) {
+        if (i % 5 === 4) {
           outerArry.push(innerArry);
           innerArry = [];
         }
