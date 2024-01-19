@@ -226,7 +226,7 @@ const Playground = () => {
             <SidebarItem
               to="curves"
               name="曲線"
-              Icon={BuddiesIcon}
+              Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem

@@ -3,6 +3,8 @@ import {
   LOAD_TRAVELERCOUNT,
   LOAD_TRAVELERS,
   LOAD_UNREVIEWS,
+  LOAD_USER_RESPONSE_ID,
+  LOAD_USER_RESPONSES,
   LOAD_CID,
   LOAD_TASKS,
   LOAD_TASKID,
@@ -113,6 +115,43 @@ export const loadMissionsData = async (playground) => {
   } catch (error) {
     console.error(error);
     pushAlert({ msg: `Loading Missions Data Error`, type: "failure" });
+  }
+};
+
+export const loadUserResponses = async () => {
+  try {
+    const _responseId = await Quest_contract.getNumOfResponseByUser();
+    const responseId = parseInt(_responseId._hex);
+    // console.log(responseId)
+    dispatch.fn({
+      type: LOAD_USER_RESPONSE_ID,
+      payload: responseId,
+    });
+    if (taskId <= 0) return;
+
+    let _responses = {};
+
+    await Promise.all(
+      [...Array(taskId)].map(async (_, _id) => {
+        const id = _id + 1;
+        const _taskCreator = await Quest_contract.getTaskCreator(id);
+        const _taskDeadline = await Quest_contract.getTaskDeadline(id);
+        const _taskDetail = await Quest_contract.getTaskDetail(id);
+        const _totalTaskCompletions = await Quest_contract.getTotalTaskCompletions(id);
+        // TODO: missiondId hardcoded to 1 for now
+        const _totalTaskCompletionsByMission = await Quest_contract.getTotalTaskCompletionsByMission(1, id);
+        _responses[id] = { creator: _taskCreator, deadline: parseInt(_taskDeadline._hex), content: _taskDetail, completions: parseInt(_totalTaskCompletions._hex), completionsByMission: ethers.utils.formatUnits(_totalTaskCompletionsByMission, "wei") };
+      })
+    );
+    // console.log(_responses);
+
+    dispatch.fn({
+      type: LOAD_USER_RESPONSES,
+      payload: _responses,
+    });
+  } catch (error) {
+    console.error(error);
+    pushAlert({ msg: `Loading Tasks Data Error`, type: "failure" });
   }
 };
 

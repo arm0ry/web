@@ -3,6 +3,8 @@ import { useReducer } from "react";
 export const LOAD_TRAVELERCOUNT = "LOAD_TRAVELERCOUNT";
 export const LOAD_TRAVELERS = "LOAD_TRAVELERS";
 export const LOAD_UNREVIEWS = "LOAD_UNREVIEWS";
+export const LOAD_USER_RESPONSE_ID = "LOAD_USER_RESPONSE_ID";
+export const LOAD_USER_RESPONSES = "LOAD_USER_RESPONSES";
 export const LOAD_CID = "LOAD_CID";
 
 export const LOAD_TASKID = "LOAD_TASKID";
@@ -21,6 +23,7 @@ export const playgroundInitialState = {
   travelerCount: 0,
   travelers: [],
   unreviews: [],
+  user
   tasks: {},
   taskId: 0,
   missions: {},
@@ -47,6 +50,16 @@ const playgroundReducer = (state, action) => {
       return {
         ...state,
         unreviews: action?.payload
+      };
+    case LOAD_USER_RESPONSE_ID:
+      return {
+        ...state,
+        userResponseId: action?.payload
+      };
+    case LOAD_USER_RESPONSES:
+      return {
+        ...state,
+        userResponses: action?.payload
       };
     case LOAD_CID:
       return {
