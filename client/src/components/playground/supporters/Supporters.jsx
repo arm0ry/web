@@ -41,11 +41,16 @@ const Supporters = () => {
     ),
   });
 
-  // TODO: display base64 please
-  console.log(data.pages[0])
-  console.log(uri)
 
-  const uri2 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBzdHlsZT0iYmFja2dyb3VuZDojRkZGQkY1Ij48dGV4dCB4PSIyMCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiMwMDA0MGEiID5TdXBwb3J0ICMxPC90ZXh0PjxyZWN0IGZpbGw9IiNGRkJFMEIiIHg9IjIwIiB5PSI1MCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSI1IiA+PC9yZWN0Pjx0ZXh0IHg9IjIwIiB5PSIxMDAiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiMwMDA0MGEiID7lj7DngaPpm7bmmYLmlL/lupzpu5HlrqLmnb48L3RleHQ+PHRleHQgeD0iMjAiIHk9IjIxMCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPum7keWuouadvuasoeaVuO+8mjY0IOasoTwvdGV4dD48dGV4dCB4PSIyMCIgeT0iMjMwIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwNDBhIiA+5LiN5YW35ZCN5Y+D6IiH5Lq65pW477yaNiDkuro8L3RleHQ+PHRleHQgeD0iMjAiIHk9IjI1MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPuWFrOawkeWPg+iIh+S6uuaVuO+8mjcg5Lq6PC90ZXh0Pjx0ZXh0IHg9IjIwIiB5PSIyNzAiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMwMDA0MGEiID7nuL3lrozmiJDkurrmlbjvvJoxIOS6ujwvdGV4dD48dGV4dCB4PSIyMCIgeT0iMTcwIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwNDBhIiA+56ysIDY0IOasoeWPg+iIh+S6uuaVuO+8mjwvdGV4dD48dGV4dCB4PSIxMzAiIHk9IjE3MCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzAwMDQwYSIgPjI8L3RleHQ+PHRleHQgeD0iMjEwIiB5PSIxNzAiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMwMDA0MGEiID4g5qyhPC90ZXh0Pjwvc3ZnPg=="
+  useEffect(() => {
+
+    // TODO: display base64 please
+    console.log(data.pages[0])
+    console.log(uri)
+  }, [data])
+
+
+  const uri2 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBzdHlsZT0iYmFja2dyb3VuZDojRkZGQkY1Ij48dGV4dCB4PSIyMCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiMwMDA0MGEiID7mspLmnInkurogIzE8L3RleHQ+PHJlY3QgZmlsbD0iI0ZGQkUwQiIgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjUiID48L3JlY3Q+PHRleHQgeD0iMjAiIHk9IjEwMCIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzAwMDQwYSIgPuWPsOeBo+mbtuaZguaUv+W6nOm7keWuouadvjwvdGV4dD48dGV4dCB4PSIyMCIgeT0iMjMwIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwNDBhIiA+bjBib2R5IOWPg+iIh+S6uuaVuO+8mjAg5Lq6PC90ZXh0Pjx0ZXh0IHg9IjIwIiB5PSIyNTAiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMwMDA0MGEiID7nuL3lj4PoiIfkurrmlbjvvJoxMSDkuro8L3RleHQ+PHRleHQgeD0iMjAiIHk9IjI3MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPjEwMCUg5Y+D6IiH5Lq65pW477yaNCDkuro8L3RleHQ+PHRleHQgeD0iMjAiIHk9IjE3MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPuesrCA2NCDmrKHlj4PoiIfkurrmlbjvvJo8L3RleHQ+PHRleHQgeD0iMTQwIiB5PSIxNzAiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiMwMDA0MGEiID41PC90ZXh0Pjx0ZXh0IHg9IjIzMCIgeT0iMTcwIiBmb250LXNpemU9IjExIiBmaWxsPSIjMDAwNDBhIiA+IOS6ujwvdGV4dD48L3N2Zz4="
   return (
     <>
       <div className=" mx-auto flex flex-row ">
@@ -61,7 +66,7 @@ const Supporters = () => {
             支持者:
           </label>
           <div className="grid grid-cols-1 gap-2 p-4 ">
-            {data.pages[0] !== undefined ? (
+            {data?.pages[0] !== undefined ? (
               data.pages[0]?.map((supporter, id) => {
                 return supporter !== null ? (
                   <div className="flex flex-col">

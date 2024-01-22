@@ -48,7 +48,7 @@ const Curves = () => {
           },
         ];
       },
-      { start: 1, perPage: 1, direction: "increment" }
+      { start: 1, perPage: 4, direction: "increment" }
     ),
   });
 

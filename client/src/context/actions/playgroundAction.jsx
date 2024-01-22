@@ -138,7 +138,6 @@ export const loadUserResponses = async () => {
         const _taskDeadline = await Quest_contract.getTaskDeadline(id);
         const _taskDetail = await Quest_contract.getTaskDetail(id);
         const _totalTaskCompletions = await Quest_contract.getTotalTaskCompletions(id);
-        // TODO: missiondId hardcoded to 1 for now
         const _totalTaskCompletionsByMission = await Quest_contract.getTotalTaskCompletionsByMission(1, id);
         _responses[id] = { creator: _taskCreator, deadline: parseInt(_taskDeadline._hex), content: _taskDetail, completions: parseInt(_totalTaskCompletions._hex), completionsByMission: ethers.utils.formatUnits(_totalTaskCompletionsByMission, "wei") };
       })

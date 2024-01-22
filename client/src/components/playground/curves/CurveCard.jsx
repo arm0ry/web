@@ -13,7 +13,7 @@ const CurveCard = ({ curve }) => {
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
     functionName: 'support',
-    args: [1, user, ethers.utils.formatUnits(curve[1], 'wei')],
+    args: [4, user, ethers.utils.formatUnits(curve[1], 'wei')],
     overrides: { value: curve[1] },
   })
 
@@ -21,10 +21,10 @@ const CurveCard = ({ curve }) => {
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
     functionName: 'burn',
-    args: [1, user]
+    args: [4, user]
   })
 
-  console.log(curve)
+  console.log(ethers.utils.formatUnits(curve[1], 'wei'))
 
   const data = [
     {

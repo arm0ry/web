@@ -23,7 +23,6 @@ export const playgroundInitialState = {
   travelerCount: 0,
   travelers: [],
   unreviews: [],
-  user
   tasks: {},
   taskId: 0,
   missions: {},
