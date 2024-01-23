@@ -20,27 +20,34 @@ if (!RPC_ENDPOINT) {
 
 async function sponsored_start(username, missions, missionId) {
   const Quest = {
-    address: "0x678B60a491d2802EcECc5c8B1d9bEa64De960a9D",
+    address: "0xBdC34c5D62084cBfF5EED3d8920134313b196DE7",
     abi: Quest_abi,
   };
 
-  const currentGasPrice = await provider.getGasPrice();
-  const gas_price = ethers.utils.hexlify(parseInt(currentGasPrice));
-  const iface = new ethers.utils.Interface(Quest.abi);
-  const data = iface.encodeFunctionData("sponsoredStart", [username, missions, missionId])
+  const questInstance = new ethers.Contract(Quest.address, Quest.abi, signer)
 
-  const sendTokenTx = {
-    from: ACCOUNT,
-    to: Quest.address,
-    nonce: provider.getTransactionCount(ACCOUNT, "latest"),
-    data: data,
-    gasLimit: ethers.utils.hexlify(300000), // 21000
-    gasPrice: gas_price,
-  };
+  // TODO: How to cast to different types?
+  // try {
+  //   const user = address(uint160(uint256(ethers.utils.keccak256(abiCoder.encode(username)))));
+  //   const existingUser = await quest.isPublicUser(user, missions, missionId);
+  //   if (existingUser) return "Username already claimed."
+  //   console.log("new user!!")
+  // } catch (err) {
+  //   console.error(err)
+  //   return "Something went wrong."
+  // }
 
-  const txResponse = await signer.sendTransaction(sendTokenTx);
+  try {
+    console.log(username, missions, missionId)
+    const tx = await questInstance.sponsoredStart(username, missions, missionId)
+    const confirmations = await tx.wait(2);
+    console.log("confirmation is here", confirmations)
+    return confirmations.transactionHash;
 
-  return txResponse
+  } catch (err) {
+    console.error("error", err);
+    return "Something went wrong."
+  }
 }
 
 module.exports = sponsored_start;

@@ -33,7 +33,7 @@ export const Mission = {
 };
 
 export const Quest = {
-  address: "0xe0963c67BeF93287f895ae7391Af810957529600",
+  address: "0xBdC34c5D62084cBfF5EED3d8920134313b196DE7",
   abi: Quest_abi,
 };
 
@@ -43,7 +43,7 @@ export const ImpactCurves = {
 };
 
 export const SupportToken = {
-  address: "0x14530b6f8aDEB71269A66fcCc16bC45e9A8A99d8",
+  address: "0x79DF078C552b22C3A092D4f5bc96937256b79437",
   abi: SupportToken_abi,
 };
 

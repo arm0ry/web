@@ -12,7 +12,7 @@ const TaskCard = ({ taskId, className = "" }) => {
   const { playground, userInfo } = useGlobalContext();
   const { tasks } = playground;
 
-  console.log(tasks)
+  // console.log(tasks)
   return (
     <>
       <div className={`relative group h-34 w-full ${className}`}>
@@ -37,20 +37,8 @@ const TaskCard = ({ taskId, className = "" }) => {
               Read Detail →
             </Link>
           </div>
-          {/* <div className="justify-items-end flex mt-2 ml-auto  min-w-[7rem] md:mt-0 items-start justify-end md:items-end md:justify-end">
-            <div className="flex md:p-2 flex-col flex-nowrap gap-2">
-              <div className="inline-flex items-center w-fit px-2 py-1 bg-[#303481]  rounded-full text-sm font-bold text-[#D6E6F2]">
-                <ClockIcon />
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
-      {/* <div className="bg-gray-50 flex flex-col justify-center relative overflow-hidden sm:py-12">
-        <div className="max-w-7xl mx-auto">
-          
-        </div>
-      </div> */}
     </>
   );
 };

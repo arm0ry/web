@@ -55,6 +55,7 @@ const StateYourNameModal = ({ modalPayload }) => {
 
   const sponsorStart = async (username) => {
     setFetching(true);
+    console.log("starting")
     try {
       const body = { seed: username, mission: Mission.address, missionId: missionId };
       axios
@@ -62,25 +63,24 @@ const StateYourNameModal = ({ modalPayload }) => {
         .then((res) => {
           console.log(res);
           if (res.status === 202) {
-            pushAlert({ msg: `${res.data.msg}`, type: "info" });
+            pushAlert({
+              msg: (
+                <span>
+                  {res.data.msg}
+                  <a
+                    href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-extrabold text-green-900"
+                  >
+                    &nbsp;View on Etherscan &#128279;
+                  </a>
+                </span>
+              ),
+              type: "success",
+            });
             return;
           }
-          pushAlert({
-            msg: (
-              <span>
-                {res.data.msg}
-                <a
-                  href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-extrabold text-green-900"
-                >
-                  &nbsp;View on Etherscan &#128279;
-                </a>
-              </span>
-            ),
-            type: "success",
-          });
         })
         .catch((err) => {
           console.error(err);
@@ -105,25 +105,24 @@ const StateYourNameModal = ({ modalPayload }) => {
         .then((res) => {
           console.log(res);
           if (res.status === 202) {
-            pushAlert({ msg: `${res.data.msg}`, type: "info" });
+            pushAlert({
+              msg: (
+                <span>
+                  {res.data.msg}
+                  <a
+                    href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-extrabold text-green-900"
+                  >
+                    &nbsp;View on Etherscan &#128279;
+                  </a>
+                </span>
+              ),
+              type: "success",
+            });
             return;
           }
-          pushAlert({
-            msg: (
-              <span>
-                {res.data.msg}
-                <a
-                  href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-extrabold text-green-900"
-                >
-                  &nbsp;View on Etherscan &#128279;
-                </a>
-              </span>
-            ),
-            type: "success",
-          });
         })
         .catch((err) => {
           console.error(err);
@@ -142,10 +141,13 @@ const StateYourNameModal = ({ modalPayload }) => {
   const onSubmit = async (data) => {
     // setInPrepare(true);
 
-    console.log(taskId)
     if (taskId == 0) sponsorStart(data.seed);
     else sponsorRespond(data.seed, data.moon, data.feedback);
   };
+
+  useEffect(() => {
+
+  }, [fetching])
 
   return (
     <>
@@ -185,7 +187,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                 <div className="w-full">
                   <button
                     type="submit"
-                    disabled={fetching}
+                    disabled={fetching} // TODO: WHY IS THIS NOT WORKING?
                     className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
                   >
                     Start

@@ -3,6 +3,7 @@ import { useAccount, useContractRead, useContractInfiniteReads, paginatedIndexes
 
 import { useGlobalContext } from "@context/store";
 import { SupportToken } from "@contract";
+import { shortenAddress } from "@utils/shortenAddress";
 
 const Supporters = () => {
   const { data: uri } = useContractRead({
@@ -37,7 +38,7 @@ const Supporters = () => {
   }, [data])
 
 
-  const uri2 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBzdHlsZT0iYmFja2dyb3VuZDojRkZGQkY1Ij48dGV4dCB4PSIyMCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiMwMDA0MGEiID7mspLmnInkurogIzE8L3RleHQ+PHJlY3QgZmlsbD0iI0ZGQkUwQiIgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjUiID48L3JlY3Q+PHRleHQgeD0iMjAiIHk9IjEwMCIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzAwMDQwYSIgPuWPsOeBo+mbtuaZguaUv+W6nOm7keWuouadvjwvdGV4dD48dGV4dCB4PSIyMCIgeT0iMjMwIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwNDBhIiA+bjBib2R5IOWPg+iIh+S6uuaVuO+8mjAg5Lq6PC90ZXh0Pjx0ZXh0IHg9IjIwIiB5PSIyNTAiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMwMDA0MGEiID7nuL3lj4PoiIfkurrmlbjvvJoxMSDkuro8L3RleHQ+PHRleHQgeD0iMjAiIHk9IjI3MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPjEwMCUg5Y+D6IiH5Lq65pW477yaNCDkuro8L3RleHQ+PHRleHQgeD0iMjAiIHk9IjE3MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPuesrCA2NCDmrKHlj4PoiIfkurrmlbjvvJo8L3RleHQ+PHRleHQgeD0iMTQwIiB5PSIxNzAiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiMwMDA0MGEiID41PC90ZXh0Pjx0ZXh0IHg9IjIzMCIgeT0iMTcwIiBmb250LXNpemU9IjExIiBmaWxsPSIjMDAwNDBhIiA+IOS6ujwvdGV4dD48L3N2Zz4="
+  const uri2 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBzdHlsZT0iYmFja2dyb3VuZDojRkZGQkY1Ij48dGV4dCB4PSIyMCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiMwMDA0MGEiID7mspLmnInkurogIzE8L3RleHQ+PHJlY3QgZmlsbD0iI0ZGQkUwQiIgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjUiID48L3JlY3Q+PHRleHQgeD0iMjAiIHk9IjEwMCIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzAwMDQwYSIgPuWPsOeBo+mbtuaZguaUv+W6nOm7keWuouadvjwvdGV4dD48dGV4dCB4PSIyMCIgeT0iMjMwIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwNDBhIiA+bjBib2R5IOWPg+iIh+S6uuaVuO+8mjEg5Lq6PC90ZXh0Pjx0ZXh0IHg9IjIwIiB5PSIyNTAiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMwMDA0MGEiID7nuL3lj4PoiIfkurrmlbjvvJoyNyDkuro8L3RleHQ+PHRleHQgeD0iMjAiIHk9IjI3MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPjEwMCUg5Y+D6IiH5Lq65pW477yaNSDkuro8L3RleHQ+PHRleHQgeD0iMjAiIHk9IjE3MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDQwYSIgPuesrCA2NCDmrKHlj4PoiIfkurrmlbjvvJo8L3RleHQ+PHRleHQgeD0iMTQwIiB5PSIxNzAiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiMwMDA0MGEiID41PC90ZXh0Pjx0ZXh0IHg9IjIzMCIgeT0iMTcwIiBmb250LXNpemU9IjExIiBmaWxsPSIjMDAwNDBhIiA+IOS6ujwvdGV4dD48L3N2Zz4="
   return (
     <>
       <div className=" mx-auto flex flex-row ">
@@ -46,7 +47,7 @@ const Supporters = () => {
           src={uri2}
           alt="Supporter Token"
         ></img>
-        <div className="p-10  h-1/2">
+        <div className="ml-10  h-1/2">
           <label
             className="p-4 block text-2xl font-bold text-gray-900"
           >
@@ -61,7 +62,7 @@ const Supporters = () => {
                       Token #{id + 1}.
                     </label>
                     <label className="mb-2 block text-xl font-medium text-gray-900">
-                      {supporter}
+                      {shortenAddress(supporter)}
                     </label>
                   </div>
                 ) : (<></>)

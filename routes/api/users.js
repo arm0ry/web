@@ -37,7 +37,7 @@ router.get("/", auth, (req, res) => {
 // @access  Private
 router.post("/facuet", auth, (req, res) => {
   const { address } = req.body;
-  console.log(address);
+  // console.log(address);
 
   const query = {
     address: new RegExp(address, "i"),
@@ -102,10 +102,20 @@ router.post("/facuet", auth, (req, res) => {
 // @access  Private
 router.post("/sponsored_start", async (req, res) => {
   const { seed, mission, missionId } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
-  const txhash = await sponsored_start(seed, mission, missionId);
-  console.log(txhash);
+  const tx = await sponsored_start(seed, mission, missionId);
+
+  if (tx === "Something went wrong.") {
+    return res.status(404).json({ msg: tx });
+  } else {
+    console.log(tx)
+    return res.status(202).json({
+      "txhash": tx,
+      "msg": "You're good to go.",
+    });
+  }
+
 })
 
 // @route   POST api/users/facuet
@@ -113,9 +123,19 @@ router.post("/sponsored_start", async (req, res) => {
 // @access  Private
 router.post("/sponsored_respond", async (req, res) => {
   const { seed, mission, missionId, taskId, response, feedback } = req.body;
-  console.log(req.body);
+  // console.log(res);
 
-  await sponsored_respond(seed, mission, missionId, taskId, response, feedback);
+  const tx = await sponsored_respond(seed, mission, missionId, taskId, response, feedback);
+
+  if (tx === "Something went wrong.") {
+    return res.status(404).json({ msg: tx });
+  } else {
+    console.log(tx)
+    return res.status(202).json({
+      "txhash": tx,
+      "msg": "Thank you for your contribution!",
+    });
+  }
 })
 
 module.exports = router;

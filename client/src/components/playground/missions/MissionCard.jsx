@@ -7,6 +7,7 @@ import { Spinner } from "@components";
 const MissionCard = ({ missionId }) => {
   const { playground } = useGlobalContext();
   const { missions } = playground;
+
   return (
     <>
       <div className="group relative flex h-60 max-w-sm flex-col rounded-lg border border-gray-200 bg-white p-6 shadow">
