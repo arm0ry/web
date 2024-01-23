@@ -8,14 +8,22 @@ import ResponseCard from "./ResponseCard";
 
 const Responses = () => {
   const { playground, userInfo } = useGlobalContext();
-  const { unreviews } = playground;
+  const { responses } = playground;
+  console.log(responses)
   return (
     <>
-      <div>Hello</div>
       <div className="grid grid-cols-1 gap-10 p-4 xl:grid-cols-2 2xl:grid-cols-3">
-        {unreviews.map((review, id) => {
-          return <ResponseCard key={id} review={review} />;
-        })}
+        {/* {parseInt(responses?.taskId?._hex)} */}
+        {responses !== undefined ? (
+          responses.map((response, id) => {
+            return <ResponseCard key={id} taskId={parseInt(response.taskId._hex)} response={parseInt(response.response._hex)} feedback={response.feedback} />;
+          })
+        ) : (
+          <></>
+        )}
+        {/* {responses.map((response, id) => {
+          return <ResponseCard key={id} taskId={parseInt(response.taskId._hex)} response={parseInt(response.response._hex)} feedback={response.feedback} />;
+        })} */}
       </div>
     </>
   );

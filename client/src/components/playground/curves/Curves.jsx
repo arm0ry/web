@@ -55,7 +55,7 @@ const Curves = () => {
   useEffect(() => {
     if (data) {
       const tempData = data.pages[0];
-      console.log(tempData)
+      // console.log(data, tempData)
       let innerArry = [];
       let outerArry = [];
       for (let i = 0; i < tempData.length; i++) {
@@ -74,7 +74,7 @@ const Curves = () => {
       <div className="grid grid-cols-1 gap-10 p-4">
         {curves !== undefined ? (
           curves?.map((curve, id) => {
-            return <CurveCard key={id} curve={curve} />;
+            return <CurveCard key={id} curve={curve} id={id} />;
           })
         ) : (
           <></>

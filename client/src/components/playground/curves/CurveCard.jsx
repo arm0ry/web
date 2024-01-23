@@ -6,14 +6,14 @@ import { shortenAddress } from "@utils/shortenAddress";
 import { Avatar } from "@components";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const CurveCard = ({ curve }) => {
+const CurveCard = ({ curve, id }) => {
   const { address: user } = useAccount();
 
   const { write: clickMint } = useContractWrite({
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
     functionName: 'support',
-    args: [4, user, ethers.utils.formatUnits(curve[1], 'wei')],
+    args: [id + 1, user, ethers.utils.formatUnits(curve[1], 'wei')],
     overrides: { value: curve[1] },
   })
 
@@ -21,10 +21,10 @@ const CurveCard = ({ curve }) => {
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
     functionName: 'burn',
-    args: [4, user]
+    args: [id + 1, user]
   })
-
-  console.log(ethers.utils.formatUnits(curve[1], 'wei'))
+  // console.log(id)
+  // console.log(ethers.utils.formatUnits(curve[1], 'wei'))
 
   const data = [
     {

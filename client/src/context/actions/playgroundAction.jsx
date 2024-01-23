@@ -3,8 +3,9 @@ import {
   LOAD_TRAVELERCOUNT,
   LOAD_TRAVELERS,
   LOAD_UNREVIEWS,
-  LOAD_USER_RESPONSE_ID,
-  LOAD_USER_RESPONSES,
+  LOAD_QUEST_ID,
+  LOAD_QUESTS,
+  LOAD_RESPONSES,
   LOAD_CID,
   LOAD_TASKS,
   LOAD_TASKID,
@@ -32,10 +33,10 @@ export const loadTasksData = async () => {
     const _taskId = await Mission_contract.getTaskId();
     const taskId = parseInt(_taskId._hex);
     // console.log(taskId)
-    dispatch.fn({
-      type: LOAD_TASKID,
-      payload: taskId,
-    });
+    // dispatch.fn({
+    //   type: LOAD_TASKID,
+    //   payload: taskId,
+    // });
     if (taskId <= 0) return;
 
     let _tasks = {};
@@ -63,13 +64,13 @@ export const loadTasksData = async () => {
     pushAlert({ msg: `Loading Tasks Data Error`, type: "failure" });
   }
 };
-export const loadMissionsData = async (playground) => {
+export const loadMissionsData = async () => {
   try {
     const _missionId = await Mission_contract.getMissionId();
-    dispatch.fn({
-      type: LOAD_MISSIONID,
-      payload: _missionId,
-    });
+    // dispatch.fn({
+    //   type: LOAD_MISSIONID,
+    //   payload: _missionId,
+    // });
 
     if (_missionId <= 0) return;
 
@@ -118,35 +119,48 @@ export const loadMissionsData = async (playground) => {
   }
 };
 
-export const loadUserResponses = async () => {
+export const loadQuests = async () => {
   try {
-    const _responseId = await Quest_contract.getNumOfResponseByUser();
-    const responseId = parseInt(_responseId._hex);
-    // console.log(responseId)
+    const _questId = await Quest_contract.getQuestId();
+    const questId = parseInt(_questId._hex);
+    // console.log(questId)
     dispatch.fn({
-      type: LOAD_USER_RESPONSE_ID,
-      payload: responseId,
+      type: LOAD_QUEST_ID,
+      payload: questId, LOAD_QUESTS
     });
-    if (taskId <= 0) return;
+    if (questId <= 0) return;
 
-    let _responses = {};
+    let quests = {};
 
     await Promise.all(
-      [...Array(taskId)].map(async (_, _id) => {
+      [...Array(questId)].map(async (_, _id) => {
         const id = _id + 1;
-        const _taskCreator = await Quest_contract.getTaskCreator(id);
-        const _taskDeadline = await Quest_contract.getTaskDeadline(id);
-        const _taskDetail = await Quest_contract.getTaskDetail(id);
-        const _totalTaskCompletions = await Quest_contract.getTotalTaskCompletions(id);
-        const _totalTaskCompletionsByMission = await Quest_contract.getTotalTaskCompletionsByMission(1, id);
-        _responses[id] = { creator: _taskCreator, deadline: parseInt(_taskDeadline._hex), content: _taskDetail, completions: parseInt(_totalTaskCompletions._hex), completionsByMission: ethers.utils.formatUnits(_totalTaskCompletionsByMission, "wei") };
+        const quest = await Quest_contract.getQuest(id);
+        const taskIds = await Mission_contract.getMissionTaskIds(quest[2])
+        const responses = []
+
+        for (let i = 0; i < taskIds.length; i++) {
+          const response = await Quest_contract.getTaskResponse(id, taskIds[i]);
+          const feedback = await Quest_contract.getTaskFeedback(id, taskIds[i]);
+          const responseObj = {
+            taskId: taskIds[i],
+            response: response,
+            feedback: feedback
+          }
+          responses.push(responseObj)
+        }
+
+        dispatch.fn({
+          type: LOAD_RESPONSES,
+          payload: responses,
+        });
+
+        quests[id] = { questId: id, user: quest[0], mission: quest[1], responses: responses };
       })
     );
-    // console.log(_responses);
-
     dispatch.fn({
-      type: LOAD_USER_RESPONSES,
-      payload: _responses,
+      type: LOAD_QUESTS,
+      payload: quests,
     });
   } catch (error) {
     console.error(error);

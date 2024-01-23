@@ -30,6 +30,7 @@ import {
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
+import { loadQuests } from "../../context/actions/playgroundAction";
 
 // const svg = avatar.toString();
 const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => { } }) => {
@@ -89,15 +90,7 @@ const Playground = () => {
   const { address, isConnected, isDisconnected } = useAccount();
   const { playground, userInfo } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
-
-  // const provider = useProvider();
-  // const { chain, chains } = useNetwork();
-  // useEffect(() => {
-  //   console.log("provider", provider);
-  //   console.log("chain", chain);
-  //   console.log("chains", chains);
-  // }, [chain, chains, provider]);
-
+  // console.log(playground)
   useEffect(() => {
     if (isConnected) {
       signIn({
@@ -113,6 +106,7 @@ const Playground = () => {
       // getTravelerQuest(address, playground.missionId);
     }
   }, [playground.taskId, playground.missionId]);
+
   useEffect(() => {
     if (isDisconnected) {
       signOut();
@@ -156,22 +150,15 @@ const Playground = () => {
     },
     chainId: 5,
   });
-  // *
-  // const { data: blockNumber } = useBlockNumber({
-  //   chainId: 5,
-  //   watch: true,
-  // });
+
+
   useEffect(() => {
     loadTasksData();
-    loadMissionsData(playground);
+    loadMissionsData();
+    loadQuests();
     // loadTravelers();
   }, []);
-  // load Unreviews
-  useEffect(() => {
-    if (playground.travelers.length > 0 && playground.taskId > 0) {
-      // loadUnreviews(playground.travelers, playground.taskId);
-    }
-  }, [playground.travelers, playground.taskId]);
+
 
   return (
     <>

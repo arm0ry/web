@@ -10,28 +10,20 @@ import { ClockIcon } from "@assets";
 const secondToDay = (s) => {
   return parseInt(s / 86400);
 };
-const ResponseCard = ({ review }) => {
+const ResponseCard = ({ taskId, response, feedback }) => {
   const { playground } = useGlobalContext();
   const { tasks } = playground;
-  const { traveler, taskId: rTaskId, taskHomework, questing } = review;
+  console.log(taskId, response, feedback)
   const { address, isConnected, isDisconnected } = useAccount();
-  // const { data: tasksdata, isLoading, isFetched } = useContractRead({
-  //   ...Arm0ryMissions,
-  //   functionName: 'tasks',
-  //   args:[taskId]
-  // })
-  // useEffect(() => {
-  //   setDetails(JSON.parse(tasks[taskId].details))
-  // }, [])
+
   const clickButton = () => {
-    showModal({
-      type: 6,
-      size: "3xl",
-      content: { traveler, taskId: rTaskId, taskHomework, questing },
-    });
+    // showModal({
+    //   type: 6,
+    //   size: "3xl",
+    //   content: { traveler, taskId: rTaskId, taskHomework, questing },
+    // });
   };
 
-  console.log(traveler, rTaskId, taskHomework, questing)
 
   return (
     <>
@@ -41,40 +33,30 @@ const ResponseCard = ({ review }) => {
           <div className="shrink-1 ml-2 space-y-2">
             <div className="flex flex-row  ">
               <p className=" shrink-1 my-0 line-clamp-2 font-medium leading-5 text-slate-800  group-hover:font-semibold ">
-                {tasks[rTaskId]?.title}
+                {taskId}
               </p>
-
-              {/* <div className=" relative h-5 w-5 ml-2 opacity-100 ">
-                <div
-                  className={` visible absolute  left-[40%] top-0  flex  h-5 items-center justify-center rounded-r-full bg-[#B6E4F4] px-1 py-1 pr-3 text-xs font-semibold  text-black  shadow-sm`}
-                >
-                  <span className="ml-2 items-center">
-                    {shortenAddress(traveler)}
-                  </span>
-                </div>
-                <Avatar
-                  className={`absolute top-0 left-0 h-5 w-5 `}
-                  address={traveler}
-                />
-              </div> */}
               <div
                 className={`flex shrink-0 flex-row items-center justify-center rounded-full bg-[#B6E4F4] h-fit md:px-2 md:py-1 text-xs font-semibold  text-black  shadow-sm`}
               >
-                <Avatar className={`h-5 w-5 `} address={traveler} />
+                {/* <Avatar className={`h-5 w-5 `} address={traveler} /> */}
                 <span className="ml-1 hidden items-center md:block">
-                  {shortenAddress(traveler)}
+                  {response}
                 </span>
+              </div>
+              <div>
+                <span className="ml-1 hidden items-center md:block">
+                  {feedback}
+                </span>
+
               </div>
             </div>
 
-            <span
+            {/* <span
               onClick={clickButton}
-              className={`block cursor-pointer	 transition duration-200 ${
-                address !== traveler ? "text-indigo-500" : "text-gray-500"
-              } `}
+              className={`block cursor-pointer	 transition duration-200 ${address !== traveler ? "text-indigo-500" : "text-gray-500"
+                } `}
             >
-              {address === traveler ? "My Homework" : " ✔ Click to Review"}
-            </span>
+            </span> */}
           </div>
           <div className="mt-2 ml-auto flex shrink-0  items-start justify-end justify-items-end md:mt-0 md:items-end ">
             <div className="flex flex-col flex-nowrap gap-2 md:p-2">
@@ -82,11 +64,6 @@ const ResponseCard = ({ review }) => {
           </div>
         </div>
       </div>
-      {/* <div className="bg-gray-50 flex flex-col justify-center relative overflow-hidden sm:py-12">
-        <div className="max-w-7xl mx-auto">
-          
-        </div>
-      </div> */}
     </>
   );
 };

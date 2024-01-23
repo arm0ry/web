@@ -1,30 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ethers, BigNumber } from "ethers";
 import { useAccount, useContractRead, useContractInfiniteReads, paginatedIndexesConfig } from "wagmi";
 
 import { useGlobalContext } from "@context/store";
-import { pushAlert } from "@context/actions/alertAction";
-import { showModal } from "@context/actions/modalAction";
-// import { getTravelerPass } from "@context/actions/userAction";
-import { LockIcon, PassportIdIcon } from "@assets";
-import { ImpactCurves, SupportToken } from "@contract";
-import useWriteContract from "@hooks/useWriteContract";
-import { Spinner } from "@components";
-import SupporterCard from "./SupporterCard";
-import { shortenAddress } from "@utils/shortenAddress";
+import { SupportToken } from "@contract";
 
 const Supporters = () => {
-  const { userInfo, setTravelerPass, setIsMinted } = useGlobalContext();
-  const { address, isConnected, isDisconnected } = useAccount();
-
   const { data: uri } = useContractRead({
     ...SupportToken,
     functionName: 'tokenURI',
     args: [1]
   })
 
-
-  const { data, fetchNextPage, isFetched } = useContractInfiniteReads({
+  const { data } = useContractInfiniteReads({
     cacheKey: "supporters",
     ...paginatedIndexesConfig(
       (index) => {

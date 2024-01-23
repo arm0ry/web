@@ -3,8 +3,9 @@ import { useReducer } from "react";
 export const LOAD_TRAVELERCOUNT = "LOAD_TRAVELERCOUNT";
 export const LOAD_TRAVELERS = "LOAD_TRAVELERS";
 export const LOAD_UNREVIEWS = "LOAD_UNREVIEWS";
-export const LOAD_USER_RESPONSE_ID = "LOAD_USER_RESPONSE_ID";
-export const LOAD_USER_RESPONSES = "LOAD_USER_RESPONSES";
+export const LOAD_QUEST_ID = "LOAD_QUEST_ID";
+export const LOAD_QUESTS = "LOAD_QUESTS";
+export const LOAD_RESPONSES = "LOAD_RESPONSES";
 export const LOAD_CID = "LOAD_CID";
 
 export const LOAD_TASKID = "LOAD_TASKID";
@@ -20,13 +21,14 @@ export const UPDATE_MISSION = "UPDATE_MISSION";
 export const DELETE_MISSION = "DELETE_MISSION";
 
 export const playgroundInitialState = {
-  travelerCount: 0,
-  travelers: [],
-  unreviews: [],
+  // travelerCount: 0,
+  // travelers: [],
+  // unreviews: [],
   tasks: {},
-  taskId: 0,
+  // taskId: 0,
   missions: {},
-  missionId: 0,
+  quests: {},
+  // missionId: 0,
   ipfs: {},
   managers: [],//pass
 };
@@ -50,15 +52,20 @@ const playgroundReducer = (state, action) => {
         ...state,
         unreviews: action?.payload
       };
-    case LOAD_USER_RESPONSE_ID:
+    case LOAD_QUEST_ID:
       return {
         ...state,
-        userResponseId: action?.payload
+        questId: action?.payload
       };
-    case LOAD_USER_RESPONSES:
+    case LOAD_QUESTS:
       return {
         ...state,
-        userResponses: action?.payload
+        quests: action?.payload
+      };
+    case LOAD_RESPONSES:
+      return {
+        ...state,
+        responses: action?.payload
       };
     case LOAD_CID:
       return {
