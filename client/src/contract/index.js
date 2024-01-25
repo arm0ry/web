@@ -5,7 +5,8 @@ import KaliDAO_abi from "./KaliDAO.json";
 import Mission_abi from "./Mission.json";
 import Quest_abi from "./Quest.json";
 import ImpactCurves_abi from "./ImpactCurves.json";
-import SupportToken_abi from "./SupportToken.json";
+import mSupportToken_abi from "./mSupportToken.json";
+import qSupportToken_abi from "./qSupportToken.json";
 
 export const Arm0ryMissions = {
   address: "0xf3dc858aB0b39daB2E382128c20A3f1f836a39C3",
@@ -42,9 +43,14 @@ export const ImpactCurves = {
   abi: ImpactCurves_abi,
 };
 
-export const SupportToken = {
+export const mSupportToken = {
   address: "0x79DF078C552b22C3A092D4f5bc96937256b79437",
-  abi: SupportToken_abi,
+  abi: mSupportToken_abi,
+};
+
+export const qSupportToken = {
+  address: "0x817C9F6B16Ddb9BDA0ad1989813eF3ca38f67fd5",
+  abi: qSupportToken_abi,
 };
 
 // const goerli = "https://rpc.ankr.com/eth_goerli";
