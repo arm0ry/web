@@ -7,16 +7,21 @@ import ResponseCard from "./ResponseCard";
 // const svg = avatar.toString();
 
 const Responses = () => {
-  const { playground, userInfo } = useGlobalContext();
+  const { playground } = useGlobalContext();
   const { responses } = playground;
   console.log(responses)
+
+  useEffect(() => {
+
+  }, [responses])
+
   return (
     <>
       <div className="grid grid-cols-1 gap-10 p-4 xl:grid-cols-2 2xl:grid-cols-3">
         {/* {parseInt(responses?.taskId?._hex)} */}
         {responses !== undefined ? (
           responses.map((response, id) => {
-            return <ResponseCard key={id} taskId={parseInt(response.taskId._hex)} response={parseInt(response.response._hex)} feedback={response.feedback} />;
+            return <ResponseCard key={id} user={response.user} taskId={parseInt(response.taskId._hex)} response={parseInt(response.response._hex)} feedback={response.feedback} />;
           })
         ) : (
           <></>

@@ -131,6 +131,8 @@ export const loadQuests = async () => {
     if (questId <= 0) return;
 
     let quests = {};
+    const allResponses = []
+
 
     await Promise.all(
       [...Array(questId)].map(async (_, _id) => {
@@ -145,14 +147,16 @@ export const loadQuests = async () => {
           const responseObj = {
             taskId: taskIds[i],
             response: response,
-            feedback: feedback
+            feedback: feedback,
+            user: quest[0]
           }
           responses.push(responseObj)
+          allResponses.push(responseObj)
         }
 
         dispatch.fn({
           type: LOAD_RESPONSES,
-          payload: responses,
+          payload: allResponses,
         });
 
         quests[id] = { questId: id, user: quest[0], mission: quest[1], responses: responses };

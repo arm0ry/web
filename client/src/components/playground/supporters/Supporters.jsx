@@ -62,11 +62,11 @@ const Supporters = () => {
   return (
     <>
       <label
-        className="p-4 mb-8 block text-5xl font-bold text-gray-900"
+        className="p-4 mb-2 block text-5xl font-bold text-gray-900"
       >
-        揪松城影響力
+        揪松影響力
       </label>
-      <div className=" mx-auto flex flex-row ">
+      <div className="mt-5 mb-5 mx-auto flex flex-row ">
         <img
           className=" mb-8 ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg transition  duration-300 md:h-[40vw] md:w-[40vw]"
           src={`data:image/svg+xml;utf8,${encodeURIComponent(mSvg)}`}
@@ -98,12 +98,7 @@ const Supporters = () => {
           </div>
         </div>
       </div>
-      <label
-        className="p-4 block text-3xl font-bold text-gray-900"
-      >
-        新手試煉 NFT
-      </label>
-      <div className=" mx-auto flex flex-row ">
+      <div className="mt-5 mb-5 mx-auto flex flex-row ">
         <img
           className=" mb-8 ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg transition  duration-300 md:h-[40vw] md:w-[40vw]"
           src={`data:image/svg+xml;utf8,${encodeURIComponent(qSvg)}`}
