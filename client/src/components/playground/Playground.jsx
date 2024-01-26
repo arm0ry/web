@@ -210,12 +210,12 @@ const Playground = () => {
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
-            <SidebarItem
+            {/* <SidebarItem
               to="curves"
               name="曲線"
               Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
-            />
+            /> */}
             <SidebarItem
               to="supporters"
               name="支持"
