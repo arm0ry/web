@@ -69,6 +69,7 @@ const Curves = () => {
     }
   }, [data]);
 
+  console.log(curves)
   return (
     <>
       <div className="grid grid-cols-1 gap-10 p-4">
