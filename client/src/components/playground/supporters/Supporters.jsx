@@ -53,7 +53,7 @@ const Supporters = () => {
           className="p-4 mb-2 block text-5xl font-bold text-gray-900"
         >
 
-          揪松影響力
+          g0v 大松影響力
         </label>
         <div className="mb-5" >
           <SupportCard curveId={3} svg={mSvg} />

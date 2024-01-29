@@ -72,8 +72,8 @@ const CurveCard = ({ curve, supply }) => {
 
   return (
     <>
-      <div className={`h-full w-full mb-8 `}>
-        <div className="flex flex-col h-full w-full items-center">
+      <div className={`h-full w-full mb-5`}>
+        <div className="flex flex-col h-5/6 w-full justify-end ">
           <div className=" h-full w-full my-4">
             <ResponsiveContainer width="95%" height="100%">
               <LineChart
@@ -96,7 +96,7 @@ const CurveCard = ({ curve, supply }) => {
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex flex-col w-full h-max items-center space-x-10 ">
+          <div className="flex flex-col w-full items-center space-x-10  ">
             <div className="my-2 flex flex-row h-full w-full justify-center space-x-10 ">
               <label className="text-sm font-md text-gray-900">已售出: {supply}</label>
               <label className="text-sm font-md text-gray-900">買價: y = ({ethers.utils.formatUnits(curve.formula[2], "wei")} x + {ethers.utils.formatUnits(curve.formula[3], "wei")}) * {ethers.utils.formatEther(curve.formula[0])}
@@ -105,7 +105,7 @@ const CurveCard = ({ curve, supply }) => {
               </label>
             </div>
             <div className="flex flex-row w-full h-full ">
-              <div className="w-3/5 h-full px-5 py-1 ">
+              <div className="w-3/5 px-5 py-1 ">
 
                 <button
                   disabled={!clickMint}
@@ -120,15 +120,17 @@ const CurveCard = ({ curve, supply }) => {
                   </div>
                 </button>
               </div>
-              <div className="w-3/5 h-full px-5 py-1">
+              <div className="w-3/5 px-5 py-1">
                 <button
                   disabled={!clickBurn}
                   onClick={() => clickBurn({
                   })}
                   className=" w-full h-full rounded-lg p-1 text-red-900 hover:bg-red-100 bg-red-200 items-center"
                 >
-                  <div className="text-xl font-semibold">Burn </div>
-                  <div className="text-md font-semibold"> @ {ethers.utils.formatEther(curve.burnPrice)} Ξ</div>
+                  <div className="flex flex-row space-x-2 items-center justify-center">
+                    <div className="text-xl font-semibold">Burn </div>
+                    <div className="text-md font-normal"> @ {ethers.utils.formatEther(curve.burnPrice)} Ξ</div>
+                  </div>
                 </button>
               </div>
             </div>

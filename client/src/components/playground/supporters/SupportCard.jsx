@@ -105,7 +105,7 @@ const SupportCard = ({ curveId, svg }) => {
       <div className={`h-auto w-full`}>
         <div className="my-4 w-full h-2/3 flex flex-row items-center space-x-5 aspect-video">
           <img
-            className="w-2/3 h-full ml-10 ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg transition duration-300 "
+            className="h-2/3 ml-10 ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg transition duration-300 "
             src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
             alt="Supporter Token"
           ></img>
