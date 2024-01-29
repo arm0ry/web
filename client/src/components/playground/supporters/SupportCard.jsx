@@ -9,7 +9,7 @@ import { ImpactCurves, mSupportToken, qSupportToken } from "@contract";
 
 
 // TODO: Can use when we have more supporter info
-const SupporterCard = ({ curveId, svg }) => {
+const SupportCard = ({ curveId, svg }) => {
   const [curve, setCurve] = useState();
   const [supply, setSupply] = useState(0);
 
@@ -102,10 +102,10 @@ const SupporterCard = ({ curveId, svg }) => {
 
   return (
     <>
-      <div className={` h-auto w-full`}>
-        <div className="my-4 w-full h-1/2 flex flex-row items-center space-x-10 aspect-video">
+      <div className={`h-auto w-full`}>
+        <div className="my-4 w-full h-2/3 flex flex-row items-center space-x-5 aspect-video">
           <img
-            className="w-1/2 h-full ml-20 ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg transition duration-300 "
+            className="w-2/3 h-full ml-10 ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg transition duration-300 "
             src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
             alt="Supporter Token"
           ></img>
@@ -144,4 +144,4 @@ const SupporterCard = ({ curveId, svg }) => {
   );
 };
 
-export default SupporterCard;
+export default SupportCard;

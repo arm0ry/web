@@ -24,33 +24,49 @@ const CurveCard = ({ curve, supply }) => {
   })
 
   const data = [
+    // {
+    //   supply: '1 token',
+    //   price: (parseInt(curve.formula[2]._hex) + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+    // },
     {
-      supply: '1 token',
-      price: (parseInt(curve.formula[2]._hex) + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '10 tokens',
-      price: (parseInt(curve.formula[2]._hex) * 5 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '20 tokens',
+      supply: '10',
       price: (parseInt(curve.formula[2]._hex) * 10 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
     },
     {
-      supply: '30 tokens',
-      price: (parseInt(curve.formula[2]._hex) * 15 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '40 tokens',
+      supply: '20',
       price: (parseInt(curve.formula[2]._hex) * 20 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
     },
     {
-      supply: '50 tokens',
-      price: (parseInt(curve.formula[2]._hex) * 25 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+      supply: '30',
+      price: (parseInt(curve.formula[2]._hex) * 30 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
     },
     {
-      supply: '60 tokens',
-      price: (parseInt(curve.formula[2]._hex) * 30 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+      supply: '40',
+      price: (parseInt(curve.formula[2]._hex) * 40 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+    },
+    {
+      supply: '50',
+      price: (parseInt(curve.formula[2]._hex) * 50 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+    },
+    {
+      supply: '60',
+      price: (parseInt(curve.formula[2]._hex) * 60 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+    },
+    {
+      supply: '70',
+      price: (parseInt(curve.formula[2]._hex) * 70 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+    },
+    {
+      supply: '80',
+      price: (parseInt(curve.formula[2]._hex) * 80 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+    },
+    {
+      supply: '90',
+      price: (parseInt(curve.formula[2]._hex) * 90 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+    },
+    {
+      supply: '100 token',
+      price: (parseInt(curve.formula[2]._hex) * 100 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
     },
   ];
 
@@ -66,65 +82,58 @@ const CurveCard = ({ curve, supply }) => {
                 height={300}
                 data={data}
                 margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
+                  top: 2,
+                  right: 15,
+                  left: 15,
+                  bottom: 2,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="supply" />
                 <YAxis />
-                <Legend />
                 <Tooltip />
-                <Line type="monotone" dataKey="currentPrice" stroke="#82ca9d" />
                 <Line type="monotone" dataKey="price" stroke="#82ca9d" />
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex flex-row w-5/6 h-max items-center justify-center space-x-10">
-            <span
-              className={`block cursor-pointer	 transition duration-200 `}
-            >
-              <button
-                disabled={!clickMint}
-                onClick={() => clickMint({
-                  overrides: { value: curve.mintPrice }
-                })}
-                className="rounded-lg p-1 text-blue-900 hover:bg-blue-100 bg-blue-200"
-              >
-                <div className="text-xl font-semibold">Mint </div>
-                <div className="mb-2 text-md font-semibold">@ {ethers.utils.formatEther(curve.mintPrice)} ether </div>
-                <div className="text-xs mx-4">
-                  y = ({ethers.utils.formatUnits(curve.formula[2], "wei")} x + {ethers.utils.formatUnits(curve.formula[3], "wei")}) * {ethers.utils.formatEther(curve.formula[0])} ether
-                </div>
-              </button>
-            </span>
-            <span
-              className={`block cursor-pointer	 transition duration-200 `}
-            >
-              <button
-                disabled={!clickBurn}
-                onClick={() => clickBurn({
-                })}
-                className="rounded-lg p-1 text-red-900 hover:bg-red-100 bg-red-200"
-              >
-                <span className="text-xl font-semibold">Burn</span>
-                <div className="mb-2 text-md font-semibold">@ {ethers.utils.formatEther(curve.burnPrice)} ether </div>
-                <div className="text-xs mx-4">
-                  y = ({ethers.utils.formatUnits(curve.formula[5], "wei")} x + {ethers.utils.formatUnits(curve.formula[6], "wei")}) * {ethers.utils.formatEther(curve.formula[0])} ether
-                </div>
-              </button>
-            </span>
-            <div className="flex flex-col h-full items-center justify-end ">
-              <label className="text-lg font-semibold text-gray-900">已售出: {supply}</label>
-              {/* <label className="text-lg font-semibold text-gray-900">已售出: {supply}</label> */}
+          <div className="flex flex-col w-full h-max items-center space-x-10 ">
+            <div className="my-2 flex flex-row h-full w-full justify-center space-x-10 ">
+              <label className="text-sm font-md text-gray-900">已售出: {supply}</label>
+              <label className="text-sm font-md text-gray-900">買價: y = ({ethers.utils.formatUnits(curve.formula[2], "wei")} x + {ethers.utils.formatUnits(curve.formula[3], "wei")}) * {ethers.utils.formatEther(curve.formula[0])}
+              </label>
+              <label className="text-sm font-md text-gray-900">賣價: y = ({ethers.utils.formatUnits(curve.formula[5], "wei")} x + {ethers.utils.formatUnits(curve.formula[6], "wei")}) * {ethers.utils.formatEther(curve.formula[0])}
+              </label>
             </div>
+            <div className="flex flex-row w-full h-full ">
+              <div className="w-3/5 h-full px-5 py-1 ">
 
+                <button
+                  disabled={!clickMint}
+                  onClick={() => clickMint({
+                    overrides: { value: curve.mintPrice }
+                  })}
+                  className="h-full w-full rounded-lg p-1 text-blue-900 hover:bg-blue-100 bg-blue-200"
+                >
+                  <div className="flex flex-row space-x-2 items-center justify-center">
+                    <div className="text-xl font-semibold">Mint </div>
+                    <div className="text-md font-normal">@ {ethers.utils.formatEther(curve.mintPrice)} Ξ </div>
+                  </div>
+                </button>
+              </div>
+              <div className="w-3/5 h-full px-5 py-1">
+                <button
+                  disabled={!clickBurn}
+                  onClick={() => clickBurn({
+                  })}
+                  className=" w-full h-full rounded-lg p-1 text-red-900 hover:bg-red-100 bg-red-200 items-center"
+                >
+                  <div className="text-xl font-semibold">Burn </div>
+                  <div className="text-md font-semibold"> @ {ethers.utils.formatEther(curve.burnPrice)} Ξ</div>
+                </button>
+              </div>
+            </div>
           </div>
-
         </div>
-
       </div >
     </>
   );
