@@ -10,7 +10,7 @@ import { ClockIcon } from "@assets";
 const secondToDay = (s) => {
   return parseInt(s / 86400);
 };
-const ResponseCard = ({ user, taskId, response, feedback }) => {
+const ResponseCard = ({ user, response, feedback }) => {
   const { playground } = useGlobalContext();
   const { tasks } = playground;
   const { address, isConnected, isDisconnected } = useAccount();
@@ -44,13 +44,13 @@ const ResponseCard = ({ user, taskId, response, feedback }) => {
                       {shortenAddress(user)}
                     </span>
                   </div>
-                  <label className="w-full my-5 mx-3 font-medium text-slate-800  group-hover:font-semibold ">
+                  {/* <label className="w-full my-5 mx-3 font-medium text-slate-800  group-hover:font-semibold ">
                     成功完成：
-                  </label>
+                  </label> */}
                 </div>
-                <label className="w-full my-5 font-medium text-slate-800  group-hover:font-semibold ">
+                {/* <label className="w-full my-5 font-medium text-slate-800  group-hover:font-semibold ">
                   "{tasks[taskId]?.content}"
-                </label>
+                </label> */}
               </div>
               <div className="my-5 font-medium text-slate-800" >
                 <span className="ml-1 hidden items-center md:block">

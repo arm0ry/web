@@ -145,8 +145,8 @@ export const loadQuests = async () => {
           const response = await Quest_contract.getTaskResponse(id, taskIds[i]);
           const feedback = await Quest_contract.getTaskFeedback(id, taskIds[i]);
           const responseObj = {
-            taskId: taskIds[i],
-            response: response,
+            taskId: parseInt(taskIds[i]._hex),
+            response: parseInt(response._hex),
             feedback: feedback,
             user: quest[0]
           }
