@@ -72,12 +72,14 @@ export const loadMissionsData = async () => {
     //   payload: _missionId,
     // });
 
+    console.log(parseInt(_missionId._hex))
+
     if (_missionId <= 0) return;
 
     let _missions = {};
 
     await Promise.all(
-      [...Array(_missionId)].map(async (_, _id) => {
+      [...Array(parseInt(_missionId._hex))].map(async (_, _id) => {
         const id = _id + 1;
         const _missionTitle = await Mission_contract.getMissionTitle(id);
         const _missionCreator = await Mission_contract.getMissionCreator(id);

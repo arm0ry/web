@@ -218,13 +218,13 @@ const Playground = () => {
             /> */}
             <SidebarItem
               to="supporters"
-              name="支持"
+              name="支持 g0v"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="responses"
-              name="任務心得"
+              name="g0v 大松參與心得"
               Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
             />

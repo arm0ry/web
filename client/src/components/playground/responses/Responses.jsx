@@ -9,35 +9,23 @@ import ResponseCard from "./ResponseCard";
 const Responses = () => {
   const { playground } = useGlobalContext();
   const { missions, responses } = playground;
-  const [filters, setFilters] = useState()
+  const [result, setResult] = useState([])
 
   console.log(missions[1]?.taskIdsLen)
 
   useEffect(() => {
-    console.log(responses)
-    var filters
-    if (responses !== undefined) {
-      let _responses = []
-      filters = responses.reduce((filters, response) => {
-
-        for (var i = 0; i < missions[1]?.taskIdsLen; i++) {
-          if (response.taskId === i) {
-
-            // TODO: HOW TO GET RESPONSES OF SAME TASKID?????
-            // filters[i] = response
-            _responses.push(response)
-          }
-
-        }
+    const result = Object.groupBy(responses, ({ taskId }) => taskId)
+    Object.entries(result).map(([key, value]) => console.log(key, value))
+    setResult(result)
 
 
 
-        console.log(_responses)
-      })
 
-    }
 
-    console.log(filters)
+
+
+    console.log(result)
+
   }, [responses])
 
 
@@ -49,17 +37,17 @@ const Responses = () => {
     <>
       <div className="grid grid-cols-1 gap-10 p-4 xl:grid-cols-2 2xl:grid-cols-3">
         {/* <div>"{tasks[parseInt(response.taskId._hex)]?.content}"</div> */}
-        {/* {responses !== undefined ? (
-          responses.map((response, id) => {
+        {responses !== undefined ? (
+          Object.entries(Object.groupBy(responses, ({ taskId }) => taskId)).map(([key, value]) => {
             return (
               <div>
-                <ResponseCard key={id} user={response.user} response={parseInt(response.response._hex)} feedback={response.feedback} />
+                <ResponseCard key={key} id={key} responses={value} />
               </div>
             )
           })
         ) : (
           <></>
-        )} */}
+        )}
         {/* {responses.map((response, id) => {
           return <ResponseCard key={id} taskId={parseInt(response.taskId._hex)} response={parseInt(response.response._hex)} feedback={response.feedback} />;
         })} */}
