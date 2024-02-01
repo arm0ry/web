@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { logo, MenuUpIcon, MenuDownIcon } from "@assets";
 
-import { CustomButton } from "../.";
-import {logo, MenuUpIcon, MenuDownIcon }from "@assets";
-import { useGlobalContext } from "@context/store";
-// const NavBarItem = ({ title, classprops }) => (
-//   <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
-// );
 const NavBarItem = ({ title, to, classprops, ...rest }) => (
   <li {...rest}>
     <Link
@@ -42,9 +37,8 @@ export const NavbarDropdown = ({ title, classprops, children }) => {
           <svg
             fill="currentColor"
             viewBox="0 0 20 20"
-            className={`inline w-4 h-4 mt-1 ml-1  transition-transform duration-200 transform md:-mt-1  ${
-              taggle ? "rotate-180" : "rotate-0"
-            }`}
+            className={`inline w-4 h-4 mt-1 ml-1  transition-transform duration-200 transform md:-mt-1  ${taggle ? "rotate-180" : "rotate-0"
+              }`}
           >
             <path
               fillRule="evenodd"
@@ -73,7 +67,7 @@ const Navbar = () => {
     <nav className="bg-[#FFFCFA] border-b-2 border-gray-600 fixed z-[2147483648] top-0 left-0 w-full flex md:justify-center justify-between items-center p-4 h-auto md:h-16">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Link to="/" className="flex h-8 md:h-auto ">
-          <img src={logo} alt="arm0ry"/>
+          <img src={logo} alt="arm0ry" />
         </Link>
         <button
           type="button"
@@ -82,28 +76,27 @@ const Navbar = () => {
         >
           <span className="sr-only">Open main menu</span>
           {!toggleMenu ? (
-            <MenuDownIcon className="w-6 h-6"/>
+            <MenuDownIcon className="w-6 h-6" />
           ) : (
-            <MenuUpIcon className="w-6 h-6"/>
-           
+            <MenuUpIcon className="w-6 h-6" />
+
           )}
         </button>
         <div
-          className={`md:block w-full md:w-auto  my-auto ${
-            !toggleMenu && "hidden"
-          }`}
+          className={`md:block w-full md:w-auto  my-auto ${!toggleMenu && "hidden"
+            }`}
         >
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
-            <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/>
+            {/* <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/> */}
 
-            <NavBarItem title="Playground" to="/playground" onClick={() => setToggleMenu(false)}/>
+            <NavBarItem title="Impact Markets | 影響力市場" to="/playground" onClick={() => setToggleMenu(false)} />
             {/* <NavbarDropdown title={"Playground"} to="/playground" >
               <NavbarDropdownItem key={0} title={"Basics"} />
               <NavbarDropdownItem key={1} title={"Advance"} />
             </NavbarDropdown> */}
 
-            <NavBarItem title="Funding" to="/funding" onClick={() => setToggleMenu(false)}/>
-            <NavBarItem disable title="Donate" to="/donate" onClick={() => setToggleMenu(false)}/>
+            {/* <NavBarItem title="Funding" to="/funding" onClick={() => setToggleMenu(false)}/> */}
+            <NavBarItem disable title="Donate ｜ 抖內" to="/donate" onClick={() => setToggleMenu(false)} />
             {/* <li>
                 <CustomButton
                   title="connect wallet"

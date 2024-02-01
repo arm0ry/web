@@ -96,9 +96,10 @@ const SupportCard = ({ curveId, svg }) => {
 
 
   useEffect(() => {
-    setSupply(parseInt(_supply._hex))
+    if (_supply !== undefined) {
+      setSupply(parseInt(_supply._hex))
+    }
   }, [_supply])
-  console.log(parseInt(_supply._hex))
 
   return (
     <>
