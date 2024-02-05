@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useAccount, useContractRead, useContractInfiniteReads, paginatedIndexesConfig } from "wagmi";
 
 import { useGlobalContext } from "@context/store";
-import { mSupportToken, qSupportToken } from "@contract";
+import { HackathonSupportToken, OnboardingSupportToken } from "@contract";
 import { shortenAddress } from "@utils/shortenAddress";
 import CurveCard from "../curves/CurveCard";
 import SupportCard from "./SupportCard";
@@ -10,13 +10,13 @@ import { ImpactCurves } from "../../../contract";
 
 const Supporters = () => {
   const { data: mSvg } = useContractRead({
-    ...mSupportToken,
+    ...HackathonSupportToken,
     functionName: 'generateSvg',
     args: [100]
   })
 
   const { data: qSvg } = useContractRead({
-    ...qSupportToken,
+    ...OnboardingSupportToken,
     functionName: 'generateSvg',
     args: [100]
   })
@@ -28,8 +28,8 @@ const Supporters = () => {
       (index) => {
         return [
           {
-            address: qSupportToken.address,
-            abi: qSupportToken.abi,
+            address: OnboardingSupportToken.address,
+            abi: OnboardingSupportToken.abi,
             functionName: "ownerOf",
             args: [index],
           },
@@ -56,10 +56,11 @@ const Supporters = () => {
           g0v 大松影響力
         </label>
         <div className="mb-5" >
-          <SupportCard curveId={3} svg={mSvg} />
+          {/*  Hard coding curves for now. */}
+          <SupportCard curveId={1} svg={mSvg} />
         </div>
         <div className="mb-5">
-          <SupportCard curveId={1} svg={qSvg} />
+          <SupportCard curveId={2} svg={qSvg} />
         </div >
       </div>
     </>

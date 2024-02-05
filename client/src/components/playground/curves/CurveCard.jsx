@@ -8,6 +8,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const CurveCard = ({ curve, supply }) => {
   const { address: user } = useAccount();
+
   const { write: clickMint } = useContractWrite({
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
@@ -16,12 +17,20 @@ const CurveCard = ({ curve, supply }) => {
     overrides: { value: curve.mintPrice },
   })
 
+  console.log(curve, supply)
+
   const { write: clickBurn } = useContractWrite({
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
     functionName: 'burn',
     args: [supply + 1, user]
   })
+
+  useEffect(() => {
+
+
+
+  }, [curve, supply])
 
   const data = [
     // {
@@ -99,9 +108,9 @@ const CurveCard = ({ curve, supply }) => {
           <div className="flex flex-col w-full items-center space-x-10  ">
             <div className="my-2 flex flex-row h-full w-full justify-center space-x-10 ">
               <label className="text-sm font-md text-gray-900">已售出: {supply}</label>
-              <label className="text-sm font-md text-gray-900">買價: y = ({ethers.utils.formatUnits(curve.formula[2], "wei")} x + {ethers.utils.formatUnits(curve.formula[3], "wei")}) * {ethers.utils.formatEther(curve.formula[0])}
+              <label className="text-sm font-md text-gray-900">買價: y = ({ethers.utils.formatUnits(curve.formula[2], "wei")} x + {ethers.utils.formatUnits(curve.formula[3], "wei")}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
               </label>
-              <label className="text-sm font-md text-gray-900">賣價: y = ({ethers.utils.formatUnits(curve.formula[5], "wei")} x + {ethers.utils.formatUnits(curve.formula[6], "wei")}) * {ethers.utils.formatEther(curve.formula[0])}
+              <label className="text-sm font-md text-gray-900">賣價: y = ({ethers.utils.formatUnits(curve.formula[5], "wei")} x + {ethers.utils.formatUnits(curve.formula[6], "wei")}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
               </label>
             </div>
             <div className="flex flex-row w-full h-full ">

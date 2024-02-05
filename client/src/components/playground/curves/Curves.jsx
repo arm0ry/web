@@ -11,6 +11,11 @@ import CurveCard from "./CurveCard";
 
 const Curves = () => {
   const [curves, setCurves] = useState();
+  const { playground } = useGlobalContext();
+  const { missions, responses } = playground;
+  console.log(missions)
+
+
   const { data, fetchNextPage, isFetched } = useContractInfiniteReads({
     cacheKey: "curves",
     ...paginatedIndexesConfig(
@@ -25,19 +30,19 @@ const Curves = () => {
           {
             address: ImpactCurves.address,
             abi: ImpactCurves.abi,
-            functionName: "getPrice",
+            functionName: "getCurvePrice",
             args: [true, index, 0],
           },
           {
             address: ImpactCurves.address,
             abi: ImpactCurves.abi,
-            functionName: "getPrice",
+            functionName: "getCurvePrice",
             args: [false, index, 0],
           },
           {
             address: ImpactCurves.address,
             abi: ImpactCurves.abi,
-            functionName: "getCurvePool",
+            functionName: "getCurveTreasury",
             args: [index],
           },
           {
@@ -55,7 +60,7 @@ const Curves = () => {
   useEffect(() => {
     if (data) {
       const tempData = data.pages[0];
-      // console.log(data, tempData)
+      console.log(data, tempData)
       let innerArry = [];
       let outerArry = [];
       for (let i = 0; i < tempData.length; i++) {

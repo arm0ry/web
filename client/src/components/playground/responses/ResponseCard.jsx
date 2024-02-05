@@ -23,7 +23,7 @@ const ResponseCard = ({ id, responses }) => {
       <div className={`h-30 group relative w-full overflow-hidden`}>
         <div className="absolute -inset-1 ml-2 mt-2 h-full w-1/2 rounded-lg bg-gradient-to-r  opacity-20 blur transition duration-1000"></div>
         <label className="w-full my-5 font-3xl text-slate-800 font-bold ">
-          {tasks[id]?.content}
+          {tasks[id]?.title}
         </label>
         <div className="relative flex h-full w-full flex-row items-center justify-between space-x-5  px-4 py-3 leading-none">
           {responses.map((response, id) => {

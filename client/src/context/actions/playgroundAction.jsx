@@ -46,11 +46,12 @@ export const loadTasksData = async () => {
         const id = _id + 1;
         const _taskCreator = await Mission_contract.getTaskCreator(id);
         const _taskDeadline = await Mission_contract.getTaskDeadline(id);
+        const _taskTitle = await Mission_contract.getTaskTitle(id);
         const _taskDetail = await Mission_contract.getTaskDetail(id);
         const _totalTaskCompletions = await Mission_contract.getTotalTaskCompletions(id);
         // TODO: missiondId hardcoded to 1 for now
         const _totalTaskCompletionsByMission = await Mission_contract.getTotalTaskCompletionsByMission(1, id);
-        _tasks[id] = { creator: _taskCreator, deadline: parseInt(_taskDeadline._hex), content: _taskDetail, completions: parseInt(_totalTaskCompletions._hex), completionsByMission: ethers.utils.formatUnits(_totalTaskCompletionsByMission, "wei") };
+        _tasks[id] = { creator: _taskCreator, deadline: parseInt(_taskDeadline._hex), title: _taskTitle, content: _taskDetail, completions: parseInt(_totalTaskCompletions._hex), completionsByMission: ethers.utils.formatUnits(_totalTaskCompletionsByMission, "wei") };
       })
     );
     // console.log(_tasks);
@@ -90,7 +91,12 @@ export const loadMissionsData = async () => {
         const _missionTaskCount = await Mission_contract.getMissionTaskCount(id);
         const _missionStarts = await Mission_contract.getMissionStarts(id);
         const _missionCompletions = await Mission_contract.getMissionCompletions(id);
-        const _fee = await Mission_contract.getFee();
+
+        const _curveInfo = await Mission_contract.getPriceCurve();
+        const _curve = _curveInfo[0];
+        const _curveId = parseInt(_curveInfo[1]._hex);
+
+        const _fee = await ImpactCurves_contract.getCurvePrice(true, _curveId, 0);
 
         // loadIPFS(_mission[3], playground);
 

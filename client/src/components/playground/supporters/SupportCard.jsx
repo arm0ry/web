@@ -5,7 +5,7 @@ import { shortenAddress } from "@utils/shortenAddress";
 import { Avatar } from "@components";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CurveCard from "../curves/CurveCard";
-import { ImpactCurves, mSupportToken, qSupportToken } from "@contract";
+import { ImpactCurves, HackathonSupportToken, OnboardingSupportToken } from "@contract";
 
 
 // TODO: Can use when we have more supporter info
@@ -21,19 +21,19 @@ const SupportCard = ({ curveId, svg }) => {
 
   const { data: mintPrice } = useContractRead({
     ...ImpactCurves,
-    functionName: 'getPrice',
+    functionName: 'getCurvePrice',
     args: [true, curveId, 0]
   })
 
   const { data: burnPrice } = useContractRead({
     ...ImpactCurves,
-    functionName: 'getPrice',
+    functionName: 'getCurvePrice',
     args: [false, curveId, 0]
   })
 
   const { data: pool } = useContractRead({
     ...ImpactCurves,
-    functionName: 'getCurvePool',
+    functionName: 'getCurveTreasury',
     args: [curveId]
   })
 
@@ -49,8 +49,8 @@ const SupportCard = ({ curveId, svg }) => {
       (index) => {
         return [
           {
-            address: mSupportToken.address,
-            abi: mSupportToken.abi,
+            address: HackathonSupportToken.address,
+            abi: HackathonSupportToken.abi,
             functionName: "ownerOf",
             args: [index],
           },
@@ -62,7 +62,7 @@ const SupportCard = ({ curveId, svg }) => {
 
 
   const { data: _supply } = useContractRead({
-    ...mSupportToken,
+    ...HackathonSupportToken,
     functionName: 'totalSupply',
     args: []
   })
@@ -73,8 +73,8 @@ const SupportCard = ({ curveId, svg }) => {
       (index) => {
         return [
           {
-            address: qSupportToken.address,
-            abi: qSupportToken.abi,
+            address: OnboardingSupportToken.address,
+            abi: OnboardingSupportToken.abi,
             functionName: "ownerOf",
             args: [index],
           },
@@ -92,7 +92,7 @@ const SupportCard = ({ curveId, svg }) => {
       pool: pool,
       formula: formula,
     })
-  }, [owner, mintPrice, burnPrice, pool, formula])
+  }, [owner, pool, formula])
 
 
   useEffect(() => {
