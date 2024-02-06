@@ -73,8 +73,6 @@ export const loadMissionsData = async () => {
     //   payload: _missionId,
     // });
 
-    console.log(parseInt(_missionId._hex))
-
     if (_missionId <= 0) return;
 
     let _missions = {};

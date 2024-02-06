@@ -60,7 +60,6 @@ const Curves = () => {
   useEffect(() => {
     if (data) {
       const tempData = data.pages[0];
-      console.log(data, tempData)
       let innerArry = [];
       let outerArry = [];
       for (let i = 0; i < tempData.length; i++) {
@@ -74,7 +73,6 @@ const Curves = () => {
     }
   }, [data]);
 
-  console.log(curves)
   return (
     <>
       <div className="grid grid-cols-1 gap-10 p-4">

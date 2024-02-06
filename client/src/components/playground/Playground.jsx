@@ -222,14 +222,14 @@ const Playground = () => {
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
-            <SidebarItem
+            {/* <SidebarItem
               to="responses"
               name="g0v 大松參與心得"
               Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
-            />
+            /> */}
           </ul>
-          <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
+          {/* <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <SidebarMultiLevelMenu name="Propose" Icon={ProposeIcon}>
               <SidebarItem
                 to="propose-task"
@@ -259,7 +259,7 @@ const Playground = () => {
                 <span className="ml-4 font-PasseroOne">PlaygroundDAO</span>
               </div>
             </li>
-          </ul>
+          </ul> */}
           <Avatar
             className="mt-auto mb-3 h-12 w-12  shadow-lg "
             address={address}

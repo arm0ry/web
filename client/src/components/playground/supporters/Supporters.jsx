@@ -22,6 +22,19 @@ const Supporters = () => {
   })
 
 
+  const { data: hackathonTokenSupply } = useContractRead({
+    ...HackathonSupportToken,
+    functionName: 'totalSupply',
+    args: []
+  })
+
+  const { data: onboardingTokenSupply } = useContractRead({
+    ...OnboardingSupportToken,
+    functionName: 'totalSupply',
+    args: []
+  })
+
+
   const { data: qSupporters } = useContractInfiniteReads({
     cacheKey: "qSupporters",
     ...paginatedIndexesConfig(
@@ -57,10 +70,10 @@ const Supporters = () => {
         </label>
         <div className="mb-5" >
           {/*  Hard coding curves for now. */}
-          <SupportCard curveId={1} svg={mSvg} />
+          <SupportCard curveId={1} svg={mSvg} supply={hackathonTokenSupply} />
         </div>
         <div className="mb-5">
-          <SupportCard curveId={2} svg={qSvg} />
+          <SupportCard curveId={2} svg={qSvg} supply={onboardingTokenSupply} />
         </div >
       </div>
     </>

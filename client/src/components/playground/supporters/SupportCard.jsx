@@ -9,9 +9,8 @@ import { ImpactCurves, HackathonSupportToken, OnboardingSupportToken } from "@co
 
 
 // TODO: Can use when we have more supporter info
-const SupportCard = ({ curveId, svg }) => {
+const SupportCard = ({ curveId, svg, supply }) => {
   const [curve, setCurve] = useState();
-  const [supply, setSupply] = useState(0);
 
   const { data: owner } = useContractRead({
     ...ImpactCurves,
@@ -43,47 +42,6 @@ const SupportCard = ({ curveId, svg }) => {
     args: [curveId]
   })
 
-  const { data: supporters } = useContractInfiniteReads({
-    cacheKey: "mSupporters",
-    ...paginatedIndexesConfig(
-      (index) => {
-        return [
-          {
-            address: HackathonSupportToken.address,
-            abi: HackathonSupportToken.abi,
-            functionName: "ownerOf",
-            args: [index],
-          },
-        ];
-      },
-      { start: 1, perPage: 10, direction: "increment" }
-    ),
-  });
-
-
-  const { data: _supply } = useContractRead({
-    ...HackathonSupportToken,
-    functionName: 'totalSupply',
-    args: []
-  })
-
-  const { data: questSupporters } = useContractInfiniteReads({
-    cacheKey: "qSupporters",
-    ...paginatedIndexesConfig(
-      (index) => {
-        return [
-          {
-            address: OnboardingSupportToken.address,
-            abi: OnboardingSupportToken.abi,
-            functionName: "ownerOf",
-            args: [index],
-          },
-        ];
-      },
-      { start: 1, perPage: 10, direction: "increment" }
-    ),
-  });
-
   useEffect(() => {
     setCurve({
       owner: owner,
@@ -91,15 +49,9 @@ const SupportCard = ({ curveId, svg }) => {
       burnPrice: burnPrice,
       pool: pool,
       formula: formula,
+      supply: parseInt(supply._hex)
     })
   }, [owner, pool, formula])
-
-
-  useEffect(() => {
-    if (_supply !== undefined) {
-      setSupply(parseInt(_supply._hex))
-    }
-  }, [_supply])
 
   return (
     <>
@@ -112,34 +64,9 @@ const SupportCard = ({ curveId, svg }) => {
           ></img>
 
           <div className="w-full h-full">
-            {curve !== undefined ? (<CurveCard curve={curve} supply={supply} />) : (<></>)}
+            {curve !== undefined ? (<CurveCard curve={curve} />) : (<></>)}
           </div>
         </div>
-        {/* <div className="flex flex-col w-full h-1/3 ml-10 ">
-          <label
-            className="p-4 block text-2xl font-bold text-gray-900"
-          >
-            黑客松 NFT 支持者:
-          </label>
-          <div className="grid grid-cols-1 gap-2 p-4 w-1/2">
-            {supporters?.pages[0] !== undefined ? (
-              supporters.pages[0]?.map((supporter, id) => {
-                return supporter !== null ? (
-                  <div className="ml-4 flex flex-col items-start ">
-                    <label className=" text-lg font-semibold text-gray-400">
-                      Token #{id + 1}.
-                    </label>
-                    <label className=" text-xl font-medium text-gray-900">
-                      {shortenAddress(supporter)}
-                    </label>
-                  </div>
-                ) : (<></>)
-              })
-            ) : (
-              <></>
-            )}
-          </div>
-        </div> */}
       </div>
     </>
   );

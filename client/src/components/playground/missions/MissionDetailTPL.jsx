@@ -105,63 +105,17 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
             >
               <span className="text-base font-medium">←Go Back</span>
             </button>
-            {magicButton}
+            {/* {magicButton} */}
             {buttonState == 1 && (
               <>
                 <div
                   onClick={activate} //show modal
-                  className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
+                  className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#FFBE0B] bg-[#FFBE0B] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
                 >
                   <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
-                    Start
+                    報到 | Register
                   </span>
                 </div>
-              </>
-            )}
-            {buttonState == 2 && (
-              <>
-                <button
-                  onClick={pauseQuest}
-                  disabled={pauseState.writeStatus > 0}
-                  className="  h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#3cb7fe] bg-[#3cb7fe] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30 "
-                >
-                  <span className="flex h-full flex-row items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
-                    {pauseState.writeStatus === 0 && (
-                      <>
-                        <PauseIcon className="mr-1 h-3 text-[#2b328e]" /> Pause
-                      </>
-                    )}
-                    {pauseState.writeStatus > 0 && (
-                      <Spinner pathColor="border-[#2b328e]" />
-                    )}
-                    <div
-                      className={`${pauseState.writeStatus > 0 ? "ml-2" : ""}`}
-                    >
-                      {pauseState.writeStatus === 1 && "Waiting for approval"}
-                      {pauseState.writeStatus === 2 && "pending"}
-                    </div>
-                  </span>
-                </button>
-              </>
-            )}
-            {buttonState == 3 && (
-              <>
-                <button
-                  onClick={claimTravelerReward}
-                  disabled={claimState.writeStatus > 0}
-                  className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#a3e635] bg-[#a3e635] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#65a30d] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#65a30d] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#65a30d,0_0px_0_0_#1b70f841] disabled:pointer-events-none disabled:opacity-30"
-                >
-                  <span className="text-md flex h-full flex-row items-center justify-center font-PasseroOne font-bold	 tracking-widest text-[#000]">
-                    {claimState.writeStatus === 0 && "Claim"}
-                    {claimState.writeStatus > 0 && <Spinner />}
-                    <div
-                      className={`${claimState.writeStatus > 0 ? "ml-2" : ""}`}
-                    >
-                      {claimState.writeStatus === 1 && "Waiting for approval"}
-                      {claimState.writeStatus === 2 && "Pending"}
-                    </div>
-                  </span>
-                </button>
               </>
             )}
           </div>

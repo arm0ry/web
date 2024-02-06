@@ -12,7 +12,6 @@ const TaskCard = ({ taskId, className = "" }) => {
   const { playground, userInfo } = useGlobalContext();
   const { tasks } = playground;
 
-  console.log(tasks)
   return (
     <>
       <div className={`relative group h-34 w-full ${className}`}>

@@ -6,51 +6,42 @@ import ResponseCard from "./ResponseCard";
 
 // const svg = avatar.toString();
 
-const Responses = () => {
+const Responses = ({ taskId }) => {
   const { playground } = useGlobalContext();
   const { missions, responses } = playground;
-  const [result, setResult] = useState([])
+  const [results, setResults] = useState([])
 
-  console.log(missions[1]?.taskIdsLen)
+  console.log()
 
   useEffect(() => {
-    const result = Object.groupBy(responses, ({ taskId }) => taskId)
-    Object.entries(result).map(([key, value]) => console.log(key, value))
-    setResult(result)
+    // const result = Object.groupBy(responses, ({ taskId }) => taskId)
+    // Object.entries(result).map(([key, value]) => console.log(key, value))
+    // setResult(result)
+    if (responses !== undefined) {
+      const _results = []
 
-
-
-
-
-
-
-    console.log(result)
-
+      for (let i = 0; i < responses.length; i++) {
+        if (responses[i].taskId === taskId) {
+          _results.push(responses[i])
+        }
+      }
+      setResults(_results)
+    }
   }, [responses])
-
-
-  // useEffect(() => {
-  //   console.log(filters)
-  // }, [filters])
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-10 p-4 xl:grid-cols-2 2xl:grid-cols-3">
-        {/* <div>"{tasks[parseInt(response.taskId._hex)]?.content}"</div> */}
-        {responses !== undefined ? (
-          Object.entries(Object.groupBy(responses, ({ taskId }) => taskId)).map(([key, value]) => {
-            return (
-              <div>
-                <ResponseCard key={key} id={key} responses={value} />
-              </div>
-            )
-          })
-        ) : (
-          <></>
-        )}
-        {/* {responses.map((response, id) => {
-          return <ResponseCard key={id} taskId={parseInt(response.taskId._hex)} response={parseInt(response.response._hex)} feedback={response.feedback} />;
-        })} */}
+      <label className="w-full my-3 font-3xl text-slate-600 font-semibold ">
+        沒有人們的參與心得：
+      </label>
+      <div className="grid grid-cols-2 gap-10 xl:grid-cols-3 2xl:grid-cols-4">
+        {(results !== undefined) ? (results.map((response, id) => {
+          return <ResponseCard key={id} response={response} />;
+        }))
+          : (
+            <>
+            </>
+          )}
       </div>
     </>
   );
