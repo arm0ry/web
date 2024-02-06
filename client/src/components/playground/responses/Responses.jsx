@@ -11,7 +11,7 @@ const Responses = ({ taskId }) => {
   const { missions, responses } = playground;
   const [results, setResults] = useState([])
 
-  console.log()
+  console.log(responses)
 
   useEffect(() => {
     // const result = Object.groupBy(responses, ({ taskId }) => taskId)
@@ -35,7 +35,7 @@ const Responses = ({ taskId }) => {
         沒有人們的參與心得：
       </label>
       <div className="grid grid-cols-2 gap-10 xl:grid-cols-3 2xl:grid-cols-4">
-        {(results !== undefined) ? (results.map((response, id) => {
+        {(results.length > 0) ? (results.map((response, id) => {
           return <ResponseCard key={id} response={response} />;
         }))
           : (

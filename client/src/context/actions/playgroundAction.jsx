@@ -149,6 +149,11 @@ export const loadQuests = async () => {
 
         for (let i = 0; i < taskIds.length; i++) {
           const response = await Quest_contract.getTaskResponse(id, taskIds[i]);
+
+          if (parseInt(response._hex) === 0) {
+            continue
+          }
+
           const feedback = await Quest_contract.getTaskFeedback(id, taskIds[i]);
           const responseObj = {
             taskId: parseInt(taskIds[i]._hex),

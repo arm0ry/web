@@ -110,7 +110,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
               <>
                 <div
                   onClick={activate} //show modal
-                  className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-[#FFBE0B] bg-[#FFBE0B] px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
+                  className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-yellow-200 bg-yellow-200 px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
                 >
                   <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
                     報到 | Register

@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useAccount } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import { Spinner, Markdown } from "@components";
 import CloseModalButton from "./CloseModalButton";
-import { Mission } from "@contract";
+import { Mission, Quest } from "@contract";
 import axios from "axios";
 import { pushAlert } from "@context/actions/alertAction";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
-
+import {
+  goerli_provider
+} from "@utils/contract";
+import { ethers } from "ethers";
 
 const StateYourNameModal = ({ modalPayload }) => {
+  const questInstance = new ethers.Contract(Quest.address, Quest.abi, goerli_provider)
+
   const [view, setView] = useState(false);
   const [fetching, setFetching] = useState(false);
 
@@ -22,12 +27,23 @@ const StateYourNameModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { seed: "", moon: "1" },
+    defaultValues: { seed: "", moon: "" },
   });
+
+  // const { data: tasksdata, isLoading, isFetched } = useContractRead({
+  //   ...Quest_contract,
+  //   functionName: 'isPublicUser',
+  //   args: [taskId]
+  // })
+
+  // useEffect(() => {
+  //   setDetails(JSON.parse(tasks[taskId].details))
+  // }, [])
 
   useEffect(() => {
     if (isConnected) {
       // cleanModal();
+      console.log(isConnected)
     }
   }, [isConnected]);
 
@@ -36,15 +52,14 @@ const StateYourNameModal = ({ modalPayload }) => {
       <>
         <div className="flex items-center">
           <input
-            type="radio"
+            type="checkbox"
             value={value}
-            className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:ring-offset-gray-800 dark:focus:ring-blue-600 "
-            {...register("moon", { required: true })}
+            // className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:ring-offset-gray-800 dark:focus:ring-blue-600 "
+            {...register("moon")}
           />
 
           <label
-            for="default-radio-2"
-            className="ml-2 text-xl font-medium text-gray-900 "
+            className="ml-2 text-sm font-normal text-gray-900 "
           >
             {moon}
           </label>
@@ -139,10 +154,43 @@ const StateYourNameModal = ({ modalPayload }) => {
   };
 
   const onSubmit = async (data) => {
+
     // setInPrepare(true);
 
-    if (taskId == 0) sponsorStart(data.seed);
-    else sponsorRespond(data.seed, data.moon, data.feedback);
+    let userResponse = 0
+    for (let i = 0; i < data.moon.length; i++) {
+      userResponse = userResponse + 10 ** parseInt(data.moon[i])
+    }
+
+    try {
+      const userId = await questInstance.getPublicUserAddress(data.seed);
+      const _isPublicUser = await questInstance.isPublicUser(userId, Mission.address, missionId);
+
+      if (taskId == 0) {
+        if (!_isPublicUser) {
+          sponsorStart(data.seed)
+        } else {
+          pushAlert({
+            msg: "這位沒有人已經報道過了 | This name is already in use.",
+            type: "failure",
+          });
+        }
+
+      } else {
+        if (!_isPublicUser) {
+          pushAlert({
+            msg: "要先報道才能分享喔 | Please register before sharing.",
+            type: "failure",
+          });
+        } else {
+          sponsorRespond(data.seed, userResponse / 10, data.feedback)
+        }
+
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
   };
 
   useEffect(() => {
@@ -151,8 +199,15 @@ const StateYourNameModal = ({ modalPayload }) => {
 
   return (
     <>
-      <div className="flex items-start justify-between rounded-t px-4 pt-4 pb-2 text-gray-500  bg-slate-100">
-        跟大家分享一下你的參與過程吧！
+      <div className="flex items-start justify-between rounded-t px-4 pt-4 text-gray-500  bg-slate-100">
+        <div className="flex flex-col">
+          <label className="block text-md font-semibold text-gray-900">
+            跟大家分享一下你的參與過程吧！
+          </label>
+          <label className="mt-1 mb-2 block text-sm font-medium text-gray-500">
+            Feel free to share any feedback!
+          </label>
+        </div>
         <CloseModalButton />
       </div>
       {/* <DynamicWidget
@@ -168,13 +223,13 @@ const StateYourNameModal = ({ modalPayload }) => {
                   <label
                     className="mb-2 block text-sm font-medium text-gray-900 "
                   >
-                    稱呼
+                    稱呼 | Name
                   </label>
                   <input
                     type="text"
                     id="seed"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                    placeholder="沒有人"
+                    placeholder="沒有人 | Nobody"
                     required
                     {...register("seed")}
                   />
@@ -203,39 +258,48 @@ const StateYourNameModal = ({ modalPayload }) => {
                 <label
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  稱呼
+                  稱呼 | Name
                 </label>
                 <input
                   type="text"
                   id="seed"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                  placeholder="沒有人"
+                  placeholder="沒有人 | Nobody"
+
                   required
                   {...register("seed")}
                 />
               </div>
               <div className="mb-6 ">
                 <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
+                  className=" block text-sm font-medium text-gray-900 "
                 >
-                  心情
+                  如果你今天有使用<a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
+                  >新參者求生小錦囊</a>，請點選以下完成的任務：
                 </label>
-                <div className="flex flex-row items-center justify-between">
-                  <MoodRadio moon="😁" value={"1"} register={register} />
-                  <MoodRadio moon="🥱" value={"2"} register={register} />
-                  <MoodRadio moon="🤩" value={"3"} register={register} />
-                </div>
-                {/* {errors.firstName?.type === "required" && (
-                  <p role="alert">Required</p>
-                )} */}
-              </div>
+                <label
+                  className="mb-3 block text-sm font-medium text-gray-500"
+                >
+                  If you've used the <a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
+                  >Newcomer Guide</a>, please check any that you've done!
+                </label>
 
+                <div className="flex flex-col items-start justify-between">
+                  <MoodRadio moon="👍 幫 g0v 粉專按讚" value={"1"} register={register} />
+                  <MoodRadio moon="🔔 打開任一專案頻道通知" value={"2"} register={register} />
+                  <MoodRadio moon="📝 截圖任一提案的專案共筆" value={"3"} register={register} />
+                  <MoodRadio moon="👀 瀏覽並截圖最新社群九分鐘" value={"4"} register={register} />
+                  <MoodRadio moon="🎙️ 在有興趣的專案共筆上自我介紹" value={"5"} register={register} />
+                  <MoodRadio moon="🏷️ 貼上三張符合你身份的技能貼紙" value={"6"} register={register} />
+                  <MoodRadio moon="🧐 加入三個你有興趣的 Slack 頻道" value={"7"} register={register} />
+                </div>
+              </div>
 
               <div className="mb-6">
                 <label
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  心得
+                  心得 | Feedback
                 </label>
                 <textarea
                   id="feedback"
@@ -244,24 +308,6 @@ const StateYourNameModal = ({ modalPayload }) => {
                   {...register("feedback")}
                 ></textarea>
               </div>
-
-              {/* <div className="mb-6">
-                <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  We do not store seed.
-                </label>
-                <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  Seed is used to simulate a blockchain address as visitor id.
-                </label>
-                <label
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  Please use this feature only for experimental purposes.
-                </label>
-              </div> */}
 
               <div className="w-full">
                 <button
