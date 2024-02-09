@@ -16,7 +16,7 @@ const CurveCard = ({ curve }) => {
     args: [curve.supply + 1, user, ethers.utils.formatUnits(curve.mintPrice, 'wei')],
     overrides: { value: curve.mintPrice },
   })
-
+  console.log(parseInt(curve.mintPrice._hex))
   const { write: clickBurn } = useContractWrite({
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
@@ -105,9 +105,9 @@ const CurveCard = ({ curve }) => {
           <div className="flex flex-col w-full items-center space-x-10  ">
             <div className="my-2 flex flex-row h-full w-full justify-center space-x-10 ">
               <label className="text-sm font-md text-gray-900">已售出: {curve.supply}</label>
-              <label className="text-sm font-md text-gray-900">買價: y = ({ethers.utils.formatUnits(curve.formula[2], "wei")} x + {ethers.utils.formatUnits(curve.formula[3], "wei")}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
+              <label className="text-sm font-md text-gray-900">買價: y = ({(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[2], "wei")} x{(ethers.utils.formatUnits(curve.formula[3], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[3], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
               </label>
-              <label className="text-sm font-md text-gray-900">賣價: y = ({ethers.utils.formatUnits(curve.formula[5], "wei")} x + {ethers.utils.formatUnits(curve.formula[6], "wei")}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
+              <label className="text-sm font-md text-gray-900">賣價: y = ({(ethers.utils.formatUnits(curve.formula[4], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[5], "wei")} x{(ethers.utils.formatUnits(curve.formula[6], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[6], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
               </label>
             </div>
             <div className="flex flex-row w-full h-full ">

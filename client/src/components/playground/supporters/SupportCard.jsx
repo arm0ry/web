@@ -7,8 +7,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import CurveCard from "../curves/CurveCard";
 import { ImpactCurves, HackathonSupportToken, OnboardingSupportToken } from "@contract";
 
-
-// TODO: Can use when we have more supporter info
 const SupportCard = ({ curveId, svg, supply }) => {
   const [curve, setCurve] = useState();
 
@@ -43,15 +41,17 @@ const SupportCard = ({ curveId, svg, supply }) => {
   })
 
   useEffect(() => {
-    setCurve({
-      owner: owner,
-      mintPrice: mintPrice,
-      burnPrice: burnPrice,
-      pool: pool,
-      formula: formula,
-      supply: parseInt(supply._hex)
-    })
-  }, [owner, pool, formula])
+    if (supply) {
+      setCurve({
+        owner: owner,
+        mintPrice: mintPrice,
+        burnPrice: burnPrice,
+        pool: pool,
+        formula: formula,
+        supply: parseInt(supply._hex)
+      })
+    }
+  }, [owner, pool, formula, supply])
 
   return (
     <>

@@ -112,7 +112,7 @@ router.post("/sponsored_start", async (req, res) => {
     console.log(tx)
     return res.status(202).json({
       "txhash": tx,
-      "msg": "You're good to go.",
+      "msg": "報到成功！ | You're good to go~",
     });
   }
 

@@ -206,7 +206,7 @@ const Playground = () => {
           <ul className="space-y-2">
             <SidebarItem
               to="missions"
-              name="任務"
+              name="g0v 任務"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
