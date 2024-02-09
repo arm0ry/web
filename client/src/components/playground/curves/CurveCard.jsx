@@ -2,32 +2,42 @@ import React, { useEffect } from "react";
 import { ImpactCurves } from "../../../contract";
 import { ethers } from "ethers";
 import { useAccount, useContractWrite, useContractRead } from "wagmi";
-import { shortenAddress } from "@utils/shortenAddress";
-import { Avatar } from "@components";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  goerli_provider
+} from "@utils/contract";
 
 const CurveCard = ({ curve }) => {
   const { address: user } = useAccount();
 
-  const { write: clickMint } = useContractWrite({
-    address: ImpactCurves.address,
-    abi: ImpactCurves.abi,
-    functionName: 'support',
-    args: [curve.supply + 1, user, ethers.utils.formatUnits(curve.mintPrice, 'wei')],
-    overrides: { value: curve.mintPrice },
-  })
-  console.log(parseInt(curve.mintPrice._hex))
+  // const { write: clickMint, isLoading, isSuccess } = useContractWrite({
+  //   address: ImpactCurves.address,
+  //   abi: ImpactCurves.abi,
+  //   functionName: 'support',
+  //   args: [curve.curveId, user, curve.mintPrice],
+  // })
+
   const { write: clickBurn } = useContractWrite({
     address: ImpactCurves.address,
     abi: ImpactCurves.abi,
     functionName: 'burn',
-    args: [curve.supply + 1, user]
+    args: [curve.curveId, user, 0]
   })
 
-  useEffect(() => {
+  const clickMint = async () => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = await provider.getSigner();
+    const impactCurve = new ethers.Contract(ImpactCurves.address, ImpactCurves.abi, signer)
 
+    try {
+      // const curveId = await impactCurve.getCurveId();
+      const tx = await impactCurve.support(curve.curveId, user, curve.mintPrice, { value: curve.mintPrice })
+      console.log(curve.curveId, user, curve.mintPrice, tx)
 
-  }, [curve])
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const data = [
     // {
@@ -78,7 +88,7 @@ const CurveCard = ({ curve }) => {
 
   return (
     <>
-      <div className={`h-full w-full mb-5`}>
+      <div className={`h-full w-full`}>
         <div className="flex flex-col h-5/6 w-full justify-end ">
           <div className=" h-full w-full my-4">
             <ResponsiveContainer width="95%" height="100%">
@@ -115,9 +125,7 @@ const CurveCard = ({ curve }) => {
 
                 <button
                   disabled={!clickMint}
-                  onClick={() => clickMint({
-                    overrides: { value: curve.mintPrice }
-                  })}
+                  onClick={() => clickMint()}
                   className="h-full w-full rounded-lg p-1 text-blue-900 hover:bg-blue-100 bg-blue-200"
                 >
                   <div className="flex flex-row space-x-2 items-center justify-center">

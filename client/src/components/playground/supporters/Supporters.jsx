@@ -27,8 +27,6 @@ const Supporters = () => {
     args: [2]
   })
 
-  console.log(pSvg)
-
   const { data: hackathonTokenSupply } = useContractRead({
     ...HackathonSupportToken,
     functionName: 'totalSupply',
@@ -62,18 +60,46 @@ const Supporters = () => {
         <label className="p-4 mb-2 block text-2xl font-bold text-gray-900">
           g0v 大松影響力 NFTs
         </label>
-        <div className="px-10 py-5 bg-slate-100">
-          <label className=" block text-md font-normal text-gray-900">
-            💡 從“知識層”與“實作層”在鏈上的互動，我們客製化了三種不同用途的 Dynamic NFT．除此之外，這三個 NFT 各別擁有各自的自動市場機制，減少各個 NFT 市場被炒．
+        <div className="flex flex-row rounded-lg px-5 py-5 bg-slate-100 space-x-5">
+          <label className="py-5 text-md font-normal text-gray-900">
+            💡
           </label>
-        </div>
+          <div className="flex flex-col py-5 space-y-2">
+            <label className=" block text-md font-normal text-gray-900">
+              透過“知識層”與“實作層”在區塊鏈上的互動，我們用 Dynamic NFT 來呈現所有在鏈上的互動紀錄。
+            </label>
+            {/* <label className=" block text-md font-normal text-gray-900">
+              當然，只要有新的紀錄上鏈，Dynamic NFT 也會即時更新。
+            </label> */}
+            <label className=" block text-md font-normal text-gray-900">
+              再給每個 NFT 各自的影響力曲線（bonding curve），作為買賣這些 Dynamic NFT 的窗口。
+            </label>
+            <label className=" block text-md font-normal text-gray-900">
+              影響力曲線是一個無中間人和無權限的自動化市場，可以用來增加資產的流動性，促進自動價格發現（automated price discovery），提升資本效率。
+            </label>
+            <label className=" block text-md font-normal text-gray-900">
+              每個 Dynamic NFT 可以做到某些程度的客製化，給有興趣的朋友更多的發想空間。
+            </label>
+            <label className=" block text-md font-normal text-gray-900">
+              以下是我們針對”戀上大松“所發想的三個 Dynamic NFT 給大家參考～
+            </label>
+          </div>
+        </div >
+        <label className=" block text-md font-normal text-gray-900">
+          Benefits of svg nft and bonding curve
+        </label>
+        <label className=" block text-md font-normal text-gray-900">
+          Describe below in categories:
+          1. NFT - type (svg nft), content (how data is collected), customization (for future reference)
+          2. Bonding curve - type (linear or poly) formula,
+        </label>
         {/*  Hard coding curves for now. */}
-        <div className="mb-5" >
+        <div div className="mb-5" >
           <label className=" block text-md font-normal text-gray-900">
             💡
           </label>
           <SupportCard curveId={1} svg={mSvg} supply={hackathonTokenSupply} />
-        </div>
+        </div >
         <div className="mb-5">
           <label className=" block text-md font-normal text-gray-900">
             💡
@@ -86,7 +112,7 @@ const Supporters = () => {
           </label>
           <SupportCard curveId={3} svg={pSvg} supply={participantTokenSupply} />
         </div >
-      </div>
+      </div >
     </>
   );
 };
