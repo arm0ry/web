@@ -60,7 +60,7 @@ const Supporters = () => {
         <label className="p-4 mb-2 block text-2xl font-bold text-gray-900">
           g0v 大松影響力 NFTs
         </label>
-        <div className="flex flex-row rounded-lg px-5 py-5 bg-slate-100 space-x-5">
+        <div className="w-5/6 mx-auto flex flex-row rounded-lg px-5 py-5 bg-slate-100 space-x-5">
           <label className="py-5 text-md font-normal text-gray-900">
             💡
           </label>

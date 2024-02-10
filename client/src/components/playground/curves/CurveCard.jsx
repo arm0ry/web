@@ -89,7 +89,7 @@ const CurveCard = ({ curve }) => {
   return (
     <>
       <div className={`h-full w-full`}>
-        <div className="flex flex-col h-5/6 w-full justify-end ">
+        <div className="flex flex-col h-5/6 aspect-video w-full justify-end ">
           <div className=" h-full w-full my-4">
             <ResponsiveContainer width="95%" height="100%">
               <LineChart
@@ -113,13 +113,13 @@ const CurveCard = ({ curve }) => {
             </ResponsiveContainer>
           </div>
           <div className="flex flex-col w-full items-center space-x-10  ">
-            <div className="my-2 flex flex-row h-full w-full justify-center space-x-10 ">
+            {/* <div className="my-2 flex flex-row h-full w-full justify-center space-x-10 ">
               <label className="text-sm font-md text-gray-900">已售出: {curve.supply}</label>
               <label className="text-sm font-md text-gray-900">買價: y = ({(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[2], "wei")} x{(ethers.utils.formatUnits(curve.formula[3], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[3], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
               </label>
               <label className="text-sm font-md text-gray-900">賣價: y = ({(ethers.utils.formatUnits(curve.formula[4], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[5], "wei")} x{(ethers.utils.formatUnits(curve.formula[6], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[6], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
               </label>
-            </div>
+            </div> */}
             <div className="flex flex-row w-full h-full ">
               <div className="w-3/5 px-5 py-1 ">
 

@@ -57,18 +57,28 @@ const SupportCard = ({ curveId, svg, supply }) => {
   return (
     <>
       <div className={`h-auto w-full`}>
-        <div className="my-4 w-full h-2/3 flex flex-row items-center space-x-5 aspect-video bg-slate-100">
-          <img
-            className="h-2/3  ml-10 ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg transition duration-300 "
-            src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
-            alt="Supporter Token"
-          ></img>
+        <div className="my-4 w-full flex flex-row items-center justify-center space-x-10 ">
 
-          <div className="w-full h-full">
+          <div className="ml-10  flex items-center">
+            <img
+              className="ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg "
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
+              alt="Supporter Token"
+            ></img>
+          </div>
+
+          <div className="">
             {curve !== undefined ? (<CurveCard curve={curve} />) : (<></>)}
           </div>
+
+          <div className="w-1/4 px-10 py-5 rounded-lg flex flex-col space-y-2 text-md font-normal text-gray-900 bg-yellow-50">
+            <label className="text-sm font-md text-gray-900">已售出: {curve.supply}</label>
+            <label className="text-sm font-md text-gray-900">買價: y = ({(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[2], "wei")} x{(ethers.utils.formatUnits(curve.formula[3], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[3], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ</label>
+            <label className="text-sm font-md text-gray-900">賣價: y = ({(ethers.utils.formatUnits(curve.formula[4], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[5], "wei")} x{(ethers.utils.formatUnits(curve.formula[6], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[6], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ</label>
+            <label className="text-sm font-md text-gray-900">受益者：揪松.eth</label>
+          </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };
