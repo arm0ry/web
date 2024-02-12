@@ -21,7 +21,8 @@ import {
   SetTask,
   SetMission,
   Curves,
-  Responses
+  Responses,
+  Faq
 } from "../components";
 import Supporters from "../components/playground/supporters/Supporters";
 import { Navbar, Footer } from "../components/layout";
@@ -67,6 +68,7 @@ const Routers = () => {
           <Route path="missions/:missionId/:taskId" element={<TaskDetail />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="tasks/:taskId" element={<TaskDetail />} />
+          <Route path="faq" element={<Faq />} />
           <Route path="review" element={<Review />} />
           <Route path="curves" element={<Curves />} />
           <Route path="responses" element={<Responses />} />

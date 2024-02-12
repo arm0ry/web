@@ -198,15 +198,21 @@ const Playground = () => {
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 h-screen w-64 pt-20 transition-transform ${toggleMenu ? "transform-none" : "-translate-x-full"
+        className={`fixed top-0 left-0 z-40 h-screen w-72 pt-20 transition-transform ${toggleMenu ? "transform-none" : "-translate-x-full"
           } border-r border-gray-200 bg-white md:translate-x-0 `}
         aria-label="Sidebar"
       >
         <div className="flex h-full flex-col overflow-y-auto bg-white px-3 pb-4  ">
           <ul className="space-y-2">
             <SidebarItem
+              to="faq"
+              name="開始 ｜ Start here"
+              Icon={QuestIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            <SidebarItem
               to="missions"
-              name="g0v 任務"
+              name="g0v 大松 | g0v Hackath0n"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
@@ -218,7 +224,7 @@ const Playground = () => {
             /> */}
             <SidebarItem
               to="supporters"
-              name="支持 g0v"
+              name="支持 g0v | Supprt g0v"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
@@ -267,7 +273,7 @@ const Playground = () => {
         </div>
       </aside>
 
-      <div className="relative mt-16 p-4 md:ml-64">
+      <div className="relative mt-16 p-4 md:ml-72">
         <Alert />
         <Outlet />
         {/* <div className="h-screen"></div> */}

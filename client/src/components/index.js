@@ -8,7 +8,7 @@ import Alert from './Alert';
 import Money from './Money';
 import Cube from './Cube';
 import Modal from './modal/Modal';
-export {CustomButton, Spinner, Avatar, Alert, Money, Modal, Markdown, Cube};
+export { CustomButton, Spinner, Avatar, Alert, Money, Modal, Markdown, Cube };
 
 
 
@@ -24,6 +24,7 @@ export { default as MissionDetail } from "./playground/missions/MissionDetail";
 export { default as ProposeMission } from "./playground/propose/ProposeMission";
 export { default as Review } from "./playground/review/Review";
 export { default as Curves } from "./playground/curves/Curves";
+export { default as Faq } from "./playground/Faq";
 export { default as Responses } from "./playground/responses/Responses";
 export { default as TravelerPass } from "./playground/TravelerPass";
 export { default as Quest } from "./playground/quest/Quest";
