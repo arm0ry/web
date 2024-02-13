@@ -47,6 +47,7 @@ const Supporters = () => {
   }, [qSvg])
 
   useEffect(() => {
+    console.log(pSvg)
   }, [pSvg])
 
   return (

@@ -139,7 +139,7 @@ const CurveCard = ({ curve }) => {
                 <YAxis />
                 <Tooltip />
                 <Line data={mintCurve} type="monotone" dataKey="price" stroke="#82ca9d" />
-                <Line data={burnCurve} type="monotone" dataKey="price" stroke="#000000" />
+                <Line data={burnCurve} type="monotone" dataKey="price" stroke="#ff7f00" />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -162,7 +162,7 @@ const CurveCard = ({ curve }) => {
                   disabled={!clickBurn}
                   onClick={() => clickBurn({
                   })}
-                  className=" w-full h-full rounded-lg p-1 text-gray-900 hover:bg-gray-100 bg-gray-200 items-center"
+                  className=" w-full h-full rounded-lg p-1 text-amber-700 hover:bg-amber-100 bg-amber-200 items-center"
                 >
                   <div className="flex flex-row space-x-2 items-center justify-center">
                     <div className="text-xl font-semibold">Burn </div>
