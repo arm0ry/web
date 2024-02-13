@@ -21,6 +21,8 @@ const TaskDetail = () => {
   const taskId = params.taskId;
   const { tasks } = playground;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (Object.keys(tasks).length > 0) {
       if (tasks[taskId] === undefined) {
@@ -41,7 +43,10 @@ const TaskDetail = () => {
     });
   };
 
-  // console.log(tasks[taskId]);
+  const loaded = () => {
+    setLoading(false)
+  }
+
   return (
     <>
       <div className="mx-auto md:max-w-[1024px]">
@@ -74,7 +79,7 @@ const TaskDetail = () => {
           </div>
         ) : (
           <>
-            <div className="flex flex-col">
+            <div className="flex flex-col space-y-4">
               <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
                 <div className=" ">
                   <p className="text-3xl font-bold  text-slate-800 ">
@@ -97,9 +102,26 @@ const TaskDetail = () => {
               </div>
 
               <Responses taskId={parseInt(taskId)} />
+
+
+              <div className="" >
+                {loading
+                  ? (
+                    <div className="w-100 flex h-[calc(100vh_-_6rem)] flex-col mt-10 items-center">
+                      <Spinner
+                        className="h-16 w-16 border-b-4"
+                        pathColor="border-gray-500"
+                      />
+                      <span className="mt-3 text-lg font-medium text-gray-600">
+                        Fetching data...
+                      </span>
+                    </div>)
+                  : (<div></div>)}
+                <iframe width="100%" height="1000" onLoad={loaded} src={tasks[taskId].content} frameborder="0"></iframe>
+
+              </div>
             </div>
-            {/* <Markdown>{playground.ipfs[tasks[taskId].details].detail}</Markdown> */}
-            <Markdown>{tasks[taskId].content}</Markdown>
+
           </>
         )}
       </div>

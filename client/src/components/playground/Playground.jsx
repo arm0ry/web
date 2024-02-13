@@ -156,7 +156,6 @@ const Playground = () => {
     loadTasksData();
     loadMissionsData();
     loadQuests();
-    // loadTravelers();
   }, []);
 
 
@@ -210,28 +209,44 @@ const Playground = () => {
               Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
             />
+            <label className="text-md font-normal text-gray-900">
+              --------
+            </label>
+            <div className="">
+              <label className="text-md font-normal text-gray-900">
+                g0v
+              </label>
+            </div>
             <SidebarItem
               to="missions"
-              name="g0v 大松 | g0v Hackath0n"
+              name="黑客松 | Hackath0n"
+              Icon={MissionIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            <SidebarItem
+              to="supporters"
+              name="支持 | Supprt"
+              Icon={BuddiesIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            <label className="text-md font-normal text-gray-900">
+              --------
+            </label>
+            <div className="">
+              <label className="text-md font-normal text-gray-900">
+                🚧
+              </label>
+            </div>
+            <SidebarItem
+              to="missions"
+              name="Coming soon"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
             {/* <SidebarItem
-              to="curves"
-              name="曲線"
-              Icon={ProposeIcon}
-              setToggleMenu={setToggleMenu}
-            /> */}
-            <SidebarItem
               to="supporters"
               name="支持 g0v | Supprt g0v"
               Icon={BuddiesIcon}
-              setToggleMenu={setToggleMenu}
-            />
-            {/* <SidebarItem
-              to="responses"
-              name="g0v 大松參與心得"
-              Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
             /> */}
           </ul>

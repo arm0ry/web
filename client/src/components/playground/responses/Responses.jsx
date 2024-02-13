@@ -11,7 +11,6 @@ const Responses = ({ taskId }) => {
   const { missions, responses } = playground;
   const [results, setResults] = useState([])
 
-  console.log(responses)
 
   useEffect(() => {
     // const result = Object.groupBy(responses, ({ taskId }) => taskId)
@@ -26,6 +25,7 @@ const Responses = ({ taskId }) => {
         }
       }
       setResults(_results)
+
     }
   }, [responses])
 
@@ -39,8 +39,9 @@ const Responses = ({ taskId }) => {
           return <ResponseCard key={id} response={response} />;
         }))
           : (
-            <>
-            </>
+            <div className="bg-slate-100 text-slate-400 h-32 rounded-lg flex items-center justify-center">
+              等待中...
+            </div>
           )}
       </div>
     </>
