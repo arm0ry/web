@@ -1,18 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ImpactCurves } from "../../../contract";
 import { ethers } from "ethers";
 import { useAccount, useContractWrite, useContractRead } from "wagmi";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { pushAlert } from "@context/actions/alertAction";
 
 const CurveCard = ({ curve }) => {
+  const [tokenId, setTokenId] = useState(0)
   const { address: user } = useAccount();
 
-  const { write: clickBurn } = useContractWrite({
-    address: ImpactCurves.address,
-    abi: ImpactCurves.abi,
-    functionName: 'burn',
-    args: [curve.curveId, user, 0]
-  })
+  // const { write: clickBurn } = useContractWrite({
+  //   address: ImpactCurves.address,
+  //   abi: ImpactCurves.abi,
+  //   functionName: 'burn',
+  //   args: [curve.curveId, user, 0]
+  // })
 
   const clickMint = async () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
@@ -24,12 +26,64 @@ const CurveCard = ({ curve }) => {
       const tx = await impactCurve.support(curve.curveId, user, curve.mintPrice, { value: curve.mintPrice })
       console.log(curve.curveId, user, curve.mintPrice, tx)
 
+      pushAlert({
+        msg: (
+          <span>
+            Success! Check your mint transaction on
+            <a
+              href={`https://goerli.etherscan.io/tx/${tx.hash}`}
+              target="_blank"
+              rel="noreferrer"
+              className="font-extrabold text-green-900"
+            >
+              &nbsp;Etherscan &#128279;
+            </a>
+          </span>
+        ),
+        type: "success",
+      });
+
     } catch (error) {
       console.log(error)
     }
   }
 
-  console.log(curve)
+  const clickBurn = async () => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = await provider.getSigner();
+    const impactCurve = new ethers.Contract(ImpactCurves.address, ImpactCurves.abi, signer)
+
+    try {
+      // const curveId = await impactCurve.getCurveId();
+      if (tokenId !== 0) {
+        const tx = await impactCurve.burn(curve.curveId, user, tokenId)
+        console.log(curve.curveId, user, tokenId, tx)
+
+        pushAlert({
+          msg: (
+            <span>
+              Success! Check your burn transaction on
+              <a
+                href={`https://goerli.etherscan.io/tx/${tx.hash}`}
+                target="_blank"
+                rel="noreferrer"
+                className="font-extrabold text-green-900"
+              >
+                &nbsp;Etherscan &#128279;
+              </a>
+            </span>
+          ),
+          type: "success",
+        });
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  useEffect(() => { }, [curve])
 
   const mintCurve = [
     {
@@ -143,34 +197,33 @@ const CurveCard = ({ curve }) => {
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex flex-col w-full items-center space-x-10  ">
-            <div className="flex flex-row w-full h-full ">
-              <div className="w-3/5 px-5 py-1 ">
-                <button
-                  disabled={!clickMint}
-                  onClick={() => clickMint()}
-                  className="h-full w-full rounded-lg p-1 text-emerald-600 hover:bg-emerald-100 bg-emerald-200"
-                >
-                  <div className="flex flex-row space-x-2 items-center justify-center">
-                    <div className="text-xl font-semibold">Mint </div>
-                    <div className="text-md font-normal">@ {ethers.utils.formatEther(curve.mintPrice)} Ξ </div>
-                  </div>
-                </button>
+
+          <div className="flex flex-row space-x-5 w-full h-1/5 ">
+            <button
+              disabled={!clickMint}
+              onClick={() => clickMint()}
+              className=" w-full rounded-lg p-1 text-emerald-600 hover:bg-emerald-100 bg-emerald-200"
+            >
+              <div className="flex flex-row space-x-4 items-center justify-center">
+                <div className="text-md font-normal">{ethers.utils.formatEther(curve.mintPrice)} Ξ </div>
+                <div className="text-xl font-semibold">🪙 </div>
               </div>
-              <div className="w-3/5 px-5 py-1">
-                <button
-                  disabled={!clickBurn}
-                  onClick={() => clickBurn({
-                  })}
-                  className=" w-full h-full rounded-lg p-1 text-amber-700 hover:bg-amber-100 bg-amber-200 items-center"
-                >
-                  <div className="flex flex-row space-x-2 items-center justify-center">
-                    <div className="text-xl font-semibold">Burn </div>
-                    <div className="text-md font-normal"> @ {ethers.utils.formatEther(curve.burnPrice)} Ξ</div>
-                  </div>
-                </button>
+            </button>
+
+
+            <button
+              disabled={!clickBurn}
+              onClick={() => clickBurn({
+              })}
+              className=" w-full rounded-lg p-1 text-amber-700 hover:bg-amber-100 bg-amber-200 "
+            >
+              <div className="flex flex-row space-x-5 px-5">
+                <input type="text" id="idToBurn" className="w-5/6 rounded-lg pl-4" placeholder="id #" onChange={e => setTokenId(e.target.value)}
+                  required />
+                <div className="text-xl font-semibold">🔥 </div>
               </div>
-            </div>
+
+            </button>
           </div>
         </div>
       </div >

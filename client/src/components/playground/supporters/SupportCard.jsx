@@ -52,7 +52,7 @@ const SupportCard = ({ title, curveId, svg, supply }) => {
         supply: parseInt(supply._hex)
       })
     }
-  }, [owner, pool, formula, supply])
+  }, [curveId, owner, pool, formula, supply])
 
   return (
     <>
@@ -76,7 +76,7 @@ const SupportCard = ({ title, curveId, svg, supply }) => {
 
             {curve !== undefined
               ?
-              (<div className="w-1/5 px-10 py-5 rounded-lg flex flex-col space-y-4 text-md font-normal text-gray-900 bg-slate-50">
+              (<div className="w-1/4 px-10 py-5 rounded-lg flex flex-col space-y-4 text-md font-normal text-gray-900 bg-slate-50">
                 {/* <div>
                 <label className="text-sm font-md text-gray-900">NFT 類別 | type of NFT ： </label>
                 <label className="text-sm font-md text-gray-900">SVG NFT</label>

@@ -249,6 +249,20 @@ const Playground = () => {
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             /> */}
+            <li>
+              <div
+                onClick={() => {
+                  window.open(
+                    "https://app.kali.gg/daos/5/0xd758a44e66f1702c92761110dd90168f57007b8f"
+                  );
+                  setToggleMenu(false);
+                }}
+                className="flex cursor-pointer items-center rounded-lg p-2 text-base font-normal text-gray-900 transition duration-75 hover:bg-gray-100"
+              >
+                <KaliLogo className="h-6 w-6 rounded bg-gray-500 fill-current  p-1 text-white transition duration-75" />
+                <span className="ml-4 font-PasseroOne">PlaygroundDAO</span>
+              </div>
+            </li>
           </ul>
           {/* <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <SidebarMultiLevelMenu name="Propose" Icon={ProposeIcon}>

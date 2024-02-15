@@ -57,7 +57,7 @@ const Routers = () => {
         <Route path="/" element={HomeLayout(<Home />)} />
         <Route path="/onboard" element={HomeLayout(<Onboard />)} />
         <Route path="/playground" element={<Playground />}>
-          <Route index element={<Navigate to="supporters" replace />} />
+          <Route index element={<Navigate to="faq" replace />} />
           <Route path="traveler-pass" element={<TravelerPass />} />
           <Route path="supporters" element={<Supporters />} />
           <Route path="my-quest" element={<Quest />} />

@@ -19,14 +19,14 @@ const Alert = () => {
   return (
     <div className="absolute z-[101] top-10 left-0 right-0 flex flex-col items-center ">
       <div className="fixed flex flex-col items-center w-8/12  md:w-1/2  gap-3 ">
-        
+
         {alerts.msg.map((m, i) => {
           return (
             <div
-              className={`flex  p-4 opacity-90 w-full  transition-2 shadow-xl rounded-lg text-md ${
-                style[m?.type]
-              }`}
+              className={`flex  p-4 opacity-90 w-full  transition-2 shadow-xl rounded-lg text-md ${style[m?.type]
+                }`}
               role="alert"
+              key={i}
             >
               <svg
                 aria-hidden="true"
@@ -50,7 +50,7 @@ const Alert = () => {
               <button
                 type="button"
                 className={` p-1.5 ${style[m?.type]} ${hoverStyle[m?.type]} ml-auto -mx-1.5 -my-1.5 rounded-lg  inline-flex h-8 w-8`}
-                onClick={()=>eraseAlert({uid:m?.uid})}
+                onClick={() => eraseAlert({ uid: m?.uid })}
               >
                 <span className="sr-only">Close</span>
                 <svg
@@ -61,9 +61,9 @@ const Alert = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>

@@ -47,7 +47,7 @@ const Supporters = () => {
   }, [qSvg])
 
   useEffect(() => {
-    console.log(pSvg)
+    // console.log(pSvg)
   }, [pSvg])
 
   return (
@@ -65,7 +65,7 @@ const Supporters = () => {
               透過“知識層”與“實作層”在區塊鏈上的互動，我們可以用 Dynamic NFT 來呈現所有在鏈上互動的紀錄。
             </label>
             <label className=" block text-md font-normal text-gray-900">
-              如果再給每個 NFT 各自的交易曲線（<a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" class="underline"
+              如果再給每個 NFT 各自的交易曲線（<a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" className="underline"
               >bonding curve</a>），我們可以自動化交易 NFT 的過程。
             </label>
             <label className=" block text-md font-normal text-gray-900">
