@@ -7,7 +7,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import CurveCard from "../curves/CurveCard";
 import { ImpactCurves, HackathonSupportToken, OnboardingSupportToken } from "@contract";
 
-const SupportCard = ({ title, curveId, svg, supply }) => {
+const SupportCard = ({ title, description, engDescription, curveId, svg, supply }) => {
   const [curve, setCurve] = useState();
 
   const { data: owner } = useContractRead({
@@ -57,11 +57,20 @@ const SupportCard = ({ title, curveId, svg, supply }) => {
   return (
     <>
       <div className={`h-auto w-5/6  mx-auto`}>
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-3">
           <label className="text-lg font-medium text-gray-600 ">
             {title}
           </label>
-          <div className="my-4 w-full flex items-center justify-center space-x-16 bg-amber-50">
+          <div className="flex flex-col space-y-1 bg-slate-50 p-5 rounded-lg">
+            <label className="text-md font-normal text-gray-900 ">
+              {description}
+            </label>
+            <label className="text-sm font-normal text-gray-600 ">
+              {engDescription}
+            </label>
+          </div>
+
+          <div className="w-full flex items-center justify-center space-x-16 bg-amber-50 rounded-lg">
             <div className="">
               <img
                 className="ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg"
@@ -77,10 +86,6 @@ const SupportCard = ({ title, curveId, svg, supply }) => {
             {curve !== undefined
               ?
               (<div className="w-1/4 px-10 py-5 rounded-lg flex flex-col space-y-4 text-md font-normal text-gray-900 bg-slate-50">
-                {/* <div>
-                <label className="text-sm font-md text-gray-900">NFT 類別 | type of NFT ： </label>
-                <label className="text-sm font-md text-gray-900">SVG NFT</label>
-              </div> */}
                 <div className="flex flex-col space-y-1">
                   <label className="text-xs font-medium text-gray-600">曲線類別 | type of Curve ： </label>
                   <label className="text-sm font-normal text-gray-900">
