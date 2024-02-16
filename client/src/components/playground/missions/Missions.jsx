@@ -18,18 +18,18 @@ const Missions = () => {
         <div className="flex flex-col py-5 space-y-3">
           <div className="space-y-1">
             <label className=" block text-md font-normal text-gray-900">
-              “供應層”提供想要開源的物件、清單、活動等，讓“行動層”在區塊鏈上與清單的內容互動，留下參與紀錄。
+              “知識層”提供想要開源的物件、清單、活動、音樂等，讓“行動層”在區塊鏈上與清單的內容互動，留下參與紀錄。
             </label>
             <label className=" block text-sm font-normal text-gray-600">
-              Supply a living list of items, events, etc, let the world interact with it onchain.
+              Supply a living list of items, events, music tracks, videos etc, let the world interact with it onchain.
             </label>
           </div>
           <div className="space-y-1">
             <label className=" block text-md font-normal text-gray-900">
-              以 g0v 為例，我們在區塊鏈上分享“台灣食政府黑客松”的清單，讓參與大松的沒有人紀錄參與大松當天的心得 🎉
+              以 g0v 為例，我們在區塊鏈上分享“台灣零時政府黑客松”的清單，讓參與大松的沒有人們紀錄參與大松當天的心得 🎉
             </label>
             <label className=" block text-sm font-normal text-gray-600">
-              Here we provide a list of running g0v's Hackath0n (try control+f 台灣零時政府黑客松). Feel free to access it to share your participation.
+              Here we provide a list of running g0v's hackath0ns (try control+f 台灣零時政府黑客松). Feel free to access it and share your participation.
             </label>
           </div>
           <div>
@@ -37,7 +37,7 @@ const Missions = () => {
               沒有以太錢包沒有問題 👍，用清單裡面的 “報到 ｜ Register” 按鈕就可以不具名（實驗用）參與喔！
             </label>
             <label className=" block text-sm font-normal text-gray-600">
-              No wallet? no problem. Use the “報到 ｜ Register” button to participate anonymously!
+              No wallet? no problem. Use the “報到 ｜ Register” button to participate openly and anonymously!
             </label>
           </div>
         </div>

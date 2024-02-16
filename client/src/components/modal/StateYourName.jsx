@@ -205,7 +205,7 @@ const StateYourNameModal = ({ modalPayload }) => {
             跟大家分享一下你的參與過程吧！
           </label>
           <label className="mt-1 mb-2 block text-sm font-medium text-gray-500">
-            Feel free to share any feedback!
+            Share your feedback!
           </label>
         </div>
         <CloseModalButton />
@@ -229,15 +229,14 @@ const StateYourNameModal = ({ modalPayload }) => {
                     type="text"
                     id="seed"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                    placeholder="沒有人 | Nobody"
+                    placeholder="麵包小偷 | Baguette thief"
                     required
                     {...register("seed")}
                   />
                 </div>
                 <label
-                  className="mt-2 mb-4 block text-sm font-medium text-gray-900 "
+                  className="mt-2 mb-4 block text-sm font-normal text-gray-600 "
                 >
-
                 </label>
                 <div className="w-full">
                   <button
@@ -278,7 +277,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                   >新參者求生小錦囊</a>，請點選以下完成的任務：
                 </label>
                 <label
-                  className="mb-3 block text-sm font-medium text-gray-500"
+                  className="mb-3 block text-sm font-normal text-gray-500"
                 >
                   If you've used the <a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
                   >Newcomer Guide</a>, please check any that you've done!
@@ -304,7 +303,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                 <textarea
                   id="feedback"
                   className="w-full h-100vh rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                  placeholder="炸雞超好吃～"
+                  placeholder="炸雞超好吃～ | Fried chicken so good~"
                   {...register("feedback")}
                 ></textarea>
               </div>

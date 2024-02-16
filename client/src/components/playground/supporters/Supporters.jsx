@@ -60,10 +60,10 @@ const Supporters = () => {
           <label className="py-5 text-md font-normal text-gray-900">
             💡
           </label>
-          <div className="flex flex-col py-5 space-y-2">
+          <div className="flex flex-col py-5 space-y-3">
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-900">
-                透過“供應層”與“行動層”在區塊鏈上的互動，我們可以用 Dynamic NFT 來呈現所有在鏈上互動的紀錄。
+                透過“知識層”與“行動層”在區塊鏈上的互動，我們可以用 Dynamic NFT 來呈現所有在鏈上互動的紀錄。
               </label>
               <label className=" block text-sm font-normal text-gray-600">
                 Through onchain interaction, we can rely on onchain data to populate multiple SVG NFTs with varying purposes.
