@@ -238,7 +238,7 @@ const Playground = () => {
               </label>
             </div>
             <SidebarItem
-              to="missions"
+              to="response"
               name="Coming soon"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}

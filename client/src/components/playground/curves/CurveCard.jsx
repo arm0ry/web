@@ -55,9 +55,9 @@ const CurveCard = ({ curve }) => {
 
     try {
       // const curveId = await impactCurve.getCurveId();
+      console.log(curve.curveId, user, tokenId)
       if (tokenId !== 0) {
         const tx = await impactCurve.burn(curve.curveId, user, tokenId)
-        console.log(curve.curveId, user, tokenId, tx)
 
         pushAlert({
           msg: (
