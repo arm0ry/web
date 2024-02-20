@@ -8,6 +8,7 @@ const router = express.Router();
 const send_token = require("../../ethers/send.js");
 const sponsored_start = require("../../ethers/sponsored_start.js");
 const sponsored_respond = require("../../ethers/sponsored_respond.js");
+const sponsored_tally = require("../../ethers/sponsored_tally.js");
 const auth = require("../../middleware/auth");
 
 // User Model
@@ -97,8 +98,8 @@ router.post("/facuet", auth, (req, res) => {
     });
 });
 
-// @route   POST api/users/facuet
-// @desc    Open Facuet
+// @route   POST api/users/sponsored_start
+// @desc    Start on behalf of user
 // @access  Private
 router.post("/sponsored_start", async (req, res) => {
   const { seed, mission, missionId } = req.body;
@@ -118,14 +119,33 @@ router.post("/sponsored_start", async (req, res) => {
 
 })
 
-// @route   POST api/users/facuet
-// @desc    Open Facuet
+// @route   POST api/users/sponsored_respond
+// @desc    Respond on behalf of user
 // @access  Private
 router.post("/sponsored_respond", async (req, res) => {
   const { seed, mission, missionId, taskId, response, feedback } = req.body;
   // console.log(res);
 
   const tx = await sponsored_respond(seed, mission, missionId, taskId, response, feedback);
+
+  if (tx === "Something went wrong.") {
+    return res.status(404).json({ msg: tx });
+  } else {
+    console.log(tx)
+    return res.status(202).json({
+      "txhash": tx,
+      "msg": "Thank you for your contribution!",
+    });
+  }
+})
+
+// @route   POST api/users/sponsored_tally
+// @desc    Tally on behalf of user
+// @access  Private
+router.post("/sponsored_tally", async (req, res) => {
+  const { seed, mission, missionId, taskId, response, feedback } = req.body;
+
+  const tx = await sponsored_tally(taskId);
 
   if (tx === "Something went wrong.") {
     return res.status(404).json({ msg: tx });

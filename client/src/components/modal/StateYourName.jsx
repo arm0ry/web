@@ -121,8 +121,25 @@ const StateYourNameModal = ({ modalPayload }) => {
               ),
               type: "success",
             });
-            setFetching(false);
-            return;
+
+            // Tally onboardingSupportToken
+            axios
+              .post("/api/users/sponsored_tally", body)
+              .then((res) => {
+                console.log(res);
+                if (res.status === 202) {
+                  setFetching(false);
+                  return;
+                }
+              })
+              .catch((err) => {
+                console.error(err);
+                pushAlert({
+                  msg: `Error! ${err.response.data.msg}`,
+                  type: "failure",
+                });
+              });
+
           }
         })
         .catch((err) => {
@@ -132,6 +149,8 @@ const StateYourNameModal = ({ modalPayload }) => {
             type: "failure",
           });
         });
+
+
 
     } catch (error) {
       console.log(error);

@@ -225,7 +225,7 @@ const Playground = () => {
             />
             <SidebarItem
               to="supporters"
-              name="支持 | Supprt"
+              name="支持 | Support"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
@@ -245,7 +245,7 @@ const Playground = () => {
             />
             {/* <SidebarItem
               to="supporters"
-              name="支持 g0v | Supprt g0v"
+              name="支持 g0v | Support g0v"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             /> */}
