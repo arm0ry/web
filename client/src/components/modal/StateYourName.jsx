@@ -30,16 +30,6 @@ const StateYourNameModal = ({ modalPayload }) => {
     defaultValues: { seed: "", moon: "" },
   });
 
-  // const { data: tasksdata, isLoading, isFetched } = useContractRead({
-  //   ...Quest_contract,
-  //   functionName: 'isPublicUser',
-  //   args: [taskId]
-  // })
-
-  // useEffect(() => {
-  //   setDetails(JSON.parse(tasks[taskId].details))
-  // }, [])
-
   useEffect(() => {
     if (isConnected) {
       // cleanModal();
@@ -54,7 +44,6 @@ const StateYourNameModal = ({ modalPayload }) => {
           <input
             type="checkbox"
             value={value}
-            // className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:ring-offset-gray-800 dark:focus:ring-blue-600 "
             {...register("moon")}
           />
 
@@ -69,8 +58,6 @@ const StateYourNameModal = ({ modalPayload }) => {
   };
 
   const sponsorStart = async (username) => {
-    setFetching(true);
-    console.log("starting")
     try {
       const body = { seed: username, mission: Mission.address, missionId: missionId };
       axios
@@ -94,6 +81,7 @@ const StateYourNameModal = ({ modalPayload }) => {
               ),
               type: "success",
             });
+            setFetching(false);
             return;
           }
         })
@@ -106,13 +94,10 @@ const StateYourNameModal = ({ modalPayload }) => {
         });
     } catch (error) {
       console.log(error);
-    } finally {
-      setFetching(false);
     }
   };
 
   const sponsorRespond = async (username, response, feedback) => {
-    setFetching(true);
     try {
       const body = { seed: username, mission: Mission.address, missionId: missionId, taskId: taskId, response: response, feedback: feedback };
       axios
@@ -136,6 +121,7 @@ const StateYourNameModal = ({ modalPayload }) => {
               ),
               type: "success",
             });
+            setFetching(false);
             return;
           }
         })
@@ -146,14 +132,14 @@ const StateYourNameModal = ({ modalPayload }) => {
             type: "failure",
           });
         });
+
     } catch (error) {
       console.log(error);
-    } finally {
-      setFetching(false);
     }
   };
 
   const onSubmit = async (data) => {
+    setFetching(true);
 
     // setInPrepare(true);
 
@@ -165,13 +151,14 @@ const StateYourNameModal = ({ modalPayload }) => {
     try {
       const userId = await questInstance.getPublicUserAddress(data.seed);
       const _isPublicUser = await questInstance.isPublicUser(userId, Mission.address, missionId);
+      // console.log("responses", data.seed, userId, _isPublicUser, Mission.address, missionId)
 
       if (taskId == 0) {
         if (!_isPublicUser) {
           sponsorStart(data.seed)
         } else {
           pushAlert({
-            msg: "這位沒有人已經報道過了 | This name is already in use.",
+            msg: "這位沒有人已經報到過了 | This name is already in use.",
             type: "failure",
           });
         }
@@ -185,12 +172,10 @@ const StateYourNameModal = ({ modalPayload }) => {
         } else {
           sponsorRespond(data.seed, userResponse / 10, data.feedback)
         }
-
       }
     } catch (error) {
       console.log(error)
     }
-
   };
 
   useEffect(() => {
@@ -241,7 +226,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                 <div className="w-full">
                   <button
                     type="submit"
-                    disabled={fetching} // TODO: WHY IS THIS NOT WORKING?
+                    disabled={fetching}
                     className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
                   >
                     Start

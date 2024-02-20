@@ -22,22 +22,11 @@ async function sponsored_respond(username, missions, missionId, taskId, response
   console.log(username, missionId, taskId, response, feedback)
 
   const Quest = {
-    address: "0xd39aa9a0C72531231075bb444680231de4654b59",
+    address: "0x7F32eE95DA79cfFC3702AAE3A682437B9fF9dbE5",
     abi: Quest_abi,
   };
 
   const questInstance = new ethers.Contract(Quest.address, Quest.abi, signer)
-
-  // TODO: How to cast to different types?
-  // try {
-  //   const user = address(uint160(uint256(ethers.utils.keccak256(abiCoder.encode(username)))));
-  //   const existingUser = await quest.isPublicUser(user, missions, missionId);
-  //   if (existingUser) return "Username already claimed."
-  //   console.log("new user!!")
-  // } catch (err) {
-  //   console.error(err)
-  //   return "Something went wrong."
-  // }
 
   try {
     const tx = await questInstance.sponsoredRespond(username, missions, missionId, taskId, response, feedback)
