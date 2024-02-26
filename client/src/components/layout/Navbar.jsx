@@ -89,14 +89,14 @@ const Navbar = () => {
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
             {/* <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/> */}
 
-            <NavBarItem title="影響力公域 | Impact Commons" to="/playground" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="影響力市場 | Impact Markets" to="/playground" onClick={() => setToggleMenu(false)} />
             {/* <NavbarDropdown title={"Playground"} to="/playground" >
               <NavbarDropdownItem key={0} title={"Basics"} />
               <NavbarDropdownItem key={1} title={"Advance"} />
             </NavbarDropdown> */}
 
             {/* <NavBarItem title="Funding" to="/funding" onClick={() => setToggleMenu(false)}/> */}
-            <NavBarItem disable title="Donate ｜ 抖內" to="/donate" onClick={() => setToggleMenu(false)} />
+            <NavBarItem disable title="抖內 ｜ Donate" to="/donate" onClick={() => setToggleMenu(false)} />
             {/* <li>
                 <CustomButton
                   title="connect wallet"

@@ -21,7 +21,7 @@ const TaskDetail = () => {
   const taskId = params.taskId;
   const { tasks } = playground;
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(undefined);
 
   useEffect(() => {
     if (Object.keys(tasks).length > 0) {
@@ -35,6 +35,7 @@ const TaskDetail = () => {
       }
     }
   }, [tasks]);
+
   const clickButton = () => {
     showModal({
       type: 4,
@@ -44,8 +45,15 @@ const TaskDetail = () => {
   };
 
   const loaded = () => {
+    console.log("here")
     setLoading(false)
   }
+
+  useEffect(() => {
+
+  }, [loading])
+
+  console.log(tasks[taskId]?.content.substring(0, 3))
 
   return (
     <>
@@ -105,6 +113,16 @@ const TaskDetail = () => {
 
 
               <div className="" >
+                {(tasks[taskId]?.content.substring(0, 4) === "http")
+                  ? (<iframe width="100%" height="1000" onLoad={loaded} src={tasks[taskId].content} frameborder="0"></iframe>)
+                  : (<div >
+                    <span onLoad={loaded}>
+                      {tasks[taskId]?.content}
+
+                    </span>
+                  </div>)
+                }
+
                 {loading
                   ? (
                     <div className="w-100 flex h-[calc(100vh_-_6rem)] flex-col mt-10 items-center">
@@ -117,7 +135,9 @@ const TaskDetail = () => {
                       </span>
                     </div>)
                   : (<div></div>)}
-                <iframe width="100%" height="1000" onLoad={loaded} src={tasks[taskId].content} frameborder="0"></iframe>
+
+
+
 
               </div>
             </div>

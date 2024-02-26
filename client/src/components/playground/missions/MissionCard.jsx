@@ -19,7 +19,7 @@ const MissionCard = ({ missionId }) => {
           {missions[missionId]?.title}
         </h5>
         {missions[missionId].details ? (
-          <p className="mb-3 font-normal text-gray-500 line-clamp-4 ">
+          <p className="mb-3 font-normal text-gray-500 line-clamp-3 ">
             {missions[missionId].details}
           </p>
         ) : (
