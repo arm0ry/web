@@ -30,7 +30,7 @@ const Missions = () => {
             </label>
             <label className=" block text-sm font-normal text-gray-600">
               Here we provide a list of g0v's hackath0ns (try control+f 台灣零時政府黑客松). Take a look. You can also participate <a target="_blank" href="https://www.youtube.com/@g0vTW" class="underline"
-              >onchain</a> and onchain here.
+              >online</a> and onchain here.
             </label>
           </div>
           <div>
@@ -38,7 +38,7 @@ const Missions = () => {
               沒有以太錢包沒有問題 👍，用清單裡面的 “報到 ｜ Register” 按鈕就可以不具名（實驗用）參與喔！
             </label>
             <label className=" block text-sm font-normal text-gray-600">
-              No wallet? no problem. Use the “報到 ｜ Register” button to participate openly and anonymously!
+              No wallet? no problem. Use the “報到 ｜ Register” button in each list to participate openly and anonymously!
             </label>
           </div>
         </div>
