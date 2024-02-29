@@ -22,7 +22,7 @@ async function sponsored_tally(taskId) {
 
   console.log(taskId)
   const OnboardingSupportToken = {
-    address: "0x6656a64BB082Ca7BCda31B8D843AD498755EA7C1",
+    address: "0x075662bfdBD076A72833f95386AEFA2ebFb2ca1b",
     abi: OnboardingSupportToken_abi,
   };
 

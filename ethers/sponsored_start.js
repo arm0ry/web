@@ -20,7 +20,7 @@ if (!RPC_ENDPOINT) {
 
 async function sponsored_start(username, missions, missionId) {
   const Quest = {
-    address: "0x7F32eE95DA79cfFC3702AAE3A682437B9fF9dbE5",
+    address: "0x533B3bDC8a5bA26848fa36c3666351Ed9cd7DBfe",
     abi: Quest_abi,
   };
 
