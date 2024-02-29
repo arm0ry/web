@@ -40,6 +40,12 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
     args: [curveId]
   })
 
+  const { data: unclaimed } = useContractRead({
+    ...ImpactCurves,
+    functionName: 'getUnclaimed',
+    args: [owner]
+  })
+
   useEffect(() => {
     if (supply) {
       setCurve({
@@ -49,7 +55,8 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
         burnPrice: burnPrice,
         pool: pool,
         formula: formula,
-        supply: parseInt(supply._hex)
+        supply: parseInt(supply._hex),
+        unclaimed: unclaimed
       })
     }
   }, [curveId, owner, pool, formula, supply])
@@ -87,9 +94,10 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
               ?
               (<div className="w-1/4 px-10 py-5 rounded-lg flex flex-col space-y-4 text-md font-normal text-gray-900 bg-slate-50">
                 <div className="flex flex-col space-y-1">
-                  <label className="text-xs font-medium text-gray-600">曲線類別 | type of Curve ： </label>
+                  <label className="text-xs font-medium text-gray-600">曲線資金池 | curve treasury ： </label>
                   <label className="text-sm font-normal text-gray-900">
-                    {(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "一元一次方程式 | Linear" : "一元二次方程式 | Parabola"}
+                    {ethers.utils.formatEther(curve.pool)} Ξ
+                    {/* {(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "一元一次方程式 | Linear" : "一元二次方程式 | Parabola"} */}
                   </label>
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -108,8 +116,8 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
                   <label className="text-sm font-normal text-amber-600">y = ({(ethers.utils.formatUnits(curve.formula[4], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[4], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[5], "wei")} x{(ethers.utils.formatUnits(curve.formula[6], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[6], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ</label>
                 </div>
                 <div className="flex flex-col space-y-1">
-                  <label className="text-xs font-medium text-gray-600">交易手續費 | fee ： </label>
-                  <label className="text-sm font-normal text-gray-900">{ethers.utils.formatEther(curve.mintPrice) - ethers.utils.formatEther(curve.burnPrice)} Ξ</label>
+                  <label className="text-xs font-medium text-gray-600">集資進度 | raised ： </label>
+                  <label className="text-sm font-normal text-gray-900">{ethers.utils.formatEther(curve.unclaimed)} Ξ</label>
                 </div>
                 <div className="flex flex-col space-y-1">
                   <label className="text-xs font-medium text-gray-600">管理員 | operator ：</label>

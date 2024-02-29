@@ -45,15 +45,12 @@ const TaskDetail = () => {
   };
 
   const loaded = () => {
-    console.log("here")
     setLoading(false)
   }
 
   useEffect(() => {
 
   }, [loading])
-
-  console.log(tasks[taskId]?.content.substring(0, 3))
 
   return (
     <>

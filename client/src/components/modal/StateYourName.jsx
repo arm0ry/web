@@ -273,30 +273,33 @@ const StateYourNameModal = ({ modalPayload }) => {
                   {...register("seed")}
                 />
               </div>
-              <div className="mb-6 ">
-                <label
-                  className=" block text-sm font-medium text-gray-900 "
-                >
-                  如果你今天有使用<a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
-                  >新參者求生小錦囊</a>，請點選以下完成的任務：
-                </label>
-                <label
-                  className="mb-3 block text-sm font-normal text-gray-500"
-                >
-                  If you've used the <a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
-                  >Newcomer Guide</a>, please check any that you've done!
-                </label>
+              {(parseInt(missionId) === 1) ? (
+                <div className="mb-6 ">
+                  <label
+                    className=" block text-sm font-medium text-gray-900 "
+                  >
+                    如果你今天有使用<a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
+                    >新參者求生小錦囊</a>，請點選以下完成的任務：
+                  </label>
+                  <label
+                    className="mb-3 block text-sm font-normal text-gray-500"
+                  >
+                    If you've used the <a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
+                    >Newcomer Guide</a>, please check any that you've done!
+                  </label>
 
-                <div className="flex flex-col items-start justify-between">
-                  <MoodRadio moon="👍 幫 g0v 粉專按讚" value={"1"} register={register} />
-                  <MoodRadio moon="🔔 打開任一專案頻道通知" value={"2"} register={register} />
-                  <MoodRadio moon="📝 截圖任一提案的專案共筆" value={"3"} register={register} />
-                  <MoodRadio moon="👀 瀏覽並截圖最新社群九分鐘" value={"4"} register={register} />
-                  <MoodRadio moon="🎙️ 在有興趣的專案共筆上自我介紹" value={"5"} register={register} />
-                  <MoodRadio moon="🏷️ 貼上三張符合你身份的技能貼紙" value={"6"} register={register} />
-                  <MoodRadio moon="🧐 加入三個你有興趣的 Slack 頻道" value={"7"} register={register} />
+                  <div className="flex flex-col items-start justify-between">
+                    <MoodRadio moon="👍 幫 g0v 粉專按讚" value={"1"} register={register} />
+                    <MoodRadio moon="🔔 打開任一專案頻道通知" value={"2"} register={register} />
+                    <MoodRadio moon="📝 截圖任一提案的專案共筆" value={"3"} register={register} />
+                    <MoodRadio moon="👀 瀏覽並截圖最新社群九分鐘" value={"4"} register={register} />
+                    <MoodRadio moon="🎙️ 在有興趣的專案共筆上自我介紹" value={"5"} register={register} />
+                    <MoodRadio moon="🏷️ 貼上三張符合你身份的技能貼紙" value={"6"} register={register} />
+                    <MoodRadio moon="🧐 加入三個你有興趣的 Slack 頻道" value={"7"} register={register} />
+                  </div>
                 </div>
-              </div>
+              ) : (<></>)}
+
 
               <div className="mb-6">
                 <label
