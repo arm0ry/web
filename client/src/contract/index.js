@@ -30,32 +30,32 @@ export const KaliDAO = {
 };
 
 export const Mission = {
-  address: "0x5A9fBf42Ee134D29aCef99cC3291A7130c8Ce44e",
+  address: "0xb46Ad0Ee2FF07aaf2Dae94f228462c4DdA8B17fC",
   abi: Mission_abi,
 };
 
 export const Quest = {
-  address: "0x533B3bDC8a5bA26848fa36c3666351Ed9cd7DBfe",
+  address: "0xb6d0680EC01f938A960844772bfB4f045c8b8549",
   abi: Quest_abi,
 };
 
 export const ImpactCurves = {
-  address: "0x87D66108131cAe8F45a767179A365dEB35064974",
+  address: "0x4a16D6EB4fb07cfC66bD44A8ff489fcb12a99c5C",
   abi: ImpactCurves_abi,
 };
 
 export const HackathonSupportToken = {
-  address: "0x7c6AfCa0bdBa931c0C9a4838eF6697cC5b3f5F4a",
+  address: "0x94Ac6E8DB1bD5Ba664f5157C32806EdE6780b896",
   abi: HackathonSupportToken_abi,
 };
 
 export const OnboardingSupportToken = {
-  address: "0x075662bfdBD076A72833f95386AEFA2ebFb2ca1b",
+  address: "0xA3fC501fD44443DceCe0101feDB104d9BA02a63C",
   abi: OnboardingSupportToken_abi,
 };
 
 export const ParticipantSupportToken = {
-  address: "0x4Cf67c4EA25D45aB7B4eAe09a2cC316650D7E083",
+  address: "0x94C2aCe02Fa024f46966692bD6Eb418130662DB8",
   abi: ParticipantSupportToken_abi,
 };
 
