@@ -9,6 +9,8 @@ import {
   Mission,
   Quest,
   ImpactCurves,
+  Commons_Mission,
+  Commons_Quest,
   RPC,
   zero_address,
 } from "@contract";
@@ -37,6 +39,14 @@ export const Quest_contract = getContract({
 });
 export const ImpactCurves_contract = getContract({
   ...ImpactCurves,
+  signerOrProvider: goerli_provider,
+});
+export const Commons_Mission_contract = getContract({
+  ...Commons_Mission,
+  signerOrProvider: goerli_provider,
+});
+export const Commons_Quest_contract = getContract({
+  ...Commons_Quest,
   signerOrProvider: goerli_provider,
 });
 

@@ -29,6 +29,10 @@ export const KaliDAO = {
   abi: KaliDAO_abi,
 };
 
+// ===================================
+// g0v Use
+// ===================================
+
 export const Mission = {
   address: "0xb46Ad0Ee2FF07aaf2Dae94f228462c4DdA8B17fC",
   abi: Mission_abi,
@@ -59,8 +63,21 @@ export const ParticipantSupportToken = {
   abi: ParticipantSupportToken_abi,
 };
 
-// const goerli = "https://rpc.ankr.com/eth_goerli";
-const goerli = "https://ethereum-goerli.publicnode.com";
 
+// ===================================
+// Commons Use
+// ===================================
+
+export const Commons_Mission = {
+  address: "0x9D81D79aCEB44Cf4Fd5efF46AFB70cd8EC804c5B",
+  abi: Mission_abi,
+};
+
+export const Commons_Quest = {
+  address: "0xE06446E60AA045B6d115407846aAA7Ec88E20E1d",
+  abi: Quest_abi,
+};
+
+const goerli = "https://ethereum-goerli.publicnode.com";
 export const RPC = { goerli };
 export const zero_address = "0x0000000000000000000000000000000000000000"
