@@ -7,6 +7,7 @@ export const LOAD_QUEST_ID = "LOAD_QUEST_ID";
 export const LOAD_QUESTS = "LOAD_QUESTS";
 export const LOAD_COMMONS_QUESTS = "LOAD_COMMONS_QUESTS";
 export const LOAD_RESPONSES = "LOAD_RESPONSES";
+export const LOAD_COMMONS_RESPONSES = "LOAD_COMMONS_RESPONSES";
 export const LOAD_CID = "LOAD_CID";
 
 export const LOAD_TASKID = "LOAD_TASKID";
@@ -29,10 +30,12 @@ export const playgroundInitialState = {
   // unreviews: [],
   tasks: {},
   commonsTasks: {},
-  // taskId: 0,
   missions: {},
   commonsMissions: {},
   quests: {},
+  commonsQuests: {},
+  responses: {},
+  commonsResponses: {},
   // missionId: 0,
   ipfs: {},
   managers: [],//pass
@@ -76,6 +79,11 @@ const playgroundReducer = (state, action) => {
       return {
         ...state,
         responses: action?.payload
+      };
+    case LOAD_COMMONS_RESPONSES:
+      return {
+        ...state,
+        commonsResponses: action?.payload
       };
     case LOAD_CID:
       return {

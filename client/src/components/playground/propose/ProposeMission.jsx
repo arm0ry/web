@@ -56,8 +56,8 @@ const ProposeMission = ({ domain }) => {
   const { address, isConnected, isDisconnected } = useAccount();
   useEffect(() => {
     setTaskOptions(
-      Object.keys(commonsTasks).map((id) => {
-        return { value: id, label: commonsTasks[id].title };
+      Object.keys((domain === "commons") ? commonsTasks : tasks).map((id) => {
+        return { value: id, label: (domain === "commons") ? commonsTasks[id].title : tasks[id].title };
       })
     );
   }, [commonsTasks]);
@@ -74,10 +74,11 @@ const ProposeMission = ({ domain }) => {
     defaultValues: { tasks: [] },
   });
 
-  const { write: propose, state } = useWriteContract({
-    ...KaliDAO,
-    functionName: "propose",
+  const { write: proposeToCommons, state } = useWriteContract({
+    ...Commons_Mission,
+    functionName: "payToSetMission",
   });
+
   const onSubmit = async (data) => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = await provider.getSigner();
@@ -97,22 +98,23 @@ const ProposeMission = ({ domain }) => {
       };
 
       try {
-        console.log(tasks)
-        const tx = await commonsMissionInstance.payToSetMission(address, data.title, data.detail, data.tasks.map((item) => parseInt(item.value, 10)))
-        console.log(tx)
-      } catch (error) {
+        proposeToCommons({
+          args: [
+            address,
+            data.title,
+            data.detail,
+            data.tasks.map((item) => parseInt(item.value, 10))
+          ],
+          onSuccess,
+          onError
+        })
 
+        setInPrepare(false)
+        // const tx = await commonsMissionInstance.payToSetMission(address, data.title, data.detail, data.tasks.map((item) => parseInt(item.value, 10)))
+        // console.log(tx)
+      } catch (error) {
+        pushAlert({ msg: `Error! ${error}`, type: "failure" });
       }
-      // proposeToCommons({
-      //   args: [
-      //     [address],
-      //     [Math.floor(new Date(startDate).getTime() / 1000)],
-      //     [data.title],
-      //     [data.detail]
-      //   ],
-      //   onSuccess,
-      //   onError
-      // })
     } else {
       // TODO: Make a DAO proposal
       //   encodeFunctionData(

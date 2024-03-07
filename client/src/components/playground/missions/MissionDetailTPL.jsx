@@ -9,7 +9,7 @@ import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
-const MissionDetailTPL = ({ missionId, missions, tasks }) => {
+const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
   const { playground, userInfo } = useGlobalContext();
   // const { missions } = playground;
   const { address, isConnected, isDisconnected } = useAccount();
@@ -31,7 +31,7 @@ const MissionDetailTPL = ({ missionId, missions, tasks }) => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { missionId: missionId, taskId: 0 },
+      content: { contract: contract, missionId: missionId, taskId: 0 },
     });
   };
 
@@ -152,6 +152,8 @@ const MissionDetailTPL = ({ missionId, missions, tasks }) => {
                   <>
                     <TaskCard
                       key={id}
+                      domain={domain}
+                      contract={contract}
                       taskId={id}
                       tasks={tasks}
                       className={"md:col-span-3 md:col-start-2"}
@@ -163,6 +165,8 @@ const MissionDetailTPL = ({ missionId, missions, tasks }) => {
                   <>
                     <TaskCard
                       key={id}
+                      domain={domain}
+                      contract={contract}
                       taskId={id}
                       tasks={tasks}
                       className={"md:col-span-3 md:col-start-3"}

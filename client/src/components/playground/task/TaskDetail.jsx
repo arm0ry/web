@@ -9,7 +9,7 @@ import { Spinner, Responses } from "@components";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
 
-const TaskDetail = ({ domain }) => {
+const TaskDetail = () => {
   const { setTasks, playground, userInfo } = useGlobalContext();
   const [detail, setDetail] = useState(undefined);
   const [tooltip, setTooltip] = useState(false);
@@ -18,6 +18,8 @@ const TaskDetail = ({ domain }) => {
   const missionId = params.missionId;
   const taskId = params.taskId;
   const tasks = location.state.tasks;
+  const contract = location.state.contract;
+  const domain = location.state.domain;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(undefined);
 
@@ -38,7 +40,7 @@ const TaskDetail = ({ domain }) => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { missionId: missionId, taskId: taskId },
+      content: { contract: contract, missionId: missionId, taskId: taskId },
     });
   };
 
@@ -103,7 +105,7 @@ const TaskDetail = ({ domain }) => {
                 </div>
               </div>
 
-              <Responses taskId={parseInt(taskId)} />
+              <Responses domain={domain} taskId={parseInt(taskId)} />
 
 
               <div className="" >

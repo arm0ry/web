@@ -14,11 +14,11 @@ const useWriteContract = ({ address, abi, functionName }) => {
     switch (action.type) {
       case "idle":
         return { ...initialState, writeStatus: 0 };
-      case "waitting":
+      case "waiting":
         return { ...initialState, writeStatus: 1 };
       case "pending":
         return { ...initialState, writeStatus: 2 };
-      case "successed":
+      case "success":
         return { ...initialState, writeStatus: 0, data: action.payload };
       case "error":
         return { ...initialState, writeStatus: 0, error: action.payload };
@@ -31,10 +31,10 @@ const useWriteContract = ({ address, abi, functionName }) => {
 
   const write = useMemo(() => {
     return async ({ args, onSuccess, onError }) => {
-      const _onSuccess = onSuccess ?? (() => {});
-      const _onError = onError ?? (() => {});
+      const _onSuccess = onSuccess ?? (() => { });
+      const _onError = onError ?? (() => { });
       try {
-        dispatch({ type: "waitting" });
+        dispatch({ type: "waiting" });
         const { hash } = await writeContract({
           mode: "recklesslyUnprepared",
           address,
@@ -47,7 +47,7 @@ const useWriteContract = ({ address, abi, functionName }) => {
           msg: (
             <span>
               {" "}
-              區塊驗證中...
+              區塊驗證中... | Blockchain is doing its work...
               <a
                 href={`https://goerli.etherscan.io/tx/${hash}`}
                 target="_blank"
@@ -64,8 +64,8 @@ const useWriteContract = ({ address, abi, functionName }) => {
         const data = await waitForTransaction({
           hash,
         });
-        pushAlert({ msg: "Success! ", type: "success" });
-        dispatch({ type: "successed", payload: data });
+        pushAlert({ msg: "Success! Refresh page to see new updates 🎉", type: "success" });
+        dispatch({ type: "success", payload: data });
 
         await _onSuccess();
       } catch (error) {

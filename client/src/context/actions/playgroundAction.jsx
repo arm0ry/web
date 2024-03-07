@@ -7,6 +7,7 @@ import {
   LOAD_QUESTS,
   LOAD_COMMONS_QUESTS,
   LOAD_RESPONSES,
+  LOAD_COMMONS_RESPONSES,
   LOAD_CID,
   LOAD_TASKS,
   LOAD_COMMONS_TASKS,
@@ -151,12 +152,12 @@ export const loadQuests = async () => {
 
         for (let i = 0; i < taskIds.length; i++) {
           const response = await Quest_contract.getTaskResponse(id, taskIds[i]);
+          const feedback = await Quest_contract.getTaskFeedback(id, taskIds[i]);
 
-          if (parseInt(response._hex) === 0) {
+          if (parseInt(response._hex) === 0 && feedback === '') {
             continue
           }
 
-          const feedback = await Quest_contract.getTaskFeedback(id, taskIds[i]);
           const responseObj = {
             taskId: parseInt(taskIds[i]._hex),
             response: parseInt(response._hex),
@@ -288,16 +289,15 @@ export const loadCommonsQuests = async () => {
         const id = _id + 1;
         const quest = await Commons_Quest_contract.getQuest(id);
         const taskIds = await Commons_Mission_contract.getMissionTaskIds(quest[2])
+
         const responses = []
 
         for (let i = 0; i < taskIds.length; i++) {
-          const response = await Commons_Quest_contract.getTaskResponse(id, taskIds[i]);
-
-          if (parseInt(response._hex) === 0) {
+          const response = await Commons_Quest_contract.getTaskResponse(id, parseInt(taskIds[i]._hex));
+          const feedback = await Commons_Quest_contract.getTaskFeedback(id, parseInt(taskIds[i]._hex));
+          if (parseInt(response._hex) === 0 && feedback === '') {
             continue
           }
-
-          const feedback = await Commons_Quest_contract.getTaskFeedback(id, taskIds[i]);
           const responseObj = {
             taskId: parseInt(taskIds[i]._hex),
             response: parseInt(response._hex),
@@ -307,9 +307,10 @@ export const loadCommonsQuests = async () => {
           responses.push(responseObj)
           allResponses.push(responseObj)
         }
+        console.log(allResponses)
 
         dispatch.fn({
-          type: LOAD_RESPONSES,
+          type: LOAD_COMMONS_RESPONSES,
           payload: allResponses,
         });
 

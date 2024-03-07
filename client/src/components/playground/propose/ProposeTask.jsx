@@ -82,10 +82,6 @@ const ProposeTask = ({ domain }) => {
 
 
   const onSubmit = async (data) => {
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer = await provider.getSigner();
-    const commonsMissionInstance = new ethers.Contract(Commons_Mission.address, Commons_Mission.abi, signer)
-
     setInPrepare(true);
     console.log([[address], [Math.floor(new Date(startDate).getTime() / 1000)], [data.title], [data.detail]])
     if (domain === "commons") {
@@ -97,21 +93,22 @@ const ProposeTask = ({ domain }) => {
       };
 
       try {
-        const tx = await commonsMissionInstance.payToSetTasks([address], [Math.floor(new Date(startDate).getTime() / 1000)], [data.title], [data.detail])
-        console.log(tx)
-      } catch (error) {
+        proposeToCommons({
+          args: [
+            [address],
+            [Math.floor(new Date(startDate).getTime() / 1000)],
+            [data.title],
+            [data.detail]
+          ],
+          onSuccess,
+          onError
+        })
 
+        setInPrepare(false)
+      } catch (error) {
+        pushAlert({ msg: `Error! ${error}`, type: "failure" });
       }
-      // proposeToCommons({
-      //   args: [
-      //     [address],
-      //     [Math.floor(new Date(startDate).getTime() / 1000)],
-      //     [data.title],
-      //     [data.detail]
-      //   ],
-      //   onSuccess,
-      //   onError
-      // })
+
     } else {
       // TODO: Make a DAO proposal
       // encodeFunctionData(

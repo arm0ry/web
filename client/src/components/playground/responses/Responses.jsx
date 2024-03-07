@@ -6,28 +6,38 @@ import ResponseCard from "./ResponseCard";
 
 // const svg = avatar.toString();
 
-const Responses = ({ taskId }) => {
+const Responses = ({ domain, taskId }) => {
   const { playground } = useGlobalContext();
-  const { missions, responses } = playground;
+  const { missions, responses, commonsResponses } = playground;
   const [results, setResults] = useState([])
 
+  console.log(domain, commonsResponses)
 
   useEffect(() => {
-    // const result = Object.groupBy(responses, ({ taskId }) => taskId)
-    // Object.entries(result).map(([key, value]) => console.log(key, value))
-    // setResult(result)
-    if (responses !== undefined) {
-      const _results = []
+    if (domain === "commons") {
+      if (commonsResponses !== undefined) {
+        const _results = []
 
-      for (let i = 0; i < responses.length; i++) {
-        if (responses[i].taskId === taskId) {
-          _results.push(responses[i])
+        for (let i = 0; i < commonsResponses.length; i++) {
+          if (commonsResponses[i].taskId === taskId) {
+            _results.push(commonsResponses[i])
+          }
         }
+        setResults(_results)
       }
-      setResults(_results)
+    } else {
+      if (responses !== undefined) {
+        const _results = []
 
+        for (let i = 0; i < responses.length; i++) {
+          if (responses[i].taskId === taskId) {
+            _results.push(responses[i])
+          }
+        }
+        setResults(_results)
+      }
     }
-  }, [responses])
+  }, [responses, commonsResponses])
 
   return (
     <>

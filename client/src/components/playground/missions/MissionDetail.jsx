@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { useGlobalContext } from "@context/store";
 import MissionDetailTPL from "./MissionDetailTPL";
+import { Mission, Quest, Commons_Mission, Commons_Quest } from "@contract";
 
 const MissionDetail = ({ domain }) => {
   const params = useParams();
@@ -20,8 +21,13 @@ const MissionDetail = ({ domain }) => {
 
   return (
     <>
-      <MissionDetailTPL missionId={missionId} missions={(domain === "commons") ? commonsMissions : missions} tasks={(domain === "commons") ? commonsTasks : tasks} />
-
+      <MissionDetailTPL
+        domain={domain}
+        contract={(domain === "commons") ? Commons_Mission : Mission}
+        missionId={missionId}
+        missions={(domain === "commons") ? commonsMissions : missions}
+        tasks={(domain === "commons") ? commonsTasks : tasks}
+      />
     </>
   );
 };
