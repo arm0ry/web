@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import { useGlobalContext } from "@context/store";
 import { loadIPFS } from "@context/actions/playgroundAction";
 import { fetchIpfsCID } from "@utils/ipfs";
 import { shortenAddress } from "@utils/shortenAddress";
 import { Spinner, Responses } from "@components";
-import { Money, Markdown } from "../..";
-import { ClockIcon, PassIcon } from "@assets";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
 
-const TaskDetail = () => {
+const TaskDetail = ({ domain }) => {
   const { setTasks, playground, userInfo } = useGlobalContext();
-  const { missions } = playground;
   const [detail, setDetail] = useState(undefined);
   const [tooltip, setTooltip] = useState(false);
   const params = useParams();
+  const location = useLocation()
   const missionId = params.missionId;
   const taskId = params.taskId;
-  const { tasks } = playground;
+  const tasks = location.state.tasks;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(undefined);
 
@@ -49,7 +47,6 @@ const TaskDetail = () => {
   }
 
   useEffect(() => {
-
   }, [loading])
 
   return (

@@ -8,8 +8,9 @@ import { useAccount } from "wagmi";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
 import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
-import {Spinner} from "@components";
+import { Spinner } from "@components";
 import MultiSelectSort from "../../MultiSelectSort";
+import { Commons_Mission } from "@contract";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
@@ -47,19 +48,19 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
   }
 };
 
-const ProposeMission = () => {
+const ProposeMission = ({ domain }) => {
   const { playground } = useGlobalContext();
-  const { tasks } = playground;
+  const { commonsTasks, tasks } = playground;
   const [taskOptions, setTaskOptions] = useState([]);
   const [inPrepare, setInPrepare] = useState(false);
   const { address, isConnected, isDisconnected } = useAccount();
   useEffect(() => {
     setTaskOptions(
-      Object.keys(tasks).map((id) => {
-        return { value: id, label: tasks[id].title };
+      Object.keys(commonsTasks).map((id) => {
+        return { value: id, label: commonsTasks[id].title };
       })
     );
-  }, [tasks]);
+  }, [commonsTasks]);
 
   const {
     register,
@@ -78,51 +79,102 @@ const ProposeMission = () => {
     functionName: "propose",
   });
   const onSubmit = async (data) => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = await provider.getSigner();
+    const commonsMissionInstance = new ethers.Contract(Commons_Mission.address, Commons_Mission.abi, signer)
+
     setInPrepare(true);
-    encodeFunctionData(
-      ["uint8[]", "string", "string", "address", "uint8", "uint256"],
-      data,
-      address,
-      Arm0ryMissions.abi,
-      "setMission"
-    )
-      .then(({ ipfsCID, callData }) => {
-        setInPrepare(false);
-        const onSuccess = () => {
-          reset();
-        };
-        const onError = () => {
-          unpinCID(ipfsCID);
-        };
-        propose({
-          args: [
-            2,
-            `[Set Mission]\n${data.title}\n\Tasks:${data.tasks
-              .map((item) => item.label)
-              .join(", ")}\n\Creator:${address}\nFee:${
-              data.fee
-            }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${
-              data.detail
-            }`,
-            [Arm0ryMissions.address],
-            [0],
-            [callData],
-          ],
-          onSuccess,
-          onError,
-        });
-      })
-      .catch((error) => {
-        console.log("error123",error);
-        pushAlert({ msg: `Error! ${error}`, type: "failure" });
-      })
-      .finally(() => {
-        setInPrepare(false);
-      });
-  };
+
+    const tasks = data.tasks.map((item) => parseInt(item.value, 10))
+    console.log(domain, [address, data.title, data.detail, tasks])
+
+    if (domain === "commons") {
+      const onSuccess = () => {
+        reset();
+      };
+      const onError = () => {
+        // unpinCID(ipfsCID);
+      };
+
+      try {
+        console.log(tasks)
+        const tx = await commonsMissionInstance.payToSetMission(address, data.title, data.detail, data.tasks.map((item) => parseInt(item.value, 10)))
+        console.log(tx)
+      } catch (error) {
+
+      }
+      // proposeToCommons({
+      //   args: [
+      //     [address],
+      //     [Math.floor(new Date(startDate).getTime() / 1000)],
+      //     [data.title],
+      //     [data.detail]
+      //   ],
+      //   onSuccess,
+      //   onError
+      // })
+    } else {
+      // TODO: Make a DAO proposal
+      //   encodeFunctionData(
+      //   ["uint8[]", "string", "string", "address", "uint8", "uint256"],
+      //   data,
+      //   address,
+      //   Arm0ryMissions.abi,
+      //   "setMission"
+      // )
+      //   .then(({ ipfsCID, callData }) => {
+      //     setInPrepare(false);
+      //     const onSuccess = () => {
+      //       reset();
+      //     };
+      //     const onError = () => {
+      //       unpinCID(ipfsCID);
+      //     };
+      //     propose({
+      //       args: [
+      //         2,
+      //         `[Set Mission]\n${data.title}\n\Tasks:${data.tasks
+      //           .map((item) => item.label)
+      //           .join(", ")}\n\Creator:${address}\nFee:${data.fee
+      //         }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${data.detail
+      //         }`,
+      //         [Arm0ryMissions.address],
+      //         [0],
+      //         [callData],
+      //       ],
+      //       onSuccess,
+      //       onError,
+      //     });
+      //   })
+      //   .catch((error) => {
+      //     console.log("error123", error);
+      //     pushAlert({ msg: `Error! ${error}`, type: "failure" });
+      //   })
+      //   .finally(() => {
+      //     setInPrepare(false);
+      //   });
+    };
+  }
 
   return (
     <>
+
+      <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5  space-x-5">
+        <div className="w-1/2 flex items-center">
+          <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
+            Create a List
+          </label>
+        </div>
+        <div className="flex items-center space-x-6 bg-slate-50 p-2">
+          <label className="py-5 text-md font-normal text-gray-900">
+            💡
+          </label>
+          <label className=" block text-md font-normal text-gray-900">
+            A list consists of one or more tasks. Together, a list and its tasks provide context to collaborate onchain and open source impact.
+          </label>
+        </div>
+      </div >
+
       <div className=" rounded-lg border-2 border-dashed border-gray-200 p-4 ">
         <div className="container ">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -137,31 +189,10 @@ const ProposeMission = () => {
                 type="text"
                 id="title"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                placeholder="Title"
+                placeholder="title for a list"
                 required
                 {...register("title")}
               />
-            </div>
-            <div className="mb-6 ">
-              <div>
-                <label
-                  for="fee"
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  Fee
-                </label>
-
-                <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  id="fee"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                  placeholder="0"
-                  required
-                  {...register("fee")}
-                />
-              </div>
             </div>
             <div className="mb-6 ">
               <div>
@@ -204,6 +235,27 @@ const ProposeMission = () => {
               >
                 Detail
               </label>
+              <input
+                type="text"
+                id="detail"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                placeholder="share an URL or a few words here"
+                required
+                {...register("detail")}
+              />
+            </div>
+            <div className="mb-6 ">
+              <div>
+                <label
+                  for="fee"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  Fee: 0 Ξ
+                </label>
+              </div>
+            </div>
+            {/* 
+              // TODO: Markdown integration
               <textarea
                 id="detail"
                 rows="4"
@@ -224,8 +276,7 @@ const ProposeMission = () => {
                 }}
               >
                 Preview Document
-              </button>
-            </div>
+              </button> */}
 
             {/* <div className="flex items-start mb-6">
             <div className="flex items-center h-5">
@@ -258,7 +309,7 @@ const ProposeMission = () => {
                 className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
               >
                 {!isConnected && "Please Connect Wallet"}
-                {isConnected && state.writeStatus === 0 &&  (inPrepare? "Wait...": "Submit!")}
+                {isConnected && state.writeStatus === 0 && (inPrepare ? "Wait..." : "Submit!")}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
                 <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
                   {isConnected &&

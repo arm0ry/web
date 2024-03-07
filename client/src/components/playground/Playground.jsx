@@ -27,10 +27,13 @@ import {
 import {
   loadTasksData,
   loadMissionsData,
+  loadQuests,
+  loadCommonsTasksData,
+  loadCommonsMissionsData,
+  loadCommonsQuests,
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
-import { loadQuests } from "../../context/actions/playgroundAction";
 
 // const svg = avatar.toString();
 const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => { } }) => {
@@ -39,7 +42,7 @@ const SidebarItem = ({ to, Icon, name, setToggleMenu, onClick = () => { } }) => 
       <NavLink
         to={to}
         onClick={() => {
-          console.log(to);
+          // console.log(to);
           setToggleMenu(false);
           onClick();
         }}
@@ -156,6 +159,9 @@ const Playground = () => {
     loadTasksData();
     loadMissionsData();
     loadQuests();
+    loadCommonsTasksData();
+    loadCommonsMissionsData();
+    loadCommonsQuests();
   }, []);
 
 
@@ -214,7 +220,7 @@ const Playground = () => {
             </label>
             <div className="">
               <label className="text-md font-normal text-gray-900">
-                g0v
+                g0v 台灣零時政府
               </label>
             </div>
             <SidebarItem
@@ -234,18 +240,30 @@ const Playground = () => {
             </label>
             <div className="">
               <label className="text-md font-normal text-gray-900">
-                🚧
+                🚧 Commons
               </label>
             </div>
             <SidebarItem
-              to="response"
-              name="Coming soon"
+              to="propose-commons-task"
+              name="Create a Task"
+              Icon={() => <div className="pl-6" />}
+              setToggleMenu={setToggleMenu}
+            />
+            <SidebarItem
+              to="propose-commons-mission"
+              name="Create a List"
+              Icon={() => <div className="pl-6" />}
+              setToggleMenu={setToggleMenu}
+            />
+            <SidebarItem
+              to="commons-missions"
+              name="Playground"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
             {/* <SidebarItem
-              to="supporters"
-              name="支持 g0v | Support g0v"
+              to="commons-supporters"
+              name="Support"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             /> */}

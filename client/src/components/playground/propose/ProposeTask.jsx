@@ -7,18 +7,20 @@ import {
   writeContract,
   waitForTransaction,
 } from "@wagmi/core";
-import { KaliLogo, ArrowSVG } from "@assets";
-import { uploadJSON, unpinCID } from "@utils/ipfs";
-import { Arm0ryMissions, KaliDAO } from "../../../contract";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-import {Spinner} from "@components";
+import { uploadJSON, unpinCID } from "@utils/ipfs";
+
+import { Spinner } from "@components";
 import Modal from "../../modal/Modal";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 import useWriteContract from "@hooks/useWriteContract";
-import { replaceMarkdownImageUrltoBase64} from "@utils/encodeImageAsBase64"
+import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64"
+import { Commons_Mission } from "@contract";
 
 const encodeFunctionData = async (types, data, address, abi, method) => {
   try {
@@ -49,14 +51,17 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
     const callData = mInterface.encodeFunctionData(method, [[params]]);
     return { ipfsCID, callData };
   } catch (error) {
-    if(ipfsCID) unpinCID(ipfsCID);
+    if (ipfsCID) unpinCID(ipfsCID);
     throw error;
   }
 };
 
-const ProposeTask = () => {
+const ProposeTask = ({ domain }) => {
+  const [startDate, setStartDate] = useState(new Date());
+
   // const { alerts } = useGlobalContext();
   const { address, isConnected, isDisconnected } = useAccount();
+
   const [inPrepare, setInPrepare] = useState(false);
   const {
     register,
@@ -66,133 +71,149 @@ const ProposeTask = () => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { point: 0, expiration: 0 },
+    defaultValues: {},
   });
   // *
-  const { write: propose, state } = useWriteContract({
-    ...KaliDAO,
-    functionName: "propose",
+  const { write: proposeToCommons, state } = useWriteContract({
+    ...Commons_Mission,
+    functionName: "payToSetTasks",
   });
 
+
+
   const onSubmit = async (data) => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = await provider.getSigner();
+    const commonsMissionInstance = new ethers.Contract(Commons_Mission.address, Commons_Mission.abi, signer)
+
     setInPrepare(true);
-    encodeFunctionData(
-      ["uint8", "uint40", "address", "string", "string"],
-      data,
-      address,
-      Arm0ryMissions.abi,
-      "setTasks"
-    ).then(({ ipfsCID, callData }) => {
-      setInPrepare(false);
+    console.log([[address], [Math.floor(new Date(startDate).getTime() / 1000)], [data.title], [data.detail]])
+    if (domain === "commons") {
       const onSuccess = () => {
         reset();
       };
       const onError = () => {
-        unpinCID(ipfsCID);
+        // unpinCID(ipfsCID);
       };
-      propose({
-        args: [
-          2,
-          `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
-            data.expiration / 86400
-          )}${" days"}\n${"     "}point:${
-            data.point
-          }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${
-            data.detail
-          }`,
-          [Arm0ryMissions.address],
-          [0],
-          [callData],
-        ],
-        onSuccess,
-        onError,
-      });
-    })
-    .catch((error) => {
-      pushAlert({ msg: `Error! ${error}`, type: "failure" });
-    }).finally(() => {
-      setInPrepare(false);
-    });
-  };
+
+      try {
+        const tx = await commonsMissionInstance.payToSetTasks([address], [Math.floor(new Date(startDate).getTime() / 1000)], [data.title], [data.detail])
+        console.log(tx)
+      } catch (error) {
+
+      }
+      // proposeToCommons({
+      //   args: [
+      //     [address],
+      //     [Math.floor(new Date(startDate).getTime() / 1000)],
+      //     [data.title],
+      //     [data.detail]
+      //   ],
+      //   onSuccess,
+      //   onError
+      // })
+    } else {
+      // TODO: Make a DAO proposal
+      // encodeFunctionData(
+      //   ["uint8", "uint40", "address", "string", "string"],
+      //   data,
+      //   address,
+      //   Arm0ryMissions.abi,
+      //   "setTasks"
+      // ).then(({ ipfsCID, callData }) => {
+      //   setInPrepare(false);
+      //   const onSuccess = () => {
+      //     reset();
+      //   };
+      //   const onError = () => {
+      //     // unpinCID(ipfsCID);
+      //   };
+      //   propose({
+      //     args: [
+      //       2,
+      //       `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
+      //         data.expiration / 86400
+      //       )}${" days"}\n${"     "}point:${data.point
+      //       }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${data.detail
+      //       }`,
+      //       [Arm0ryMissions.address],
+      //       [0],
+      //       [callData],
+      //     ],
+      //     onSuccess,
+      //     onError,
+      //   });
+      // })
+      //   .catch((error) => {
+      //     pushAlert({ msg: `Error! ${error}`, type: "failure" });
+      //   }).finally(() => {
+      //     setInPrepare(false);
+      //   });
+    };
+  }
+
+
+  useEffect(() => {
+
+    // console.log(domain)
+    // console.log(Math.floor(new Date(startDate).getTime() / 1000))
+
+  }, [startDate])
 
   return (
     <>
-      {/* <Modal></Modal> */}
+      <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5  space-x-5">
+        <div className="w-1/2 flex items-center">
+          <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
+            Create a Task
+          </label>
+        </div>
+        <div className="flex items-center space-x-6 bg-slate-50 p-2">
+          <label className="py-5 text-md font-normal text-gray-900">
+            💡
+          </label>
+          <label className=" block text-md font-normal text-gray-900">
+            A task is an action item. It is a piece of actionable knowledge that invites others to collaborate onchain.
+          </label>
+        </div>
+      </div >
+
       <div className=" rounded-lg border-2 border-dashed border-gray-200 p-4 ">
         <div className="container ">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6">
-              <label
-                for="text"
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                placeholder="Title"
-                required
-                {...register("title")}
-              />
-            </div>
             <div className="mb-6 grid gap-6 md:grid-cols-2">
               <div>
                 <label
-                  for="point"
+                  for="text"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  Point
+                  Title
                 </label>
-
-                <select
-                  id="point"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml;charset=utf-8,${ArrowSVG}")`,
-                  }}
-                  className={`block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat p-2.5 pr-[2.5rem] text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500`}
-                  // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
+                <input
+                  type="text"
+                  id="title"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                  placeholder="title for a task"
                   required
-                  defaultValue=""
-                  {...register("point")}
-                >
-                  <option selected value="">
-                    Choose a point
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
+                  {...register("title")}
+                />
               </div>
-              <div>
+              <div className="">
                 <label
                   for="expiration"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  Expiration
+                  When does this task expire?
                 </label>
-                <select
-                  id="expiration"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml;charset=utf-8,${ArrowSVG}")`,
-                  }}
-                  className={`block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat p-2.5 pr-[2.5rem] text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500`}
-                  {...register("expiration")}
-                >
-                  <option value="">Choose...</option>
-                  <option value="86400">1 Day</option>
-                  <option value="172800">2 Days</option>
-                  <option value="259200">3 Days</option>
-                  <option value="345600">4 Days</option>
-                  <option value="432000">5 Days</option>
-                  <option value="518400">6 Days</option>
-                  <option value="604800">7 Days</option>
-                </select>
+                <div className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 ">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                  />
+                </div>
               </div>
             </div>
+
             <div className="mb-6">
               <label
                 for="detail"
@@ -200,7 +221,28 @@ const ProposeTask = () => {
               >
                 Detail
               </label>
-              <textarea
+
+              <input
+                type="text"
+                id="detail"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                placeholder="share an URL or a few words here"
+                required
+                {...register("detail")}
+              />
+            </div>
+            <div className="mb-6 ">
+              <div>
+                <label
+                  for="fee"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
+                >
+                  Fee: 0 Ξ
+                </label>
+              </div>
+              {/* 
+              // TODO: Markdown integration
+               <textarea
                 id="detail"
                 rows="4"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
@@ -220,33 +262,36 @@ const ProposeTask = () => {
                 }}
               >
                 Preview Document
-              </button>
+              </button> */}
             </div>
 
-            {/* <div className="flex items-start mb-6">
-            <div className="flex items-center h-5">
-              <input
-                id="remember"
-                type="checkbox"
-                value=""
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                required
-              />
-            </div>
-            <label
-              for="remember"
-              className="ml-2 text-sm font-medium text-gray-900 "
-            >
-              I agree with the{" "}
-              <a
-                href="#"
-                className="text-blue-600 hover:underline"
+
+            {/* // TODO: Terms & Conditions checkbox 
+             <div className="flex items-start mb-6">
+              <div className="flex items-center h-5">
+                <input
+                  id="remember"
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                  required
+                />
+              </div>
+              <label
+                for="remember"
+                className="ml-2 text-sm font-medium text-gray-900 "
               >
-                terms and conditions
-              </a>
-              .
-            </label>
-          </div> */}
+                I agree with the{" "}
+                <a
+                  href="#"
+                  className="text-blue-600 hover:underline"
+                >
+                  terms and conditions
+                </a>
+                .
+              </label>
+            </div> */}
+
             <div className="w-fulll block">
               <button
                 type="submit"
@@ -254,9 +299,9 @@ const ProposeTask = () => {
                 className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
               >
                 {!isConnected && "Please Connect Wallet"}
-                {isConnected && state.writeStatus === 0 &&  (inPrepare? "Wait...": "Submit!")}
+                {isConnected && state.writeStatus === 0 && (inPrepare ? "Wait..." : "Submit!")}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
-                <div className={`${state.writeStatus > 0?"ml-2":""}`}>
+                <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
                   {isConnected &&
                     state.writeStatus === 1 &&
                     "Waiting for approval"}

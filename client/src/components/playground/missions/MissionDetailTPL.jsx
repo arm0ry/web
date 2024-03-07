@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import { Arm0ryMissions, Arm0ryQuests } from "@contract";
 
 import { useGlobalContext } from "@context/store";
 import TaskCard from "../task/TaskCard";
 import { Spinner, Avatar, Markdown } from "@components";
 import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
-import { getQuest } from "@utils/contract";
-import { updateTravelerQuest } from "@context/actions/userAction";
-
-import useWriteContract from "@hooks/useWriteContract";
-import { pushAlert } from "@context/actions/alertAction";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
-const MissionDetailTPL = ({ missionId, magicButton }) => {
+const MissionDetailTPL = ({ missionId, missions, tasks }) => {
   const { playground, userInfo } = useGlobalContext();
-  const { missions } = playground;
+  // const { missions } = playground;
   const { address, isConnected, isDisconnected } = useAccount();
   const [buttonState, setButtonState] = useState(0);
   const [participants, setParticipants] = useState(0);
@@ -32,49 +26,6 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
   useEffect(() => {
     setButtonState(1); //Activate
   }, [userInfo.questID, userInfo.quests, userInfo.inQuest, isConnected]);
-
-  const { write: _purchase, state } = useWriteContract({
-    ...Arm0ryMissions,
-    functionName: "purchase",
-  });
-
-  const purchase = () => {
-    _purchase({
-      args: [parseInt(missionId, 10)],
-    });
-  };
-
-  const { write: _claimTravelerReward, state: claimState } = useWriteContract({
-    ...Arm0ryQuests,
-    functionName: "claimTravelerReward",
-  });
-  const claimTravelerReward = () => {
-    const onSuccess = async () => {
-      updateTravelerQuest(address, missionId);
-      showModal({
-        type: 8,
-      });
-    };
-    _claimTravelerReward({
-      args: [parseInt(missionId, 10)],
-      onSuccess,
-    });
-  };
-
-  const { write: _pauseQuest, state: pauseState } = useWriteContract({
-    ...Arm0ryQuests,
-    functionName: "pauseQuest",
-  });
-
-  const pauseQuest = () => {
-    const onSuccess = async () => {
-      navigate("/playground/missions");
-    };
-    _pauseQuest({
-      args: [parseInt(missionId, 10)],
-      onSuccess,
-    });
-  };
 
   const activate = () => {
     showModal({
@@ -105,7 +56,6 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
             >
               <span className="text-base font-medium">←Go Back</span>
             </button>
-            {/* {magicButton} */}
             {buttonState == 1 && (
               <>
                 <div
@@ -203,6 +153,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                     <TaskCard
                       key={id}
                       taskId={id}
+                      tasks={tasks}
                       className={"md:col-span-3 md:col-start-2"}
                     />
                   </>
@@ -213,6 +164,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                     <TaskCard
                       key={id}
                       taskId={id}
+                      tasks={tasks}
                       className={"md:col-span-3 md:col-start-3"}
                     />
                   </>
@@ -227,7 +179,7 @@ const MissionDetailTPL = ({ missionId, magicButton }) => {
                 <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm  text-[#D6E6F2]">
                   <span className="peer mr-1 font-bold ">
                     <span className="mr-1 hidden md:inline">
-                      完成人數：
+                      完成人數 ｜ # of Completions ：
                     </span>
                     {missions[missionId]?.completionsCount} 人
                   </span>

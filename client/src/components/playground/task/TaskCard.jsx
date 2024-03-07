@@ -8,10 +8,8 @@ import { ClockIcon, PassIcon, WaitIcon } from "@assets";
 const secondToDay = (s) => {
   return parseInt(s / 86400);
 };
-const TaskCard = ({ taskId, className = "" }) => {
+const TaskCard = ({ taskId, tasks, className = "" }) => {
   const { playground, userInfo } = useGlobalContext();
-  const { tasks } = playground;
-
   return (
     <>
       <div className={`relative group h-34 w-full ${className}`}>
@@ -26,12 +24,13 @@ const TaskCard = ({ taskId, className = "" }) => {
               {tasks[taskId]?.title}
             </p>
 
-            <p className="text-slate-800 line-clamp-2 my-0 mx-auto  leading-5 font-medium  group-hover:font-semibold ">
-              參與人數：  {tasks[taskId]?.completions}
+            <p className="text-slate-500 line-clamp-2 my-0 mx-auto  leading-5 font-normal  group-hover:font-semibold ">
+              參與人數 | # of Participants：  {tasks[taskId]?.completions}
             </p>
             <Link
               to={`${taskId}`}
-              className="block text-indigo-500 transition duration-200"
+              state={{ tasks: tasks }}
+              className="block pt-4 text-indigo-500 transition duration-200"
             >
               Read Detail →
             </Link>

@@ -5,17 +5,20 @@ export const LOAD_TRAVELERS = "LOAD_TRAVELERS";
 export const LOAD_UNREVIEWS = "LOAD_UNREVIEWS";
 export const LOAD_QUEST_ID = "LOAD_QUEST_ID";
 export const LOAD_QUESTS = "LOAD_QUESTS";
+export const LOAD_COMMONS_QUESTS = "LOAD_COMMONS_QUESTS";
 export const LOAD_RESPONSES = "LOAD_RESPONSES";
 export const LOAD_CID = "LOAD_CID";
 
 export const LOAD_TASKID = "LOAD_TASKID";
 export const LOAD_TASKS = "LOAD_TASKS";
+export const LOAD_COMMONS_TASKS = "LOAD_COMMONS_TASKS";
 export const ADD_TASK = "ADD_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 
 export const LOAD_MISSIONID = "LOAD_MISSIONID";
 export const LOAD_MISSIONS = "LOAD_MISSIONS";
+export const LOAD_COMMONS_MISSIONS = "LOAD_COMMONS_MISSIONS";
 export const ADD_MISSION = "ADD_MISSION";
 export const UPDATE_MISSION = "UPDATE_MISSION";
 export const DELETE_MISSION = "DELETE_MISSION";
@@ -25,8 +28,10 @@ export const playgroundInitialState = {
   // travelers: [],
   // unreviews: [],
   tasks: {},
+  commonsTasks: {},
   // taskId: 0,
   missions: {},
+  commonsMissions: {},
   quests: {},
   // missionId: 0,
   ipfs: {},
@@ -62,6 +67,11 @@ const playgroundReducer = (state, action) => {
         ...state,
         quests: action?.payload
       };
+    case LOAD_COMMONS_QUESTS:
+      return {
+        ...state,
+        quests: action?.payload
+      };
     case LOAD_RESPONSES:
       return {
         ...state,
@@ -92,6 +102,18 @@ const playgroundReducer = (state, action) => {
       return {
         ...state,
         missions: action?.payload
+        // ...action?.payload
+      };
+    case LOAD_COMMONS_TASKS:
+      return {
+        ...state,
+        commonsTasks: action?.payload
+        // ...action?.payload
+      };
+    case LOAD_COMMONS_MISSIONS:
+      return {
+        ...state,
+        commonsMissions: action?.payload
         // ...action?.payload
       };
     default:

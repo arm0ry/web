@@ -32,7 +32,7 @@ const Responses = ({ taskId }) => {
   return (
     <>
       <label className="w-full my-3 font-3xl text-slate-600 font-semibold ">
-        沒有人們的參與心得：
+        心得 ｜ Feedback：
       </label>
       <div className="grid grid-cols-2 gap-10 xl:grid-cols-3 2xl:grid-cols-4">
         {(results.length > 0) ? (results.map((response, id) => {
@@ -40,7 +40,7 @@ const Responses = ({ taskId }) => {
         }))
           : (
             <div className="bg-slate-100 text-slate-400 h-32 rounded-lg flex items-center justify-center">
-              等待中...
+              等待中... ｜ Patiently waiting...
             </div>
           )}
       </div>
