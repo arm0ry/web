@@ -17,16 +17,6 @@ import {
 import { showModal, cleanModal } from "@context/actions/modalAction";
 import { pushAlert } from "@context/actions/alertAction";
 import { ethers, BigNumber } from "ethers";
-import {
-  Arm0ryMissions,
-  Arm0ryTravelers,
-  Arm0ryQuests,
-  zero_address,
-} from "@contract";
-import {
-  getQuest,
-  isQuestComeplete,
-} from "@utils/contract";
 
 export const signIn = async ({ address, taskId, missionId }) => {
   let userState = userInitialState();

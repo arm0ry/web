@@ -5,8 +5,8 @@ export const LOAD_TRAVELERS = "LOAD_TRAVELERS";
 export const LOAD_UNREVIEWS = "LOAD_UNREVIEWS";
 export const LOAD_QUEST_ID = "LOAD_QUEST_ID";
 export const LOAD_QUESTS = "LOAD_QUESTS";
-export const LOAD_COMMONS_QUESTS = "LOAD_COMMONS_QUESTS";
 export const LOAD_RESPONSES = "LOAD_RESPONSES";
+export const LOAD_COMMONS_QUESTS = "LOAD_COMMONS_QUESTS";
 export const LOAD_COMMONS_RESPONSES = "LOAD_COMMONS_RESPONSES";
 export const LOAD_CID = "LOAD_CID";
 
@@ -29,37 +29,36 @@ export const playgroundInitialState = {
   // travelers: [],
   // unreviews: [],
   tasks: {},
-  commonsTasks: {},
   missions: {},
-  commonsMissions: {},
   quests: {},
-  commonsQuests: {},
   responses: {},
+  commonsTasks: {},
+  commonsMissions: {},
+  commonsQuests: {},
   commonsResponses: {},
-  // missionId: 0,
   ipfs: {},
-  managers: [],//pass
+  // managers: [],//pass
 };
 
 const playgroundReducer = (state, action) => {
   // console.log(state, action)
 
   switch (action?.type) {
-    case LOAD_TRAVELERCOUNT:
-      return {
-        ...state,
-        travelerCount: action?.payload
-      };
-    case LOAD_TRAVELERS:
-      return {
-        ...state,
-        travelers: action?.payload
-      };
-    case LOAD_UNREVIEWS:
-      return {
-        ...state,
-        unreviews: action?.payload
-      };
+    // case LOAD_TRAVELERCOUNT:
+    //   return {
+    //     ...state,
+    //     travelerCount: action?.payload
+    //   };
+    // case LOAD_TRAVELERS:
+    //   return {
+    //     ...state,
+    //     travelers: action?.payload
+    //   };
+    // case LOAD_UNREVIEWS:
+    //   return {
+    //     ...state,
+    //     unreviews: action?.payload
+    //   };
     case LOAD_QUEST_ID:
       return {
         ...state,
