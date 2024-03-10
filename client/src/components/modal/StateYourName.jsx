@@ -14,9 +14,7 @@ import { ethers } from "ethers";
 import { Commons_Mission, Commons_Quest } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 
-
 const StateYourNameModal = ({ modalPayload }) => {
-  const questInstance = new ethers.Contract(Quest.address, Quest.abi, goerli_provider)
   const [inPrepare, setInPrepare] = useState(false);
   const [fetching, setFetching] = useState(false);
 
@@ -47,10 +45,6 @@ const StateYourNameModal = ({ modalPayload }) => {
 
 
   useEffect(() => {
-    if (isConnected) {
-      // cleanModal();
-      console.log(isConnected)
-    }
   }, [isConnected]);
 
   const MoodRadio = ({ moon, value, register }) => {
@@ -137,24 +131,25 @@ const StateYourNameModal = ({ modalPayload }) => {
               ),
               type: "success",
             });
+            setFetching(false);
 
             // Tally onboardingSupportToken
-            axios
-              .post("/api/users/sponsored_tally", body)
-              .then((res) => {
-                console.log(res);
-                if (res.status === 202) {
-                  setFetching(false);
-                  return;
-                }
-              })
-              .catch((err) => {
-                console.error(err);
-                pushAlert({
-                  msg: `Error! ${err.response.data.msg}`,
-                  type: "failure",
-                });
-              });
+            // axios
+            //   .post("/api/users/sponsored_tally", body)
+            //   .then((res) => {
+            //     console.log(res);
+            //     if (res.status === 202) {
+            //       ;
+            //       return;
+            //     }
+            //   })
+            //   .catch((err) => {
+            //     console.error(err);
+            //     pushAlert({
+            //       msg: `Error! ${err.response.data.msg}`,
+            //       type: "failure",
+            //     });
+            //   });
 
           }
         })
@@ -205,17 +200,16 @@ const StateYourNameModal = ({ modalPayload }) => {
         setInPrepare(false)
       }
 
-
-
     } else {
       setFetching(true);
 
       // @note For sponsored public participation.
       try {
         // @note Retrieve to check if already used.
-        const userId = await questInstance.getPublicUserAddress(data.seed);
-        const _isPublicUser = await questInstance.isPublicUser(userId, contract.address, missionId);
-
+        const questInstance = new ethers.Contract(Commons_Quest.address, Quest.abi, goerli_provider)
+        const address = await questInstance.getPublicUserAddress(data.seed);
+        const _isPublicUser = await questInstance.isPublicUser(address, contract.address, missionId);
+        console.log(_isPublicUser, data.seed)
         if (taskId == 0) {
           // @note Start a mission.
           if (!_isPublicUser) {
@@ -252,19 +246,16 @@ const StateYourNameModal = ({ modalPayload }) => {
     <>
       <div className="flex items-start justify-between rounded-t px-4 pt-4 text-gray-500  bg-slate-100">
         <div className="flex flex-col">
-          <label className="block text-md font-semibold text-gray-900">
-            跟大家分享一下你的參與過程吧！
+          <label className="block text-lg font-semibold text-gray-900">
+            一起上鏈吧！ ｜ Let's get onchain!
           </label>
           <label className="mt-1 mb-2 block text-sm font-medium text-gray-500">
-            Share your feedback!
+            Connect your wallet or use a public alias to participate! Public alias feature is experimental, and recommend for single-use only.
           </label>
         </div>
         <CloseModalButton />
       </div>
-      {/* <DynamicWidget
-        buttonClassName="connectButton"
-        innerButtonComponent="Connect Wallet"
-      /> */}
+
       {taskId == 0
         ? (
           <div div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
@@ -274,24 +265,33 @@ const StateYourNameModal = ({ modalPayload }) => {
                   <label
                     className="mb-2 block text-sm font-medium text-gray-900 "
                   >
-                    {isConnected ? "地址 | Address" : "稱呼 | Name"}
+                    {isConnected ? "地址 | Wallet Address" : "稱呼 | Public Alias"}
                   </label>
-                  {isConnected ?
-                    <label
-                      className="mb-2 block text-sm font-medium text-gray-900 "
-                    >
-                      {address}
-                    </label> :
-                    <input
-                      type="text"
-                      id="seed"
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                      placeholder="麵包小偷 | Baguette thief"
-                      required
-                      {...register("seed")}
-                    />
-                  }
-
+                  <div className="flex space-x-4 items-center justify-start">
+                    <div className="w-2/3">
+                      {isConnected ?
+                        <label
+                          className="mb-2 block text-sm font-medium text-gray-900 "
+                        >
+                          {address}
+                        </label> :
+                        <input
+                          type="text"
+                          id="seed"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                          placeholder="麵包小偷 | Baguette thief"
+                          required
+                          {...register("seed")}
+                        />
+                      }
+                    </div>
+                    <div className="flex w-1/3 items-center justify-center ">
+                      {isConnected ? <></> : <DynamicWidget
+                        buttonClassName="connectButton"
+                        innerButtonComponent="Connect Wallet"
+                      />}
+                    </div>
+                  </div>
                 </div>
                 <label
                   className="mt-2 mb-4 block text-sm font-normal text-gray-600 "
@@ -303,14 +303,11 @@ const StateYourNameModal = ({ modalPayload }) => {
                     disabled={startState.writeStatus > 0 || fetching}
                     className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
                   >
-                    {!isConnected && "Please Connect Wallet"}
-                    {isConnected && startState.writeStatus === 0 && (inPrepare ? "Wait..." : "Start")}
-                    {isConnected && startState.writeStatus > 0 && <Spinner />}
-                    <div className={`${startState.writeStatus > 0 ? "ml-2" : ""}`}>
-                      {isConnected &&
-                        startState.writeStatus === 1 &&
-                        "Waiting for approval"}
-                      {isConnected && startState.writeStatus === 2 && "pending"}
+                    {startState.writeStatus === 0 && !fetching && (inPrepare ? "Wait..." : "Start")}
+                    {(startState.writeStatus > 0 || fetching) && <Spinner />}
+                    <div className={`${(startState.writeStatus > 0 || fetching) ? "ml-2" : ""}`}>
+                      {startState.writeStatus === 1 && "Waiting for approval"}
+                      {(startState.writeStatus === 2 || fetching) && "pending"}
                     </div>
                   </button>
                 </div>
@@ -321,29 +318,40 @@ const StateYourNameModal = ({ modalPayload }) => {
           <div div className="flex h-auto h-space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
             <div className="w-full mx-auto items-center justify-center gap-3">
               <form onSubmit={handleSubmit(onSubmit)}>
+
                 <div className="mb-6">
                   <label
                     className="mb-2 block text-sm font-medium text-gray-900 "
                   >
                     {isConnected ? "地址 | Address" : "稱呼 | Name"}
                   </label>
-                  {isConnected ?
-                    <label
-                      className="mb-2 block text-sm font-medium text-gray-900 "
-                    >
-                      {address}
-                    </label> :
-                    <input
-                      type="text"
-                      id="seed"
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                      placeholder="麵包小偷 | Baguette thief"
-                      required
-                      {...register("seed")}
-                    />
-                  }
+                  <div className="flex space-x-4 items-center justify-start">
+                    <div className="w-2/3">
+                      {isConnected ?
+                        <label
+                          className="mb-2 block text-sm font-medium text-gray-900 "
+                        >
+                          {address}
+                        </label> :
+                        <input
+                          type="text"
+                          id="seed"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                          placeholder="麵包小偷 | Baguette thief"
+                          required
+                          {...register("seed")}
+                        />
+                      }
+                    </div>
+                    <div className="flex w-1/3 items-center justify-center ">
+                      {isConnected ? <></> : <DynamicWidget
+                        buttonClassName="connectButton"
+                        innerButtonComponent="Connect Wallet"
+                      />}
+                    </div>
+                  </div>
                 </div>
-                {(parseInt(missionId) === 1) ? (
+                {/* {(parseInt(missionId) === 1) ? (
                   <div className="mb-6 ">
                     <label
                       className=" block text-sm font-medium text-gray-900 "
@@ -368,9 +376,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                       <MoodRadio moon="🧐 加入三個你有興趣的 Slack 頻道" value={"7"} register={register} />
                     </div>
                   </div>
-                ) : (<></>)}
-
-
+                ) : (<></>)} */}
                 <div className="mb-6">
                   <label
                     className="mb-2 block text-sm font-medium text-gray-900 "
@@ -385,20 +391,17 @@ const StateYourNameModal = ({ modalPayload }) => {
                   ></textarea>
                 </div>
 
-                <div className="w-full">
+                <div className="flex flex-col space-y-4 w-full">
                   <button
                     type="submit"
                     disabled={respondState.writeStatus > 0 || fetching}
                     className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
                   >
-                    {!isConnected && "Please Connect Wallet"}
-                    {isConnected && respondState.writeStatus === 0 && (inPrepare ? "Wait..." : "Share")}
-                    {isConnected && respondState.writeStatus > 0 && <Spinner />}
-                    <div className={`${respondState.writeStatus > 0 ? "ml-2" : ""}`}>
-                      {isConnected &&
-                        respondState.writeStatus === 1 &&
-                        "Waiting for approval"}
-                      {isConnected && respondState.writeStatus === 2 && "pending"}
+                    {(respondState.writeStatus === 0 && !fetching) && (inPrepare ? "Wait..." : "Share")}
+                    {(respondState.writeStatus > 0 || fetching) && <Spinner />}
+                    <div className={`${(respondState.writeStatus > 0 || fetching) ? "ml-2" : ""}`}>
+                      {(respondState.writeStatus === 1) && "Waiting for approval"}
+                      {(respondState.writeStatus === 2 || fetching) && "pending"}
                     </div>
                   </button>
                 </div>
