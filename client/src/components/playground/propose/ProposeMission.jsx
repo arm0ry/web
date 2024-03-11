@@ -57,7 +57,7 @@ const ProposeMission = ({ domain }) => {
   useEffect(() => {
     setTaskOptions(
       Object.keys((domain === "commons") ? commonsTasks : tasks).map((id) => {
-        return { value: id, label: (domain === "commons") ? commonsTasks[id].title : tasks[id].title };
+        return { value: id, label: (domain === "commons") ? `${id}. ${commonsTasks[id].title}` : `${id}. ${tasks[id].title}` };
       })
     );
   }, [commonsTasks]);
@@ -214,13 +214,6 @@ const ProposeMission = ({ domain }) => {
                       ref={ref}
                       placeholder={"Select Text..."}
                       options={taskOptions}
-                      // options={[
-                      //   { label: "Defi", value: "1" },
-                      //   { label: "UniSwap", value: "2" },
-                      //   { label: "BlockChain", value: "3" },
-                      //   { label: "DAO", value: "4" },
-                      //   { label: "NFT", value: "5" },
-                      // ]}
                       value={value}
                       name={name}
                       onBlur={onBlur}

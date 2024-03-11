@@ -146,7 +146,7 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
           </div>
 
           <div className="mb-14 grid grid-cols-1 gap-5 p-4 md:grid-cols-6">
-            {[...missions[missionId]?.taskIds].reverse().map((id, i) => {
+            {[...missions[missionId]?.taskIds].map((id, i) => {
               if (i % 2 === 0) {
                 return (
                   <>

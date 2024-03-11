@@ -246,12 +246,16 @@ const StateYourNameModal = ({ modalPayload }) => {
     <>
       <div className="flex items-start justify-between rounded-t px-4 pt-4 text-gray-500  bg-slate-100">
         <div className="flex flex-col">
-          <label className="block text-lg font-semibold text-gray-900">
+          <label className="mb-2 block text-lg font-semibold text-gray-900">
             一起上鏈吧！ ｜ Let's get onchain!
           </label>
-          <label className="mt-1 mb-2 block text-sm font-medium text-gray-500">
-            Connect your wallet or use a public alias to participate! Public alias feature is experimental, and recommend for single-use only.
+          <label className="mt-1 ml-3 mb-1 block text-sm font-medium text-gray-500">
+            Connect your wallet or use a public alias to participate! Public alias feature is experimental, and recommended for single-use only.
           </label>
+          <label className="mt-1 ml-3 mb-2 block text-sm font-medium text-gray-500">
+            The time it takes to post a transaction onchain varies. You should see a green notification when transaction is successful.
+          </label>
+
         </div>
         <CloseModalButton />
       </div>
@@ -386,12 +390,16 @@ const StateYourNameModal = ({ modalPayload }) => {
                   <textarea
                     id="feedback"
                     className="w-full h-100vh rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                    placeholder="炸雞超好吃～ | Fried chicken so good~"
+                    placeholder="炸雞超好吃～ | Fried chicken was so good~"
                     {...register("feedback")}
                   ></textarea>
                 </div>
 
                 <div className="flex flex-col space-y-4 w-full">
+                  <label
+                    className="block text-sm font-medium text-gray-500 "
+                  >
+                  </label>
                   <button
                     type="submit"
                     disabled={respondState.writeStatus > 0 || fetching}
