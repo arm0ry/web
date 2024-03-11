@@ -33,9 +33,24 @@ const evmNetworks = [
       symbol: "ETH",
     },
     networkId: 5,
-    rpcUrls: [ "https://ethereum-goerli.publicnode.com", "https://rpc.ankr.com/eth_goerli"],
+    rpcUrls: ["https://ethereum-goerli.publicnode.com", "https://rpc.ankr.com/eth_goerli"],
     shortName: "eth",
     vanityName: "Goerli",
+  },
+  {
+    blockExplorerUrls: ["https://sepolia.etherscan.io/"],
+    chainId: 11155111,
+    chainName: "Ethereum Sepolia",
+    iconUrls: ["https://app.dynamic.xyz/assets/networks/eth.svg"],
+    nativeCurrency: {
+      decimals: 18,
+      name: "Ether",
+      symbol: "ETH",
+    },
+    networkId: 11155111,
+    rpcUrls: ["https://ethereum-sepolia-rpc.publicnode.com", "https://rpc.ankr.com/eth_sepolia"],
+    shortName: "eth",
+    vanityName: "Sepolia",
   },
 ];
 const VITE_DYNAMIC = import.meta.env.VITE_DYNAMIC;
@@ -83,9 +98,9 @@ const App = () => (
           cssOverrides: overrides,
         }}
       >
-      {/* evmNetworks={evmNetworks} */}
+        {/* evmNetworks={evmNetworks} */}
         <DynamicWagmiConnector evmNetworks={evmNetworks}>
-          <Modal/>
+          <Modal />
           <Routers />
         </DynamicWagmiConnector>
       </DynamicContextProvider>

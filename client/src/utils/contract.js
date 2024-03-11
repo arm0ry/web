@@ -14,6 +14,7 @@ import {
 
 // Provider & Contract
 export const goerli_provider = new ethers.providers.JsonRpcProvider(RPC.goerli);
+export const sepolia_provider = new ethers.providers.JsonRpcProvider(RPC.sepolia);
 export const Mission_contract = getContract({
   ...Mission,
   signerOrProvider: goerli_provider,
