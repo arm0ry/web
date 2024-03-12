@@ -256,12 +256,12 @@ const Playground = () => {
               Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
             />
-            {/* <SidebarItem
+            <SidebarItem
               to="commons-missions"
               name="Playground"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
-            /> */}
+            />
             {/* <SidebarItem
               to="commons-supporters"
               name="Support"
