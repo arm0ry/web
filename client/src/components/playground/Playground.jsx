@@ -8,6 +8,7 @@ import {
   BuddiesIcon,
   ProposeIcon,
   KaliLogo,
+  TaskIcon,
   ArrowSVG,
   QuestIcon,
 } from "@assets";
@@ -218,8 +219,8 @@ const Playground = () => {
             <label className="text-md font-normal text-gray-900">
               --------
             </label>
-            <div className="">
-              <label className="text-md font-normal text-gray-900">
+            <div>
+              <label className="text-md font-semibold text-gray-900">
                 g0v 台灣零時政府
               </label>
             </div>
@@ -239,35 +240,35 @@ const Playground = () => {
               --------
             </label>
             <div className="">
-              <label className="text-md font-normal text-gray-900">
-                🚧 Commons
+              <label className="text-md font-semibold text-gray-900">
+                Open Sharing Commons
               </label>
             </div>
             <SidebarItem
               to="propose-commons-task"
               name="Create a Task"
-              Icon={() => <div className="pl-6" />}
+              Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="propose-commons-mission"
               name="Create a List"
-              Icon={() => <div className="pl-6" />}
+              Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
             />
-            <SidebarItem
+            {/* <SidebarItem
               to="commons-missions"
               name="Playground"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
-            />
+            /> */}
             {/* <SidebarItem
               to="commons-supporters"
               name="Support"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             /> */}
-            <li>
+            {/* <li>
               <div
                 onClick={() => {
                   window.open(
@@ -280,7 +281,7 @@ const Playground = () => {
                 <KaliLogo className="h-6 w-6 rounded bg-gray-500 fill-current  p-1 text-white transition duration-75" />
                 <span className="ml-4 font-PasseroOne">PlaygroundDAO</span>
               </div>
-            </li>
+            </li> */}
           </ul>
           {/* <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <SidebarMultiLevelMenu name="Propose" Icon={ProposeIcon}>
