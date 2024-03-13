@@ -3,40 +3,10 @@ import { Alert, Modal } from "../components";
 import { BrowserRouter } from "react-router-dom";
 import { GlobalContextProvider } from "@context/store";
 import Routers from "./Routers";
-
-// import { WagmiConfig, createClient, configureChains, mainnet,goerli } from 'wagmi'
-// import { publicProvider } from 'wagmi/providers/public';
-// import { client, wagmiClient, ethereumClient } from "@context/connectors";
-// import { Web3Modal } from "@web3modal/react";
-// import {mainnet, goerli } from "wagmi/chains";
-// const { chains, provider, webSocketProvider } = configureChains(
-//   [mainnet, goerli],
-//   [publicProvider()],
-// )
-// const client = createClient({
-//   autoConnect: true,
-//   provider,
-//   webSocketProvider,
-// })
-
 import { DynamicContextProvider } from "@dynamic-labs/sdk-react";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
+
 const evmNetworks = [
-  {
-    blockExplorerUrls: ["https://goerli.etherscan.io/"],
-    chainId: 5,
-    chainName: "Ethereum Goerli",
-    iconUrls: ["https://app.dynamic.xyz/assets/networks/eth.svg"],
-    nativeCurrency: {
-      decimals: 18,
-      name: "Ether",
-      symbol: "ETH",
-    },
-    networkId: 5,
-    rpcUrls: ["https://ethereum-goerli.publicnode.com", "https://rpc.ankr.com/eth_goerli"],
-    shortName: "eth",
-    vanityName: "Goerli",
-  },
   {
     blockExplorerUrls: ["https://sepolia.etherscan.io/"],
     chainId: 11155111,
@@ -86,6 +56,7 @@ const overrides = `
   --dynamic-footer-background-color: #4779ff;
 }
 `;
+
 const App = () => (
   <BrowserRouter>
     <GlobalContextProvider>

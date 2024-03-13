@@ -40,7 +40,7 @@ function SponsoredStartButton({ username }) {
               <span>
                 {res.data.msg}
                 <a
-                  href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
+                  href={`https://sepolia.etherscan.io/tx/${res.data.txhash}`}
                   target="_blank"
                   rel="noreferrer"
                   className="font-extrabold text-green-900"

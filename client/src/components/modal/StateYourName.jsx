@@ -8,7 +8,7 @@ import axios from "axios";
 import { pushAlert } from "@context/actions/alertAction";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
 import {
-  goerli_provider
+  sepolia_provider
 } from "@utils/contract";
 import { ethers } from "ethers";
 import { Commons_Mission, Commons_Quest } from "@contract";
@@ -80,7 +80,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                 <span>
                   {res.data.msg}
                   <a
-                    href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
+                    href={`https://sepolia.etherscan.io/tx/${res.data.txhash}`}
                     target="_blank"
                     rel="noreferrer"
                     className="font-extrabold text-green-900"
@@ -120,7 +120,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                 <span>
                   {res.data.msg}
                   <a
-                    href={`https://goerli.etherscan.io/tx/${res.data.txhash}`}
+                    href={`https://sepolia.etherscan.io/tx/${res.data.txhash}`}
                     target="_blank"
                     rel="noreferrer"
                     className="font-extrabold text-green-900"
@@ -206,7 +206,7 @@ const StateYourNameModal = ({ modalPayload }) => {
       // @note For sponsored public participation.
       try {
         // @note Retrieve to check if already used.
-        const questInstance = new ethers.Contract(Commons_Quest.address, Quest.abi, goerli_provider)
+        const questInstance = new ethers.Contract(Commons_Quest.address, Quest.abi, sepolia_provider)
         const address = await questInstance.getPublicUserAddress(data.seed);
         const _isPublicUser = await questInstance.isPublicUser(address, contract.address, missionId);
         console.log(_isPublicUser, data.seed)

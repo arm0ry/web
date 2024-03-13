@@ -31,7 +31,7 @@ const CurveCard = ({ curve }) => {
           <span>
             Success! Check your mint transaction on
             <a
-              href={`https://goerli.etherscan.io/tx/${tx.hash}`}
+              href={`https://sepolia.etherscan.io/tx/${tx.hash}`}
               target="_blank"
               rel="noreferrer"
               className="font-extrabold text-green-900"
@@ -64,7 +64,7 @@ const CurveCard = ({ curve }) => {
             <span>
               Success! Check your burn transaction on
               <a
-                href={`https://goerli.etherscan.io/tx/${tx.hash}`}
+                href={`https://sepolia.etherscan.io/tx/${tx.hash}`}
                 target="_blank"
                 rel="noreferrer"
                 className="font-extrabold text-green-900"
