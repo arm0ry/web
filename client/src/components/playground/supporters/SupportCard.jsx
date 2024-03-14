@@ -50,13 +50,13 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
     if (supply) {
       setCurve({
         curveId: curveId,
-        owner: owner,
-        mintPrice: mintPrice,
-        burnPrice: burnPrice,
-        pool: pool,
-        formula: formula,
+        owner: owner ?? owner,
+        mintPrice: mintPrice ?? mintPrice,
+        burnPrice: burnPrice ?? burnPrice,
+        pool: pool ?? ethers.utils.formatEther(pool),
+        formula: formula ?? formula,
         supply: parseInt(supply._hex),
-        unclaimed: unclaimed
+        unclaimed: unclaimed ?? ethers.utils.formatEther(unclaimed)
       })
     }
   }, [curveId, owner, pool, mintPrice, burnPrice, formula, supply])

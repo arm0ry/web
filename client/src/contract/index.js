@@ -5,6 +5,7 @@ import KaliDAO_abi from "./KaliDAO.json";
 import Mission_abi from "./Mission.json";
 import Quest_abi from "./Quest.json";
 import ImpactCurves_abi from "./ImpactCurves.json";
+import MissionToken_abi from "./MissionToken.json";
 import HackathonSupportToken_abi from "./HackathonSupportToken.json";
 import OnboardingSupportToken_abi from "./OnboardingSupportToken.json";
 import ParticipantSupportToken_abi from "./ParticipantSupportToken.json";
@@ -79,8 +80,8 @@ export const Commons_Quest = {
 };
 
 export const MissionToken = {
-  address: "0xf187a68947f18bE8B1483fB54896dA688cE4CBD3",
-  abi: ParticipantSupportToken_abi,
+  address: "0x330049f432EDdaA559a75c89F2d63aB4b2555fC0",
+  abi: MissionToken_abi,
 };
 
 const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";

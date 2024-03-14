@@ -1,44 +1,23 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
-import { HackathonSupportToken, OnboardingSupportToken, ParticipantSupportToken } from "@contract";
+import { MissionToken } from "@contract";
 import SupportCard from "../SupportCard";
 
 const CommonsSupporters = () => {
   const { data: mSvg } = useContractRead({
-    ...HackathonSupportToken,
+    ...MissionToken,
     functionName: 'generateSvg',
-    args: [100]
+    args: [1]
   })
 
-  const { data: qSvg } = useContractRead({
-    ...OnboardingSupportToken,
-    functionName: 'generateSvg',
-    args: [100]
+  const { data: missionTokenSupply } = useContractRead({
+    ...MissionToken,
+    functionName: 'totalSupply',
+    args: []
   })
-
-  const { data: pSvg } = useContractRead({
-    ...ParticipantSupportToken,
-    functionName: 'generateSvg',
-    args: [2]
-  })
-
-
-  // TODO: Mission Token
-  // const { data: hackathonTokenSupply } = useContractRead({
-  //   ...HackathonSupportToken,
-  //   functionName: 'totalSupply',
-  //   args: []
-  // })
 
   useEffect(() => {
   }, [mSvg])
-
-  useEffect(() => {
-  }, [qSvg])
-
-  useEffect(() => {
-    // console.log(pSvg)
-  }, [pSvg])
 
   return (
     <>
@@ -81,9 +60,9 @@ const CommonsSupporters = () => {
             <SupportCard
               title={"'Mission Title'"}
               engDescription={"Show support for g0v hackath0ns using the green button to mint the SVG NFT on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
-              curveId={3}
+              curveId={5}
               svg={mSvg}
-              supply={1}
+              supply={missionTokenSupply}
             />
           </div >
         </div>
