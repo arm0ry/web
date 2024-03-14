@@ -6,6 +6,7 @@ import { Avatar } from "@components";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CurveCard from "../curves/CurveCard";
 import { ImpactCurves, HackathonSupportToken, OnboardingSupportToken } from "@contract";
+import { zero_address } from "../../../contract";
 
 const SupportCard = ({ title, description, engDescription, curveId, svg, supply }) => {
   const [curve, setCurve] = useState();
@@ -47,16 +48,17 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
   })
 
   useEffect(() => {
+
     if (supply) {
       setCurve({
         curveId: curveId,
-        owner: owner ?? owner,
-        mintPrice: mintPrice ?? mintPrice,
-        burnPrice: burnPrice ?? burnPrice,
-        pool: pool ?? ethers.utils.formatEther(pool),
-        formula: formula ?? formula,
+        owner: owner ? owner : zero_address,
+        mintPrice: mintPrice ? ethers.utils.formatEther(mintPrice) : 0,
+        burnPrice: burnPrice ? ethers.utils.formatEther(burnPrice) : 0,
+        pool: pool ? ethers.utils.formatEther(pool) : 0,
+        formula: formula ? formula : 0,
         supply: parseInt(supply._hex),
-        unclaimed: unclaimed ?? ethers.utils.formatEther(unclaimed)
+        unclaimed: unclaimed ? ethers.utils.formatEther(unclaimed) : 0
       })
     }
   }, [curveId, owner, pool, mintPrice, burnPrice, formula, supply])
@@ -96,7 +98,7 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
                 <div className="flex flex-col space-y-1">
                   <label className="text-xs font-medium text-gray-600">曲線資金池 | curve treasury ： </label>
                   <label className="text-sm font-normal text-gray-900">
-                    {ethers.utils.formatEther(curve.pool)} Ξ
+                    {curve.pool} Ξ
                     {/* {(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "一元一次方程式 | Linear" : "一元二次方程式 | Parabola"} */}
                   </label>
                 </div>
@@ -117,7 +119,7 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
                 </div>
                 <div className="flex flex-col space-y-1">
                   <label className="text-xs font-medium text-gray-600">集資進度 | raised ： </label>
-                  <label className="text-sm font-normal text-gray-900">{ethers.utils.formatEther(curve.unclaimed)} Ξ</label>
+                  <label className="text-sm font-normal text-gray-900">{curve.unclaimed} Ξ</label>
                 </div>
                 <div className="flex flex-col space-y-1">
                   <label className="text-xs font-medium text-gray-600">管理員 | operator ：</label>

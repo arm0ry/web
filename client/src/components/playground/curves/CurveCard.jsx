@@ -170,7 +170,6 @@ const CurveCard = ({ curve }) => {
       price: (parseInt(curve.formula[4]._hex) * (100 ^ 2) + parseInt(curve.formula[5]._hex) * 100 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
     },
   ];
-
   return (
     <>
       <div className={`h-full w-full`}>
@@ -205,7 +204,7 @@ const CurveCard = ({ curve }) => {
               className=" w-full rounded-lg p-1 text-emerald-600 hover:bg-emerald-100 bg-emerald-200"
             >
               <div className="flex flex-row space-x-4 items-center justify-center">
-                <div className="text-md font-normal">{ethers.utils.formatEther(curve.mintPrice)} Ξ </div>
+                <div className="text-md font-normal">{curve.mintPrice} Ξ </div>
                 <div className="text-xl font-semibold">🪙 </div>
               </div>
             </button>
