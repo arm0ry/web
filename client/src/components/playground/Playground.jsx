@@ -118,51 +118,55 @@ const Playground = () => {
   }, [isDisconnected]);
 
   // *
-  useContractEvent({
-    ...Arm0ryMissions,
-    eventName: "TaskUpdated",
-    listener(node, label, owner) {
-      console.log("TaskUpdated");
-      loadTasksData();
-    },
-    chainId: 5,
-  });
-  useContractEvent({
-    ...Arm0ryMissions,
-    eventName: "MissionUpdated",
-    listener(node, label, owner) {
-      console.log("MissionUpdated");
-      loadMissionsData(playground);
-    },
-    chainId: 5,
-  });
-  useContractEvent({
-    ...Arm0ryQuests,
-    eventName: "TaskSubmitted",
-    listener(node, label, owner) {
-      // console.log(node, label, owner);
-      // loadUnreviews(playground.travelers, playground.taskId);
-    },
-    chainId: 5,
-  });
-  useContractEvent({
-    ...Arm0ryQuests,
-    eventName: "TaskReviewed",
-    listener(node, label, owner) {
-      // console.log(node, label, owner);
-      // loadUnreviews(playground.travelers, playground.taskId);
-    },
-    chainId: 5,
-  });
+  // useContractEvent({
+  //   ...Arm0ryMissions,
+  //   eventName: "TaskUpdated",
+  //   listener(node, label, owner) {
+  //     console.log("TaskUpdated");
+  //     loadTasksData();
+  //   },
+  //   chainId: 5,
+  // });
+  // useContractEvent({
+  //   ...Arm0ryMissions,
+  //   eventName: "MissionUpdated",
+  //   listener(node, label, owner) {
+  //     console.log("MissionUpdated");
+  //     loadMissionsData(playground);
+  //   },
+  //   chainId: 5,
+  // });
+  // useContractEvent({
+  //   ...Arm0ryQuests,
+  //   eventName: "TaskSubmitted",
+  //   listener(node, label, owner) {
+  //     // console.log(node, label, owner);
+  //     // loadUnreviews(playground.travelers, playground.taskId);
+  //   },
+  //   chainId: 5,
+  // });
+  // useContractEvent({
+  //   ...Arm0ryQuests,
+  //   eventName: "TaskReviewed",
+  //   listener(node, label, owner) {
+  //     // console.log(node, label, owner);
+  //     // loadUnreviews(playground.travelers, playground.taskId);
+  //   },
+  //   chainId: 5,
+  // });
 
 
   useEffect(() => {
-    loadTasksData();
-    loadMissionsData();
-    loadQuests();
-    loadCommonsTasksData();
-    loadCommonsMissionsData();
-    loadCommonsQuests();
+
+    (async () => {
+      // await loadTasksData();
+      // await loadMissionsData();
+      // await loadQuests();
+      await loadCommonsTasksData();
+      await loadCommonsMissionsData();
+      await loadCommonsQuests();
+    })()
+
   }, []);
 
 
@@ -260,6 +264,12 @@ const Playground = () => {
               to="commons-missions"
               name="Playground"
               Icon={MissionIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            <SidebarItem
+              to="commons-supporters"
+              name="Supporters"
+              Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
             {/* <SidebarItem

@@ -59,7 +59,7 @@ const SupportCard = ({ title, description, engDescription, curveId, svg, supply 
         unclaimed: unclaimed
       })
     }
-  }, [curveId, owner, pool, formula, supply])
+  }, [curveId, owner, pool, mintPrice, burnPrice, formula, supply])
 
   return (
     <>

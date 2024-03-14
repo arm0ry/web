@@ -3,7 +3,6 @@ import {
   LOAD_TRAVELERCOUNT,
   LOAD_TRAVELERS,
   LOAD_UNREVIEWS,
-  // LOAD_QUEST_ID,
   LOAD_QUESTS,
   LOAD_COMMONS_QUESTS,
   LOAD_RESPONSES,
@@ -65,7 +64,6 @@ export const loadTasksData = async () => {
         };
       })
     );
-    // console.log(_tasks);
 
     dispatch.fn({
       type: LOAD_TASKS,
@@ -116,7 +114,6 @@ export const loadMissionsData = async () => {
         };
       })
     );
-    // console.log(_missions)
 
     dispatch.fn({
       type: LOAD_MISSIONS,
@@ -210,11 +207,10 @@ export const loadCommonsTasksData = async () => {
           title: _taskTitle,
           content: _taskDetail,
           completions: parseInt(_totalTaskCompletions._hex),
-          completionsByMission: ethers.utils.formatUnits(_totalTaskCompletionsByMission, "wei")
+          completionsByMission: parseInt(_totalTaskCompletionsByMission._hex)
         };
       })
     );
-
     dispatch.fn({
       type: LOAD_COMMONS_TASKS,
       payload: _tasks,
@@ -295,6 +291,7 @@ export const loadCommonsQuests = async () => {
         for (let i = 0; i < taskIds.length; i++) {
           const response = await Commons_Quest_contract.getTaskResponse(id, parseInt(taskIds[i]._hex));
           const feedback = await Commons_Quest_contract.getTaskFeedback(id, parseInt(taskIds[i]._hex));
+          // console.log(feedback)
           if (parseInt(response._hex) === 0 && feedback === '') {
             continue
           }
@@ -307,7 +304,7 @@ export const loadCommonsQuests = async () => {
           responses.push(responseObj)
           allResponses.push(responseObj)
         }
-        console.log(allResponses)
+        // console.log(allResponses)
 
         dispatch.fn({
           type: LOAD_COMMONS_RESPONSES,
