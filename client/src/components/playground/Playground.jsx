@@ -213,16 +213,17 @@ const Playground = () => {
         aria-label="Sidebar"
       >
         <div className="flex h-full flex-col overflow-y-auto bg-white px-3 pb-4  ">
-          <ul className="space-y-2">
+
+          <ul className="space-y-2 border-tpt-4 ">
             <SidebarItem
               to="faq"
               name="開始 ｜ Start here"
               Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
             />
-            <label className="text-md font-normal text-gray-900">
-              --------
-            </label>
+          </ul>
+
+          <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <div>
               <label className="text-md font-semibold text-gray-900">
                 g0v 台灣零時政府
@@ -235,14 +236,13 @@ const Playground = () => {
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
-              to="supporters"
-              name="支持 | Support"
+              to="reports"
+              name="影響力報告 | Reports"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
-            <label className="text-md font-normal text-gray-900">
-              --------
-            </label>
+          </ul>
+          <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <div className="">
               <label className="text-md font-semibold text-gray-900">
                 Open Sharing Commons
@@ -267,63 +267,27 @@ const Playground = () => {
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
-              to="commons-supporters"
-              name="Supporters"
+              to="commons-reports"
+              name="Reports"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
-            {/* <SidebarItem
-              to="commons-supporters"
-              name="Support"
-              Icon={BuddiesIcon}
-              setToggleMenu={setToggleMenu}
-            /> */}
-            {/* <li>
-              <div
-                onClick={() => {
-                  window.open(
-                    "https://app.kali.gg/daos/5/0xd758a44e66f1702c92761110dd90168f57007b8f"
-                  );
-                  setToggleMenu(false);
-                }}
-                className="flex cursor-pointer items-center rounded-lg p-2 text-base font-normal text-gray-900 transition duration-75 hover:bg-gray-100"
-              >
-                <KaliLogo className="h-6 w-6 rounded bg-gray-500 fill-current  p-1 text-white transition duration-75" />
-                <span className="ml-4 font-PasseroOne">PlaygroundDAO</span>
-              </div>
-            </li> */}
           </ul>
-          {/* <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <SidebarMultiLevelMenu name="Propose" Icon={ProposeIcon}>
-              <SidebarItem
-                to="propose-task"
-                name="Task"
-                Icon={() => <div className="pl-6" />}
-                setToggleMenu={setToggleMenu}
-              />
-              <SidebarItem
-                to="propose-mission"
-                name="Mission"
-                Icon={() => <div className="pl-6" />}
-                setToggleMenu={setToggleMenu}
-              />
-            </SidebarMultiLevelMenu>
 
-            <li>
-              <div
-                onClick={() => {
-                  window.open(
-                    "https://app.kali.gg/daos/5/0xd758a44e66f1702c92761110dd90168f57007b8f"
-                  );
-                  setToggleMenu(false);
-                }}
-                className="flex cursor-pointer items-center rounded-lg p-2 text-base font-normal text-gray-900 transition duration-75 hover:bg-gray-100"
-              >
-                <KaliLogo className="h-6 w-6 rounded bg-gray-500 fill-current  p-1 text-white transition duration-75" />
-                <span className="ml-4 font-PasseroOne">PlaygroundDAO</span>
-              </div>
-            </li>
-          </ul> */}
+          {/* <li>
+            <div
+              onClick={() => {
+                window.open(
+                  "https://app.kali.gg/daos/5/0xd758a44e66f1702c92761110dd90168f57007b8f"
+                );
+                setToggleMenu(false);
+              }}
+              className="flex cursor-pointer items-center rounded-lg p-2 text-base font-normal text-gray-900 transition duration-75 hover:bg-gray-100"
+            >
+              <KaliLogo className="h-6 w-6 rounded bg-gray-500 fill-current  p-1 text-white transition duration-75" />
+              <span className="ml-4 font-PasseroOne">PlaygroundDAO</span>
+            </div>
+          </li> */}
           <Avatar
             className="mt-auto mb-3 h-12 w-12  shadow-lg "
             address={address}

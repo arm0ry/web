@@ -7,6 +7,8 @@ import { pushAlert } from "@context/actions/alertAction";
 
 const CurveCard = ({ curve }) => {
   const [tokenId, setTokenId] = useState(0)
+  const [mintCurve, setMintCurve] = useState()
+  const [burnCurve, setBurnCurve] = useState()
   const { address: user } = useAccount();
 
   // const { write: clickBurn } = useContractWrite({
@@ -83,93 +85,97 @@ const CurveCard = ({ curve }) => {
   }
 
 
-  useEffect(() => { }, [curve])
+  useEffect(() => {
+    console.log(curve.formula)
+    if (curve.formula != 0) {
+      setMintCurve([
+        {
+          supply: '10',
+          price: (parseInt(curve.formula[1]._hex) * (10 ^ 2) + parseInt(curve.formula[2]._hex) * 10 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '20',
+          price: (parseInt(curve.formula[1]._hex) * (20 ^ 2) + parseInt(curve.formula[2]._hex) * 20 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '30',
+          price: (parseInt(curve.formula[1]._hex) * (30 ^ 2) + parseInt(curve.formula[2]._hex) * 30 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '40',
+          price: (parseInt(curve.formula[1]._hex) * (40 ^ 2) + parseInt(curve.formula[2]._hex) * 40 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '50',
+          price: (parseInt(curve.formula[1]._hex) * (50 ^ 2) + parseInt(curve.formula[2]._hex) * 50 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '60',
+          price: (parseInt(curve.formula[1]._hex) * (60 ^ 2) + parseInt(curve.formula[2]._hex) * 60 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '70',
+          price: (parseInt(curve.formula[1]._hex) * (70 ^ 2) + parseInt(curve.formula[2]._hex) * 70 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '80',
+          price: (parseInt(curve.formula[1]._hex) * (80 ^ 2) + parseInt(curve.formula[2]._hex) * 80 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '90',
+          price: (parseInt(curve.formula[1]._hex) * (90 ^ 2) + parseInt(curve.formula[2]._hex) * 90 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '100 tokens',
+          price: (parseInt(curve.formula[1]._hex) * (100 ^ 2) + parseInt(curve.formula[2]._hex) * 100 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+      ])
 
-  const mintCurve = [
-    {
-      supply: '10',
-      price: (parseInt(curve.formula[1]._hex) * (10 ^ 2) + parseInt(curve.formula[2]._hex) * 10 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '20',
-      price: (parseInt(curve.formula[1]._hex) * (20 ^ 2) + parseInt(curve.formula[2]._hex) * 20 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '30',
-      price: (parseInt(curve.formula[1]._hex) * (30 ^ 2) + parseInt(curve.formula[2]._hex) * 30 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '40',
-      price: (parseInt(curve.formula[1]._hex) * (40 ^ 2) + parseInt(curve.formula[2]._hex) * 40 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '50',
-      price: (parseInt(curve.formula[1]._hex) * (50 ^ 2) + parseInt(curve.formula[2]._hex) * 50 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '60',
-      price: (parseInt(curve.formula[1]._hex) * (60 ^ 2) + parseInt(curve.formula[2]._hex) * 60 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '70',
-      price: (parseInt(curve.formula[1]._hex) * (70 ^ 2) + parseInt(curve.formula[2]._hex) * 70 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '80',
-      price: (parseInt(curve.formula[1]._hex) * (80 ^ 2) + parseInt(curve.formula[2]._hex) * 80 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '90',
-      price: (parseInt(curve.formula[1]._hex) * (90 ^ 2) + parseInt(curve.formula[2]._hex) * 90 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '100 tokens',
-      price: (parseInt(curve.formula[1]._hex) * (100 ^ 2) + parseInt(curve.formula[2]._hex) * 100 + parseInt(curve.formula[3]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-  ];
+      setBurnCurve([
+        {
+          supply: '10',
+          price: (parseInt(curve.formula[4]._hex) * (10 ^ 2) + parseInt(curve.formula[5]._hex) * 10 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '20',
+          price: (parseInt(curve.formula[4]._hex) * (20 ^ 2) + parseInt(curve.formula[5]._hex) * 20 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '30',
+          price: (parseInt(curve.formula[4]._hex) * (30 ^ 2) + parseInt(curve.formula[5]._hex) * 30 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '40',
+          price: (parseInt(curve.formula[4]._hex) * (40 ^ 2) + parseInt(curve.formula[5]._hex) * 40 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '50',
+          price: (parseInt(curve.formula[4]._hex) * (50 ^ 2) + parseInt(curve.formula[5]._hex) * 50 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '60',
+          price: (parseInt(curve.formula[4]._hex) * (60 ^ 2) + parseInt(curve.formula[5]._hex) * 60 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '70',
+          price: (parseInt(curve.formula[4]._hex) * (70 ^ 2) + parseInt(curve.formula[5]._hex) * 70 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '80',
+          price: (parseInt(curve.formula[4]._hex) * (80 ^ 2) + parseInt(curve.formula[5]._hex) * 80 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '90',
+          price: (parseInt(curve.formula[4]._hex) * (90 ^ 2) + parseInt(curve.formula[5]._hex) * 90 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+        {
+          supply: '100 tokens',
+          price: (parseInt(curve.formula[4]._hex) * (100 ^ 2) + parseInt(curve.formula[5]._hex) * 100 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
+        },
+      ])
+    }
+  }, [curve])
 
-  const burnCurve = [
-    {
-      supply: '10',
-      price: (parseInt(curve.formula[4]._hex) * (10 ^ 2) + parseInt(curve.formula[5]._hex) * 10 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '20',
-      price: (parseInt(curve.formula[4]._hex) * (20 ^ 2) + parseInt(curve.formula[5]._hex) * 20 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '30',
-      price: (parseInt(curve.formula[4]._hex) * (30 ^ 2) + parseInt(curve.formula[5]._hex) * 30 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '40',
-      price: (parseInt(curve.formula[4]._hex) * (40 ^ 2) + parseInt(curve.formula[5]._hex) * 40 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '50',
-      price: (parseInt(curve.formula[4]._hex) * (50 ^ 2) + parseInt(curve.formula[5]._hex) * 50 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '60',
-      price: (parseInt(curve.formula[4]._hex) * (60 ^ 2) + parseInt(curve.formula[5]._hex) * 60 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '70',
-      price: (parseInt(curve.formula[4]._hex) * (70 ^ 2) + parseInt(curve.formula[5]._hex) * 70 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '80',
-      price: (parseInt(curve.formula[4]._hex) * (80 ^ 2) + parseInt(curve.formula[5]._hex) * 80 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '90',
-      price: (parseInt(curve.formula[4]._hex) * (90 ^ 2) + parseInt(curve.formula[5]._hex) * 90 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-    {
-      supply: '100 tokens',
-      price: (parseInt(curve.formula[4]._hex) * (100 ^ 2) + parseInt(curve.formula[5]._hex) * 100 + parseInt(curve.formula[6]._hex)) * Number(ethers.utils.formatEther(curve.formula[0])),
-    },
-  ];
   return (
     <>
       <div className={`h-full w-full`}>
@@ -191,8 +197,8 @@ const CurveCard = ({ curve }) => {
                 <XAxis dataKey="supply" type="number" domain={['auto', 'auto']} />
                 <YAxis />
                 <Tooltip />
-                <Line data={mintCurve} type="monotone" dataKey="price" stroke="#82ca9d" />
-                <Line data={burnCurve} type="monotone" dataKey="price" stroke="#ff7f00" />
+                <Line data={(mintCurve !== undefined) ? mintCurve : null} type="monotone" dataKey="price" stroke="#82ca9d" />
+                <Line data={(burnCurve !== undefined) ? burnCurve : null} type="monotone" dataKey="price" stroke="#ff7f00" />
               </LineChart>
             </ResponsiveContainer>
           </div>

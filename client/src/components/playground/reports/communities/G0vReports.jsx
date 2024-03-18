@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
 import { HackathonSupportToken, OnboardingSupportToken, ParticipantSupportToken } from "@contract";
-import SupportCard from "../SupportCard";
+import SupportCard from "../ReportCard";
 
 const G0vSupporters = () => {
   const { data: mSvg } = useContractRead({
@@ -99,7 +99,6 @@ const G0vSupporters = () => {
           </div>
         </div >
 
-        {/* // TODO:  Hard coding curves for now. */}
         <div className="flex flex-col space-y-10">
           <div className="" >
             <SupportCard

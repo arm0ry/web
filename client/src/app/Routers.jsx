@@ -5,7 +5,6 @@ import {
   Onboard,
   Playground,
   Funding,
-  // Admin,
   ProposeTask,
   Tasks,
   TaskDetail,
@@ -24,7 +23,7 @@ import {
   Responses,
   Faq
 } from "../components";
-import Supporters from "../components/playground/supporters/Supporters";
+import Reports from "../components/playground/reports/Reports";
 import { Navbar, Footer } from "../components/layout";
 import { useGlobalContext } from "@context/store";
 import ScrollToTop from "@utils/ScrollToTop";
@@ -59,8 +58,8 @@ const Routers = () => {
         <Route path="/playground" element={<Playground />}>
           <Route index element={<Navigate to="faq" replace />} />
           {/* <Route path="traveler-pass" element={<TravelerPass />} /> */}
-          <Route path="supporters" element={<Supporters domain={"g0v"} />} />
-          <Route path="commons-supporters" element={<Supporters domain={"commons"} />} />
+          <Route path="reports" element={<Reports domain={"g0v"} />} />
+          <Route path="commons-reports" element={<Reports domain={"commons"} />} />
           {/* <Route path="my-quest" element={<Quest />} /> */}
           {/* <Route path="my-quest/:questId" element={<QuestDetail />} /> */}
           {/* <Route path="my-quest/:questId/:taskId" element={<TaskDetail />} /> */}

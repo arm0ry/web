@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
 import { MissionToken } from "@contract";
-import SupportCard from "../SupportCard";
+import SupportCard from "../ReportCard";
 
-const CommonsSupporters = () => {
-  const { data: mSvg } = useContractRead({
+const CommonsReports = () => {
+  const { data: svg } = useContractRead({
     ...MissionToken,
     functionName: 'generateSvg',
     args: [1]
@@ -17,7 +17,7 @@ const CommonsSupporters = () => {
   })
 
   useEffect(() => {
-  }, [mSvg])
+  }, [svg])
 
   return (
     <>
@@ -58,10 +58,10 @@ const CommonsSupporters = () => {
         <div className="flex flex-col space-y-10">
           <div className="" >
             <SupportCard
-              title={"'Mission Title'"}
-              engDescription={"Show support for g0v hackath0ns using the green button to mint the SVG NFT on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
+              title={"Navigation Tutorial"}
+              engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
               curveId={5}
-              svg={mSvg}
+              svg={svg}
               supply={missionTokenSupply}
             />
           </div >
@@ -71,4 +71,4 @@ const CommonsSupporters = () => {
   );
 };
 
-export default CommonsSupporters;
+export default CommonsReports;
