@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
-import { MissionToken } from "@contract";
+import { MissionToken, WildernessParkToken, NujabesToken } from "@contract";
 import SupportCard from "../ReportCard";
 
 const CommonsReports = () => {
@@ -12,6 +12,30 @@ const CommonsReports = () => {
 
   const { data: missionTokenSupply } = useContractRead({
     ...MissionToken,
+    functionName: 'totalSupply',
+    args: []
+  })
+
+  const { data: wpSvg } = useContractRead({
+    ...WildernessParkToken,
+    functionName: 'generateSvg',
+    args: [1]
+  })
+
+  const { data: wpSupply } = useContractRead({
+    ...WildernessParkToken,
+    functionName: 'totalSupply',
+    args: []
+  })
+
+  const { data: nuSvg } = useContractRead({
+    ...NujabesToken,
+    functionName: 'generateSvg',
+    args: [1]
+  })
+
+  const { data: nuSupply } = useContractRead({
+    ...NujabesToken,
     functionName: 'totalSupply',
     args: []
   })
@@ -32,7 +56,7 @@ const CommonsReports = () => {
           <div className="flex flex-col py-5 space-y-3">
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Through onchain interaction, we can rely on onchain data to multiple SVG NFTs to display data onchain.
+                Through onchain interaction, we can build SVG NFTs for fundraising and impact evaluation purposes.
               </label>
             </div>
             <div className="space-y-1">
@@ -44,12 +68,11 @@ const CommonsReports = () => {
             <div className="space-y-1">
 
               <label className=" block text-md font-normal text-gray-700">
-                Bonding curves are permissionless autonomous markets, it can increase token liquidity, facilitate price discovery, and raise asset efficiency.
+                Bonding curves are autonomous markets, they ensure token liquidity, facilitate price discovery, and increase asset efficiency.
               </label>
             </div>
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Below we share 3 SVG NFTs reflecting the impact of g0v hackath0n~
               </label>
             </div>
           </div>
@@ -65,6 +88,24 @@ const CommonsReports = () => {
               supply={missionTokenSupply}
             />
           </div >
+          <div>
+            <SupportCard
+              title={"Navigation Tutorial"}
+              engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
+              curveId={6}
+              svg={wpSvg}
+              supply={wpSupply}
+            />
+          </div>
+          <div>
+            <SupportCard
+              title={"Navigation Tutorial"}
+              engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
+              curveId={9}
+              svg={nuSvg}
+              supply={nuSupply}
+            />
+          </div>
         </div>
       </div >
     </>

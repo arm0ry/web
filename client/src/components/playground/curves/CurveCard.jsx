@@ -26,7 +26,6 @@ const CurveCard = ({ curve }) => {
     try {
       // const curveId = await impactCurve.getCurveId();
       const tx = await impactCurve.support(curve.curveId, user, curve.mintPrice, { value: curve.mintPrice })
-      console.log(curve.curveId, user, curve.mintPrice, tx)
 
       pushAlert({
         msg: (
@@ -86,7 +85,6 @@ const CurveCard = ({ curve }) => {
 
 
   useEffect(() => {
-    console.log(curve.formula)
     if (curve.formula != 0) {
       setMintCurve([
         {

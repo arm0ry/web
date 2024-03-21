@@ -84,6 +84,16 @@ export const MissionToken = {
   abi: MissionToken_abi,
 };
 
+export const WildernessParkToken = {
+  address: "0x898b5f83A34ef94130a94CB6ba19d96B078F80E1",
+  abi: MissionToken_abi,
+};
+
+export const NujabesToken = {
+  address: "0x7095869c70943323f9B71DCde98302c27A48a397",
+  abi: MissionToken_abi,
+};
+
 const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";
 export const RPC = { sepolia };
 export const zero_address = "0x0000000000000000000000000000000000000000"
