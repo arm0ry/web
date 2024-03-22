@@ -47,7 +47,7 @@ const CommonsReports = () => {
     <>
       <div className="flex flex-col">
         <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-          Impact Reports
+          Impact of Recipe Commons
         </label>
         <div className="w-5/6 mx-auto mb-10 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <label className="py-5 text-md font-normal text-gray-900">
@@ -56,13 +56,13 @@ const CommonsReports = () => {
           <div className="flex flex-col py-5 space-y-3">
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Through onchain interaction, we can build custom SVG NFTs for fundraising and impact evaluation purposes.
+                Through onchain interaction, we can build custom SVG NFTs as native community assets for fundraising, impact evaluation, and other purposes.
               </label>
             </div>
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Then we couple each SVG NFT with a <a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" className="underline"
-                >bonding curve</a> to automate trading of the NFTs.
+                Then we bond each SVG NFT to its own <a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" className="underline"
+                >bonding curve</a> to automate trading of the NFTs and distribution of transaction fees to communities.
               </label>
             </div>
             <div className="space-y-1">
@@ -82,7 +82,7 @@ const CommonsReports = () => {
           <div className="" >
             <SupportCard
               title={"Example 1: Community Onboarding"}
-              engDescription={"Communities may use SVG NFTs as a report to showcase live updates of an onboarding process"}
+              engDescription={"Communities may use SVG NFTs as simple reports to showcase live updates of participation"}
               curveId={5}
               svg={svg}
               supply={missionTokenSupply}
@@ -91,7 +91,7 @@ const CommonsReports = () => {
           <div>
             <SupportCard
               title={"Example 2: Wildnerness Park"}
-              engDescription={"While the trail posts are listed rather than overlayed on a satelite map, we can get an idea of how wilderness parks, managed by local governments or communities, may use these as real-time heatmap for their trails. Like a Waze for trails! This can be helpful for locals to openly report trail conditions, assess maintainenance schedule, and potentially help locate hikers when they get lost."}
+              engDescription={"While the trail posts are listed in the NFT rather than displayed beautifully over a satelite map of the trail, we can get an idea of how wilderness parks, managed by local governments or communities, may use this as real-time heatmap for trails. Most trail posts today have QR codes on them already, we can repurpose them for hikers to submit onchain check-ins and report trail conditions. Kind of like Waze for trails! In addition to being the medium for fundraising, this NFT can also help locals identify traffic on trails, assess maintainenance schedule, and potentially help locate hikers when they get lost. Best of all, this is cheap to do!"}
               curveId={6}
               svg={wpSvg}
               supply={wpSupply}

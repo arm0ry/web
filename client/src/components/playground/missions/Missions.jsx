@@ -10,28 +10,43 @@ const Missions = ({ domain }) => {
   return (
     <>
       {(domain === "commons") ? (
-        <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
-          <label className="py-5 text-md font-normal text-gray-900">
-            💡
+        <div className="flex flex-col">
+          <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
+            Recipe Commons
           </label>
-          <div className="flex flex-col py-5 space-y-3">
-            <div className="space-y-1">
+          <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
+            <label className="py-5 text-md font-normal text-gray-900">
+              💡
+            </label>
+            <div className="flex flex-col py-5 space-y-3">
+              <div className="space-y-1">
+                <label className=" block text-md font-normal text-gray-900">
+                  This is a prototype built on the Sepolia testnet to demonstrate how easy and quick it is to build community assets onchain.
+                </label>
+              </div>
+              {/* <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-900">
-                This is an experimental playground for anyone to supply a living lists of todos, guides, events, tracks, videos, or all of the above, and let the world interact with it onchain.
+                Two contracts are involved to build community assets onchain. Both contracts are verified on Etherscan and you may view them <a href="https://sepolia.etherscan.io/address/0xe1bB4F49942d4Da1f19B393B2d57c2F605b1aA48#code" target="_blank" class="underline">here</a> and <a href="https://sepolia.etherscan.io/address/0x73604b616e3ae61751f43679a6303ba6664e59c6#code" target="_blank" class="underline">here</a>.
               </label>
+            </div> */}
+              <div className="space-y-1">
+                <label className=" block text-md font-normal text-gray-900">
+                  For demonstartion purposes, Recipe Commons is a onchain space to share recipes, and anyone in the world may interact with them, also onchain.
+                </label>
+              </div>
+              <div className="space-y-1">
+                <label className=" block text-md font-normal text-gray-900">
+                  Through these onchain interaction, we can build assets native to Recipe Commons that represent social impact and at the same time, serve to fundraise for the community.
+                </label>
+              </div>
+              <div>
+                <label className=" block text-md font-normal text-gray-900">
+                  To try out this prototype, you may check out the recipes below and add new ones starting with "Add an Ingredient" and "Create a Recipe" tabs on the left.
+                </label>
+              </div>
             </div>
-            <div className="space-y-1">
-              <label className=" block text-md font-normal text-gray-900">
-                You may add tasks and lists using the "Create a Task" and "Create a List" tabs on the left.
-              </label>
-            </div>
-            <div>
-              <label className=" block text-md font-normal text-gray-900">
-                A list is made of tasks, so creating a list will require selecting relevant tasks.
-              </label>
-            </div>
-          </div>
-        </div >
+          </div >
+        </div>
       ) : (
         <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <label className="py-5 text-md font-normal text-gray-900">
