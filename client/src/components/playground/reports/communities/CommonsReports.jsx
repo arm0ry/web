@@ -28,17 +28,17 @@ const CommonsReports = () => {
     args: []
   })
 
-  const { data: nuSvg } = useContractRead({
-    ...NujabesToken,
-    functionName: 'generateSvg',
-    args: [1]
-  })
+  // const { data: nuSvg } = useContractRead({
+  //   ...NujabesToken,
+  //   functionName: 'generateSvg',
+  //   args: [1]
+  // })
 
-  const { data: nuSupply } = useContractRead({
-    ...NujabesToken,
-    functionName: 'totalSupply',
-    args: []
-  })
+  // const { data: nuSupply } = useContractRead({
+  //   ...NujabesToken,
+  //   functionName: 'totalSupply',
+  //   args: []
+  // })
 
   useEffect(() => {
   }, [svg])
@@ -56,7 +56,7 @@ const CommonsReports = () => {
           <div className="flex flex-col py-5 space-y-3">
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Through onchain interaction, we can build SVG NFTs for fundraising and impact evaluation purposes.
+                Through onchain interaction, we can build custom SVG NFTs for fundraising and impact evaluation purposes.
               </label>
             </div>
             <div className="space-y-1">
@@ -81,8 +81,8 @@ const CommonsReports = () => {
         <div className="flex flex-col space-y-10">
           <div className="" >
             <SupportCard
-              title={"Navigation Tutorial"}
-              engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
+              title={"Example 1: Community Onboarding"}
+              engDescription={"Communities may use SVG NFTs as a report to showcase live updates of an onboarding process"}
               curveId={5}
               svg={svg}
               supply={missionTokenSupply}
@@ -90,22 +90,22 @@ const CommonsReports = () => {
           </div >
           <div>
             <SupportCard
-              title={"Navigation Tutorial"}
-              engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
+              title={"Example 2: Wildnerness Park"}
+              engDescription={"While the trail posts are listed rather than overlayed on a satelite map, we can get an idea of how wilderness parks, managed by local governments or communities, may use these as real-time heatmap for their trails. Like a Waze for trails! This can be helpful for locals to openly report trail conditions, assess maintainenance schedule, and potentially help locate hikers when they get lost."}
               curveId={6}
               svg={wpSvg}
               supply={wpSupply}
             />
           </div>
-          <div>
+          {/* <div>
             <SupportCard
-              title={"Navigation Tutorial"}
+              title={"Example 3: Music Collection"}
               engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
               curveId={9}
               svg={nuSvg}
               supply={nuSupply}
             />
-          </div>
+          </div> */}
         </div>
       </div >
     </>
