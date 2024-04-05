@@ -172,7 +172,7 @@ const ProposeMission = ({ domain }) => {
             💡
           </label>
           <label className=" block text-md font-normal text-gray-900">
-            A list consists of one or more tasks. Together, a list and its tasks provide context to collaborate onchain and open source impact.
+            A list consists of one or more items. Together, a list and its items provide context to collaborate onchain and open source impact.
           </label>
         </div>
       </div >
@@ -202,7 +202,7 @@ const ProposeMission = ({ domain }) => {
                   for="tasks"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  Tasks
+                  Items
                 </label>
                 <Controller
                   control={control}

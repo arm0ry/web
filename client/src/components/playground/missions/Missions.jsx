@@ -12,7 +12,7 @@ const Missions = ({ domain }) => {
       {(domain === "commons") ? (
         <div className="flex flex-col">
           <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-            Recipe Commons
+            Commons
           </label>
           <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
             <label className="py-5 text-md font-normal text-gray-900">
@@ -21,7 +21,7 @@ const Missions = ({ domain }) => {
             <div className="flex flex-col py-5 space-y-3">
               <div className="space-y-1">
                 <label className=" block text-md font-normal text-gray-900">
-                  This is a prototype built on the Sepolia testnet to demonstrate how easy and quick it is to build community assets onchain.
+                  This is a prototype built on the Sepolia testnet to demo how communities may build assets onchain.
                 </label>
               </div>
               {/* <div className="space-y-1">
@@ -31,17 +31,17 @@ const Missions = ({ domain }) => {
             </div> */}
               <div className="space-y-1">
                 <label className=" block text-md font-normal text-gray-900">
-                  For demonstartion purposes, Recipe Commons is a onchain space to share recipes, and anyone in the world may interact with them, also onchain.
+                  Commons is an onchain space to share knowledge (in the form of Lists and Items), and anyone may interact with shared knowledge, also onchain.
                 </label>
               </div>
               <div className="space-y-1">
                 <label className=" block text-md font-normal text-gray-900">
-                  Through these onchain interaction, we can build assets native to Recipe Commons that represent social impact and at the same time, serve to fundraise for the community.
+                  Through interacting with onchain knowledge, we can pool actions together to build assets native to Commons that represent impact and at the same time, fundraise for Commons.
                 </label>
               </div>
               <div>
                 <label className=" block text-md font-normal text-gray-900">
-                  To try out this prototype, you may check out the recipes below and add new ones starting with "Add an Ingredient" and "Create a Recipe" tabs on the left.
+                  To try out this prototype, check out knowledge dropped below or drop new ones by starting with "Add an Item" and "Create a List" tabs on the left.
                 </label>
               </div>
             </div>

@@ -245,30 +245,30 @@ const Playground = () => {
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <div className="">
               <label className="text-md font-semibold text-gray-900">
-                Recipe Commons
+                Commons
               </label>
             </div>
             <SidebarItem
               to="propose-commons-task"
-              name="Add an Ingredient"
+              name="Add an Item"
               Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="propose-commons-mission"
-              name="Create a Recipe"
+              name="Create a List"
               Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="commons-missions"
-              name="Recipes"
+              name="Bulletin"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="commons-reports"
-              name="Commons Impact"
+              name="Pooled Impact"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />

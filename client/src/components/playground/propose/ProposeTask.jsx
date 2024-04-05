@@ -162,7 +162,7 @@ const ProposeTask = ({ domain }) => {
       <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5  space-x-5">
         <div className="w-1/2 flex items-center">
           <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-            Create a Task
+            Add an Item
           </label>
         </div>
         <div className="flex items-center space-x-6 bg-slate-50 p-2">
@@ -170,7 +170,7 @@ const ProposeTask = ({ domain }) => {
             💡
           </label>
           <label className=" block text-md font-normal text-gray-900">
-            A task is an action item. It is a piece of actionable knowledge that invites others to collaborate onchain.
+            An Item is something that invites onchain action and feedback.
           </label>
         </div>
       </div >
@@ -190,7 +190,7 @@ const ProposeTask = ({ domain }) => {
                   type="text"
                   id="title"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                  placeholder="title for a task"
+                  placeholder="title for item"
                   required
                   {...register("title")}
                 />
@@ -200,7 +200,7 @@ const ProposeTask = ({ domain }) => {
                   for="expiration"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  When does this task expire?
+                  When does this item expire?
                 </label>
                 <div className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 ">
                   <DatePicker
