@@ -47,7 +47,7 @@ const CommonsReports = () => {
     <>
       <div className="flex flex-col">
         <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-          Impact of Recipe Commons
+          Pooled Impact
         </label>
         <div className="w-5/6 mx-auto mb-10 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <label className="py-5 text-md font-normal text-gray-900">
@@ -56,19 +56,19 @@ const CommonsReports = () => {
           <div className="flex flex-col py-5 space-y-3">
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Through onchain interaction, we can build custom SVG NFTs as native community assets for fundraising, impact evaluation, and other purposes.
+                Through onchain interactions, we can build custom SVG NFTs as native community assets for fundraising, impact evaluation, and other purposes.
               </label>
             </div>
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Then we bond each SVG NFT to its own <a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" className="underline"
-                >bonding curve</a> to automate trading of the NFTs and distribution of transaction fees to communities.
+                We bond each SVG NFT to its own <a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" className="underline"
+                >bonding curve</a> to automate trading of the NFTs and distribution of transaction fees.
               </label>
             </div>
             <div className="space-y-1">
 
               <label className=" block text-md font-normal text-gray-700">
-                Bonding curves are autonomous markets, they ensure token liquidity, facilitate price discovery, and increase asset efficiency.
+                Bonding curves are autonomous markets, and they ensure token liquidity, facilitate price discovery, and increase asset efficiency.
               </label>
             </div>
             <div className="space-y-1">
