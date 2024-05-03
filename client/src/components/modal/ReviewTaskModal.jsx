@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useAccount } from "wagmi";
 
 import useWriteContract from "@hooks/useWriteContract";
-import { Arm0ryQuests } from "@contract";
+// import { Arm0ryQuests } from "@contract";
 
 import { loadIPFS } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
@@ -31,10 +31,10 @@ const ReviewTaskModal = ({ modalPayload }) => {
     });
   }, [taskHomework]);
 
-  const { write: reviewTasks, state } = useWriteContract({
-    ...Arm0ryQuests,
-    functionName: "reviewTasks",
-  });
+  // const { write: reviewTasks, state } = useWriteContract({
+  //   ...Arm0ryQuests,
+  //   functionName: "reviewTasks",
+  // });
 
   const review = async (state) => {
     const onSuccess = () => {
@@ -48,11 +48,11 @@ const ReviewTaskModal = ({ modalPayload }) => {
     };
     // TODO
     console.log(traveler, questing, rTaskId, state);
-    reviewTasks({
-      args: [traveler, questing, rTaskId, state],
-      onSuccess,
-      onError,
-    });
+    // reviewTasks({
+    //   args: [traveler, questing, rTaskId, state],
+    //   onSuccess,
+    //   onError,
+    // });
   };
   return (
     <>

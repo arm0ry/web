@@ -11,7 +11,7 @@ import {
   sepolia_provider
 } from "@utils/contract";
 import { ethers } from "ethers";
-import { Commons_Mission, Commons_Quest } from "@contract";
+import { Logger } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 
 const StateYourNameModal = ({ modalPayload }) => {
@@ -33,12 +33,12 @@ const StateYourNameModal = ({ modalPayload }) => {
   });
 
   const { write: start, state: startState } = useWriteContract({
-    ...Commons_Quest,
+    ...Logger,
     functionName: "start",
   });
 
   const { write: respond, state: respondState } = useWriteContract({
-    ...Commons_Quest,
+    ...Logger,
     functionName: "respond",
   });
 
@@ -206,7 +206,7 @@ const StateYourNameModal = ({ modalPayload }) => {
       // @note For sponsored public participation.
       try {
         // @note Retrieve to check if already used.
-        const questInstance = new ethers.Contract(Commons_Quest.address, Quest.abi, sepolia_provider)
+        const questInstance = new ethers.Contract(Logger.address, Quest.abi, sepolia_provider)
         const address = await questInstance.getPublicUserAddress(data.seed);
         const _isPublicUser = await questInstance.isPublicUser(address, contract.address, missionId);
         console.log(_isPublicUser, data.seed)

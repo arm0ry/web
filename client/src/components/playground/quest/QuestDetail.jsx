@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 
-import { Arm0ryQuests, Arm0ryTravelers } from "@contract";
-import useWriteContract from "@hooks/useWriteContract";
-
 import { useGlobalContext } from "@context/store";
 import MissionDetailTPL from "../missions/MissionDetailTPL";
 

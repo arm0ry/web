@@ -4,16 +4,16 @@ import { useForm } from "react-hook-form";
 import { useAccount } from "wagmi";
 import { KaliLogo, ArrowSVG } from "@assets";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-import { Arm0ryMissions, KaliDAO } from "../../../contract";
+// import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
-import {Spinner} from "@components";
+import { Spinner } from "@components";
 import Modal from "../../modal/Modal";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 import useWriteContract from "@hooks/useWriteContract";
-import { replaceMarkdownImageUrltoBase64} from "@utils/encodeImageAsBase64"
+import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64"
 
 const prepareData = async (types, data, address) => {
   try {
@@ -61,10 +61,10 @@ const SetTask = () => {
   } = useForm({
     defaultValues: { point: 0, expiration: 0 },
   });
-  const { write: setTasks, state } = useWriteContract({
-    ...Arm0ryMissions,
-    functionName: "setTasks",
-  });
+  // const { write: setTasks, state } = useWriteContract({
+  //   ...Arm0ryMissions,
+  //   functionName: "setTasks",
+  // });
   const onSubmit = async (data) => {
     setInPrepare(true);
     prepareData(
@@ -80,7 +80,7 @@ const SetTask = () => {
         const onError = () => {
           unpinCID(ipfsCID);
         };
-        setTasks({ args: [[params]], onSuccess, onError });
+        // setTasks({ args: [[params]], onSuccess, onError });
       })
       .catch((error) => {
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
@@ -228,9 +228,9 @@ const SetTask = () => {
                 className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
               >
                 {!isConnected && "Please Connect Wallet"}
-                {isConnected && state.writeStatus === 0 &&  (inPrepare? "Wait...": "Submit!")}
+                {isConnected && state.writeStatus === 0 && (inPrepare ? "Wait..." : "Submit!")}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
-                <div className={`${state.writeStatus > 0?"ml-2":""}`}>
+                <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
                   {isConnected && state.writeStatus === 1 && "Waiting for approval"}
                   {isConnected && state.writeStatus === 2 && "pending"}
                 </div>

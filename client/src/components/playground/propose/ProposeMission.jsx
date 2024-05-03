@@ -6,11 +6,10 @@ import { useAccount } from "wagmi";
 // import makeAnimated from "react-select/animated";
 // const animatedComponents = makeAnimated();
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
 import { Spinner } from "@components";
 import MultiSelectSort from "../../MultiSelectSort";
-import { Commons_Mission } from "@contract";
+import { Bulletin } from "@contract";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
@@ -75,14 +74,14 @@ const ProposeMission = ({ domain }) => {
   });
 
   const { write: proposeToCommons, state } = useWriteContract({
-    ...Commons_Mission,
+    ...Bulletin,
     functionName: "payToSetMission",
   });
 
   const onSubmit = async (data) => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = await provider.getSigner();
-    const commonsMissionInstance = new ethers.Contract(Commons_Mission.address, Commons_Mission.abi, signer)
+    // const commonsMissionInstance = new ethers.Contract(Bulletin.address, Bulletin.abi, signer)
 
     setInPrepare(true);
 

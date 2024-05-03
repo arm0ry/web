@@ -12,7 +12,7 @@ import {
   Missions,
   MissionDetail,
   Review,
-  TravelerPass,
+  // TravelerPass,
   Quest,
   QuestDetail,
   Manager,

@@ -20,7 +20,7 @@ import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 import useWriteContract from "@hooks/useWriteContract";
 import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64"
-import { Commons_Mission } from "@contract";
+import { Bulletin } from "@contract";
 
 const encodeFunctionData = async (types, data, address, abi, method) => {
   try {
@@ -75,7 +75,7 @@ const ProposeTask = ({ domain }) => {
   });
   // *
   const { write: proposeToCommons, state } = useWriteContract({
-    ...Commons_Mission,
+    ...Bulletin,
     functionName: "payToSetTasks",
   });
 

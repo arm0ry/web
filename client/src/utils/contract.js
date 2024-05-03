@@ -6,8 +6,8 @@ import {
   Mission,
   Quest,
   ImpactCurves,
-  Commons_Mission,
-  Commons_Quest,
+  Bulletin,
+  Logger,
   RPC,
   zero_address,
 } from "@contract";
@@ -26,11 +26,11 @@ export const ImpactCurves_contract = getContract({
   ...ImpactCurves,
   signerOrProvider: sepolia_provider,
 });
-export const Commons_Mission_contract = getContract({
-  ...Commons_Mission,
+export const Bulletin_contract = getContract({
+  ...Bulletin,
   signerOrProvider: sepolia_provider,
 });
-export const Commons_Quest_contract = getContract({
-  ...Commons_Quest,
+export const Logger_contract = getContract({
+  ...Logger,
   signerOrProvider: sepolia_provider,
 });

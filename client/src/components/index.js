@@ -26,7 +26,7 @@ export { default as Review } from "./playground/review/Review";
 export { default as Curves } from "./playground/curves/Curves";
 export { default as Faq } from "./playground/Faq";
 export { default as Responses } from "./playground/responses/Responses";
-export { default as TravelerPass } from "./playground/TravelerPass";
+// export { default as TravelerPass } from "./playground/TravelerPass";
 export { default as Quest } from "./playground/quest/Quest";
 export { default as QuestDetail } from "./playground/quest/QuestDetail";
 export { default as Manager } from "./playground/manager/Manager";

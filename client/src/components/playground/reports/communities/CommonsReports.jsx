@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
-import { MissionToken, WildernessParkToken, NujabesToken } from "@contract";
+import { ListToken, WildernessParkToken, NujabesToken } from "@contract";
 import SupportCard from "../ReportCard";
 
 const CommonsReports = () => {
   const { data: svg } = useContractRead({
-    ...MissionToken,
+    ...ListToken,
     functionName: 'generateSvg',
     args: [1]
   })
 
-  const { data: missionTokenSupply } = useContractRead({
-    ...MissionToken,
+  const { data: listTokenSupply } = useContractRead({
+    ...ListToken,
     functionName: 'totalSupply',
     args: []
   })

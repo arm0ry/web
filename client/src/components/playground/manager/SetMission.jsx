@@ -11,9 +11,9 @@ import makeAnimated from "react-select/animated";
 const animatedComponents = makeAnimated();
 import { KaliLogo, ArrowSVG } from "@assets";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-import { Arm0ryMissions, KaliDAO } from "../../../contract";
+// import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
-import {Spinner} from "@components";
+import { Spinner } from "@components";
 import MultiSelectSort from "../../MultiSelectSort";
 
 import { pushAlert } from "@context/actions/alertAction";
@@ -67,10 +67,10 @@ const SetMission = () => {
   } = useForm({
     defaultValues: { tasks: [] },
   });
-  const { write: setMission, state } = useWriteContract({
-    ...Arm0ryMissions,
-    functionName: "setMission",
-  });
+  // const { write: setMission, state } = useWriteContract({
+  //   ...Arm0ryMissions,
+  //   functionName: "setMission",
+  // });
   // console.log("tasks", watch("tasks"));
   const onSubmit = async (data) => {
     setInPrepare(true);
@@ -87,7 +87,7 @@ const SetMission = () => {
         const onError = () => {
           unpinCID(ipfsCID);
         };
-        setMission({ args: params, onSuccess, onError });
+        // setMission({ args: params, onSuccess, onError });
       })
       .catch((error) => {
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
@@ -234,7 +234,7 @@ const SetMission = () => {
                 className="x text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
               >
                 {!isConnected && "Please Connect Wallet"}
-                {isConnected && state.writeStatus === 0 &&  (inPrepare? "Wait...": "Submit!")}
+                {isConnected && state.writeStatus === 0 && (inPrepare ? "Wait..." : "Submit!")}
                 {isConnected && state.writeStatus > 0 && <Spinner />}
                 <div className={`${state.writeStatus > 0 ? "ml-2" : ""}`}>
                   {isConnected &&

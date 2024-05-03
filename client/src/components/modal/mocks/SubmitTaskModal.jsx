@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useAccount } from "wagmi";
 
 import useWriteContract from "@hooks/useWriteContract";
-import { Arm0ryQuests } from "@contract";
+// import { Arm0ryQuests } from "@contract";
 
 import { useGlobalContext } from "@context/store";
 // import { updateTravelerTask } from "@context/actions/userAction";
@@ -13,7 +13,7 @@ import { cleanModal } from "@context/actions/modalAction";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
 
 import { Spinner, Markdown } from "@components";
-import CloseModalButton from "./CloseModalButton";
+import CloseModalButton from "../CloseModalButton";
 
 const prepareData = async (types, questId, taskId, homework, address) => {
   try {

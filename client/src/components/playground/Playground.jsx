@@ -18,7 +18,6 @@ import {
   useAccount,
   useContractEvent,
 } from "wagmi";
-import { Arm0ryMissions, Arm0ryQuests, Mission, Quest, RPC } from "../../contract";
 import {
   signIn,
   signOut,

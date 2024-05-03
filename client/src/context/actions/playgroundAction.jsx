@@ -4,9 +4,7 @@ import {
   LOAD_TRAVELERS,
   LOAD_UNREVIEWS,
   LOAD_QUESTS,
-  LOAD_COMMONS_QUESTS,
   LOAD_RESPONSES,
-  LOAD_COMMONS_RESPONSES,
   LOAD_CID,
   LOAD_TASKS,
   LOAD_COMMONS_TASKS,
@@ -14,10 +12,12 @@ import {
   UPDATE_TASK,
   DELETE_TASK,
   LOAD_MISSIONS,
-  LOAD_COMMONS_MISSIONS,
   ADD_MISSION,
   UPDATE_MISSION,
   DELETE_MISSION,
+  LOAD_BULLETIN,
+  LOAD_LOGGER,
+  LOAD_LOGGER_REPONSES,
 } from "../reducer/playgroundReducer";
 
 import { ethers } from "ethers";
@@ -25,8 +25,8 @@ import { pushAlert } from "@context/actions/alertAction";
 import {
   Mission_contract,
   Quest_contract,
-  Commons_Mission_contract,
-  Commons_Quest_contract,
+  Bulletin_contract,
+  Logger_contract,
   ImpactCurves_contract,
 } from "@utils/contract";
 import { fetchIpfsCID } from "@utils/ipfs";
@@ -185,7 +185,7 @@ export const loadQuests = async () => {
 
 export const loadCommonsTasksData = async () => {
   try {
-    const _taskId = await Commons_Mission_contract.getTaskId();
+    const _taskId = await Bulletin_contract.getTaskId();
     const taskId = parseInt(_taskId._hex);
     if (taskId <= 0) return;
     let _tasks = {};
@@ -193,13 +193,13 @@ export const loadCommonsTasksData = async () => {
     await Promise.all(
       [...Array(taskId)].map(async (_, _id) => {
         const id = _id + 1;
-        const _taskCreator = await Commons_Mission_contract.getTaskCreator(id);
-        const _taskDeadline = await Commons_Mission_contract.getTaskDeadline(id);
-        const _taskTitle = await Commons_Mission_contract.getTaskTitle(id);
-        const _taskDetail = await Commons_Mission_contract.getTaskDetail(id);
-        const _totalTaskCompletions = await Commons_Mission_contract.getTotalTaskCompletions(id);
+        const _taskCreator = await Bulletin_contract.getTaskCreator(id);
+        const _taskDeadline = await Bulletin_contract.getTaskDeadline(id);
+        const _taskTitle = await Bulletin_contract.getTaskTitle(id);
+        const _taskDetail = await Bulletin_contract.getTaskDetail(id);
+        const _totalTaskCompletions = await Bulletin_contract.getTotalTaskCompletions(id);
         // TODO: missiondId hardcoded to 1 for now
-        const _totalTaskCompletionsByMission = await Commons_Mission_contract.getTotalTaskCompletionsByMission(1, id);
+        const _totalTaskCompletionsByMission = await Bulletin_contract.getTotalTaskCompletionsByMission(1, id);
 
         _tasks[id] = {
           creator: _taskCreator,
@@ -222,21 +222,21 @@ export const loadCommonsTasksData = async () => {
 };
 export const loadCommonsMissionsData = async () => {
   try {
-    const _missionId = await Commons_Mission_contract.getMissionId();
+    const _missionId = await Bulletin_contract.getMissionId();
     if (_missionId <= 0) return;
     let _missions = {};
     await Promise.all(
       [...Array(parseInt(_missionId._hex))].map(async (_, _id) => {
         const id = _id + 1;
-        const _missionTitle = await Commons_Mission_contract.getMissionTitle(id);
-        const _missionCreator = await Commons_Mission_contract.getMissionCreator(id);
-        const _missionDetail = await Commons_Mission_contract.getMissionDetail(id);
-        const _missionTaskIds = await Commons_Mission_contract.getMissionTaskIds(id);
-        const _missionTaskCount = await Commons_Mission_contract.getMissionTaskCount(id);
-        const _missionStarts = await Commons_Mission_contract.getMissionStarts(id);
-        const _missionCompletions = await Commons_Mission_contract.getMissionCompletions(id);
+        const _missionTitle = await Bulletin_contract.getMissionTitle(id);
+        const _missionCreator = await Bulletin_contract.getMissionCreator(id);
+        const _missionDetail = await Bulletin_contract.getMissionDetail(id);
+        const _missionTaskIds = await Bulletin_contract.getMissionTaskIds(id);
+        const _missionTaskCount = await Bulletin_contract.getMissionTaskCount(id);
+        const _missionStarts = await Bulletin_contract.getMissionStarts(id);
+        const _missionCompletions = await Bulletin_contract.getMissionCompletions(id);
 
-        // const _curveInfo = await Commons_Mission_contract.getPriceCurve();
+        // const _curveInfo = await Bulletin_contract.getPriceCurve();
         // const _curve = _curveInfo[0];
         // const _curveId = parseInt(_curveInfo[1]._hex);
 
@@ -261,7 +261,7 @@ export const loadCommonsMissionsData = async () => {
     // console.log(_missions)
 
     dispatch.fn({
-      type: LOAD_COMMONS_MISSIONS,
+      type: LOAD_BULLETIN,
       payload: _missions,
     });
   } catch (error) {
@@ -272,7 +272,7 @@ export const loadCommonsMissionsData = async () => {
 
 export const loadCommonsQuests = async () => {
   try {
-    const _questId = await Commons_Quest_contract.getQuestId();
+    const _questId = await Logger_contract.getQuestId();
     const questId = parseInt(_questId._hex);
     if (questId <= 0) return;
 
@@ -283,14 +283,14 @@ export const loadCommonsQuests = async () => {
     await Promise.all(
       [...Array(questId)].map(async (_, _id) => {
         const id = _id + 1;
-        const quest = await Commons_Quest_contract.getQuest(id);
-        const taskIds = await Commons_Mission_contract.getMissionTaskIds(quest[2])
+        const quest = await Logger_contract.getQuest(id);
+        const taskIds = await Bulletin_contract.getMissionTaskIds(quest[2])
 
         const responses = []
 
         for (let i = 0; i < taskIds.length; i++) {
-          const response = await Commons_Quest_contract.getTaskResponse(id, parseInt(taskIds[i]._hex));
-          const feedback = await Commons_Quest_contract.getTaskFeedback(id, parseInt(taskIds[i]._hex));
+          const response = await Logger_contract.getTaskResponse(id, parseInt(taskIds[i]._hex));
+          const feedback = await Logger_contract.getTaskFeedback(id, parseInt(taskIds[i]._hex));
           // console.log(feedback)
           if (parseInt(response._hex) === 0 && feedback === '') {
             continue
@@ -315,9 +315,9 @@ export const loadCommonsQuests = async () => {
       })
     );
     dispatch.fn({
-      type: LOAD_COMMONS_QUESTS,
+      type: LOAD_LOGGER,
       payload: quests,
-    });
+    }); LOAD_LOGGER_REPONSES
   } catch (error) {
     console.error(error);
     pushAlert({ msg: `Loading Tasks Data Error`, type: "failure" });

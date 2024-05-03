@@ -1,34 +1,13 @@
-import Arm0ryMissions_abi from "./Arm0ryMissions.json";
-import Arm0ryTravelers_abi from "./Arm0ryTravelers.json";
-import Arm0ryQuests_abi from "./Arm0ryQuests.json";
 import KaliDAO_abi from "./KaliDAO.json";
 import Mission_abi from "./Mission.json";
 import Quest_abi from "./Quest.json";
+import Bulletin_abi from "./Bulletin.json";
+import Log_abi from "./Log.json";
 import ImpactCurves_abi from "./ImpactCurves.json";
-import MissionToken_abi from "./MissionToken.json";
+import ListToken_abi from "./ListToken.json";
 import HackathonSupportToken_abi from "./HackathonSupportToken.json";
 import OnboardingSupportToken_abi from "./OnboardingSupportToken.json";
 import ParticipantSupportToken_abi from "./ParticipantSupportToken.json";
-
-export const Arm0ryMissions = {
-  address: "0xf3dc858aB0b39daB2E382128c20A3f1f836a39C3",
-  abi: Arm0ryMissions_abi,
-};
-
-export const Arm0ryTravelers = {
-  address: "0x0f71487c93274574b54af96f7b76b6669fd79568",
-  abi: Arm0ryTravelers_abi,
-};
-
-export const Arm0ryQuests = {
-  address: "0xf15d23DcF26011246e1C9a54AbA6dC328A754cFd",
-  abi: Arm0ryQuests_abi,
-};
-
-export const KaliDAO = {
-  address: "0xd758a44e66f1702c92761110dd90168f57007b8f",
-  abi: KaliDAO_abi,
-};
 
 // ===================================
 // g0v Use
@@ -69,29 +48,29 @@ export const ParticipantSupportToken = {
 // Commons Use
 // ===================================
 
-export const Commons_Mission = {
-  address: "0xe1bB4F49942d4Da1f19B393B2d57c2F605b1aA48",
-  abi: Mission_abi,
+export const Bulletin = {
+  address: "0x833F223D5A2cb0520A0131009b97725Cc3Da50E7",
+  abi: Bulletin_abi,
 };
 
-export const Commons_Quest = {
+export const Logger = {
   address: "0x73604B616e3AE61751F43679a6303bA6664E59C6",
-  abi: Quest_abi,
+  abi: Log_abi,
 };
 
-export const MissionToken = {
+export const ListToken = {
   address: "0x330049f432EDdaA559a75c89F2d63aB4b2555fC0",
-  abi: MissionToken_abi,
+  abi: ListToken_abi,
 };
 
 export const WildernessParkToken = {
   address: "0x898b5f83A34ef94130a94CB6ba19d96B078F80E1",
-  abi: MissionToken_abi,
+  abi: ListToken_abi,
 };
 
 export const NujabesToken = {
   address: "0x7095869c70943323f9B71DCde98302c27A48a397",
-  abi: MissionToken_abi,
+  abi: ListToken_abi,
 };
 
 const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";
