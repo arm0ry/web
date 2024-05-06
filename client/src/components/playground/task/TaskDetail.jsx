@@ -15,32 +15,32 @@ const TaskDetail = () => {
   const [tooltip, setTooltip] = useState(false);
   const params = useParams();
   const location = useLocation()
-  const missionId = params.missionId;
-  const taskId = params.taskId;
+  const listId = params.listId;
+  const itemId = params.itemId;
   const tasks = location.state.tasks;
   const contract = location.state.contract;
   const domain = location.state.domain;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(undefined);
-
+  console.log(tasks, contract, itemId, domain)
   useEffect(() => {
     if (Object.keys(tasks).length > 0) {
-      if (tasks[taskId] === undefined) {
+      if (tasks[itemId] === undefined) {
         return navigate("/playground/tasks");
       } else {
         setDetail(true);
-        // loadIPFS(tasks[taskId]?.details, playground, () => {
+        // loadIPFS(tasks[itemId]?.details, playground, () => {
         //   setDetail(true);
         // });
       }
     }
   }, [tasks]);
-
+  console.log(itemId)
   const clickButton = () => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { contract: contract, missionId: missionId, taskId: taskId },
+      content: { contract: contract, missionId: listId, itemId: itemId },
     });
   };
 
@@ -67,7 +67,7 @@ const TaskDetail = () => {
           >
             <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
 
-              {userInfo.tasks[taskId]?.state === -1 ? "Submit" : "分享 | Share"}
+              {userInfo.tasks[itemId]?.state === -1 ? "Submit" : "分享 | Share"}
             </span>
           </div>
         </div>
@@ -87,33 +87,33 @@ const TaskDetail = () => {
               <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
                 <div className=" ">
                   <p className="text-3xl font-bold  text-slate-800 ">
-                    {tasks[taskId]?.title}
+                    {tasks[itemId]?.title}
                   </p>
                   <div
                     onMouseEnter={() => setTooltip(true)}
                     onMouseLeave={() => setTooltip(false)}
                     className="relative inline-block text-xs text-gray-600"
                   >
-                    {shortenAddress(tasks[taskId]?.creator)}
+                    {shortenAddress(tasks[itemId]?.owner)}
                     <div
                       className={`${tooltip ? "visible opacity-70" : "invisible opacity-0"
                         } tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-1 py-1 text-xs  font-medium text-black shadow-sm`}
                     >
-                      {tasks[taskId]?.creator}
+                      {tasks[itemId]?.owner}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <Responses domain={domain} taskId={parseInt(taskId)} />
+              <Responses domain={domain} itemId={parseInt(itemId)} />
 
 
               <div className="" >
-                {(tasks[taskId]?.content.substring(0, 4) === "http")
-                  ? (<iframe width="100%" height="1000" onLoad={loaded} src={tasks[taskId].content} frameborder="0"></iframe>)
+                {(tasks[itemId]?.detail.substring(0, 4) === "http")
+                  ? (<iframe width="100%" height="1000" onLoad={loaded} src={tasks[itemId].detail} frameborder="0"></iframe>)
                   : (<div >
                     <span onLoad={loaded}>
-                      {tasks[taskId]?.content}
+                      {tasks[itemId]?.detail}
 
                     </span>
                   </div>)

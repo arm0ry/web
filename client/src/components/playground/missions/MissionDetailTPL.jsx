@@ -9,19 +9,19 @@ import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
-const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
+const MissionDetailTPL = ({ domain, contract, listId, lists, tasks }) => {
   const { playground, userInfo } = useGlobalContext();
-  // const { missions } = playground;
+  // const { lists } = playground;
   const { address, isConnected, isDisconnected } = useAccount();
   const [buttonState, setButtonState] = useState(0);
   const [participants, setParticipants] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!Number.isNaN(missions[missionId]?.startsCount)) {
-      setParticipants(missions[missionId]?.startsCount);
+    if (!Number.isNaN(lists[listId]?.startsCount)) {
+      setParticipants(lists[listId]?.startsCount);
     }
-  }, [missions]);
+  }, [lists]);
 
   useEffect(() => {
     setButtonState(1); //Activate
@@ -31,13 +31,13 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { contract: contract, missionId: missionId, taskId: 0 },
+      content: { contract: contract, listId: listId, taskId: 0 },
     });
   };
 
   return (
     <>
-      {missions[missionId] == undefined ? (
+      {lists[listId] == undefined ? (
         <div className="w-100 flex h-[calc(100vh_-_6rem)] flex-col items-center justify-center">
           <Spinner
             className="h-16 w-16 border-b-4"
@@ -72,7 +72,7 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
           <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
             <div>
               <p className="text-2xl font-bold text-slate-800  md:text-3xl ">
-                {missions[missionId]?.title}
+                {lists[listId]?.title}
               </p>
               <p className="text-2xl font-bold text-slate-800  md:text-3xl ">
                 {/* 34253245 seconds */}
@@ -80,14 +80,14 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
               <div className={`flex-col mt-1 text-md z-0   ${expanded ? "" : "cursor-pointer"}`}>
                 <div className={`${expanded ? "" : "line-clamp-3"}`} onClick={() => setExpanded(true)}>
                   <Markdown>
-                    {missions[missionId]?.details}
+                    {lists[listId]?.detail}
                   </Markdown>
                 </div>
 
                 {/* // TODO: Restore after testing completes
                 <div className={`${expanded ? "" : "line-clamp-3"}`} onClick={() => setExpanded(true)}>
                   <Markdown>
-                    {playground.ipfs[missions[missionId]?.details]?.detail}
+                    {playground.ipfs[lists[listId]?.details]?.detail}
                   </Markdown>
                 </div> */}
 
@@ -103,13 +103,13 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
               <div className="relative inline-block text-xs text-gray-600">
                 <span className="peer">
                   {" "}
-                  {shortenAddress(missions[missionId]?.creator)}
+                  {shortenAddress(lists[listId]?.owner)}
                 </span>
 
                 <div
                   className={` tooltip  absolute left-[100%]  -top-1 z-10 inline-block rounded-lg bg-gray-200 px-2 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-70`}
                 >
-                  {missions[missionId]?.creator}
+                  {lists[listId]?.owner}
                 </div>
               </div>
             </div>
@@ -122,7 +122,7 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
             <div className="inline-flex w-fit items-center justify-center  whitespace-nowrap rounded-full  px-2  py-1  text-base ">
               <TaskIcon className="h-4 text-gray-700" />
               <span className="ml-1 font-semibold ">
-                {missions[missionId]?.taskIds.length} tasks
+                {lists[listId]?.itemIds.length} tasks
               </span>
             </div>
             <div className="relative  flex flex-row items-center justify-center">
@@ -131,6 +131,7 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
                   return (
                     <>
                       <Avatar
+                        key={i}
                         className={"h-7 w-7 "}
                         address={Math.random()}
                         color="f7f0eb"
@@ -146,7 +147,7 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
           </div>
 
           <div className="mb-14 grid grid-cols-1 gap-5 p-4 md:grid-cols-6">
-            {[...missions[missionId]?.taskIds].map((id, i) => {
+            {[...lists[listId]?.itemIds].map((id, i) => {
               if (i % 2 === 0) {
                 return (
                   <>
@@ -185,7 +186,7 @@ const MissionDetailTPL = ({ domain, contract, missionId, missions, tasks }) => {
                     <span className="mr-1 hidden md:inline">
                       完成人數 ｜ # of Completions ：
                     </span>
-                    {missions[missionId]?.completionsCount} 人
+                    {/* {lists[listId]?.completionsCount} 人 */}
                   </span>
                   <div
                     className={` tooltip absolute left-[0%]  -top-1 z-10 inline-block -translate-y-full rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80 md:hidden`}

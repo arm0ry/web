@@ -54,7 +54,7 @@ export const Bulletin = {
 };
 
 export const Logger = {
-  address: "0x73604B616e3AE61751F43679a6303bA6664E59C6",
+  address: "0x2483B321EF13A4244d159570626582C4c2Af3C0B",
   abi: Log_abi,
 };
 

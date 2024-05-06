@@ -25,12 +25,9 @@ import {
   // getTravelerQuest,
 } from "@context/actions/userAction";
 import {
-  loadTasksData,
-  loadMissionsData,
-  loadQuests,
-  loadCommonsTasksData,
-  loadCommonsMissionsData,
-  loadCommonsQuests,
+  loadItems,
+  loadLists,
+  loadLogger,
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
@@ -157,14 +154,12 @@ const Playground = () => {
 
   useEffect(() => {
 
-    (async () => {
-      // await loadTasksData();
-      // await loadMissionsData();
-      // await loadQuests();
-      await loadCommonsTasksData();
-      await loadCommonsMissionsData();
-      await loadCommonsQuests();
-    })()
+    // await loadTasksData();
+    // await loadMissionsData();
+    // await loadQuests();
+    loadItems();
+    loadLists();
+    loadLogger();
 
   }, []);
 
@@ -248,25 +243,25 @@ const Playground = () => {
               </label>
             </div>
             <SidebarItem
-              to="propose-commons-task"
+              to="propose-item"
               name="Add an Item"
               Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
-              to="propose-commons-mission"
+              to="propose-list"
               name="Create a List"
               Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
-              to="commons-missions"
+              to="bulletin"
               name="Bulletin"
               Icon={MissionIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
-              to="commons-reports"
+              to="commons" // todo: update to a logger page?
               name="Pooled Impact"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}

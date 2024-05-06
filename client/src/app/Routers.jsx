@@ -66,9 +66,9 @@ const Routers = () => {
           <Route path="missions" element={<Missions domain={"g0v"} />} />
           <Route path="missions/:missionId" element={<MissionDetail />} />
           <Route path="missions/:missionId/:taskId" element={<TaskDetail />} />
-          <Route path="commons-missions" element={<Missions domain={"commons"} />} />
-          <Route path="commons-missions/:missionId" element={<MissionDetail domain={"commons"} />} />
-          <Route path="commons-missions/:missionId/:taskId" element={<TaskDetail domain={"commons"} />} />
+          <Route path="bulletin" element={<Missions domain={"commons"} />} />
+          <Route path="bulletin/:listId" element={<MissionDetail domain={"commons"} />} />
+          <Route path="bulletin/:listId/:itemId" element={<TaskDetail domain={"commons"} />} />
           {/* <Route path="tasks" element={<Tasks />} /> */}
           {/* <Route path="tasks/:taskId" element={<TaskDetail />} /> */}
           <Route path="faq" element={<Faq />} />

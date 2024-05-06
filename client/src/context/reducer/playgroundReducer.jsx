@@ -6,7 +6,7 @@ export const LOAD_UNREVIEWS = "LOAD_UNREVIEWS";
 export const LOAD_QUEST_ID = "LOAD_QUEST_ID";
 export const LOAD_QUESTS = "LOAD_QUESTS";
 export const LOAD_RESPONSES = "LOAD_RESPONSES";
-export const LOAD_LOGGER_REPONSES = "LOAD_LOGGER_REPONSES";
+export const LOAD_LOGGER_TPS = "LOAD_LOGGER_TPS";
 export const LOAD_CID = "LOAD_CID";
 
 export const LOAD_TASKID = "LOAD_TASKID";
@@ -24,16 +24,18 @@ export const DELETE_MISSION = "DELETE_MISSION";
 
 export const LOAD_LOGGER = "LOAD_LOGGER";
 export const LOAD_BULLETIN = "LOAD_BULLETIN";
+export const LOAD_ITEMS = "LOAD_ITEMS";
+export const LOAD_LISTS = "LOAD_LISTS";
 
 export const playgroundInitialState = {
   tasks: {},
   missions: {},
-  quests: {},
+  logger: {},
   responses: {},
-  commonsTasks: {},
-  commonsMissions: {},
+  items: {},
+  lists: [],
   commonsQuests: {},
-  commonsResponses: {},
+  loggerTps: [],
   ipfs: {},
   // managers: [],//pass
 };
@@ -70,17 +72,17 @@ const playgroundReducer = (state, action) => {
     case LOAD_LOGGER:
       return {
         ...state,
-        quests: action?.payload
+        logger: action?.payload
       };
     case LOAD_RESPONSES:
       return {
         ...state,
         responses: action?.payload
       };
-    case LOAD_LOGGER_REPONSES:
+    case LOAD_LOGGER_TPS:
       return {
         ...state,
-        commonsResponses: action?.payload
+        loggerTps: action?.payload
       };
     case LOAD_CID:
       return {
@@ -109,16 +111,16 @@ const playgroundReducer = (state, action) => {
         missions: action?.payload
         // ...action?.payload
       };
-    case LOAD_COMMONS_TASKS:
+    case LOAD_ITEMS:
       return {
         ...state,
-        commonsTasks: action?.payload
+        items: action?.payload
         // ...action?.payload
       };
-    case LOAD_BULLETIN:
+    case LOAD_LISTS:
       return {
         ...state,
-        commonsMissions: action?.payload
+        lists: action?.payload
         // ...action?.payload
       };
     default:

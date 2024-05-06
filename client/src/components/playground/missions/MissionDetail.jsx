@@ -7,18 +7,19 @@ import { Mission, Quest, Bulletin } from "@contract";
 
 const MissionDetail = ({ domain }) => {
   const params = useParams();
-  const missionId = params.missionId;
+  const listId = params.listId;
   const { playground, userInfo } = useGlobalContext();
-  const { missions, commonsMissions, tasks, commonsTasks } = playground;
+  const { items, lists, logger } = playground;
 
+  // console.log(items, lists, logger)
   return (
     <>
       <MissionDetailTPL
         domain={domain}
         contract={(domain === "commons") ? Bulletin : Mission}
-        missionId={missionId}
-        missions={(domain === "commons") ? commonsMissions : missions}
-        tasks={(domain === "commons") ? commonsTasks : tasks}
+        listId={listId}
+        lists={(domain === "commons") ? lists : lists}
+        tasks={(domain === "commons") ? items : items}
       />
     </>
   );
