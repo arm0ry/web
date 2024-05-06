@@ -6,38 +6,38 @@ import ResponseCard from "./ResponseCard";
 
 // const svg = avatar.toString();
 
-const Responses = ({ domain, taskId }) => {
+const Responses = ({ domain, itemId }) => {
   const { playground } = useGlobalContext();
-  const { missions, responses, commonsResponses } = playground;
-  const [results, setResults] = useState([])
+  const { logger, loggerTps, responses, commonsResponses } = playground;
+  const [touchpoints, setTouchpoint] = useState([])
 
-  console.log(domain, commonsResponses)
+  console.log(domain, commonsResponses, logger, loggerTps)
 
   useEffect(() => {
     if (domain === "commons") {
-      if (commonsResponses !== undefined) {
-        const _results = []
+      if (loggerTps !== undefined) {
+        const _touchpoints = []
 
-        for (let i = 0; i < commonsResponses.length; i++) {
-          if (commonsResponses[i].taskId === taskId) {
-            _results.push(commonsResponses[i])
+        for (let i = 0; i < loggerTps.length; i++) {
+          if (parseInt(loggerTps[i].itemId._hex) === itemId) {
+            _touchpoints.push(loggerTps[i])
           }
         }
-        setResults(_results)
+        setTouchpoint(_touchpoints)
       }
     } else {
       if (responses !== undefined) {
-        const _results = []
+        const _touchpoints = []
 
         for (let i = 0; i < responses.length; i++) {
-          if (responses[i].taskId === taskId) {
-            _results.push(responses[i])
+          if (parseInt(responses[i].itemId._hex) === itemId) {
+            _touchpoints.push(responses[i])
           }
         }
-        setResults(_results)
+        setTouchpoint(_touchpoints)
       }
     }
-  }, [responses, commonsResponses])
+  }, [responses, loggerTps])
 
   return (
     <>
@@ -45,7 +45,7 @@ const Responses = ({ domain, taskId }) => {
         心得 ｜ Feedback：
       </label>
       <div className="grid grid-cols-2 gap-10 xl:grid-cols-3 2xl:grid-cols-4">
-        {(results.length > 0) ? (results.map((response, id) => {
+        {(touchpoints.length > 0) ? (touchpoints.map((response, id) => {
           return <ResponseCard key={id} response={response} />;
         }))
           : (

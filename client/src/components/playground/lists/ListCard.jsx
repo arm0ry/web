@@ -5,7 +5,7 @@ import { Cube } from "../..";
 import { Spinner } from "@components";
 
 const ListCard = ({ listId, lists }) => {
-  console.log(lists)
+
   return (
     <>
       <div className="group relative flex h-60 max-w-sm flex-col rounded-lg border border-gray-200 bg-white p-6 shadow">

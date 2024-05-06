@@ -3,6 +3,8 @@ import { shortenAddress } from "@utils/shortenAddress";
 import { Avatar } from "@components";
 
 const ResponseCard = ({ response }) => {
+
+  console.log(response)
   return (
     <>
       <div className={`bg-blue-50 h-30 group relative w-full overflow-hidden rounded-lg`}>
@@ -11,18 +13,23 @@ const ResponseCard = ({ response }) => {
             <label className="w-fit mx-3 font-medium text-slate-800  group-hover:font-semibold ">
               🎉
             </label>
-            <div
+            {/* <div
               className={`flex space-x-2 shrink-0 flex-row items-center rounded-full bg-[#B6E4F4] h-min md:px-3 md:py-2 text-sm font-semibold  text-black  shadow-sm`}
             >
-              <Avatar className={`h-5 w-5 `} address={response.user} />
+              <Avatar className={`h-5 w-5 `} address={response} />
               <span className=" hidden items-center md:block">
                 {shortenAddress(response.user)}
               </span>
-            </div>
+            </div> */}
           </div>
           <div className="my-3 px-3 py-2 font- text-slate-800 bg-slate-200 rounded-lg">
             {response.feedback}
           </div>
+
+          <div className="my-3 px-3 py-2 font- text-slate-800 bg-slate-200 rounded-lg">
+            {response.pass ? "pass" : "did not pass"}
+          </div>
+          {response.data}
           {/* <div
             className={`flex shrink-0 flex-row items-center justify-center rounded-full h-fit md:px-2 md:py-1 text-md font-semibold  text-black`}
           >

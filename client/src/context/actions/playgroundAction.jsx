@@ -31,7 +31,6 @@ export const loadItems = async () => {
       })
     );
 
-    console.log(_items)
     dispatch.fn({
       type: LOAD_ITEMS,
       payload: _items,
@@ -65,7 +64,6 @@ export const loadLists = async () => {
         _lists[id] = _list;
       })
     );
-    console.log(_lists)
 
     dispatch.fn({
       type: LOAD_LISTS,
@@ -79,7 +77,7 @@ export const loadLists = async () => {
 
 export const loadLogger = async () => {
   try {
-    const _logId = await Logger_contract.activityId();
+    const _logId = await Logger_contract.logId();
     const logId = parseInt(_logId._hex);
     if (logId <= 0) return;
 
@@ -89,8 +87,8 @@ export const loadLogger = async () => {
     await Promise.all(
       [...Array(logId)].map(async (_, _id) => {
         const id = _id + 1;
-        const log = await Logger_contract.getActivityData(id);
-        const tps = await Logger_contract.getActivityTouchpoints(id)
+        const log = await Logger_contract.getLog(id);
+        const tps = await Logger_contract.getLogTouchpoints(id)
         logs[id] = { logId: id, user: log.user, bulletin: log.bulletin, listId: parseInt(log.listId._hex), nonce: parseInt(log.nonce._hex), touchpoints: tps };
 
         loggerTps = loggerTps.concat(tps)
@@ -101,6 +99,7 @@ export const loadLogger = async () => {
 
       })
     );
+
     dispatch.fn({
       type: LOAD_LOGGER,
       payload: logs,

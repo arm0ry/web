@@ -49,12 +49,12 @@ export const ParticipantSupportToken = {
 // ===================================
 
 export const Bulletin = {
-  address: "0x833F223D5A2cb0520A0131009b97725Cc3Da50E7",
+  address: "0x1bf872b4A7D61EC57A42912671c69935154933Fd",
   abi: Bulletin_abi,
 };
 
 export const Logger = {
-  address: "0x2483B321EF13A4244d159570626582C4c2Af3C0B",
+  address: "0x791aF9f6918148d05D06B27C9BD6D7F574A9f99C",
   abi: Log_abi,
 };
 

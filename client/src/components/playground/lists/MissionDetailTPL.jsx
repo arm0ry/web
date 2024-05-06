@@ -56,7 +56,7 @@ const MissionDetailTPL = ({ domain, contract, listId, lists, items }) => {
             >
               <span className="text-base font-medium">←Go Back</span>
             </button>
-            {buttonState == 1 && (
+            {/* {buttonState == 1 && (
               <>
                 <div
                   onClick={activate} //show modal
@@ -67,7 +67,7 @@ const MissionDetailTPL = ({ domain, contract, listId, lists, items }) => {
                   </span>
                 </div>
               </>
-            )}
+            )} */}
           </div>
           <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
             <div>

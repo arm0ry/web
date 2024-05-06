@@ -156,7 +156,6 @@ const Playground = () => {
     loadItems();
     loadLists();
     loadLogger();
-
   }, []);
 
 
@@ -213,7 +212,7 @@ const Playground = () => {
             />
           </ul>
 
-          <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
+          {/* <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <div>
               <label className="text-md font-semibold text-gray-900">
                 g0v 台灣零時政府
@@ -231,7 +230,7 @@ const Playground = () => {
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
-          </ul>
+          </ul> */}
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <div className="">
               <label className="text-md font-semibold text-gray-900">

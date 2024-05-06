@@ -67,47 +67,7 @@ const StateYourNameModal = ({ modalPayload }) => {
     );
   };
 
-  const sponsorStart = async (username) => {
-    try {
-      const body = { seed: username, mission: contract.address, missionId: missionId };
-      axios
-        .post("/api/users/sponsored_start", body)
-        .then((res) => {
-          console.log(res);
-          if (res.status === 202) {
-            pushAlert({
-              msg: (
-                <span>
-                  {res.data.msg}
-                  <a
-                    href={`https://sepolia.etherscan.io/tx/${res.data.txhash}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-extrabold text-green-900"
-                  >
-                    &nbsp;View on Etherscan &#128279;
-                  </a>
-                </span>
-              ),
-              type: "success",
-            });
-            setFetching(false);
-            return;
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          pushAlert({
-            msg: `Error! ${err.response.data.msg}`,
-            type: "failure",
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const sponsorRespond = async (username, response, feedback) => {
+  const logByBot = async (username, response, feedback) => {
     try {
       const body = { seed: username, mission: contract.address, missionId: missionId, taskId: taskId, response: response, feedback: feedback };
       axios
@@ -229,7 +189,7 @@ const StateYourNameModal = ({ modalPayload }) => {
               type: "failure",
             });
           } else {
-            sponsorRespond(data.seed, userResponse / 10, data.feedback)
+            logByBot(data.seed, userResponse / 10, data.feedback)
           }
         }
       } catch (error) {
