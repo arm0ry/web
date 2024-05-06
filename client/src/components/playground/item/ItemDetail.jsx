@@ -9,24 +9,23 @@ import { Spinner, Responses } from "@components";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
 
-const TaskDetail = () => {
-  const { setTasks, playground, userInfo } = useGlobalContext();
+const ItemDetail = () => {
+  const { setTasks, playground } = useGlobalContext();
   const [detail, setDetail] = useState(undefined);
   const [tooltip, setTooltip] = useState(false);
   const params = useParams();
   const location = useLocation()
   const listId = params.listId;
   const itemId = params.itemId;
-  const tasks = location.state.tasks;
+  const items = location.state.items;
   const contract = location.state.contract;
   const domain = location.state.domain;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(undefined);
-  console.log(tasks, contract, itemId, domain)
   useEffect(() => {
-    if (Object.keys(tasks).length > 0) {
-      if (tasks[itemId] === undefined) {
-        return navigate("/playground/tasks");
+    if (Object.keys(items).length > 0) {
+      if (items[itemId] === undefined) {
+        return navigate("/playground/items");
       } else {
         setDetail(true);
         // loadIPFS(tasks[itemId]?.details, playground, () => {
@@ -34,7 +33,7 @@ const TaskDetail = () => {
         // });
       }
     }
-  }, [tasks]);
+  }, [items]);
   console.log(itemId)
   const clickButton = () => {
     showModal({
@@ -50,7 +49,6 @@ const TaskDetail = () => {
 
   useEffect(() => {
   }, [loading])
-
   return (
     <>
       <div className="mx-auto md:max-w-[1024px]">
@@ -66,8 +64,7 @@ const TaskDetail = () => {
             className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-yellow-200 bg-yellow-200 px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
           >
             <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
-
-              {userInfo.tasks[itemId]?.state === -1 ? "Submit" : "分享 | Share"}
+              分享 | Share
             </span>
           </div>
         </div>
@@ -87,19 +84,19 @@ const TaskDetail = () => {
               <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
                 <div className=" ">
                   <p className="text-3xl font-bold  text-slate-800 ">
-                    {tasks[itemId]?.title}
+                    {items[itemId]?.title}
                   </p>
                   <div
                     onMouseEnter={() => setTooltip(true)}
                     onMouseLeave={() => setTooltip(false)}
                     className="relative inline-block text-xs text-gray-600"
                   >
-                    {shortenAddress(tasks[itemId]?.owner)}
+                    {shortenAddress(items[itemId]?.owner)}
                     <div
                       className={`${tooltip ? "visible opacity-70" : "invisible opacity-0"
                         } tooltip  absolute left-[100%] -top-1 z-10 inline-block rounded-lg bg-gray-200 px-1 py-1 text-xs  font-medium text-black shadow-sm`}
                     >
-                      {tasks[itemId]?.owner}
+                      {items[itemId]?.owner}
                     </div>
                   </div>
                 </div>
@@ -109,11 +106,11 @@ const TaskDetail = () => {
 
 
               <div className="" >
-                {(tasks[itemId]?.detail.substring(0, 4) === "http")
-                  ? (<iframe width="100%" height="1000" onLoad={loaded} src={tasks[itemId].detail} frameborder="0"></iframe>)
+                {(items[itemId]?.detail.substring(0, 4) === "http")
+                  ? (<iframe width="100%" height="1000" onLoad={loaded} src={items[itemId].detail} frameborder="0"></iframe>)
                   : (<div >
                     <span onLoad={loaded}>
-                      {tasks[itemId]?.detail}
+                      {items[itemId]?.detail}
 
                     </span>
                   </div>)
@@ -145,4 +142,4 @@ const TaskDetail = () => {
   );
 };
 
-export default TaskDetail;
+export default ItemDetail;

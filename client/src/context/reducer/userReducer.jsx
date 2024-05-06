@@ -11,7 +11,6 @@ export const GET_QUEST_ID = "GET_QUEST_ID";
 export const GET_TRAVELER_TASK = "GET_TRAVELER_TASK";
 export const GET_TRAVELER_QUESTS = "GET_TRAVELER_QUESTS";
 export const UPDATE_TRAVELER_QUESTS = "UPDATE_TRAVELER_QUESTS";
-// export const UPDATE_TASKS = "UPDATE_TASKS";
 export const UPDATE_TRAVELER_TASK = "UPDATE_TRAVELER_TASK";
 
 export const userInitialState = () => {
@@ -24,7 +23,7 @@ export const userInitialState = () => {
     travelerPass: "",
     isManager: false,
     status: 0,
-    tasks: {},
+    items: {},
     quests: {},
     reviewerXP: undefined
   };
@@ -76,7 +75,7 @@ const userReducer = (state, action) => {
     case GET_TRAVELER_TASK:
       return {
         ...state,
-        tasks: action?.payload?.tasks,
+        items: action?.payload?.items,
       };
     case GET_TRAVELER_QUESTS:
       return {
@@ -91,7 +90,7 @@ const userReducer = (state, action) => {
     case UPDATE_TRAVELER_TASK:
       return {
         ...state,
-        tasks: { ...state.tasks, [action?.payload?.taskId]: { ...state.tasks[action?.payload?.taskId], state: 0 } }
+        items: { ...state.items, [action?.payload?.taskId]: { ...state.items[action?.payload?.taskId], state: 0 } }
       };
     case USER_SIGNOUT:
       return userInitialState();

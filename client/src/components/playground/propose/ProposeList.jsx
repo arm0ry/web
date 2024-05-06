@@ -1,54 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { useForm } from "react-hook-form";
-import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import {
-  prepareWriteContract,
-  writeContract,
-  waitForTransaction,
-} from "@wagmi/core";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
+import { useForm, Controller } from "react-hook-form";
+import { useAccount } from "wagmi";
+// import Select from "react-select";
+// import makeAnimated from "react-select/animated";
+// const animatedComponents = makeAnimated();
 import { uploadJSON, unpinCID } from "@utils/ipfs";
 
 import { Spinner } from "@components";
-import Modal from "../../modal/Modal";
+import MultiSelectSort from "../../MultiSelectSort";
+import { Bulletin } from "@contract";
 
 import { pushAlert } from "@context/actions/alertAction";
 import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 import useWriteContract from "@hooks/useWriteContract";
-import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64"
-import { Bulletin } from "@contract";
+import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64";
 
 const encodeFunctionData = async (types, data, address, abi, method) => {
   try {
     const abiCoder = ethers.utils.defaultAbiCoder;
-    const detailBase64 = await replaceMarkdownImageUrltoBase64(data.detail)
+    const tasks = data.tasks.map((item) => parseInt(item.value, 10));
+    const detailBase64 = await replaceMarkdownImageUrltoBase64(data.detail);
+
     const ipfsCID = await uploadJSON({
       title: data.title,
-      detail: detailBase64,
+      tasks: tasks,
       creator: address,
-      xp: data.point,
-      expiration: data.expiration,
+      detail: detailBase64,
+      fee: data.fee,
     });
     console.log({ ipfsCID });
-    const values = [
-      parseInt(data.point, 10),
-      parseInt(data.expiration, 10),
-      address,
-      data.title,
-      ipfsCID,
-    ];
-    const params = abiCoder.encode(
-      types, // encode as address array
-      values
-    );
-    console.log({ params });
-    // encode Function Data
     const mInterface = new ethers.utils.Interface(abi);
-    const callData = mInterface.encodeFunctionData(method, [[params]]);
+    const callData = mInterface.encodeFunctionData(method, [
+      tasks,
+      ipfsCID,
+      data.title,
+      address,
+      0,
+      data.fee,
+    ]);
     return { ipfsCID, callData };
   } catch (error) {
     if (ipfsCID) unpinCID(ipfsCID);
@@ -56,34 +47,48 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
   }
 };
 
-const ProposeTask = ({ domain }) => {
-  const [startDate, setStartDate] = useState(new Date());
-
-  // const { alerts } = useGlobalContext();
-  const { address, isConnected, isDisconnected } = useAccount();
-
+const ProposeList = ({ domain }) => {
+  const { playground } = useGlobalContext();
+  const { items, tasks } = playground;
+  const [taskOptions, setTaskOptions] = useState([]);
   const [inPrepare, setInPrepare] = useState(false);
+  const { address, isConnected, isDisconnected } = useAccount();
+  useEffect(() => {
+    console.log(items, tasks)
+    setTaskOptions(
+      Object.keys((domain === "commons") ? items : tasks).map((id) => {
+        return { value: id, label: (domain === "commons") ? `${id}. ${items[id].title}` : `${id}. ${tasks[id].title}` };
+      })
+    );
+  }, [items]);
+
   const {
     register,
     handleSubmit,
     getValues,
-    reset,
     watch,
+    reset,
+    control,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: { tasks: [] },
   });
-  // *
+
   const { write: proposeToCommons, state } = useWriteContract({
     ...Bulletin,
-    functionName: "payToSetTasks",
+    functionName: "payToSetMission",
   });
 
-
-
   const onSubmit = async (data) => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = await provider.getSigner();
+    // const commonsMissionInstance = new ethers.Contract(Bulletin.address, Bulletin.abi, signer)
+
     setInPrepare(true);
-    console.log([[address], [Math.floor(new Date(startDate).getTime() / 1000)], [data.title], [data.detail]])
+
+    const tasks = data.tasks.map((item) => parseInt(item.value, 10))
+    console.log(domain, [address, data.title, data.detail, tasks])
+
     if (domain === "commons") {
       const onSuccess = () => {
         reset();
@@ -95,74 +100,71 @@ const ProposeTask = ({ domain }) => {
       try {
         proposeToCommons({
           args: [
-            [address],
-            [Math.floor(new Date(startDate).getTime() / 1000)],
-            [data.title],
-            [data.detail]
+            address,
+            data.title,
+            data.detail,
+            data.tasks.map((item) => parseInt(item.value, 10))
           ],
           onSuccess,
           onError
         })
 
         setInPrepare(false)
+        // const tx = await commonsMissionInstance.payToSetMission(address, data.title, data.detail, data.tasks.map((item) => parseInt(item.value, 10)))
+        // console.log(tx)
       } catch (error) {
         pushAlert({ msg: `Error! ${error}`, type: "failure" });
       }
-
     } else {
       // TODO: Make a DAO proposal
-      // encodeFunctionData(
-      //   ["uint8", "uint40", "address", "string", "string"],
+      //   encodeFunctionData(
+      //   ["uint8[]", "string", "string", "address", "uint8", "uint256"],
       //   data,
       //   address,
       //   Arm0ryMissions.abi,
-      //   "setTasks"
-      // ).then(({ ipfsCID, callData }) => {
-      //   setInPrepare(false);
-      //   const onSuccess = () => {
-      //     reset();
-      //   };
-      //   const onError = () => {
-      //     // unpinCID(ipfsCID);
-      //   };
-      //   propose({
-      //     args: [
-      //       2,
-      //       `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
-      //         data.expiration / 86400
-      //       )}${" days"}\n${"     "}point:${data.point
-      //       }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${data.detail
-      //       }`,
-      //       [Arm0ryMissions.address],
-      //       [0],
-      //       [callData],
-      //     ],
-      //     onSuccess,
-      //     onError,
-      //   });
-      // })
+      //   "setMission"
+      // )
+      //   .then(({ ipfsCID, callData }) => {
+      //     setInPrepare(false);
+      //     const onSuccess = () => {
+      //       reset();
+      //     };
+      //     const onError = () => {
+      //       unpinCID(ipfsCID);
+      //     };
+      //     propose({
+      //       args: [
+      //         2,
+      //         `[Set Mission]\n${data.title}\n\Tasks:${data.tasks
+      //           .map((item) => item.label)
+      //           .join(", ")}\n\Creator:${address}\nFee:${data.fee
+      //         }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${data.detail
+      //         }`,
+      //         [Arm0ryMissions.address],
+      //         [0],
+      //         [callData],
+      //       ],
+      //       onSuccess,
+      //       onError,
+      //     });
+      //   })
       //   .catch((error) => {
+      //     console.log("error123", error);
       //     pushAlert({ msg: `Error! ${error}`, type: "failure" });
-      //   }).finally(() => {
+      //   })
+      //   .finally(() => {
       //     setInPrepare(false);
       //   });
     };
   }
 
-
-  useEffect(() => {
-
-    // console.log(domain)
-    // console.log(Math.floor(new Date(startDate).getTime() / 1000))
-
-  }, [startDate])
-
   return (
     <>
+
       <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5  space-x-5">
         <div className="w-1/2 flex items-center">
           <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-            Add an Item
+            Create a List
           </label>
         </div>
         <div className="flex items-center space-x-6 bg-slate-50 p-2">
@@ -170,7 +172,7 @@ const ProposeTask = ({ domain }) => {
             💡
           </label>
           <label className=" block text-md font-normal text-gray-900">
-            An Item is something that invites onchain action and feedback.
+            A list consists of one or more items. Together, a list and its items provide context to collaborate onchain and open source impact.
           </label>
         </div>
       </div >
@@ -178,39 +180,49 @@ const ProposeTask = ({ domain }) => {
       <div className=" rounded-lg border-2 border-dashed border-gray-200 p-4 ">
         <div className="container ">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6 grid gap-6 md:grid-cols-2">
+            <div className="mb-6">
+              <label
+                for="text"
+                className="mb-2 block text-sm font-medium text-gray-900 "
+              >
+                Title
+              </label>
+              <input
+                type="text"
+                id="title"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                placeholder="title for a list"
+                required
+                {...register("title")}
+              />
+            </div>
+            <div className="mb-6 ">
               <div>
                 <label
-                  for="text"
+                  for="tasks"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  Title
+                  Items
                 </label>
-                <input
-                  type="text"
-                  id="title"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                  placeholder="title for item"
-                  required
-                  {...register("title")}
+                <Controller
+                  control={control}
+                  name="tasks"
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                  }) => (
+                    <MultiSelectSort
+                      ref={ref}
+                      placeholder={"Select Text..."}
+                      options={taskOptions}
+                      value={value}
+                      name={name}
+                      onBlur={onBlur}
+                      onChange={onChange}
+                    />
+                  )}
                 />
               </div>
-              <div className="">
-                <label
-                  for="expiration"
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  When does this item expire?
-                </label>
-                <div className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 ">
-                  <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                  />
-                </div>
-              </div>
             </div>
-
             <div className="mb-6">
               <label
                 for="detail"
@@ -218,7 +230,6 @@ const ProposeTask = ({ domain }) => {
               >
                 Detail
               </label>
-
               <input
                 type="text"
                 id="detail"
@@ -237,9 +248,10 @@ const ProposeTask = ({ domain }) => {
                   Fee: 0 Ξ
                 </label>
               </div>
-              {/* 
+            </div>
+            {/* 
               // TODO: Markdown integration
-               <textarea
+              <textarea
                 id="detail"
                 rows="4"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
@@ -260,35 +272,31 @@ const ProposeTask = ({ domain }) => {
               >
                 Preview Document
               </button> */}
+
+            {/* <div className="flex items-start mb-6">
+            <div className="flex items-center h-5">
+              <input
+                id="remember"
+                type="checkbox"
+                value=""
+                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                required
+              />
             </div>
-
-
-            {/* // TODO: Terms & Conditions checkbox 
-             <div className="flex items-start mb-6">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  value=""
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                  required
-                />
-              </div>
-              <label
-                for="remember"
-                className="ml-2 text-sm font-medium text-gray-900 "
+            <label
+              for="remember"
+              className="ml-2 text-sm font-medium text-gray-900 "
+            >
+              I agree with the{" "}
+              <a
+                href="#"
+                className="text-blue-600 hover:underline"
               >
-                I agree with the{" "}
-                <a
-                  href="#"
-                  className="text-blue-600 hover:underline"
-                >
-                  terms and conditions
-                </a>
-                .
-              </label>
-            </div> */}
-
+                terms and conditions
+              </a>
+              .
+            </label>
+          </div> */}
             <div className="w-fulll block">
               <button
                 type="submit"
@@ -307,23 +315,11 @@ const ProposeTask = ({ domain }) => {
               </button>
             </div>
           </form>
-          <div>
-            {/* <button
-            onClick={() =>
-              window.open(
-                "https://app.kali.gg/daos/5/0x5e3255fee519ef9b7b41339d20abf5591f393c4d"
-              )
-            }
-            className="text-center  gap-2  flex justify-center items-center  align-middle transition duration-300 ease-in-out w-full text-gray bg-black hover:ring-4 hover:ring-black active:ring-2 rounded-lg text-base  px-5 py-2  mt-5"
-          >
-            <KaliLogo className=" max-h-6 fill-current text-[#F40001]" />
-            <span className="text-white font-bold"> Arm0ry Dao</span>
-          </button> */}
-          </div>
+          <div></div>
         </div>
       </div>
     </>
   );
 };
 
-export default ProposeTask;
+export default ProposeList;

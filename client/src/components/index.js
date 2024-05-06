@@ -16,12 +16,12 @@ export { default as Home } from "./home/Home";
 export { default as Onboard } from "./onboard/Onboard";
 
 export { default as Playground } from "./playground/Playground";
-export { default as ProposeTask } from "./playground/propose/ProposeTask";
-export { default as Tasks } from "./playground/task/Tasks";
-export { default as TaskDetail } from "./playground/task/TaskDetail";
-export { default as Missions } from "./playground/missions/Missions";
-export { default as MissionDetail } from "./playground/missions/MissionDetail";
-export { default as ProposeMission } from "./playground/propose/ProposeMission";
+export { default as ProposeItem } from "./playground/propose/ProposeItem";
+export { default as Items } from "./playground/item/Items";
+export { default as ItemDetail } from "./playground/item/ItemDetail";
+export { default as Lists } from "./playground/lists/Lists";
+export { default as ListDetail } from "./playground/lists/ListDetail";
+export { default as ProposeList } from "./playground/propose/ProposeList";
 export { default as Review } from "./playground/review/Review";
 export { default as Curves } from "./playground/curves/Curves";
 export { default as Faq } from "./playground/Faq";

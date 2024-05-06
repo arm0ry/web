@@ -30,6 +30,8 @@ export const loadItems = async () => {
         _items[id] = item
       })
     );
+
+    console.log(_items)
     dispatch.fn({
       type: LOAD_ITEMS,
       payload: _items,

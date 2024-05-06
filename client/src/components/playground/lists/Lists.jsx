@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { LegoBrickIcon } from "@assets";
 import { useGlobalContext } from "@context/store";
-import MissionCard from "./MissionCard";
+import ListCard from "./ListCard";
 
-const Missions = ({ domain }) => {
+const Lists = ({ domain }) => {
   const { playground } = useGlobalContext();
   const { missions, lists } = playground;
 
@@ -89,7 +89,7 @@ const Missions = ({ domain }) => {
 
       <div className="grid grid-cols-1 gap-5 p-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {Object.keys((domain === "commons") ? lists : missions).map((id) => {
-          return <MissionCard key={id} missionId={id} missions={(domain === "commons") ? lists : missions} />;
+          return <ListCard key={id} listId={id} lists={(domain === "commons") ? lists : missions} />;
         })}
         <div className="flex h-52 max-w-sm items-center justify-center rounded-lg border-4 border-dashed border-gray-200 p-6 ">
           <LegoBrickIcon className="mb-2 h-20 w-20 text-gray-400 " />
@@ -102,4 +102,4 @@ const Missions = ({ domain }) => {
   );
 };
 
-export default Missions;
+export default Lists;

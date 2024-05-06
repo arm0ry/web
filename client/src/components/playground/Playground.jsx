@@ -153,10 +153,6 @@ const Playground = () => {
 
 
   useEffect(() => {
-
-    // await loadTasksData();
-    // await loadMissionsData();
-    // await loadQuests();
     loadItems();
     loadLists();
     loadLogger();

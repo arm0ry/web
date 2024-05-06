@@ -5,20 +5,13 @@ import {
   Onboard,
   Playground,
   Funding,
-  ProposeTask,
-  Tasks,
-  TaskDetail,
+  ProposeItem,
+  ItemDetail,
   Donate,
-  Missions,
-  MissionDetail,
+  Lists,
+  ListDetail,
   Review,
-  // TravelerPass,
-  Quest,
-  QuestDetail,
-  Manager,
-  ProposeMission,
-  SetTask,
-  SetMission,
+  ProposeList,
   Curves,
   Responses,
   Faq
@@ -57,33 +50,19 @@ const Routers = () => {
         <Route path="/onboard" element={HomeLayout(<Onboard />)} />
         <Route path="/playground" element={<Playground />}>
           <Route index element={<Navigate to="faq" replace />} />
-          {/* <Route path="traveler-pass" element={<TravelerPass />} /> */}
-          <Route path="reports" element={<Reports domain={"g0v"} />} />
-          <Route path="commons-reports" element={<Reports domain={"commons"} />} />
-          {/* <Route path="my-quest" element={<Quest />} /> */}
-          {/* <Route path="my-quest/:questId" element={<QuestDetail />} /> */}
-          {/* <Route path="my-quest/:questId/:taskId" element={<TaskDetail />} /> */}
-          <Route path="missions" element={<Missions domain={"g0v"} />} />
-          <Route path="missions/:missionId" element={<MissionDetail />} />
-          <Route path="missions/:missionId/:taskId" element={<TaskDetail />} />
-          <Route path="bulletin" element={<Missions domain={"commons"} />} />
-          <Route path="bulletin/:listId" element={<MissionDetail domain={"commons"} />} />
-          <Route path="bulletin/:listId/:itemId" element={<TaskDetail domain={"commons"} />} />
-          {/* <Route path="tasks" element={<Tasks />} /> */}
-          {/* <Route path="tasks/:taskId" element={<TaskDetail />} /> */}
           <Route path="faq" element={<Faq />} />
+          <Route path="reports" element={<Reports domain={"g0v"} />} />
+          <Route path="bulletin" element={<Lists domain={"commons"} />} />
+          <Route path="bulletin/:listId" element={<ListDetail domain={"commons"} />} />
+          <Route path="bulletin/:listId/:itemId" element={<ItemDetail domain={"commons"} />} />
+          <Route path="commons-reports" element={<Reports domain={"commons"} />} />
+          {/* <Route path="tasks" element={<Tasks />} /> */}
+          {/* <Route path="tasks/:taskId" element={<ItemDetail />} /> */}
           <Route path="review" element={<Review />} />
           {/* <Route path="curves" element={<Curves />} /> */}
           <Route path="responses" element={<Responses />} />
-          <Route path="propose-task" element={<ProposeTask domain={"g0v"} />} />
-          <Route path="propose-mission" element={<ProposeMission domain={"g0v"} />} />
-          <Route path="propose-commons-task" element={<ProposeTask domain={"commons"} />} />
-          <Route path="propose-commons-mission" element={<ProposeMission domain={"commons"} />} />
-          {/* <Route path="manager" element={<Manager />} /> */}
-          {/* <Route path="manager/set-task" element={<SetTask />} />
-          <Route path="manager/set-mission" element={<SetMission />} /> */}
-          {/* <Route path="manager/set-task" element={ProtectedRoute(<SetTask />)} /> */}
-          {/* <Route path="manager/set-mission" element={ProtectedRoute(<SetMission />)} /> */}
+          <Route path="propose-item" element={<ProposeItem domain={"commons"} />} />
+          <Route path="propose-list" element={<ProposeList domain={"commons"} />} />
         </Route>
 
         <Route path="/funding" element={HomeLayout(<Funding />)} />

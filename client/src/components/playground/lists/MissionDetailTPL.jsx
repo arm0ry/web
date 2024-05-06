@@ -3,13 +3,13 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 
 import { useGlobalContext } from "@context/store";
-import TaskCard from "../task/TaskCard";
+import ItemCard from "../item/ItemCard";
 import { Spinner, Avatar, Markdown } from "@components";
 import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
 import { showModal, cleanModal } from "@context/actions/modalAction";
 
-const MissionDetailTPL = ({ domain, contract, listId, lists, tasks }) => {
+const MissionDetailTPL = ({ domain, contract, listId, lists, items }) => {
   const { playground, userInfo } = useGlobalContext();
   // const { lists } = playground;
   const { address, isConnected, isDisconnected } = useAccount();
@@ -31,7 +31,7 @@ const MissionDetailTPL = ({ domain, contract, listId, lists, tasks }) => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { contract: contract, listId: listId, taskId: 0 },
+      content: { contract: contract, listId: listId, itemId: 0 },
     });
   };
 
@@ -122,7 +122,7 @@ const MissionDetailTPL = ({ domain, contract, listId, lists, tasks }) => {
             <div className="inline-flex w-fit items-center justify-center  whitespace-nowrap rounded-full  px-2  py-1  text-base ">
               <TaskIcon className="h-4 text-gray-700" />
               <span className="ml-1 font-semibold ">
-                {lists[listId]?.itemIds.length} tasks
+                {lists[listId]?.itemIds.length} items
               </span>
             </div>
             <div className="relative  flex flex-row items-center justify-center">
@@ -151,12 +151,12 @@ const MissionDetailTPL = ({ domain, contract, listId, lists, tasks }) => {
               if (i % 2 === 0) {
                 return (
                   <>
-                    <TaskCard
+                    <ItemCard
                       key={id}
                       domain={domain}
                       contract={contract}
-                      taskId={id}
-                      tasks={tasks}
+                      itemId={id}
+                      items={items}
                       className={"md:col-span-3 md:col-start-2"}
                     />
                   </>
@@ -164,12 +164,12 @@ const MissionDetailTPL = ({ domain, contract, listId, lists, tasks }) => {
               } else {
                 return (
                   <>
-                    <TaskCard
+                    <ItemCard
                       key={id}
                       domain={domain}
                       contract={contract}
-                      taskId={id}
-                      tasks={tasks}
+                      itemId={id}
+                      items={items}
                       className={"md:col-span-3 md:col-start-3"}
                     />
                   </>

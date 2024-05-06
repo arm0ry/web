@@ -19,7 +19,7 @@ const MissionDetail = ({ domain }) => {
         contract={(domain === "commons") ? Bulletin : Mission}
         listId={listId}
         lists={(domain === "commons") ? lists : lists}
-        tasks={(domain === "commons") ? items : items}
+        items={(domain === "commons") ? items : items}
       />
     </>
   );

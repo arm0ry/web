@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 
 import { useGlobalContext } from "@context/store";
-import MissionDetailTPL from "../missions/MissionDetailTPL";
+import MissionDetailTPL from "../lists/MissionDetailTPL";
 
 const QuestDetail = () => {
   const { playground, userInfo } =
