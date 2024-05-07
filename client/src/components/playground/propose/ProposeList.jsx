@@ -2,17 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useForm, Controller } from "react-hook-form";
 import { useAccount } from "wagmi";
-// import Select from "react-select";
-// import makeAnimated from "react-select/animated";
-// const animatedComponents = makeAnimated();
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-
 import { Spinner } from "@components";
 import MultiSelectSort from "../../MultiSelectSort";
 import { Bulletin } from "@contract";
-
 import { pushAlert } from "@context/actions/alertAction";
-import { showModal } from "@context/actions/modalAction";
 import { useGlobalContext } from "@context/store";
 import useWriteContract from "@hooks/useWriteContract";
 import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64";
@@ -47,7 +41,7 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
   }
 };
 
-const ProposeList = ({ domain }) => {
+const ProposeList = () => {
   const { playground } = useGlobalContext();
   const { items, tasks } = playground;
   const [taskOptions, setTaskOptions] = useState([]);
@@ -56,8 +50,8 @@ const ProposeList = ({ domain }) => {
   useEffect(() => {
     console.log(items, tasks)
     setTaskOptions(
-      Object.keys((domain === "commons") ? items : tasks).map((id) => {
-        return { value: id, label: (domain === "commons") ? `${id}. ${items[id].title}` : `${id}. ${tasks[id].title}` };
+      Object.keys(items).map((id) => {
+        return { value: id, label: `${id}. ${items[id].title}` };
       })
     );
   }, [items]);
@@ -74,88 +68,39 @@ const ProposeList = ({ domain }) => {
     defaultValues: { tasks: [] },
   });
 
-  const { write: proposeToCommons, state } = useWriteContract({
+  const { write: registerList, state } = useWriteContract({
     ...Bulletin,
-    functionName: "payToSetMission",
+    functionName: "registerList",
   });
 
   const onSubmit = async (data) => {
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer = await provider.getSigner();
-    // const commonsMissionInstance = new ethers.Contract(Bulletin.address, Bulletin.abi, signer)
-
     setInPrepare(true);
 
-    const tasks = data.tasks.map((item) => parseInt(item.value, 10))
-    console.log(domain, [address, data.title, data.detail, tasks])
-
-    if (domain === "commons") {
-      const onSuccess = () => {
-        reset();
-      };
-      const onError = () => {
-        // unpinCID(ipfsCID);
-      };
-
-      try {
-        proposeToCommons({
-          args: [
-            address,
-            data.title,
-            data.detail,
-            data.tasks.map((item) => parseInt(item.value, 10))
-          ],
-          onSuccess,
-          onError
-        })
-
-        setInPrepare(false)
-        // const tx = await commonsMissionInstance.payToSetMission(address, data.title, data.detail, data.tasks.map((item) => parseInt(item.value, 10)))
-        // console.log(tx)
-      } catch (error) {
-        pushAlert({ msg: `Error! ${error}`, type: "failure" });
-      }
-    } else {
-      // TODO: Make a DAO proposal
-      //   encodeFunctionData(
-      //   ["uint8[]", "string", "string", "address", "uint8", "uint256"],
-      //   data,
-      //   address,
-      //   Arm0ryMissions.abi,
-      //   "setMission"
-      // )
-      //   .then(({ ipfsCID, callData }) => {
-      //     setInPrepare(false);
-      //     const onSuccess = () => {
-      //       reset();
-      //     };
-      //     const onError = () => {
-      //       unpinCID(ipfsCID);
-      //     };
-      //     propose({
-      //       args: [
-      //         2,
-      //         `[Set Mission]\n${data.title}\n\Tasks:${data.tasks
-      //           .map((item) => item.label)
-      //           .join(", ")}\n\Creator:${address}\nFee:${data.fee
-      //         }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${data.detail
-      //         }`,
-      //         [Arm0ryMissions.address],
-      //         [0],
-      //         [callData],
-      //       ],
-      //       onSuccess,
-      //       onError,
-      //     });
-      //   })
-      //   .catch((error) => {
-      //     console.log("error123", error);
-      //     pushAlert({ msg: `Error! ${error}`, type: "failure" });
-      //   })
-      //   .finally(() => {
-      //     setInPrepare(false);
-      //   });
+    const onSuccess = () => {
+      reset();
     };
+
+    const onError = () => {
+      // unpinCID(ipfsCID);
+    };
+
+    try {
+      registerList({
+        args: [{
+          owner: address,
+          title: data.title,
+          detail: data.detail,
+          schema: ethers.constants.HashZero,
+          itemIds: data.tasks.map((item) => parseInt(item.value, 10))
+        }],
+        onSuccess,
+        onError
+      })
+
+      setInPrepare(false)
+    } catch (error) {
+      pushAlert({ msg: `Error! ${error}`, type: "failure" });
+    }
   }
 
   return (

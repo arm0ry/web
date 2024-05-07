@@ -1,23 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useForm } from "react-hook-form";
-import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import {
-  prepareWriteContract,
-  writeContract,
-  waitForTransaction,
-} from "@wagmi/core";
+import { useAccount } from "wagmi";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-
 import { Spinner } from "@components";
-import Modal from "../../modal/Modal";
-
 import { pushAlert } from "@context/actions/alertAction";
-import { showModal } from "@context/actions/modalAction";
-import { useGlobalContext } from "@context/store";
 import useWriteContract from "@hooks/useWriteContract";
 import { replaceMarkdownImageUrltoBase64 } from "@utils/encodeImageAsBase64"
 import { Bulletin } from "@contract";
@@ -56,10 +45,8 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
   }
 };
 
-const ProposeItem = ({ domain }) => {
+const ProposeItem = () => {
   const [startDate, setStartDate] = useState(new Date());
-
-  // const { alerts } = useGlobalContext();
   const { address, isConnected, isDisconnected } = useAccount();
 
   const [inPrepare, setInPrepare] = useState(false);
@@ -73,89 +60,40 @@ const ProposeItem = ({ domain }) => {
   } = useForm({
     defaultValues: {},
   });
-  // *
-  const { write: proposeToCommons, state } = useWriteContract({
+
+  const { write: registerItem, state } = useWriteContract({
     ...Bulletin,
-    functionName: "payToSetTasks",
+    functionName: "registerItem",
   });
-
-
 
   const onSubmit = async (data) => {
     setInPrepare(true);
-    console.log([[address], [Math.floor(new Date(startDate).getTime() / 1000)], [data.title], [data.detail]])
-    if (domain === "commons") {
-      const onSuccess = () => {
-        reset();
-      };
-      const onError = () => {
-        // unpinCID(ipfsCID);
-      };
-
-      try {
-        proposeToCommons({
-          args: [
-            [address],
-            [Math.floor(new Date(startDate).getTime() / 1000)],
-            [data.title],
-            [data.detail]
-          ],
-          onSuccess,
-          onError
-        })
-
-        setInPrepare(false)
-      } catch (error) {
-        pushAlert({ msg: `Error! ${error}`, type: "failure" });
-      }
-
-    } else {
-      // TODO: Make a DAO proposal
-      // encodeFunctionData(
-      //   ["uint8", "uint40", "address", "string", "string"],
-      //   data,
-      //   address,
-      //   Arm0ryMissions.abi,
-      //   "setTasks"
-      // ).then(({ ipfsCID, callData }) => {
-      //   setInPrepare(false);
-      //   const onSuccess = () => {
-      //     reset();
-      //   };
-      //   const onError = () => {
-      //     // unpinCID(ipfsCID);
-      //   };
-      //   propose({
-      //     args: [
-      //       2,
-      //       `[Set Task]\n${data.title}\n\nexpiration:${parseInt(
-      //         data.expiration / 86400
-      //       )}${" days"}\n${"     "}point:${data.point
-      //       }${" xp"}\n\nDetail:\nhttps://cloudflare-ipfs.com/ipfs/${ipfsCID}\n${data.detail
-      //       }`,
-      //       [Arm0ryMissions.address],
-      //       [0],
-      //       [callData],
-      //     ],
-      //     onSuccess,
-      //     onError,
-      //   });
-      // })
-      //   .catch((error) => {
-      //     pushAlert({ msg: `Error! ${error}`, type: "failure" });
-      //   }).finally(() => {
-      //     setInPrepare(false);
-      //   });
+    const onSuccess = () => {
+      reset();
     };
+    const onError = () => {
+      // unpinCID(ipfsCID);
+    };
+
+    try {
+      registerItem({
+        args: [{
+          review: false,
+          expire: 100000000,
+          owner: address,
+          title: data.title,
+          detail: data.detail,
+          schema: ethers.constants.HashZero
+        }],
+        onSuccess,
+        onError
+      })
+
+      setInPrepare(false)
+    } catch (error) {
+      pushAlert({ msg: `Error! ${error}`, type: "failure" });
+    }
   }
-
-
-  useEffect(() => {
-
-    // console.log(domain)
-    // console.log(Math.floor(new Date(startDate).getTime() / 1000))
-
-  }, [startDate])
 
   return (
     <>
@@ -178,7 +116,7 @@ const ProposeItem = ({ domain }) => {
       <div className=" rounded-lg border-2 border-dashed border-gray-200 p-4 ">
         <div className="container ">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6 grid gap-6 md:grid-cols-2">
+            <div className="mb-6">
               <div>
                 <label
                   for="text"
@@ -195,7 +133,9 @@ const ProposeItem = ({ domain }) => {
                   {...register("title")}
                 />
               </div>
-              <div className="">
+              {/*
+              // TODO: Date picker
+               <div className="">
                 <label
                   for="expiration"
                   className="mb-2 block text-sm font-medium text-gray-900 "
@@ -208,7 +148,7 @@ const ProposeItem = ({ domain }) => {
                     onChange={(date) => setStartDate(date)}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="mb-6">

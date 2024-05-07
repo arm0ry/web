@@ -59,8 +59,8 @@ const Routers = () => {
           <Route path="review" element={<Review />} />
           {/* <Route path="curves" element={<Curves />} /> */}
           <Route path="responses" element={<Responses />} />
-          <Route path="propose-item" element={<ProposeItem domain={"commons"} />} />
-          <Route path="propose-list" element={<ProposeList domain={"commons"} />} />
+          <Route path="propose-item" element={<ProposeItem />} />
+          <Route path="propose-list" element={<ProposeList />} />
         </Route>
 
         <Route path="/funding" element={HomeLayout(<Funding />)} />

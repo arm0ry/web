@@ -25,7 +25,7 @@ const CurveData = ({ curve }) => {
 
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-600">曲線買價 | price to mint ：</label>
-          {(curve.formula !== undefined) ? (
+          {(curve.formula[1] !== undefined && curve.formula[2] !== undefined && curve.formula[3] !== undefined) ? (
             <label className="text-sm font-normal text-emerald-600">
               y = ({(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[2], "wei")} x{(ethers.utils.formatUnits(curve.formula[3], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[3], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
             </label>
@@ -36,7 +36,7 @@ const CurveData = ({ curve }) => {
         </div>
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-600">曲線賣價 | price to burn ：</label>
-          {(curve.formula !== undefined) ? (
+          {((curve.formula[4] !== undefined && curve.formula[5] !== undefined && curve.formula[6] !== undefined)) ? (
             <label className="text-sm font-normal text-amber-600">y = ({(ethers.utils.formatUnits(curve.formula[4], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[4], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[5], "wei")} x{(ethers.utils.formatUnits(curve.formula[6], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[6], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ</label>
           ) : (
             <></>

@@ -85,7 +85,7 @@ const CommonsReports = () => {
               engDescription={"Communities may use SVG NFTs as simple reports to showcase live updates of participation"}
               curveId={5}
               svg={svg}
-              supply={missionTokenSupply}
+              supply={listTokenSupply}
             />
           </div >
           <div>

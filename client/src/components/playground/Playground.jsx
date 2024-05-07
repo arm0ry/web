@@ -259,8 +259,8 @@ const Playground = () => {
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
-              to="commons" // todo: update to a logger page?
-              name="Pooled Impact"
+              to="commons-reports" // todo: update to a logger page?
+              name="Pooled Impact [WIP]"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
