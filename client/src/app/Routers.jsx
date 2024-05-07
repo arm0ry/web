@@ -53,8 +53,8 @@ const Routers = () => {
           <Route path="faq" element={<Faq />} />
           <Route path="reports" element={<Reports domain={"g0v"} />} />
           <Route path="bulletin" element={<Lists domain={"commons"} />} />
-          <Route path="bulletin/:listId" element={<ListDetail domain={"commons"} />} />
-          <Route path="bulletin/:listId/:itemId" element={<ItemDetail domain={"commons"} />} />
+          <Route path="bulletin/:listId" element={<ListDetail />} />
+          <Route path="bulletin/:listId/:itemId" element={<ItemDetail />} />
           <Route path="commons-reports" element={<Reports domain={"commons"} />} />
           <Route path="review" element={<Review />} />
           {/* <Route path="curves" element={<Curves />} /> */}

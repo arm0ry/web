@@ -8,8 +8,9 @@ import { ClockIcon, PassIcon, WaitIcon } from "@assets";
 const secondToDay = (s) => {
   return parseInt(s / 86400);
 };
-const ItemCard = ({ domain, contract, itemId, items, className = "" }) => {
+const ItemCard = ({ bulletin, itemId, items, className = "" }) => {
   const { userInfo } = useGlobalContext();
+
   return (
     <>
       <div className={`relative group h-34 w-full ${className}`}>
@@ -29,7 +30,7 @@ const ItemCard = ({ domain, contract, itemId, items, className = "" }) => {
             </p>
             <Link
               to={`${itemId}`}
-              state={{ domain: domain, contract: contract, items: items }}
+              state={{ bulletin: bulletin, items: items }}
               className="block pt-4 text-indigo-500 transition duration-200"
             >
               Read Detail →

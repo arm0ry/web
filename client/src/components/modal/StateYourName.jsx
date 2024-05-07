@@ -18,9 +18,9 @@ const StateYourNameModal = ({ modalPayload }) => {
   const [inPrepare, setInPrepare] = useState(false);
   const [fetching, setFetching] = useState(false);
 
-  const contract = modalPayload.content.contract;
-  const missionId = modalPayload.content.missionId;
-  const taskId = modalPayload.content.taskId;
+  const bulletin = modalPayload.content.bulletin;
+  const listId = modalPayload.content.listId;
+  const itemId = modalPayload.content.itemId;
 
   const { address, isConnected, isDisconnected } = useAccount();
   const {
@@ -32,17 +32,10 @@ const StateYourNameModal = ({ modalPayload }) => {
     defaultValues: { seed: "", moon: "" },
   });
 
-  const { write: start, state: startState } = useWriteContract({
+  const { write: log, state: logState } = useWriteContract({
     ...Logger,
-    functionName: "start",
+    functionName: "log",
   });
-
-  const { write: respond, state: respondState } = useWriteContract({
-    ...Logger,
-    functionName: "respond",
-  });
-
-
 
   useEffect(() => {
   }, [isConnected]);
@@ -67,9 +60,9 @@ const StateYourNameModal = ({ modalPayload }) => {
     );
   };
 
-  const logByBot = async (username, response, feedback) => {
+  const logByBot = async (feedback, data) => {
     try {
-      const body = { seed: username, mission: contract.address, missionId: missionId, taskId: taskId, response: response, feedback: feedback };
+      const body = { bulletin: bulletin.address, listId: listId, itemId: itemId, feedback: feedback, data: data };
       axios
         .post("/api/users/sponsored_respond", body)
         .then((res) => {
@@ -93,24 +86,6 @@ const StateYourNameModal = ({ modalPayload }) => {
             });
             setFetching(false);
 
-            // Tally onboardingSupportToken
-            // axios
-            //   .post("/api/users/sponsored_tally", body)
-            //   .then((res) => {
-            //     console.log(res);
-            //     if (res.status === 202) {
-            //       ;
-            //       return;
-            //     }
-            //   })
-            //   .catch((err) => {
-            //     console.error(err);
-            //     pushAlert({
-            //       msg: `Error! ${err.response.data.msg}`,
-            //       type: "failure",
-            //     });
-            //   });
-
           }
         })
         .catch((err) => {
@@ -120,78 +95,29 @@ const StateYourNameModal = ({ modalPayload }) => {
             type: "failure",
           });
         });
-
-
-
     } catch (error) {
       console.log(error);
     }
   };
 
   const onSubmit = async (data) => {
-    let userResponse = 0
-    for (let i = 0; i < data.moon.length; i++) {
-      userResponse = userResponse + 10 ** parseInt(data.moon[i])
-    }
-
     if (isConnected) {
       setInPrepare(true);
 
-      // @note For connected users.
-      // const onSuccess = () => {
-      //   reset();
-      // };
-      // const onError = () => {
-      // };
-
-      if (taskId == 0) {
-        start({
-          args: [contract.address, missionId],
-          // onSuccess,
-          // onError
-        })
-        setInPrepare(false)
-      } else {
-        respond({
-          args: [contract.address, missionId, taskId, 0, data.feedback],
-          // onSuccess,
-          // onError
-        })
-        setInPrepare(false)
-      }
-
-    } else {
-      setFetching(true);
-
-      // @note For sponsored public participation.
       try {
-        // @note Retrieve to check if already used.
-        const questInstance = new ethers.Contract(Logger.address, Quest.abi, sepolia_provider)
-        const address = await questInstance.getPublicUserAddress(data.seed);
-        const _isPublicUser = await questInstance.isPublicUser(address, contract.address, missionId);
-        console.log(_isPublicUser, data.seed)
-        if (taskId == 0) {
-          // @note Start a mission.
-          if (!_isPublicUser) {
-            sponsorStart(data.seed)
-          } else {
-            pushAlert({
-              msg: "這位沒有人已經報到過了 | This name is already in use.",
-              type: "failure",
-            });
-          }
+        log({
+          args: [bulletin.address, listId, itemId, data.feedback, ethers.constants.HashZero],
+        })
+        setInPrepare(false)
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setInPrepare(true);
 
-        } else {
-          // @note Respond to task.
-          if (!_isPublicUser) {
-            pushAlert({
-              msg: "要先報道才能分享喔 | Please register before sharing.",
-              type: "failure",
-            });
-          } else {
-            logByBot(data.seed, userResponse / 10, data.feedback)
-          }
-        }
+      try {
+        logByBot(data.feedback, ethers.constants.HashZero)
+        setInPrepare(false)
       } catch (error) {
         console.log(error)
       }
@@ -215,12 +141,11 @@ const StateYourNameModal = ({ modalPayload }) => {
           <label className="mt-1 ml-3 mb-2 block text-sm font-medium text-gray-500">
             The time it takes to post a transaction onchain varies. You should see a green notification when transaction is successful.
           </label>
-
         </div>
         <CloseModalButton />
       </div>
 
-      {taskId == 0
+      {itemId == 0
         ? (
           <div div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
             <div className="w-full mx-auto items-center justify-center gap-3">
@@ -315,7 +240,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                     </div>
                   </div>
                 </div>
-                {/* {(parseInt(missionId) === 1) ? (
+                {/* {(parseInt(listId) === 1) ? (
                   <div className="mb-6 ">
                     <label
                       className=" block text-sm font-medium text-gray-900 "
@@ -362,14 +287,14 @@ const StateYourNameModal = ({ modalPayload }) => {
                   </label>
                   <button
                     type="submit"
-                    disabled={respondState.writeStatus > 0 || fetching}
+                    disabled={logState.writeStatus > 0 || fetching}
                     className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
                   >
-                    {(respondState.writeStatus === 0 && !fetching) && (inPrepare ? "Wait..." : "Share")}
-                    {(respondState.writeStatus > 0 || fetching) && <Spinner />}
-                    <div className={`${(respondState.writeStatus > 0 || fetching) ? "ml-2" : ""}`}>
-                      {(respondState.writeStatus === 1) && "Waiting for approval"}
-                      {(respondState.writeStatus === 2 || fetching) && "pending"}
+                    {(logState.writeStatus === 0 && !fetching) && (inPrepare ? "Wait..." : "Share")}
+                    {(logState.writeStatus > 0 || fetching) && <Spinner />}
+                    <div className={`${(logState.writeStatus > 0 || fetching) ? "ml-2" : ""}`}>
+                      {(logState.writeStatus === 1) && "Waiting for approval"}
+                      {(logState.writeStatus === 2 || fetching) && "pending"}
                     </div>
                   </button>
                 </div>

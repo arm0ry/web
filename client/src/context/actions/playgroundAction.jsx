@@ -89,9 +89,22 @@ export const loadLogger = async () => {
         const id = _id + 1;
         const log = await Logger_contract.getLog(id);
         const tps = await Logger_contract.getLogTouchpoints(id)
+        let _tps = []
         logs[id] = { logId: id, user: log.user, bulletin: log.bulletin, listId: parseInt(log.listId._hex), nonce: parseInt(log.nonce._hex), touchpoints: tps };
 
-        loggerTps = loggerTps.concat(tps)
+
+        for (let i = 0; i < tps.length; i++) {
+          _tps[i] = {
+            user: log.user,
+            pass: tps[i].pass,
+            itemId: tps[i].itemId,
+            feedback: tps[i].feedback,
+            data: tps[i].data
+          }
+        }
+        console.log(_tps)
+
+        loggerTps = loggerTps.concat(_tps)
         dispatch.fn({
           type: LOAD_LOGGER_TPS,
           payload: loggerTps,

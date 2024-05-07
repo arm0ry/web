@@ -6,38 +6,24 @@ import ResponseCard from "./ResponseCard";
 
 // const svg = avatar.toString();
 
-const Responses = ({ domain, itemId }) => {
+const Responses = ({ itemId }) => {
   const { playground } = useGlobalContext();
-  const { logger, loggerTps, responses, commonsResponses } = playground;
+  const { loggerTps } = playground;
   const [touchpoints, setTouchpoint] = useState([])
 
-  console.log(domain, commonsResponses, logger, loggerTps)
-
   useEffect(() => {
-    if (domain === "commons") {
-      if (loggerTps !== undefined) {
-        const _touchpoints = []
+    if (loggerTps !== undefined) {
+      const _touchpoints = []
 
-        for (let i = 0; i < loggerTps.length; i++) {
-          if (parseInt(loggerTps[i].itemId._hex) === itemId) {
-            _touchpoints.push(loggerTps[i])
-          }
+      for (let i = 0; i < loggerTps.length; i++) {
+        if (parseInt(loggerTps[i].itemId._hex) === itemId) {
+          _touchpoints.push(loggerTps[i])
         }
-        setTouchpoint(_touchpoints)
       }
-    } else {
-      if (responses !== undefined) {
-        const _touchpoints = []
-
-        for (let i = 0; i < responses.length; i++) {
-          if (parseInt(responses[i].itemId._hex) === itemId) {
-            _touchpoints.push(responses[i])
-          }
-        }
-        setTouchpoint(_touchpoints)
-      }
+      setTouchpoint(_touchpoints)
     }
-  }, [responses, loggerTps])
+
+  }, [loggerTps])
 
   return (
     <>

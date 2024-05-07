@@ -153,9 +153,12 @@ const Playground = () => {
 
 
   useEffect(() => {
-    loadItems();
-    loadLists();
-    loadLogger();
+    const load = async () => {
+      await loadItems();
+      await loadLists();
+      await loadLogger();
+    }
+    load()
   }, []);
 
 

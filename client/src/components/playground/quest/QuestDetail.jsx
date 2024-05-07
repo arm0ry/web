@@ -3,7 +3,6 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 
 import { useGlobalContext } from "@context/store";
-import MissionDetailTPL from "../lists/MissionDetailTPL";
 
 const QuestDetail = () => {
   const { playground, userInfo } =
@@ -25,7 +24,7 @@ const QuestDetail = () => {
 
   return (
     <>
-      <MissionDetailTPL missionId={questId} magicButton="" />
+      {/* <MissionDetailTPL missionId={questId} magicButton="" /> */}
     </>
   );
 };

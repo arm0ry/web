@@ -18,8 +18,7 @@ const ItemDetail = () => {
   const listId = params.listId;
   const itemId = params.itemId;
   const items = location.state.items;
-  const contract = location.state.contract;
-  const domain = location.state.domain;
+  const bulletin = location.state.bulletin;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(undefined);
   useEffect(() => {
@@ -39,7 +38,7 @@ const ItemDetail = () => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { contract: contract, missionId: listId, itemId: itemId },
+      content: { bulletin: bulletin, listId: listId, itemId: itemId },
     });
   };
 
@@ -102,7 +101,7 @@ const ItemDetail = () => {
                 </div>
               </div>
 
-              <Responses domain={domain} itemId={parseInt(itemId)} />
+              <Responses itemId={parseInt(itemId)} />
 
 
               <div className="" >
