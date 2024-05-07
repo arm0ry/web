@@ -28,17 +28,17 @@ const CommonsReports = () => {
     args: []
   })
 
-  // const { data: nuSvg } = useContractRead({
-  //   ...NujabesToken,
-  //   functionName: 'generateSvg',
-  //   args: [1]
-  // })
+  const { data: nuSvg } = useContractRead({
+    ...NujabesToken,
+    functionName: 'generateSvg',
+    args: [1]
+  })
 
-  // const { data: nuSupply } = useContractRead({
-  //   ...NujabesToken,
-  //   functionName: 'totalSupply',
-  //   args: []
-  // })
+  const { data: nuSupply } = useContractRead({
+    ...NujabesToken,
+    functionName: 'totalSupply',
+    args: []
+  })
 
   useEffect(() => {
   }, [svg])
@@ -97,7 +97,7 @@ const CommonsReports = () => {
               supply={wpSupply}
             />
           </div>
-          {/* <div>
+          <div>
             <SupportCard
               title={"Example 3: Music Collection"}
               engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
@@ -105,7 +105,7 @@ const CommonsReports = () => {
               svg={nuSvg}
               supply={nuSupply}
             />
-          </div> */}
+          </div>
         </div>
       </div >
     </>
