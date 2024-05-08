@@ -58,6 +58,7 @@ export const Logger = {
   abi: Log_abi,
 };
 
+// TODO: UPDATE LISTTOKEN ADDRESSES
 export const ListToken = {
   address: "0x330049f432EDdaA559a75c89F2d63aB4b2555fC0",
   abi: ListToken_abi,

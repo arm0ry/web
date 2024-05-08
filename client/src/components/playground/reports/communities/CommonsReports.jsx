@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
-import { ListToken, WildernessParkToken, NujabesToken } from "@contract";
+import { ListToken, WildernessParkToken, NujabesToken, HackathonSupportToken } from "@contract";
 import SupportCard from "../ReportCard";
 
 const CommonsReports = () => {
@@ -36,6 +36,18 @@ const CommonsReports = () => {
 
   const { data: nuSupply } = useContractRead({
     ...NujabesToken,
+    functionName: 'totalSupply',
+    args: []
+  })
+
+  const { data: mSvg } = useContractRead({
+    ...HackathonSupportToken,
+    functionName: 'generateSvg',
+    args: [100]
+  })
+
+  const { data: hackathonTokenSupply } = useContractRead({
+    ...HackathonSupportToken,
     functionName: 'totalSupply',
     args: []
   })
@@ -81,8 +93,8 @@ const CommonsReports = () => {
         <div className="flex flex-col space-y-10">
           <div className="" >
             <SupportCard
-              title={"Example 1: Community Onboarding"}
-              engDescription={"Communities may use SVG NFTs as simple reports to showcase live updates of participation"}
+              title={"Flat Donation: Community Onboarding"}
+              engDescription={"Communities may use SVG NFTs to showcase live participation in community activities. This particular NFT reflects participation in the 'Create a List' tutorial. We welcome any flat donations for our effort."}
               curveId={5}
               svg={svg}
               supply={listTokenSupply}
@@ -90,7 +102,7 @@ const CommonsReports = () => {
           </div >
           <div>
             <SupportCard
-              title={"Example 2: Wildnerness Park"}
+              title={"Curved Support: Wildnerness Park"}
               engDescription={"While the trail posts are listed in the NFT rather than displayed beautifully over a satelite map of the trail, we can get an idea of how wilderness parks, managed by local governments or communities, may use this as real-time heatmap for trails. Most trail posts today have QR codes on them already, we can repurpose them for hikers to submit onchain check-ins and report trail conditions. Kind of like Waze for trails! In addition to being the medium for fundraising, this NFT can also help locals identify traffic on trails, assess maintainenance schedule, and potentially help locate hikers when they get lost. Best of all, this is cheap to do!"}
               curveId={6}
               svg={wpSvg}
@@ -99,11 +111,20 @@ const CommonsReports = () => {
           </div>
           <div>
             <SupportCard
-              title={"Example 3: Music Collection"}
-              engDescription={"Show support for the website turorial using the green button to mint the SVG NFT on the left. Check the curve data to your right and view the token for sale on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
+              title={"Curved Support 2: Music Collection"}
+              engDescription={"The same NFT may also be used as a living album cover."}
               curveId={9}
               svg={nuSvg}
               supply={nuSupply}
+            />
+          </div>
+          <div>
+            <SupportCard
+              title={"Harberger Sponsor: g0v Hackath0n [WIP]"}
+              engDescription={"Similar to how TESTNET Wilderness Park may showcase a heat map of trail activities using the NFT, hackathon hosts may use similar techniques to preserve cumulative participation. What is different here is the use of Harberger Tax as the NFT's pricing and ownership (serial) mechanism, which is appropriate for supporters looking for more exclusive ownership and relationship with the hackathon hosts. "}
+              curveId={9}
+              svg={mSvg}
+              supply={hackathonTokenSupply}
             />
           </div>
         </div>

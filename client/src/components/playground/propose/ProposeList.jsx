@@ -41,6 +41,26 @@ const encodeFunctionData = async (types, data, address, abi, method) => {
   }
 };
 
+const MoodRadio = ({ moon, value, register }) => {
+  return (
+    <>
+      <div className="flex items-center">
+        <input
+          type="radio"
+          value={value}
+          {...register("moon")}
+        />
+
+        <label
+          className="ml-2 text-sm font-normal text-gray-900 "
+        >
+          {moon}
+        </label>
+      </div>
+    </>
+  );
+};
+
 const ProposeList = () => {
   const { playground } = useGlobalContext();
   const { items, tasks } = playground;
@@ -183,6 +203,25 @@ const ProposeList = () => {
                 required
                 {...register("detail")}
               />
+            </div>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                Pick a Pricing Mechanism:
+              </label>
+              <label
+                className="mb-3 block text-sm font-normal text-gray-500"
+              >
+                Different pricing mechanism provide different advantages.
+              </label>
+
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Flat, e.g., $10" value={"1"} register={register} />
+                <MoodRadio moon="Linear" value={"2"} register={register} />
+                <MoodRadio moon="Curve" value={"3"} register={register} />
+                <MoodRadio moon="Harberger Tax" value={"3"} register={register} />
+              </div>
             </div>
             <div className="mb-6 ">
               <div>

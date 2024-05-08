@@ -215,29 +215,10 @@ const Playground = () => {
             />
           </ul>
 
-          {/* <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <div>
-              <label className="text-md font-semibold text-gray-900">
-                g0v 台灣零時政府
-              </label>
-            </div>
-            <SidebarItem
-              to="missions"
-              name="黑客松 | Hackath0n"
-              Icon={MissionIcon}
-              setToggleMenu={setToggleMenu}
-            />
-            <SidebarItem
-              to="reports"
-              name="影響力報告 | Reports"
-              Icon={BuddiesIcon}
-              setToggleMenu={setToggleMenu}
-            />
-          </ul> */}
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <div className="">
+            <div className="mb-4">
               <label className="text-md font-semibold text-gray-900">
-                Commons
+                🧪 Experiments
               </label>
             </div>
             <SidebarItem
@@ -265,6 +246,7 @@ const Playground = () => {
               setToggleMenu={setToggleMenu}
             />
           </ul>
+
 
           {/* <li>
             <div

@@ -42,6 +42,9 @@ const HomeLayout = (component) => (
 );
 
 const Routers = () => {
+  const experiment = "EXPERIMENT"
+  const commons = "COMMONS"
+
   return (
     <>
       <ScrollToTop />
@@ -51,16 +54,18 @@ const Routers = () => {
         <Route path="/playground" element={<Playground />}>
           <Route index element={<Navigate to="faq" replace />} />
           <Route path="faq" element={<Faq />} />
-          <Route path="reports" element={<Reports domain={"g0v"} />} />
-          <Route path="bulletin" element={<Lists domain={"commons"} />} />
-          <Route path="bulletin/:listId" element={<ListDetail />} />
-          <Route path="bulletin/:listId/:itemId" element={<ItemDetail />} />
-          <Route path="commons-reports" element={<Reports domain={"commons"} />} />
-          <Route path="review" element={<Review />} />
-          {/* <Route path="curves" element={<Curves />} /> */}
-          <Route path="responses" element={<Responses />} />
+
           <Route path="propose-item" element={<ProposeItem />} />
           <Route path="propose-list" element={<ProposeList />} />
+          <Route path="bulletin" element={<Lists />} />
+          <Route path="bulletin/:listId" element={<ListDetail />} />
+          <Route path="bulletin/:listId/:itemId" element={<ItemDetail />} />
+
+          <Route path="reports" element={<Reports domain={"g0v"} />} />
+          <Route path="commons-reports" element={<Reports domain={"commons"} />} />
+          <Route path="review" element={<Review />} />
+          <Route path="responses" element={<Responses />} />
+          {/* <Route path="curves" element={<Curves />} /> */}
         </Route>
 
         <Route path="/funding" element={HomeLayout(<Funding />)} />
