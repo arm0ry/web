@@ -1,36 +1,47 @@
 import { getContract } from "@wagmi/core";
-import { ethers, BigNumber } from "ethers";
-
+import { ethers } from "ethers";
 import { fetchIpfsCID } from "@utils/ipfs";
+
 import {
-  Mission,
-  Quest,
-  ImpactCurves,
-  Bulletin,
-  Logger,
+  Bulletin as _Bulletin,
+  Logger as _Logger,
+  TokenMinter as _TokenMinter,
+  TokenUriBuilder as _TokenUriBuilder,
+  TokenCurve as _TokenCurve,
+  Currency as _Currency,
   RPC,
-  zero_address,
 } from "@contract";
 
 // Provider & Contract
 export const sepolia_provider = new ethers.providers.JsonRpcProvider(RPC.sepolia);
-export const Mission_contract = getContract({
-  ...Mission,
+
+export const Bulletin = getContract({
+  ..._Bulletin,
   signerOrProvider: sepolia_provider,
 });
-export const Quest_contract = getContract({
-  ...Quest,
+
+export const Logger = getContract({
+  ..._Logger,
   signerOrProvider: sepolia_provider,
 });
-export const ImpactCurves_contract = getContract({
-  ...ImpactCurves,
+
+export const TokenMinter = getContract({
+  ..._TokenMinter,
   signerOrProvider: sepolia_provider,
 });
-export const Bulletin_contract = getContract({
-  ...Bulletin,
+
+export const TokenUriBuilder = getContract({
+  ..._TokenUriBuilder,
   signerOrProvider: sepolia_provider,
 });
-export const Logger_contract = getContract({
-  ...Logger,
+
+export const TokenCurve = getContract({
+  ..._TokenCurve,
   signerOrProvider: sepolia_provider,
 });
+
+export const Currency = getContract({
+  ..._Currency,
+  signerOrProvider: sepolia_provider,
+});
+

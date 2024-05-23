@@ -1,54 +1,54 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
-import { HackathonSupportToken, OnboardingSupportToken, ParticipantSupportToken } from "@contract";
+// import { HackathonSupportToken, OnboardingSupportToken, ParticipantSupportToken } from "@contract";
 import SupportCard from "../ReportCard";
 
 const G0vSupporters = () => {
-  const { data: mSvg } = useContractRead({
-    ...HackathonSupportToken,
-    functionName: 'generateSvg',
-    args: [100]
-  })
+  // const { data: mSvg } = useContractRead({
+  //   ...HackathonSupportToken,
+  //   functionName: 'generateSvg',
+  //   args: [100]
+  // })
 
-  const { data: qSvg } = useContractRead({
-    ...OnboardingSupportToken,
-    functionName: 'generateSvg',
-    args: [100]
-  })
+  // const { data: qSvg } = useContractRead({
+  //   ...OnboardingSupportToken,
+  //   functionName: 'generateSvg',
+  //   args: [100]
+  // })
 
-  const { data: pSvg } = useContractRead({
-    ...ParticipantSupportToken,
-    functionName: 'generateSvg',
-    args: [2]
-  })
+  // const { data: pSvg } = useContractRead({
+  //   ...ParticipantSupportToken,
+  //   functionName: 'generateSvg',
+  //   args: [2]
+  // })
 
-  const { data: hackathonTokenSupply } = useContractRead({
-    ...HackathonSupportToken,
-    functionName: 'totalSupply',
-    args: []
-  })
+  // const { data: hackathonTokenSupply } = useContractRead({
+  //   ...HackathonSupportToken,
+  //   functionName: 'totalSupply',
+  //   args: []
+  // })
 
-  const { data: onboardingTokenSupply } = useContractRead({
-    ...OnboardingSupportToken,
-    functionName: 'totalSupply',
-    args: []
-  })
+  // const { data: onboardingTokenSupply } = useContractRead({
+  //   ...OnboardingSupportToken,
+  //   functionName: 'totalSupply',
+  //   args: []
+  // })
 
-  const { data: participantTokenSupply } = useContractRead({
-    ...ParticipantSupportToken,
-    functionName: 'totalSupply',
-    args: []
-  })
+  // const { data: participantTokenSupply } = useContractRead({
+  //   ...ParticipantSupportToken,
+  //   functionName: 'totalSupply',
+  //   args: []
+  // })
 
-  useEffect(() => {
-  }, [mSvg])
+  // useEffect(() => {
+  // }, [mSvg])
 
-  useEffect(() => {
-  }, [qSvg])
+  // useEffect(() => {
+  // }, [qSvg])
 
-  useEffect(() => {
-    // console.log(pSvg)
-  }, [pSvg])
+  // useEffect(() => {
+  //   // console.log(pSvg)
+  // }, [pSvg])
 
   return (
     <>
@@ -101,34 +101,34 @@ const G0vSupporters = () => {
 
         <div className="flex flex-col space-y-10">
           <div className="" >
-            <SupportCard
+            {/* <SupportCard
               title={"🙌🏼 自己的大松自己救"}
               description={"支持 g0v 大松的沒有人，按下綠色按鈕 ether 鈕鑄造左側 SVG NFT ，按下橘紅色按鈕銷毀 SVG NFT 並取回部分 ether。"}
               engDescription={"Show support for g0v hackath0ns using the green button to mint the SVG NFT on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
               curveId={1}
               svg={mSvg}
               supply={hackathonTokenSupply}
-            />
+            /> */}
           </div >
           <div className="">
-            <SupportCard
+            {/* <SupportCard
               title={"📝 大松新參者小紙條"}
               description={"支持 ”📝 大松新參者小紙條“ 的沒有人，按下綠色按鈕 ether 鈕鑄造左側 SVG NFT ，按下橘紅色按鈕銷毀 SVG NFT 並取回部分 ether。"}
               engDescription={"To support the onboarding process at g0v hackath0ns, use the green button to mint the SVG NFT on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
               curveId={2}
               svg={qSvg}
               supply={onboardingTokenSupply}
-            />
+            /> */}
           </div >
           <div className="">
-            <SupportCard
+            {/* <SupportCard
               title={"🎖️ 參與大松之影響力勳章"}
               description={"支持 ”🎖️ 參與大松之影響力勳章“ 的沒有人，按下綠色按鈕 ether 鈕鑄造左側 SVG NFT ，按下橘紅色按鈕銷毀 SVG NFT 並取回部分 ether。"}
               engDescription={"To support those that have participated in past g0v hackath0ns, use the green button to mint the SVG NFT on the left. You might also use the orange button to burn the SVG NFT and get back some ether."}
               curveId={3}
               svg={pSvg}
               supply={participantTokenSupply}
-            />
+            /> */}
           </div >
         </div>
       </div >

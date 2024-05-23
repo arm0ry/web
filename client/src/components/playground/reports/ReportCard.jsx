@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useAccount, useContractWrite, useContractRead, useContractInfiniteReads, paginatedIndexesConfig } from "wagmi";
 import CurveCard from "../curves/CurveCard";
-import { ImpactCurves } from "@contract";
+import { TokenCurve } from "@contract";
 import { zero_address } from "../../../contract";
 import CurveData from "../curves/CurveData";
 
@@ -10,37 +10,37 @@ const ReportCard = ({ title, description, engDescription, curveId, svg, supply }
   const [curve, setCurve] = useState();
 
   const { data: owner } = useContractRead({
-    ...ImpactCurves,
+    ...TokenCurve,
     functionName: "getCurveOwner",
     args: [curveId],
   })
 
   const { data: mintPrice } = useContractRead({
-    ...ImpactCurves,
+    ...TokenCurve,
     functionName: 'getCurvePrice',
     args: [true, curveId, 0]
   })
 
   const { data: burnPrice } = useContractRead({
-    ...ImpactCurves,
+    ...TokenCurve,
     functionName: 'getCurvePrice',
     args: [false, curveId, 0]
   })
 
   const { data: pool } = useContractRead({
-    ...ImpactCurves,
+    ...TokenCurve,
     functionName: 'getCurveTreasury',
     args: [curveId]
   })
 
   const { data: formula } = useContractRead({
-    ...ImpactCurves,
+    ...TokenCurve,
     functionName: 'getCurveFormula',
     args: [curveId]
   })
 
   const { data: unclaimed } = useContractRead({
-    ...ImpactCurves,
+    ...TokenCurve,
     functionName: 'getUnclaimed',
     args: [owner]
   })

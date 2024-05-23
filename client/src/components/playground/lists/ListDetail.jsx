@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { useGlobalContext } from "@context/store";
-import { Mission, Quest, Bulletin } from "@contract";
+import { Bulletin } from "@contract";
 import { Spinner, Avatar, Markdown } from "@components";
 import ItemCard from "../item/ItemCard";
 import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";

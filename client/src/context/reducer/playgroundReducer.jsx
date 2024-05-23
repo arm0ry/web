@@ -12,14 +12,29 @@ export const LOAD_RESPONSES = "LOAD_RESPONSES";
 export const LOAD_ITEMS = "LOAD_ITEMS";
 export const LOAD_LISTS = "LOAD_LISTS";
 
+// TokenMinter
+export const LOAD_TOKEN_MINTER = "LOAD_TOKEN_MINTER";
+
+// TokenUriBuilder
+export const LOAD_TOKEN_URIBUILDER = "LOAD_TOKEN_URIBUILDER";
+
+// TokenCurve
+export const LOAD_TOKEN_CURVE = "LOAD_TOKEN_CURVE";
+
+// Currency
+export const LOAD_CURRENCY = "LOAD_CURRENCY";
+
 export const playgroundInitialState = {
   logger: {},
   responses: {},
   items: {},
   lists: [],
   loggerTps: [],
+  minter: {},
+  uriBuilder: {},
+  curve: {},
+  currency: {},
   ipfs: {},
-  // managers: [],//pass
 };
 
 const playgroundReducer = (state, action) => {
@@ -53,58 +68,31 @@ const playgroundReducer = (state, action) => {
         ...state,
         loggerTps: action?.payload
       };
+    case LOAD_TOKEN_MINTER:
+      return {
+        ...state,
+        minter: action?.payload
+      };
+    case LOAD_TOKEN_URIBUILDER:
+      return {
+        ...state,
+        uriBuilder: action?.payload
+      };
+    case LOAD_TOKEN_CURVE:
+      return {
+        ...state,
+        curve: action?.payload
+      };
+    case LOAD_CURRENCY:
+      return {
+        ...state,
+        currency: action?.payload
+      };
     case LOAD_CID:
       return {
         ...state,
         ipfs: { ...state.ipfs, ...action?.payload },
       };
-    // case LOAD_TRAVELERCOUNT:
-    //   return {
-    //     ...state,
-    //     travelerCount: action?.payload
-    //   };
-    // case LOAD_TRAVELERS:
-    //   return {
-    //     ...state,
-    //     travelers: action?.payload
-    //   };
-    // case LOAD_UNREVIEWS:
-    //   return {
-    //     ...state,
-    //     unreviews: action?.payload
-    //   };
-    // case LOAD_QUEST_ID:
-    //   return {
-    //     ...state,
-    //     questId: action?.payload
-    //   };
-    // case LOAD_QUESTS:
-    //   return {
-    //     ...state,
-    //     quests: action?.payload
-    //   };
-    // case LOAD_TASKID:
-    //   return {
-    //     ...state,
-    //     taskId: action?.payload
-    //   };
-    // case LOAD_MISSIONID:
-    //   return {
-    //     ...state,
-    //     missionId: action?.payload
-    //   };
-    // case LOAD_TASKS:
-    //   return {
-    //     ...state,
-    //     tasks: action?.payload
-    //     // ...action?.payload
-    //   };
-    // case LOAD_MISSIONS:
-    //   return {
-    //     ...state,
-    //     missions: action?.payload
-    //     // ...action?.payload
-    //   };
     default:
       return state;
   }

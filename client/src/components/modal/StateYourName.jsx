@@ -3,13 +3,9 @@ import { useForm } from "react-hook-form";
 import { useAccount, useContractRead } from "wagmi";
 import { Spinner, Markdown } from "@components";
 import CloseModalButton from "./CloseModalButton";
-import { Mission, Quest } from "@contract";
 import axios from "axios";
 import { pushAlert } from "@context/actions/alertAction";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
-import {
-  sepolia_provider
-} from "@utils/contract";
 import { ethers } from "ethers";
 import { Logger } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";

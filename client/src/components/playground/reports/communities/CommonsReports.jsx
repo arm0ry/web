@@ -1,53 +1,41 @@
 import React, { useEffect } from "react";
 import { useContractRead } from "wagmi";
-import { ListToken, WildernessParkToken, NujabesToken, HackathonSupportToken } from "@contract";
+import { TokenMinter } from "@contract";
 import SupportCard from "../ReportCard";
 
 const CommonsReports = () => {
   const { data: svg } = useContractRead({
-    ...ListToken,
+    ...TokenMinter,
     functionName: 'generateSvg',
     args: [1]
   })
 
-  const { data: listTokenSupply } = useContractRead({
-    ...ListToken,
+  const { data: TokenMinterSupply } = useContractRead({
+    ...TokenMinter,
     functionName: 'totalSupply',
     args: []
   })
 
   const { data: wpSvg } = useContractRead({
-    ...WildernessParkToken,
+    ...TokenMinter,
     functionName: 'generateSvg',
     args: [1]
   })
 
   const { data: wpSupply } = useContractRead({
-    ...WildernessParkToken,
+    ...TokenMinter,
     functionName: 'totalSupply',
     args: []
   })
 
   const { data: nuSvg } = useContractRead({
-    ...NujabesToken,
+    ...TokenMinter,
     functionName: 'generateSvg',
     args: [1]
   })
 
   const { data: nuSupply } = useContractRead({
-    ...NujabesToken,
-    functionName: 'totalSupply',
-    args: []
-  })
-
-  const { data: mSvg } = useContractRead({
-    ...HackathonSupportToken,
-    functionName: 'generateSvg',
-    args: [100]
-  })
-
-  const { data: hackathonTokenSupply } = useContractRead({
-    ...HackathonSupportToken,
+    ...TokenMinter,
     functionName: 'totalSupply',
     args: []
   })
@@ -74,7 +62,7 @@ const CommonsReports = () => {
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
                 We bond each SVG NFT to its own <a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" className="underline"
-                >bonding curve</a> to automate distribution of local currencies and stablecoins. Credit: <a target="_blank" href="https://p2pfoundation.net/" className="underline"
+                >bonding curve</a> to automate price discovery and distribution of local currencies and stablecoins. Credit: <a target="_blank" href="https://p2pfoundation.net/" className="underline"
                 >P2P Foundation</a> & <a target="_blank" href="http://regenerosity.com/" className="underline">Regeneorsity</a>.
               </label>
             </div>
@@ -99,7 +87,7 @@ const CommonsReports = () => {
               engDescription={"Flat Collections are appropriate for Lists that involve personal time worked."}
               curveId={5}
               svg={svg}
-              supply={listTokenSupply}
+              supply={TokenMinterSupply}
             />
           </div >
           <div>
@@ -122,13 +110,13 @@ const CommonsReports = () => {
             />
           </div>
           <div>
-            <SupportCard
+            {/* <SupportCard
               title={"Harberger Sponsor: g0v Hackath0n [WIP]"}
               engDescription={"In addition to using bonding curves as the pricing and ownership mechanism for Lists, we can also use Harberger Tax to maintain serial ownership of the Lists. This mechanism is appropriate for supporters looking for more exclusive ownership and relationship with the Lists owners. "}
               curveId={9}
               svg={mSvg}
               supply={hackathonTokenSupply}
-            />
+            /> */}
           </div>
         </div>
       </div >

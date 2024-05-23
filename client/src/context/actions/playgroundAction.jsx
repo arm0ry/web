@@ -9,15 +9,18 @@ import {
 import { ethers } from "ethers";
 import { pushAlert } from "@context/actions/alertAction";
 import {
-  Bulletin_contract,
-  Logger_contract,
-  ImpactCurves_contract,
+  Bulletin,
+  Logger,
+  TokenMinter,
+  TokenUriBuilder,
+  TokenCurve,
+  Currency
 } from "@utils/contract";
 import { fetchIpfsCID } from "@utils/ipfs";
 
 export const loadItems = async () => {
   try {
-    const _itemId = await Bulletin_contract.itemId();
+    const _itemId = await Bulletin.itemId();
     const itemId = parseInt(_itemId._hex);
     if (itemId <= 0) return;
     let _items = {};
@@ -25,7 +28,7 @@ export const loadItems = async () => {
     await Promise.all(
       [...Array(itemId)].map(async (_, _id) => {
         const id = _id + 1;
-        const item = await Bulletin_contract.getItem(id);
+        const item = await Bulletin.getItem(id);
         // console.log(item)
         _items[id] = item
       })
@@ -43,14 +46,14 @@ export const loadItems = async () => {
 
 export const loadLists = async () => {
   try {
-    const _listId = await Bulletin_contract.listId();
+    const _listId = await Bulletin.listId();
     if (_listId <= 0) return;
     let _lists = {};
     let _list
     await Promise.all(
       [...Array(parseInt(_listId._hex))].map(async (_, _id) => {
         const id = _id + 1;
-        const list = await Bulletin_contract.getList(id);
+        const list = await Bulletin.getList(id);
 
         // loadIPFS(_mission[3], playground);
 
@@ -77,7 +80,7 @@ export const loadLists = async () => {
 
 export const loadLogger = async () => {
   try {
-    const _logId = await Logger_contract.logId();
+    const _logId = await Logger.logId();
     const logId = parseInt(_logId._hex);
     if (logId <= 0) return;
 
@@ -87,8 +90,8 @@ export const loadLogger = async () => {
     await Promise.all(
       [...Array(logId)].map(async (_, _id) => {
         const id = _id + 1;
-        const log = await Logger_contract.getLog(id);
-        const tps = await Logger_contract.getLogTouchpoints(id)
+        const log = await Logger.getLog(id);
+        const tps = await Logger.getLogTouchpoints(id)
         let _tps = []
         logs[id] = { logId: id, user: log.user, bulletin: log.bulletin, listId: parseInt(log.listId._hex), nonce: parseInt(log.nonce._hex), touchpoints: tps };
 
@@ -122,6 +125,42 @@ export const loadLogger = async () => {
     pushAlert({ msg: `Loading Tasks Data Error`, type: "failure" });
   }
 };
+
+// TODO
+export const loadTokenMinter = async () => {
+  try {
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// TODO
+export const loadTokenUriBuilder = async () => {
+  try {
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// TODO
+export const loadTokenCurve = async () => {
+  try {
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// TODO
+export const loadCurrency = async () => {
+  try {
+
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 export const loadIPFS = async (CID, playground, callback = () => { }) => {
   // Do nothing if the CID is not given

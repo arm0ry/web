@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
 import { useForm, Controller } from "react-hook-form";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import {
-  prepareWriteContract,
-  writeContract,
-  waitForTransaction,
-} from "@wagmi/core";
 import makeAnimated from "react-select/animated";
 const animatedComponents = makeAnimated();
-import { KaliLogo, ArrowSVG } from "@assets";
 import { uploadJSON, unpinCID } from "@utils/ipfs";
-// import { Arm0ryMissions, KaliDAO } from "../../../contract";
 
 import { Spinner } from "@components";
 import MultiSelectSort from "../../MultiSelectSort";

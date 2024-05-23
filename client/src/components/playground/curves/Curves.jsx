@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useGlobalContext } from "@context/store";
-import { ImpactCurves } from "../../../contract";
+import { TokenCurve } from "../../../contract";
 import { ethers } from "ethers";
 import {
   useContractInfiniteReads,
@@ -22,32 +22,32 @@ const Curves = () => {
       (index) => {
         return [
           {
-            address: ImpactCurves.address,
-            abi: ImpactCurves.abi,
+            address: TokenCurve.address,
+            abi: TokenCurve.abi,
             functionName: "getCurveOwner",
             args: [index],
           },
           {
-            address: ImpactCurves.address,
-            abi: ImpactCurves.abi,
+            address: TokenCurve.address,
+            abi: TokenCurve.abi,
             functionName: "getCurvePrice",
             args: [true, index, 0],
           },
           {
-            address: ImpactCurves.address,
-            abi: ImpactCurves.abi,
+            address: TokenCurve.address,
+            abi: TokenCurve.abi,
             functionName: "getCurvePrice",
             args: [false, index, 0],
           },
           {
-            address: ImpactCurves.address,
-            abi: ImpactCurves.abi,
+            address: TokenCurve.address,
+            abi: TokenCurve.abi,
             functionName: "getCurveTreasury",
             args: [index],
           },
           {
-            address: ImpactCurves.address,
-            abi: ImpactCurves.abi,
+            address: TokenCurve.address,
+            abi: TokenCurve.abi,
             functionName: "getCurveFormula",
             args: [index],
           },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ImpactCurves } from "../../../contract";
+import { TokenCurve } from "../../../contract";
 import { ethers } from "ethers";
 import { useAccount, useContractWrite, useContractRead } from "wagmi";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -12,8 +12,8 @@ const CurveCard = ({ curve }) => {
   const { address: user } = useAccount();
 
   // const { write: clickBurn } = useContractWrite({
-  //   address: ImpactCurves.address,
-  //   abi: ImpactCurves.abi,
+  //   address: TokenCurve.address,
+  //   abi: TokenCurve.abi,
   //   functionName: 'burn',
   //   args: [curve.curveId, user, 0]
   // })
@@ -21,7 +21,7 @@ const CurveCard = ({ curve }) => {
   const clickMint = async () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = await provider.getSigner();
-    const impactCurve = new ethers.Contract(ImpactCurves.address, ImpactCurves.abi, signer)
+    const impactCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
 
     try {
       // const curveId = await impactCurve.getCurveId();
@@ -52,7 +52,7 @@ const CurveCard = ({ curve }) => {
   const clickBurn = async () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = await provider.getSigner();
-    const impactCurve = new ethers.Contract(ImpactCurves.address, ImpactCurves.abi, signer)
+    const impactCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
 
     try {
       // const curveId = await impactCurve.getCurveId();
