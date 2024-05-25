@@ -13,10 +13,7 @@ export const LOAD_ITEMS = "LOAD_ITEMS";
 export const LOAD_LISTS = "LOAD_LISTS";
 
 // TokenMinter
-export const LOAD_TOKEN_MINTER = "LOAD_TOKEN_MINTER";
-
-// TokenUriBuilder
-export const LOAD_TOKEN_URIBUILDER = "LOAD_TOKEN_URIBUILDER";
+export const LOAD_TOKENS = "LOAD_TOKENS";
 
 // TokenCurve
 export const LOAD_TOKEN_CURVE = "LOAD_TOKEN_CURVE";
@@ -30,8 +27,7 @@ export const playgroundInitialState = {
   items: {},
   lists: [],
   loggerTps: [],
-  minter: {},
-  uriBuilder: {},
+  tokens: {},
   curve: {},
   currency: {},
   ipfs: {},
@@ -68,15 +64,10 @@ const playgroundReducer = (state, action) => {
         ...state,
         loggerTps: action?.payload
       };
-    case LOAD_TOKEN_MINTER:
+    case LOAD_TOKENS:
       return {
         ...state,
-        minter: action?.payload
-      };
-    case LOAD_TOKEN_URIBUILDER:
-      return {
-        ...state,
-        uriBuilder: action?.payload
+        tokens: action?.payload
       };
     case LOAD_TOKEN_CURVE:
       return {

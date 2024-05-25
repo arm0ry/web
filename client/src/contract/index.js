@@ -1,10 +1,8 @@
 import BULLETIN_ABI from "./Bulletin.json";
 import LOGGER_ABI from "./Log.json";
 import TOKEN_MINTER_ABI from "./TokenMinter.json";
-import TOKEN_URIBUILDER_ABI from "./TokenUriBuilder.json";
 import TOKEN_CURVE_ABI from "./TokenCurve.json";
 import CURRENCY_ABI from "./Currency.json";
-
 
 // ===================================
 // g0v Use
@@ -58,11 +56,6 @@ export const Logger = {
 export const TokenMinter = {
   address: "0x14Be5A601F76941D30088D4db129B1c69f0DA5b5",
   abi: TOKEN_MINTER_ABI,
-};
-
-export const TokenUriBuilder = {
-  address: "0x62d198288dBB6F9081d235cff58B3B7cA5D95B50",
-  abi: TOKEN_URIBUILDER_ABI,
 };
 
 export const TokenCurve = {

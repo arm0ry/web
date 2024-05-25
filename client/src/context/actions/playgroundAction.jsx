@@ -1,21 +1,23 @@
 import dispatch from "../reducer";
 import {
   LOAD_CID,
+  LOAD_CURRENCY,
   LOAD_ITEMS,
   LOAD_LISTS,
   LOAD_LOGGER,
   LOAD_LOGGER_TPS,
+  LOAD_TOKEN_CURVE,
+  LOAD_TOKENS,
 } from "../reducer/playgroundReducer";
-import { ethers } from "ethers";
 import { pushAlert } from "@context/actions/alertAction";
 import {
   Bulletin,
   Logger,
   TokenMinter,
-  TokenUriBuilder,
   TokenCurve,
   Currency
 } from "@utils/contract";
+import { Bulletin as ActiveBulletin } from "@contract";
 import { fetchIpfsCID } from "@utils/ipfs";
 
 export const loadItems = async () => {
@@ -105,7 +107,6 @@ export const loadLogger = async () => {
             data: tps[i].data
           }
         }
-        console.log(_tps)
 
         loggerTps = loggerTps.concat(_tps)
         dispatch.fn({
@@ -127,36 +128,92 @@ export const loadLogger = async () => {
 };
 
 // TODO
-export const loadTokenMinter = async () => {
+export const loadTokens = async () => {
   try {
+    const _tokenId = await TokenMinter.tokenId()
+    const tokenId = parseInt(_tokenId._hex)
 
+    let tokens = {}
+
+    await Promise.all(
+      [...Array(tokenId)].map(async (_, _id) => {
+        const id = _id + 1
+        const owner = await TokenMinter.ownerOf(id)
+        const metadata = await TokenMinter.metadatas(id)
+        const builder = await TokenMinter.builders(id)
+        const market = await TokenMinter.markets(id)
+        const uri = await TokenMinter.uri(id)
+
+        tokens[id] = {
+          id: id,
+          owner: owner,
+          uri: uri,
+          metadata: metadata,
+          builder: builder,
+          market: market
+        }
+      })
+    )
+
+    dispatch.fn({
+      type: LOAD_TOKENS,
+      payload: tokens
+    })
   } catch (err) {
     console.log(err)
   }
 }
 
-// TODO
-export const loadTokenUriBuilder = async () => {
+export const loadTokenCurves = async () => {
   try {
+    const _curveId = await TokenCurve.curveId()
+    const curveId = parseInt(_curveId._hex)
 
+    let curves = {}
+
+    await Promise.all(
+      [...Array(curveId)].map(async (_, _id) => {
+        const id = _id + 1
+        const owner = await TokenMinter.ownerOf(id)
+        const metadata = await TokenMinter.metadatas(id)
+        const builder = await TokenMinter.builders(id)
+        const market = await TokenMinter.markets(id)
+        const uri = await TokenMinter.uri(id)
+
+        curves[id] = {
+          id: id,
+          owner: owner,
+          uri: uri,
+          metadata: metadata,
+          builder: builder,
+          market: market
+        }
+      })
+    )
+    dispatch.fn({
+      type: LOAD_TOKEN_CURVE,
+      payload: curves
+    })
   } catch (err) {
     console.log(err)
   }
 }
 
-// TODO
-export const loadTokenCurve = async () => {
-  try {
-
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-// TODO
 export const loadCurrency = async () => {
   try {
+    const name = await Currency.name()
+    const symbol = await Currency.symbol()
+    const owner = await Currency.owner();
+    const currency = {
+      name: name,
+      symbol: symbol,
+      owner: owner
+    }
 
+    dispatch.fn({
+      type: LOAD_CURRENCY,
+      payload: currency
+    })
   } catch (err) {
     console.log(err)
   }

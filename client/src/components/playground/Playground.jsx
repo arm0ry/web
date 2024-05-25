@@ -7,27 +7,24 @@ import {
   MissionIcon,
   BuddiesIcon,
   ProposeIcon,
-  KaliLogo,
   TaskIcon,
   ArrowSVG,
   QuestIcon,
 } from "@assets";
 import FacuetButton from "../FacuetButton";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
-import {
-  useAccount,
-  useContractEvent,
-} from "wagmi";
+import { useAccount } from "wagmi";
 import {
   signIn,
   signOut,
-  // getTravelerTask,
-  // getTravelerQuest,
 } from "@context/actions/userAction";
 import {
   loadItems,
   loadLists,
   loadLogger,
+  loadTokens,
+  loadTokenCurves,
+  loadCurrency
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
@@ -90,7 +87,7 @@ const Playground = () => {
   const { address, isConnected, isDisconnected } = useAccount();
   const { playground, userInfo } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
-  // console.log(playground)
+  console.log(playground)
   useEffect(() => {
     if (isConnected) {
       signIn({
@@ -157,6 +154,9 @@ const Playground = () => {
       await loadItems();
       await loadLists();
       await loadLogger();
+      await loadTokens();
+      await loadTokenCurves();
+      await loadCurrency();
     }
     load()
   }, []);
