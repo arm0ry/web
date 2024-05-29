@@ -5,7 +5,7 @@ import { shortenAddress } from "@utils/shortenAddress";
 const CurveData = ({ curve }) => {
 
   useEffect(() => {
-
+    console.log(curve)
   }, [curve])
 
   return (
@@ -15,7 +15,7 @@ const CurveData = ({ curve }) => {
           <label className="text-xs font-medium text-gray-600">曲線資金池 | curve treasury ： </label>
           <label className="text-sm font-normal text-gray-900">
             {(curve.pool !== undefined) ? curve.pool : 0} Ξ
-            {/* {(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "一元一次方程式 | Linear" : "一元二次方程式 | Parabola"} */}
+            {/* {(curve.mint_a == 0) ? "一元一次方程式 | Linear" : "一元二次方程式 | Parabola"} */}
           </label>
         </div>
         <div className="flex flex-col space-y-1">
@@ -25,9 +25,9 @@ const CurveData = ({ curve }) => {
 
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-600">曲線買價 | price to mint ：</label>
-          {(curve.formula[1] !== undefined && curve.formula[2] !== undefined && curve.formula[3] !== undefined) ? (
+          {(curve.mint_a !== undefined && curve.mint_b !== undefined && curve.mint_c !== undefined) ? (
             <label className="text-sm font-normal text-emerald-600">
-              y = ({(ethers.utils.formatUnits(curve.formula[1], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[1], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[2], "wei")} x{(ethers.utils.formatUnits(curve.formula[3], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[3], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ
+              y = ({(curve.mint_a == 0) ? "" : `${curve.mint_a} x^2 + `}{curve.mint_b} x{(curve.mint_c == 0) ? "" : ` + ${curve.mint_c}`}) * {curve.scale} Ξ
             </label>
           ) : (
             <></>
@@ -36,15 +36,15 @@ const CurveData = ({ curve }) => {
         </div>
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-600">曲線賣價 | price to burn ：</label>
-          {((curve.formula[4] !== undefined && curve.formula[5] !== undefined && curve.formula[6] !== undefined)) ? (
-            <label className="text-sm font-normal text-amber-600">y = ({(ethers.utils.formatUnits(curve.formula[4], "wei") == 0) ? "" : `${ethers.utils.formatUnits(curve.formula[4], "wei")} x^2 + `}{ethers.utils.formatUnits(curve.formula[5], "wei")} x{(ethers.utils.formatUnits(curve.formula[6], "wei") == 0) ? "" : ` + ${ethers.utils.formatUnits(curve.formula[6], "wei")}`}) * {ethers.utils.formatEther(curve.formula[0])} Ξ</label>
+          {((curve.burn_a !== undefined && curve.burn_b !== undefined && curve.burn_c !== undefined)) ? (
+            <label className="text-sm font-normal text-amber-600">y = ({(curve.burn_a == 0) ? "" : `${curve.burn_a} x^2 + `}{curve.burn_b} x{(curve.burn_c == 0) ? "" : ` + ${curve.burn_c}`}) * {curve.scale} Ξ</label>
           ) : (
             <></>
           )}
         </div>
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-600">集資進度 | raised ： </label>
-          <label className="text-sm font-normal text-gray-900">{(curve.unclaimed !== undefined) ? curve.unclaimed : 0} Ξ</label>
+          {/* <label className="text-sm font-normal text-gray-900">{(curve.unclaimed !== undefined) ? curve.unclaimed : 0} Ξ</label> */}
         </div>
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-600">管理員 | operator ：</label>

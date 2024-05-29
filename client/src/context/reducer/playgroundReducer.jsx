@@ -28,7 +28,7 @@ export const playgroundInitialState = {
   lists: [],
   loggerTps: [],
   tokens: {},
-  curve: {},
+  curves: {},
   currency: {},
   ipfs: {},
 };
@@ -72,7 +72,7 @@ const playgroundReducer = (state, action) => {
     case LOAD_TOKEN_CURVE:
       return {
         ...state,
-        curve: action?.payload
+        curves: action?.payload
       };
     case LOAD_CURRENCY:
       return {

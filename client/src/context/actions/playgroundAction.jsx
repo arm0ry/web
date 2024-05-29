@@ -17,7 +17,7 @@ import {
   TokenCurve,
   Currency
 } from "@utils/contract";
-import { Bulletin as ActiveBulletin } from "@contract";
+import { ethers } from "ethers";
 import { fetchIpfsCID } from "@utils/ipfs";
 
 export const loadItems = async () => {
@@ -127,7 +127,6 @@ export const loadLogger = async () => {
   }
 };
 
-// TODO
 export const loadTokens = async () => {
   try {
     const _tokenId = await TokenMinter.tokenId()
@@ -139,7 +138,8 @@ export const loadTokens = async () => {
       [...Array(tokenId)].map(async (_, _id) => {
         const id = _id + 1
         const owner = await TokenMinter.ownerOf(id)
-        const metadata = await TokenMinter.metadatas(id)
+        const _metadata = await TokenMinter.metadatas(id)
+        const metadata = { name: _metadata[0], desc: _metadata[1], bulletin: _metadata[2], id: _metadata[3], uri: _metadata[4] }
         const builder = await TokenMinter.builders(id)
         const market = await TokenMinter.markets(id)
         const uri = await TokenMinter.uri(id)
@@ -174,19 +174,31 @@ export const loadTokenCurves = async () => {
     await Promise.all(
       [...Array(curveId)].map(async (_, _id) => {
         const id = _id + 1
-        const owner = await TokenMinter.ownerOf(id)
-        const metadata = await TokenMinter.metadatas(id)
-        const builder = await TokenMinter.builders(id)
-        const market = await TokenMinter.markets(id)
+        const curve = await TokenCurve.getCurve(id);
+        const treasury = await TokenCurve.treasuries(id);
         const uri = await TokenMinter.uri(id)
 
+        const _metadata = await TokenMinter.metadatas(id)
+        const metadata = { name: _metadata[0], desc: _metadata[1], bulletin: _metadata[2], id: _metadata[3], logger: _metadata[4] }
+
+
         curves[id] = {
-          id: id,
-          owner: owner,
+          owner: curve.owner,
+          treasury: parseInt(treasury._hex),
+          token: curve.token,
+          id: parseInt(curve.id._hex),
           uri: uri,
           metadata: metadata,
-          builder: builder,
-          market: market
+          supply: parseInt(curve.supply._hex),
+          curveType: curve.curveType,
+          currency: curve.currency,
+          scale: ethers.utils.formatEther(curve.scale),
+          mint_a: curve.mint_a,
+          mint_b: curve.mint_b,
+          mint_c: curve.mint_c,
+          burn_a: curve.burn_a,
+          burn_b: curve.burn_b,
+          burn_c: curve.burn_c
         }
       })
     )

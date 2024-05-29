@@ -87,7 +87,7 @@ const Playground = () => {
   const { address, isConnected, isDisconnected } = useAccount();
   const { playground, userInfo } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
-  console.log(playground)
+
   useEffect(() => {
     if (isConnected) {
       signIn({

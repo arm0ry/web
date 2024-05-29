@@ -1,47 +1,52 @@
-import React, { useEffect } from "react";
-import { useContractRead } from "wagmi";
-import { TokenMinter } from "@contract";
-import SupportCard from "../ReportCard";
+import React, { useState, useEffect } from "react";
+import ReportCard from "../ReportCard";
+import { useGlobalContext } from "@context/store";
+import CurveCard from "../../curves/CurveCard";
 
 const CommonsReports = () => {
-  const { data: svg } = useContractRead({
-    ...TokenMinter,
-    functionName: 'generateSvg',
-    args: [1]
-  })
+  const { playground } = useGlobalContext();
 
-  const { data: TokenMinterSupply } = useContractRead({
-    ...TokenMinter,
-    functionName: 'totalSupply',
-    args: []
-  })
+  // useEffect(() => {
+  //   const _tokens = {};
+  //   const tokenLength = Object.keys(playground.tokens).length != 0 ? Object.keys(playground.tokens).length : 0;
 
-  const { data: wpSvg } = useContractRead({
-    ...TokenMinter,
-    functionName: 'generateSvg',
-    args: [1]
-  })
+  //   if (tokenLength > 0 && curveLength > 0) {
+  //     [...Array(tokenLength)].map(async (_, _id) => {
+  //       const id = _id + 1
+  //       _tokens[id] = {
+  //         token: playground.tokens[id],
+  //       }
+  //     });
 
-  const { data: wpSupply } = useContractRead({
-    ...TokenMinter,
-    functionName: 'totalSupply',
-    args: []
-  })
+  //     console.log("reports from playground - ", _tokens)
 
-  const { data: nuSvg } = useContractRead({
-    ...TokenMinter,
-    functionName: 'generateSvg',
-    args: [1]
-  })
+  //     setReports(_tokens);
+  //   }
 
-  const { data: nuSupply } = useContractRead({
-    ...TokenMinter,
-    functionName: 'totalSupply',
-    args: []
-  })
+  // }, [Object.keys(playground.tokens).length, Object.keys(playground.curves).length])
 
-  useEffect(() => {
-  }, [svg])
+  // useEffect(() => {
+  //   const _curves = {};
+  //   const curveLength = Object.keys(playground.curves).length != 0 ? Object.keys(playground.curves).length : 0;
+
+  //   if (curveLength > 0) {
+
+  //     [...Array(curveLength)].map(async (_, _id) => {
+  //       const id = _id + 1
+  //       _curves[id] = {
+  //         curve: playground.curves[id],
+  //       }
+  //     });
+
+  //     console.log("curve - ", _curves)
+
+  //     setReports(_curves);
+  //   }
+
+  // }, [Object.keys(playground.curves).length])
+
+  // useEffect(() => {
+  // }, [reports])
 
   return (
     <>
@@ -80,43 +85,13 @@ const CommonsReports = () => {
         </div >
 
         <div className="flex flex-col space-y-10">
-          <div className="" >
-            <SupportCard
-              title={"Flat Collection: Community Onboarding"}
-              description={"Flat Collections are static in amount to collect, the amount does not chage per token supplies or time."}
-              engDescription={"Flat Collections are appropriate for Lists that involve personal time worked."}
-              curveId={5}
-              svg={svg}
-              supply={TokenMinterSupply}
-            />
-          </div >
+
           <div>
-            <SupportCard
-              title={"Curved Support: Wildnerness Park (IRL activities)"}
-              description={"Parallel Ownership"}
-              engDescription={"While the trail posts are listed in the NFT rather than displayed beautifully over a satelite map of the trail, we can get an idea of how wilderness parks, managed by local governments or communities, may use this as real-time heatmap for trails. Most trail posts today have QR codes on them already, we can repurpose them for hikers to submit onchain check-ins and report trail conditions. Kind of like Waze for trails! In addition to being the medium for fundraising, this NFT can also help locals identify traffic on trails, assess maintainenance schedule, and potentially help locate hikers when they get lost. Best of all, this is cheap to do!"}
-              curveId={6}
-              svg={wpSvg}
-              supply={wpSupply}
-            />
-          </div>
-          <div>
-            <SupportCard
-              title={"Curved Support 2: Music Collection (IP)"}
-              engDescription={"Practically, Curved Support adds a layer on top of Flat Collection & an offers opportunities for supporters to exit. It is appropriate for Lists that involve personal time worked, produce local values that circulate within local community, and external values that may enter or leave the local economy. The flat base of Curved Support operate similar to that of Flat Collections, and the upward curve represent values sustained by the collective impact and influence of the Lists. Here, we use the same NFT as a living album cover that showcase interactions with its content in real-time."}
-              curveId={9}
-              svg={nuSvg}
-              supply={nuSupply}
-            />
-          </div>
-          <div>
-            {/* <SupportCard
-              title={"Harberger Sponsor: g0v Hackath0n [WIP]"}
-              engDescription={"In addition to using bonding curves as the pricing and ownership mechanism for Lists, we can also use Harberger Tax to maintain serial ownership of the Lists. This mechanism is appropriate for supporters looking for more exclusive ownership and relationship with the Lists owners. "}
-              curveId={9}
-              svg={mSvg}
-              supply={hackathonTokenSupply}
-            /> */}
+            <div className="">
+              {playground.curves && Object.keys(playground.curves).map((id) => {
+                return <ReportCard key={id} curve={playground.curves[id]} />
+              })}
+            </div>
           </div>
         </div>
       </div >
