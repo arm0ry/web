@@ -44,30 +44,31 @@ import CURRENCY_ABI from "./Currency.json";
 // ===================================
 
 export const Bulletin = {
-  address: "0x3792519032d397CD6664cC865a29F5bB2f9F8C72",
+  address: "0x433Bd6436CA44658Fcb06F6e04Da43bAD34A3616",
   abi: BULLETIN_ABI,
 };
 
 export const Logger = {
-  address: "0x92eacC1858b07AE536129FDbDe0733457b00B548",
+  address: "0x3d8fbEd663474b25C0c8aE9CC8D4BcB87d52331a",
   abi: LOGGER_ABI,
 };
 
 export const TokenMinter = {
-  address: "0x14Be5A601F76941D30088D4db129B1c69f0DA5b5",
+  address: "0xfb67ccf4311771b17fd1477b204fda7f7de22334",
   abi: TOKEN_MINTER_ABI,
 };
 
 export const TokenCurve = {
-  address: "0x249972ED9032599bDf10D2fA92d2eD5D1e4116aC",
+  address: "0xb20C7a47983c4871E2aAEEB35df461418755E52f",
   abi: TOKEN_CURVE_ABI,
 };
 
 export const Currency = {
-  address: "0xd2993d2aCE4FecFBbA798262c2519bC0d007d0D8",
+  address: "0xAfd451b8510B2A263bbaDC58c8F7039d50E5a34d",
   abi: CURRENCY_ABI,
 };
 
 const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";
-export const RPC = { sepolia };
+const chiado = "https://1rpc.io/gnosis	";
+export const RPC = { sepolia, chiado };
 export const zero_address = "0x0000000000000000000000000000000000000000"

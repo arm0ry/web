@@ -22,6 +22,21 @@ const evmNetworks = [
     shortName: "eth",
     vanityName: "Sepolia",
   },
+  {
+    blockExplorerUrls: ["https://gnosis-chiado.blockscout.com/"],
+    chainId: 10200,
+    chainName: "Gnosis Chiado Testnet",
+    iconUrls: ["https://app.dynamic.xyz/assets/networks/gnosis.svg"],
+    nativeCurrency: {
+      decimals: 18,
+      name: "Chiado xDAI",
+      symbol: "XDAI",
+    },
+    networkId: 10200,
+    rpcUrls: ["https://rpc.chiadochain.net"],
+    shortName: "chiado",
+    vanityName: "Chiado",
+  },
 ];
 const VITE_DYNAMIC = import.meta.env.VITE_DYNAMIC;
 const overrides = `
