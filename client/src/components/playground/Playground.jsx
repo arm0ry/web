@@ -210,7 +210,7 @@ const Playground = () => {
             <SidebarItem
               to="faq"
               name="開始 ｜ Start here"
-              Icon={QuestIcon}
+              Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             />
           </ul>
@@ -218,10 +218,10 @@ const Playground = () => {
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
             <div className="mb-4">
               <label className="text-md font-semibold text-gray-900">
-                🧪 Experiments
+                ☕️   Chiado Coffee Shop
               </label>
             </div>
-            <SidebarItem
+            {/* <SidebarItem
               to="propose-item"
               name="Add an Item"
               Icon={TaskIcon}
@@ -232,16 +232,16 @@ const Playground = () => {
               name="Create a List"
               Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
-            />
+            /> */}
             <SidebarItem
               to="bulletin"
-              name="Bulletin"
-              Icon={MissionIcon}
+              name="Menu"
+              Icon={QuestIcon}
               setToggleMenu={setToggleMenu}
             />
             <SidebarItem
               to="commons-reports" // todo: update to a logger page?
-              name="Pooled Impact [WIP]"
+              name="Impact"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />

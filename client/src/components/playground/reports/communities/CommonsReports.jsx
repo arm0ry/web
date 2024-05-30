@@ -1,58 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ReportCard from "../ReportCard";
 import { useGlobalContext } from "@context/store";
-import CurveCard from "../../curves/CurveCard";
 
 const CommonsReports = () => {
   const { playground } = useGlobalContext();
-
-  // useEffect(() => {
-  //   const _tokens = {};
-  //   const tokenLength = Object.keys(playground.tokens).length != 0 ? Object.keys(playground.tokens).length : 0;
-
-  //   if (tokenLength > 0 && curveLength > 0) {
-  //     [...Array(tokenLength)].map(async (_, _id) => {
-  //       const id = _id + 1
-  //       _tokens[id] = {
-  //         token: playground.tokens[id],
-  //       }
-  //     });
-
-  //     console.log("reports from playground - ", _tokens)
-
-  //     setReports(_tokens);
-  //   }
-
-  // }, [Object.keys(playground.tokens).length, Object.keys(playground.curves).length])
-
-  // useEffect(() => {
-  //   const _curves = {};
-  //   const curveLength = Object.keys(playground.curves).length != 0 ? Object.keys(playground.curves).length : 0;
-
-  //   if (curveLength > 0) {
-
-  //     [...Array(curveLength)].map(async (_, _id) => {
-  //       const id = _id + 1
-  //       _curves[id] = {
-  //         curve: playground.curves[id],
-  //       }
-  //     });
-
-  //     console.log("curve - ", _curves)
-
-  //     setReports(_curves);
-  //   }
-
-  // }, [Object.keys(playground.curves).length])
-
-  // useEffect(() => {
-  // }, [reports])
-
   return (
     <>
       <div className="flex flex-col">
         <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-          Pooled Impact [WIP]
+          Impact by Chiado Coffee Shop
         </label>
         <div className="w-5/6 mx-auto mb-10 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <label className="py-5 text-md font-normal text-gray-900">
@@ -88,9 +44,13 @@ const CommonsReports = () => {
 
           <div>
             <div className="">
-              {playground.curves && Object.keys(playground.curves).map((id) => {
-                return <ReportCard key={id} curve={playground.curves[id]} />
-              })}
+              {(Object.keys(playground.curves).length > 0) ? Object.keys(playground.curves).map((id) => {
+                return (
+                  <div key={id} className="mb-8">
+                    <ReportCard curve={playground.curves[id]} />
+                  </div>
+                )
+              }) : <div className="">Loading...</div>}
             </div>
           </div>
         </div>

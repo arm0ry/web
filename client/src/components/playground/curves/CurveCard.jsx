@@ -15,12 +15,11 @@ const CurveCard = ({ curve }) => {
   const clickMint = async () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = await provider.getSigner();
-    const impactCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
+    const tokenCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
 
     try {
-      // const curveId = await impactCurve.getCurveId();
-      // const tx = await impactCurve.support(curve.curveId, user, curve.mintPrice, { value: curve.mintPrice })
-      let tx;
+      const tx = await tokenCurve.support(curve.curveId, user, curve.mintPrice, { value: curve.mintPrice })
+
       pushAlert({
         msg: (
           <span>
@@ -46,13 +45,11 @@ const CurveCard = ({ curve }) => {
   const clickBurn = async () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = await provider.getSigner();
-    const impactCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
+    const tokenCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
 
     try {
-      // const curveId = await impactCurve.getCurveId();
       if (tokenId !== 0) {
-        // const tx = await impactCurve.burn(curve.curveId, user, tokenId)
-        let tx;
+        const tx = await tokenCurve.burn(curve.curveId, user, tokenId);
         pushAlert({
           msg: (
             <span>
@@ -163,13 +160,19 @@ const CurveCard = ({ curve }) => {
         price: (curve.burn_a * (100 ^ 2) + curve.burn_b * 100 + curve.burn_c) * Number(curve.scale),
       },
     ])
+
+
+
+    const calculateMintPrice = () => {
+
+    }
+    calculateMintPrice();
   }, [curve])
 
   return (
     <>
       <div className={`h-auto w-5/6  mx-auto`}>
         <div className="flex flex-col space-y-3">
-
           <div className={`h-full w-full`}>
             <div className="flex flex-col h-5/6 aspect-video w-full justify-end ">
               <div className=" h-full w-full my-4">
@@ -202,7 +205,7 @@ const CurveCard = ({ curve }) => {
                   className=" w-full rounded-lg p-1 text-emerald-600 hover:bg-emerald-100 bg-emerald-200"
                 >
                   <div className="flex flex-row space-x-4 items-center justify-center">
-                    {/* <div className="text-md font-normal">{curve.mintPrice} Ξ </div> */}
+                    <div className="text-md font-normal">{curve.mintPrice} Ξ </div>
                     <div className="text-xl font-semibold">🪙 </div>
                   </div>
                 </button>

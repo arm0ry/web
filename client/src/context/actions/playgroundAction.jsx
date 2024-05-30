@@ -138,17 +138,20 @@ export const loadTokens = async () => {
       [...Array(tokenId)].map(async (_, _id) => {
         const id = _id + 1
         const owner = await TokenMinter.ownerOf(id)
-        const _metadata = await TokenMinter.metadatas(id)
-        const metadata = { name: _metadata[0], desc: _metadata[1], bulletin: _metadata[2], id: _metadata[3], uri: _metadata[4] }
-        const builder = await TokenMinter.builders(id)
-        const market = await TokenMinter.markets(id)
+        const _title = await TokenMinter.getTokenTitle(id)
+        const title = { name: _title[0], desc: _title[1] }
+        const _source = await TokenMinter.getTokenSource(id)
+        const source = { bulletin: _source[0], id: _source[1], logger: _source[2] }
+        const builder = await TokenMinter.getTokenBuilder(id)
+        const market = await TokenMinter.getTokenMarket(id)
         const uri = await TokenMinter.uri(id)
 
         tokens[id] = {
           id: id,
           owner: owner,
           uri: uri,
-          metadata: metadata,
+          title: title,
+          source: source,
           builder: builder,
           market: market
         }
@@ -173,23 +176,24 @@ export const loadTokenCurves = async () => {
 
     await Promise.all(
       [...Array(curveId)].map(async (_, _id) => {
+        // Curve
         const id = _id + 1
         const curve = await TokenCurve.getCurve(id);
         const treasury = await TokenCurve.treasuries(id);
-        const uri = await TokenMinter.uri(id)
+        // const mintPrice = await TokenCurve.getCurvePrice(true, id, 0);
+        // const burnPrice = await TokenCurve.getCurvePrice(false, id, 0);
 
-        const _metadata = await TokenMinter.metadatas(id)
-        const metadata = { name: _metadata[0], desc: _metadata[1], bulletin: _metadata[2], id: _metadata[3], logger: _metadata[4] }
+        // Token
+        const uri = await TokenMinter.svg(id)
+        const _title = await TokenMinter.getTokenTitle(id)
+        const title = { name: _title[0], desc: _title[1] }
+        const _source = await TokenMinter.getTokenSource(id)
+        const source = { bulletin: _source[0], id: parseInt(_source[1]._hex), logger: _source[2] }
 
 
         curves[id] = {
           owner: curve.owner,
           treasury: parseInt(treasury._hex),
-          token: curve.token,
-          id: parseInt(curve.id._hex),
-          uri: uri,
-          metadata: metadata,
-          supply: parseInt(curve.supply._hex),
           curveType: curve.curveType,
           currency: curve.currency,
           scale: ethers.utils.formatEther(curve.scale),
@@ -198,7 +202,15 @@ export const loadTokenCurves = async () => {
           mint_c: curve.mint_c,
           burn_a: curve.burn_a,
           burn_b: curve.burn_b,
-          burn_c: curve.burn_c
+          burn_c: curve.burn_c,
+          // mintPrice: mintPrice,
+          // burnPrice: burnPrice,
+          token: curve.token,
+          tokenId: parseInt(curve.id._hex),
+          tokenUri: uri,
+          tokenTitle: title,
+          tokenSource: source,
+          tokenSupply: parseInt(curve.supply._hex)
         }
       })
     )
