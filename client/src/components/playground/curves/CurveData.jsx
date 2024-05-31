@@ -19,16 +19,16 @@ const CurveData = ({ curve }) => {
         </div>
 
         <div className="flex flex-col space-y-1">
-          <label className="text-xs font-medium text-gray-500">$coffee collected</label>
+          <label className="text-xs font-medium text-gray-500">$currency collected</label>
           <label className="text-sm font-normal text-gray-900">
-            {(curve.treasury !== undefined) ? curve.treasury : 0} $coffee
+            {(curve.treasury !== undefined) ? curve.currencyCollected : 0} $coffee
           </label>
 
         </div>
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-500">$stablecoin collected</label>
           <label className="text-sm font-normal text-gray-900">
-            {(curve.treasury !== undefined) ? curve.treasury : 0} xDai
+            {(curve.treasury !== undefined) ? curve.stablecoinCollected : 0} xDai
           </label>
         </div>
 

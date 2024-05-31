@@ -182,6 +182,10 @@ export const loadTokenCurves = async () => {
         const treasury = await TokenCurve.treasuries(id);
         // const mintPrice = await TokenCurve.getCurvePrice(true, id, 0);
         // const burnPrice = await TokenCurve.getCurvePrice(false, id, 0);
+        const collected = await TokenCurve.collected(curve.owner, id);
+        const currencyCollected = ethers.utils.formatEther(collected[0]);
+        const stablecoinCollected = ethers.utils.formatEther(collected[1]);
+        console.log(collected, currencyCollected, stablecoinCollected)
 
         // Token
         const uri = await TokenMinter.svg(id)
@@ -205,6 +209,8 @@ export const loadTokenCurves = async () => {
           burn_c: curve.burn_c,
           // mintPrice: mintPrice,
           // burnPrice: burnPrice,
+          currencyCollected: currencyCollected,
+          stablecoinCollected: stablecoinCollected,
           token: curve.token,
           tokenId: parseInt(curve.id._hex),
           tokenUri: uri,

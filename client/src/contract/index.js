@@ -44,27 +44,27 @@ import CURRENCY_ABI from "./Currency.json";
 // ===================================
 
 export const Bulletin = {
-  address: "0x433Bd6436CA44658Fcb06F6e04Da43bAD34A3616",
+  address: "0x5CFCDd963CF7A4d76eBA9748E359522Cba007291",
   abi: BULLETIN_ABI,
 };
 
 export const Logger = {
-  address: "0x3d8fbEd663474b25C0c8aE9CC8D4BcB87d52331a",
+  address: "0x1Fc0CB9E8900e948298178143Ce6f7D8882DA482",
   abi: LOGGER_ABI,
 };
 
 export const TokenMinter = {
-  address: "0xfb67ccf4311771b17fd1477b204fda7f7de22334",
+  address: "0xF59b11a8dB25246813fa1104a6C15F05797E471A",
   abi: TOKEN_MINTER_ABI,
 };
 
 export const TokenCurve = {
-  address: "0xb20C7a47983c4871E2aAEEB35df461418755E52f",
+  address: "0x4428aa4bf12C0e65F6c72d632EcEd60B80291DF1",
   abi: TOKEN_CURVE_ABI,
 };
 
 export const Currency = {
-  address: "0xAfd451b8510B2A263bbaDC58c8F7039d50E5a34d",
+  address: "0x05732656F14563bB1FD8Ac003E049BEf4b5A2E21",
   abi: CURRENCY_ABI,
 };
 

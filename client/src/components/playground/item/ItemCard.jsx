@@ -25,9 +25,9 @@ const ItemCard = ({ bulletin, itemId, items, className = "" }) => {
               {items[itemId]?.title}
             </p>
 
-            <p className="text-slate-500 line-clamp-2 my-0 mx-auto  leading-5 font-normal  group-hover:font-semibold ">
+            {/* <p className="text-slate-500 line-clamp-2 my-0 mx-auto  leading-5 font-normal  group-hover:font-semibold ">
               參與人數 | # of Participants：
-            </p>
+            </p> */}
             <Link
               to={`${itemId}`}
               state={{ bulletin: bulletin, items: items }}

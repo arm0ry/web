@@ -33,7 +33,7 @@ const ItemDetail = () => {
       }
     }
   }, [items]);
-  console.log(itemId)
+  // console.log(itemId)
   const clickButton = () => {
     showModal({
       type: 4,

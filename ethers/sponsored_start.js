@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { ethers, Wallet } = require("ethers");
-const Quest_abi = require("../client/src/contract/Quest.json");
+const LOGGER_ABI = require("../client/src/contract/Log.json");
 
 const ACCOUNT = process.env.ARM0RY_ACCOUNT_ADDRESS;
 const ACCOUNT_KEY = process.env.ARM0RY_ACCOUNT_PRIVATE_KEY;
@@ -19,12 +19,12 @@ if (!RPC_ENDPOINT) {
 }
 
 async function sponsored_start(username, missions, missionId) {
-  const Quest = {
+  const Logger = {
     address: "0x57EbaF0c83A37E685F013721329a77C1fB3eDCF7",
-    abi: Quest_abi,
+    abi: LOGGER_ABI,
   };
 
-  const questInstance = new ethers.Contract(Quest.address, Quest.abi, signer)
+  const loggerInstance = new ethers.Contract(Logger.address, Logger.abi, signer)
 
   // TODO: How to cast to different types?
   // try {
@@ -39,7 +39,7 @@ async function sponsored_start(username, missions, missionId) {
 
   try {
     console.log(username, missions, missionId)
-    const tx = await questInstance.sponsoredStart(username, missions, missionId)
+    const tx = await loggerInstance.sponsoredStart(username, missions, missionId)
     const confirmations = await tx.wait(2);
     console.log("confirmation is here", confirmations)
     return confirmations.transactionHash;

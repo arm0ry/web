@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { ethers, Wallet } = require("ethers");
-const Quest_abi = require("../client/src/contract/Quest.json");
+const LOGGER_ABI = require("../client/src/contract/Log.json");
 
 const ACCOUNT = process.env.ARM0RY_ACCOUNT_ADDRESS;
 const ACCOUNT_KEY = process.env.ARM0RY_ACCOUNT_PRIVATE_KEY;
@@ -21,15 +21,15 @@ if (!RPC_ENDPOINT) {
 async function sponsored_respond(username, missions, missionId, taskId, response, feedback) {
   console.log(username, missionId, taskId, response, feedback)
 
-  const Quest = {
+  const Logger = {
     address: "0x57EbaF0c83A37E685F013721329a77C1fB3eDCF7",
-    abi: Quest_abi,
+    abi: LOGGER_ABI,
   };
 
-  const questInstance = new ethers.Contract(Quest.address, Quest.abi, signer)
+  const loggerInstance = new ethers.Contract(Logger.address, Logger.abi, signer)
 
   try {
-    const tx = await questInstance.sponsoredRespond(username, missions, missionId, taskId, response, feedback)
+    const tx = await loggerInstance.sponsoredRespond(username, missions, missionId, taskId, response, feedback)
     const confirmations = await tx.wait(2);
     console.log("confirmation is here", confirmations)
     return confirmations.transactionHash;
