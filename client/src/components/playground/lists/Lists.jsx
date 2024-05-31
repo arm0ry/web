@@ -14,7 +14,7 @@ const Lists = () => {
     <>
       <div className="flex flex-col">
         <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-          Menu
+          Shop Menu
         </label>
         <div className="w-5/6 mx-auto mt-2 mb-6 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <label className="py-5 text-md font-normal text-gray-900">
