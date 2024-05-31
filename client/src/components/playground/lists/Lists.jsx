@@ -23,24 +23,20 @@ const Lists = () => {
           <div className="flex flex-col py-5 space-y-3">
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-900">
-                This is a prototype built on the Sepolia testnet to demo how communities may build assets onchain.
+                This is a prototype built on the Sepolia testnet to demo how individuals, organizations, and communities can build assets onchain with reciprocity and mutuality.
               </label>
+
             </div>
-            <div className="space-y-1">
+            {/* <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-900">
-                Commons is an onchain space to share knowledge (in the form of Lists and Items), and anyone may interact with shared knowledge, also onchain.
+                This is a prototype built on the Sepolia testnet to demo how individuals, organizations, and communities can build assets onchain with reciprocity and mutuality.
               </label>
             </div>
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-900">
                 Through interacting with onchain knowledge, we can pool actions together to build assets native to Commons that represent impact and at the same time, fundraise for Commons.
               </label>
-            </div>
-            <div>
-              <label className=" block text-md font-normal text-gray-900">
-                To try out this prototype, check out knowledge dropped below or drop new ones by starting with "Add an Item" and "Create a List" tabs on the left.
-              </label>
-            </div>
+            </div> */}
           </div>
         </div >
       </div>

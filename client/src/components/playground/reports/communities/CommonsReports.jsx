@@ -17,10 +17,10 @@ const CommonsReports = () => {
           <div className="flex flex-col py-5 space-y-3">
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
-                Through onchain interactions, we can build custom SVG NFTs as native community assets for fundraising, impact evaluation, and other purposes.
+                And further build plurality of NFTs using onchain assets for fundraising, impact evaluation, and other purposes.
               </label>
             </div>
-            <div className="space-y-1">
+            {/* <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
                 We bond each SVG NFT to its own <a target="_blank" href="https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5" className="underline"
                 >bonding curve</a> to automate price discovery and distribution of local currencies and stablecoins. Credit: <a target="_blank" href="https://p2pfoundation.net/" className="underline"
@@ -36,7 +36,7 @@ const CommonsReports = () => {
             <div className="space-y-1">
               <label className=" block text-md font-normal text-gray-700">
               </label>
-            </div>
+            </div> */}
           </div>
         </div >
 
