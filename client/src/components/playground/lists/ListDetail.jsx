@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { useGlobalContext } from "@context/store";
 import { Bulletin } from "@contract";
@@ -7,6 +7,7 @@ import { Spinner, Avatar, Markdown } from "@components";
 import ItemCard from "../item/ItemCard";
 import { PauseIcon, PercentageIcon, TaskIcon } from "@assets";
 import { shortenAddress } from "@utils/shortenAddress";
+import { showModal, cleanModal } from "@context/actions/modalAction";
 
 const ListDetail = () => {
   const params = useParams();
@@ -17,11 +18,18 @@ const ListDetail = () => {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!Number.isNaN(lists[listId]?.startsCount)) {
-      setParticipants(lists[listId]?.startsCount);
-    }
+    // if (!Number.isNaN(lists[listId]?.startsCount)) {
+    //   setParticipants(lists[listId]?.startsCount);
+    // }
   }, [lists]);
 
+  const clickButton = () => {
+    showModal({
+      type: 4,
+      size: "3xl",
+      content: { bulletin: Bulletin, listId: listId, itemId: 0 },
+    });
+  };
   return (
     <>
       {lists[listId] == undefined ? (
@@ -43,7 +51,16 @@ const ListDetail = () => {
             >
               <span className="text-base font-medium">←Go Back</span>
             </button>
+            <div
+              onClick={clickButton}
+              className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-yellow-200 bg-yellow-200 px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
+            >
+              <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
+                分享 | Share
+              </span>
+            </div>
           </div>
+
           <div className="group flex h-full w-full flex-row items-center justify-between  border-b-2 pt-2 pb-2   leading-none">
             <div>
               <p className="text-2xl font-bold text-slate-800  md:text-3xl ">

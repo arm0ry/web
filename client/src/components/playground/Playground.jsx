@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, Outlet } from "react-router-dom";
+import { ethers } from "ethers";
 import {
   logo,
   MenuUpIcon,
@@ -214,25 +215,13 @@ const Playground = () => {
               setToggleMenu={setToggleMenu}
             />
           </ul>
-
           <ul className="mt-4 space-y-2 border-t border-gray-200 pt-4 ">
-            <div className="mb-4">
+            <div className="">
               <label className="text-md font-semibold text-gray-900">
                 ☕️   Chiado Coffee Shop
               </label>
             </div>
-            {/* <SidebarItem
-              to="propose-item"
-              name="Add an Item"
-              Icon={TaskIcon}
-              setToggleMenu={setToggleMenu}
-            />
-            <SidebarItem
-              to="propose-list"
-              name="Create a List"
-              Icon={ProposeIcon}
-              setToggleMenu={setToggleMenu}
-            /> */}
+
             <SidebarItem
               to="bulletin"
               name="Menu"
@@ -243,6 +232,21 @@ const Playground = () => {
               to="commons-reports" // todo: update to a logger page?
               name="Impact"
               Icon={BuddiesIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            <div className="pt-5">
+              <label className="ml-2 font-medium">🧑‍🍳 Staff Only</label>
+            </div>
+            <SidebarItem
+              to="propose-item"
+              name="Add an Item"
+              Icon={ProposeIcon}
+              setToggleMenu={setToggleMenu}
+            />
+            <SidebarItem
+              to="propose-list"
+              name="Create a List"
+              Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
             />
           </ul>

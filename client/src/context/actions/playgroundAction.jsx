@@ -185,7 +185,6 @@ export const loadTokenCurves = async () => {
         const collected = await TokenCurve.collected(curve.owner, id);
         const currencyCollected = ethers.utils.formatEther(collected[0]);
         const stablecoinCollected = ethers.utils.formatEther(collected[1]);
-        console.log(collected, currencyCollected, stablecoinCollected)
 
         // Token
         const uri = await TokenMinter.svg(id)

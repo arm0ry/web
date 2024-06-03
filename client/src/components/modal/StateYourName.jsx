@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import { useAccount, useContractRead } from "wagmi";
 import { Spinner, Markdown } from "@components";
 import CloseModalButton from "./CloseModalButton";
@@ -25,7 +25,7 @@ const StateYourNameModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { seed: "", moon: "" },
+    defaultValues: { seed: "", moon: "", string1: "", string2: "" },
   });
 
   const { write: log, state: logState } = useWriteContract({
@@ -120,6 +120,85 @@ const StateYourNameModal = ({ modalPayload }) => {
     }
   };
 
+  const TouchpointDataStructure = () => {
+    let address = ethers.constants.HashZero;
+    const ds = (bulletin != undefined) ? bulletin.address + listId + itemId : "";
+    address = (bulletin != undefined) ? bulletin.address : "";;
+
+    switch (ds) {
+      case address + 2 + 0:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                How did you have your cold brew?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Black" value={"1"} register={register} />
+                <MoodRadio moon="With milk / cream" value={"2"} register={register} />
+                <MoodRadio moon="Sweetened" value={"3"} register={register} />
+                <MoodRadio moon="Flavored" value={"4"} register={register} />
+              </div>
+            </div>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                When did you enjoy your cold brew?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Morning" value={"8"} register={register} />
+                <MoodRadio moon="Afternoon" value={"9"} register={register} />
+                <MoodRadio moon="Evening" value={"10"} register={register} />
+              </div>
+            </div>
+          </>
+        );
+      case address + 3 + 0:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                How satisfied are you with our espresso?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Not satisfied" value={"1"} register={register} />
+                <MoodRadio moon="Moderately satisfied" value={"2"} register={register} />
+                <MoodRadio moon="Satisfied" value={"3"} register={register} />
+                <MoodRadio moon="Very satisfied" value={"4"} register={register} />
+              </div>
+            </div>
+          </>);
+      case address + 4 + 0:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 mb-2"
+              >
+                Is there anything you'd like to know more from our espress making process?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <input
+                  type="text"
+                  id="seed"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                  placeholder="..."
+                  required
+                  {...register("string1")}
+                />
+              </div>
+            </div>
+          </>);
+      default:
+        return (<></>);
+    }
+  }
+
   useEffect(() => {
 
   }, [fetching])
@@ -134,169 +213,83 @@ const StateYourNameModal = ({ modalPayload }) => {
           <label className="mt-1 ml-3 mb-1 block text-sm font-medium text-gray-500">
             Connect your wallet or use a public alias to participate! Public alias feature is experimental, and recommended for single-use only.
           </label>
-          <label className="mt-1 ml-3 mb-2 block text-sm font-medium text-gray-500">
-            The time it takes to post a transaction onchain varies. You should see a green notification when transaction is successful.
-          </label>
+
         </div>
         <CloseModalButton />
       </div>
 
-      {itemId == 0
-        ? (
-          <div div className="flex h-auto h- space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
-            <div className="w-full mx-auto items-center justify-center gap-3">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-6">
-                  <label
-                    className="mb-2 block text-sm font-medium text-gray-900 "
-                  >
-                    {isConnected ? "地址 | Wallet Address" : "稱呼 | Public Alias"}
-                  </label>
-                  <div className="flex space-x-4 items-center justify-start">
-                    <div className="w-2/3">
-                      {isConnected ?
-                        <label
-                          className="mb-2 block text-sm font-medium text-gray-900 "
-                        >
-                          {address}
-                        </label> :
-                        <input
-                          type="text"
-                          id="seed"
-                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                          placeholder="麵包小偷 | Baguette thief"
-                          required
-                          {...register("seed")}
-                        />
-                      }
-                    </div>
-                    <div className="flex w-1/3 items-center justify-center ">
-                      {isConnected ? <></> : <DynamicWidget
-                        buttonClassName="connectButton"
-                        innerButtonComponent="Connect Wallet"
-                      />}
-                    </div>
-                  </div>
-                </div>
-                <label
-                  className="mt-2 mb-4 block text-sm font-normal text-gray-600 "
-                >
-                </label>
-                <div className="w-full">
-                  <button
-                    type="submit"
-                    disabled={startState.writeStatus > 0 || fetching}
-                    className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
-                  >
-                    {startState.writeStatus === 0 && !fetching && (inPrepare ? "Wait..." : "Start")}
-                    {(startState.writeStatus > 0 || fetching) && <Spinner />}
-                    <div className={`${(startState.writeStatus > 0 || fetching) ? "ml-2" : ""}`}>
-                      {startState.writeStatus === 1 && "Waiting for approval"}
-                      {(startState.writeStatus === 2 || fetching) && "pending"}
-                    </div>
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div >
-        ) : (
-          <div div className="flex h-auto h-space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
-            <div className="w-full mx-auto items-center justify-center gap-3">
-              <form onSubmit={handleSubmit(onSubmit)}>
 
-                <div className="mb-6">
-                  <label
-                    className="mb-2 block text-sm font-medium text-gray-900 "
-                  >
-                    {isConnected ? "地址 | Address" : "稱呼 | Name"}
-                  </label>
-                  <div className="flex space-x-4 items-center justify-start">
-                    <div className="w-2/3">
-                      {isConnected ?
-                        <label
-                          className="mb-2 block text-sm font-medium text-gray-900 "
-                        >
-                          {address}
-                        </label> :
-                        <input
-                          type="text"
-                          id="seed"
-                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                          placeholder="麵包小偷 | Baguette thief"
-                          required
-                          {...register("seed")}
-                        />
-                      }
-                    </div>
-                    <div className="flex w-1/3 items-center justify-center ">
-                      {isConnected ? <></> : <DynamicWidget
-                        buttonClassName="connectButton"
-                        innerButtonComponent="Connect Wallet"
-                      />}
-                    </div>
-                  </div>
-                </div>
-                {/* {(parseInt(listId) === 1) ? (
-                  <div className="mb-6 ">
+      <div div className="flex h-auto h-space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
+        <div className="w-full mx-auto items-center justify-center gap-3">
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+            <div className="mb-6">
+              <label
+                className="mb-2 block text-sm font-medium text-gray-900 "
+              >
+                {isConnected ? "地址 | Address" : "稱呼 | Name"}
+              </label>
+              <div className="flex space-x-4 items-center justify-start">
+                <div className="w-2/3">
+                  {isConnected ?
                     <label
-                      className=" block text-sm font-medium text-gray-900 "
+                      className="mb-2 block text-sm font-medium text-gray-900 "
                     >
-                      如果你今天有使用<a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
-                      >新參者求生小錦囊</a>，請點選以下完成的任務：
-                    </label>
-                    <label
-                      className="mb-3 block text-sm font-normal text-gray-500"
-                    >
-                      If you've used the <a target="_blank" href="https://docs.google.com/document/d/1PHYvQ9r2kmGnGKK4_Yqh1Y-yXx61p78r21Rz2e41oPA/" class="underline"
-                      >Newcomer Guide</a>, please check any that you've done!
-                    </label>
-
-                    <div className="flex flex-col items-start justify-between">
-                      <MoodRadio moon="👍 幫 g0v 粉專按讚" value={"1"} register={register} />
-                      <MoodRadio moon="🔔 打開任一專案頻道通知" value={"2"} register={register} />
-                      <MoodRadio moon="📝 截圖任一提案的專案共筆" value={"3"} register={register} />
-                      <MoodRadio moon="👀 瀏覽並截圖最新社群九分鐘" value={"4"} register={register} />
-                      <MoodRadio moon="🎙️ 在有興趣的專案共筆上自我介紹" value={"5"} register={register} />
-                      <MoodRadio moon="🏷️ 貼上三張符合你身份的技能貼紙" value={"6"} register={register} />
-                      <MoodRadio moon="🧐 加入三個你有興趣的 Slack 頻道" value={"7"} register={register} />
-                    </div>
-                  </div>
-                ) : (<></>)} */}
-                <div className="mb-6">
-                  <label
-                    className="mb-2 block text-sm font-medium text-gray-900 "
-                  >
-                    心得 | Feedback
-                  </label>
-                  <textarea
-                    id="feedback"
-                    className="w-full h-100vh rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                    placeholder="炸雞超好吃～ | Fried chicken was so good~"
-                    {...register("feedback")}
-                  ></textarea>
+                      {address}
+                    </label> :
+                    <input
+                      type="text"
+                      id="seed"
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
+                      placeholder="麵包小偷 | Baguette thief"
+                      required
+                      {...register("seed")}
+                    />
+                  }
                 </div>
-
-                <div className="flex flex-col space-y-4 w-full">
-                  <label
-                    className="block text-sm font-medium text-gray-500 "
-                  >
-                  </label>
-                  <button
-                    type="submit"
-                    disabled={logState.writeStatus > 0 || fetching}
-                    className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
-                  >
-                    {(logState.writeStatus === 0 && !fetching) && (inPrepare ? "Wait..." : "Share")}
-                    {(logState.writeStatus > 0 || fetching) && <Spinner />}
-                    <div className={`${(logState.writeStatus > 0 || fetching) ? "ml-2" : ""}`}>
-                      {(logState.writeStatus === 1) && "Waiting for approval"}
-                      {(logState.writeStatus === 2 || fetching) && "pending"}
-                    </div>
-                  </button>
+                <div className="flex w-1/3 items-center justify-center ">
+                  {isConnected ? <></> : <DynamicWidget
+                    buttonClassName="connectButton"
+                    innerButtonComponent="Connect Wallet"
+                  />}
                 </div>
-              </form>
+              </div>
             </div>
-          </div >)}
+            <div className="mb-6">
+              <label
+                className="mb-2 block text-sm font-medium text-gray-900 "
+              >
+                心得 | Feedback
+              </label>
+              <textarea
+                id="feedback"
+                className="w-full h-100vh rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="炸雞超好吃～ | Fried chicken was so good~"
+                {...register("feedback")}
+              ></textarea>
+            </div>
+
+            <div>
+              {(itemId > 0) ? <TouchpointDataStructure /> : <></>}
+            </div>
+            <div className="flex flex-col space-y-4 w-full">
+              <button
+                type="submit"
+                disabled={logState.writeStatus > 0 || fetching}
+                className="text-gray px-auto flex w-full flex-row items-center justify-center rounded-lg bg-yellow-200 py-2 text-center font-PasseroOne text-base  transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
+              >
+                {(logState.writeStatus === 0 && !fetching) && (inPrepare ? "Wait..." : "Share")}
+                {(logState.writeStatus > 0 || fetching) && <Spinner />}
+                <div className={`${(logState.writeStatus > 0 || fetching) ? "ml-2" : ""}`}>
+
+                  {(logState.writeStatus === 1) && "Waiting for approval"}
+                  {(logState.writeStatus === 2 || fetching) && "pending"}
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div >
     </>
   );
 };
