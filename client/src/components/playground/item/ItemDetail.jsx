@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-
+import { Bulletin } from "@contract";
 import { useGlobalContext } from "@context/store";
 import { loadIPFS } from "@context/actions/playgroundAction";
 import { fetchIpfsCID } from "@utils/ipfs";
@@ -18,7 +18,6 @@ const ItemDetail = () => {
   const listId = params.listId;
   const itemId = params.itemId;
   const items = location.state.items;
-  const bulletin = location.state.bulletin;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(undefined);
   useEffect(() => {
@@ -38,7 +37,7 @@ const ItemDetail = () => {
     showModal({
       type: 4,
       size: "3xl",
-      content: { bulletin: bulletin, listId: listId, itemId: itemId },
+      content: { bulletin: Bulletin, listId: listId, itemId: itemId },
     });
   };
 

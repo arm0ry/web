@@ -17,7 +17,6 @@ const StateYourNameModal = ({ modalPayload }) => {
   const bulletin = modalPayload.content.bulletin;
   const listId = modalPayload.content.listId;
   const itemId = modalPayload.content.itemId;
-
   const { address, isConnected, isDisconnected } = useAccount();
   const {
     register,
@@ -58,6 +57,7 @@ const StateYourNameModal = ({ modalPayload }) => {
 
   const logByBot = async (feedback, data) => {
     try {
+
       const body = { bulletin: bulletin.address, listId: listId, itemId: itemId, feedback: feedback, data: data };
       axios
         .post("/api/users/sponsored_respond", body)
@@ -97,12 +97,29 @@ const StateYourNameModal = ({ modalPayload }) => {
   };
 
   const onSubmit = async (data) => {
+
+    let _data = 0
+    for (let i = 0; i < data.moon.length; i++) {
+      _data = _data + 10 ** parseInt(data.moon[i])
+    }
+
+    // TODO: Need to use switch to build the correct data structure for list and item
+    let structuredData;
+    const abiCoder = ethers.utils.defaultAbiCoder;
+    structuredData = await abiCoder.encode(["uint256"], [_data]);
+
+    if (data.string1 != "") {
+      structuredData = await abiCoder.encode(["string"], [data.string1]);
+    }
+
+    console.log("hello", data, _data, structuredData,);
+
     if (isConnected) {
       setInPrepare(true);
 
       try {
         log({
-          args: [bulletin.address, listId, itemId, data.feedback, ethers.constants.HashZero],
+          args: [bulletin.address, listId, itemId, data.feedback, structuredData],
         })
         setInPrepare(false)
       } catch (error) {
@@ -120,7 +137,7 @@ const StateYourNameModal = ({ modalPayload }) => {
     }
   };
 
-  const TouchpointDataStructure = () => {
+  const ListTouchpointDataStructure = () => {
     let address = ethers.constants.HashZero;
     const ds = (bulletin != undefined) ? bulletin.address + listId + itemId : "";
     address = (bulletin != undefined) ? bulletin.address : "";;
@@ -136,10 +153,10 @@ const StateYourNameModal = ({ modalPayload }) => {
                 How did you have your cold brew?
               </label>
               <div className="flex flex-col items-start justify-between">
-                <MoodRadio moon="Black" value={"1"} register={register} />
-                <MoodRadio moon="With milk / cream" value={"2"} register={register} />
-                <MoodRadio moon="Sweetened" value={"3"} register={register} />
-                <MoodRadio moon="Flavored" value={"4"} register={register} />
+                <MoodRadio moon="Black" value={1} register={register} />
+                <MoodRadio moon="With milk / cream" value={2} register={register} />
+                <MoodRadio moon="Sweetened" value={3} register={register} />
+                <MoodRadio moon="Flavored" value={4} register={register} />
               </div>
             </div>
             <div className="mb-6 ">
@@ -149,9 +166,9 @@ const StateYourNameModal = ({ modalPayload }) => {
                 When did you enjoy your cold brew?
               </label>
               <div className="flex flex-col items-start justify-between">
-                <MoodRadio moon="Morning" value={"8"} register={register} />
-                <MoodRadio moon="Afternoon" value={"9"} register={register} />
-                <MoodRadio moon="Evening" value={"10"} register={register} />
+                <MoodRadio moon="Morning" value={5} register={register} />
+                <MoodRadio moon="Afternoon" value={6} register={register} />
+                <MoodRadio moon="Evening" value={7} register={register} />
               </div>
             </div>
           </>
@@ -199,9 +216,105 @@ const StateYourNameModal = ({ modalPayload }) => {
     }
   }
 
-  useEffect(() => {
+  const ItemTouchpointDataStructure = () => {
+    let address = ethers.constants.HashZero;
+    const ds = (bulletin != undefined) ? bulletin.address + listId + itemId : "";
+    address = (bulletin != undefined) ? bulletin.address : address;;
 
-  }, [fetching])
+    switch (ds) {
+      case address + 2 + 2:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                Do the suggested notes resonate with you?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Milk Chocoalate" value={"1"} register={register} />
+                <MoodRadio moon="Strawberry" value={"2"} register={register} />
+              </div>
+            </div>
+          </>
+        );
+      case address + 3 + 4:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                Do the suggested notes resonate with you?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Milk Chocoalate" value={"1"} register={register} />
+                <MoodRadio moon="Strawberry" value={"2"} register={register} />
+              </div>
+            </div>
+          </>
+        );
+      case address + 4 + 6:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                Which machine do you use?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Brand 1" value={"1"} register={register} />
+                <MoodRadio moon="Brand 2" value={"2"} register={register} />
+                <MoodRadio moon="Brand 2" value={"3"} register={register} />
+              </div>
+            </div>
+          </>
+        );
+      case address + 4 + 7:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                Which grinder do you use?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Brand 1" value={"1"} register={register} />
+                <MoodRadio moon="Brand 2" value={"2"} register={register} />
+                <MoodRadio moon="Brand 2" value={"3"} register={register} />
+              </div>
+            </div>
+          </>
+        );
+      case address + 4 + 9:
+        return (
+          <>
+            <div className="mb-6 ">
+              <label
+                className=" block text-sm font-medium text-gray-900 "
+              >
+                How do you make own espresso?
+              </label>
+              <div className="flex flex-col items-start justify-between">
+                <MoodRadio moon="Method 1" value={"1"} register={register} />
+                <MoodRadio moon="Method 2" value={"2"} register={register} />
+                <MoodRadio moon="Method 2" value={"3"} register={register} />
+              </div>
+            </div>
+          </>
+        );
+      default:
+        return (<></>);
+    }
+  }
+
+  useEffect(() => {
+  }, [fetching]);
+
+  useEffect(() => {
+  }, [bulletin]);
 
   return (
     <>
@@ -270,7 +383,8 @@ const StateYourNameModal = ({ modalPayload }) => {
             </div>
 
             <div>
-              {(itemId > 0) ? <TouchpointDataStructure /> : <></>}
+              <ListTouchpointDataStructure />
+              <ItemTouchpointDataStructure />
             </div>
             <div className="flex flex-col space-y-4 w-full">
               <button

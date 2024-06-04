@@ -30,7 +30,7 @@ const ItemCard = ({ bulletin, itemId, items, className = "" }) => {
             </p> */}
             <Link
               to={`${itemId}`}
-              state={{ bulletin: bulletin, items: items }}
+              state={{ items: items }}
               className="block pt-4 text-indigo-500 transition duration-200"
             >
               Read Detail →
