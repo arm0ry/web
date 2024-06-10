@@ -7,6 +7,7 @@ import {
   Logger as _Logger,
   TokenMinter as _TokenMinter,
   TokenCurve as _TokenCurve,
+  TokenUriBuilder as _TokenUriBuilder,
   Currency as _Currency,
   RPC,
 } from "@contract";
@@ -31,6 +32,11 @@ export const TokenMinter = getContract({
 
 export const TokenCurve = getContract({
   ..._TokenCurve,
+  signerOrProvider: sepolia_provider,
+});
+
+export const TokenUriBuilder = getContract({
+  ..._TokenUriBuilder,
   signerOrProvider: sepolia_provider,
 });
 

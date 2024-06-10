@@ -15,6 +15,7 @@ import {
   Logger,
   TokenMinter,
   TokenCurve,
+  TokenUriBuilder,
   Currency
 } from "@utils/contract";
 import { ethers } from "ethers";
@@ -128,43 +129,43 @@ export const loadLogger = async () => {
 };
 
 export const loadTokens = async () => {
-  try {
-    const _tokenId = await TokenMinter.tokenId()
-    const tokenId = parseInt(_tokenId._hex)
+  // try {
+  //   const _tokenId = await TokenMinter.tokenId()
+  //   const tokenId = parseInt(_tokenId._hex)
 
-    let tokens = {}
+  //   let tokens = {}
 
-    await Promise.all(
-      [...Array(tokenId)].map(async (_, _id) => {
-        const id = _id + 1
-        const owner = await TokenMinter.ownerOf(id)
-        const _title = await TokenMinter.getTokenTitle(id)
-        const title = { name: _title[0], desc: _title[1] }
-        const _source = await TokenMinter.getTokenSource(id)
-        const source = { bulletin: _source[0], id: _source[1], logger: _source[2] }
-        const builder = await TokenMinter.getTokenBuilder(id)
-        const market = await TokenMinter.getTokenMarket(id)
-        const uri = await TokenMinter.uri(id)
+  //   await Promise.all(
+  //     [...Array(tokenId)].map(async (_, _id) => {
+  //       const id = _id + 1
+  //       const owner = await TokenMinter.ownerOf(id)
+  //       const _title = await TokenMinter.getTokenTitle(id)
+  //       const title = { name: _title[0], desc: _title[1] }
+  //       const _source = await TokenMinter.getTokenSource(id)
+  //       const source = { bulletin: _source[0], id: _source[1], logger: _source[2] }
+  //       const builder = await TokenMinter.getTokenBuilder(id)
+  //       const market = await TokenMinter.getTokenMarket(id)
+  //       const uri = await TokenMinter.uri(id)
 
-        tokens[id] = {
-          id: id,
-          owner: owner,
-          uri: uri,
-          title: title,
-          source: source,
-          builder: builder,
-          market: market
-        }
-      })
-    )
+  //       tokens[id] = {
+  //         id: id,
+  //         owner: owner,
+  //         uri: uri,
+  //         title: title,
+  //         source: source,
+  //         builder: builder,
+  //         market: market
+  //       }
+  //     })
+  //   )
 
-    dispatch.fn({
-      type: LOAD_TOKENS,
-      payload: tokens
-    })
-  } catch (err) {
-    console.log(err)
-  }
+  //   dispatch.fn({
+  //     type: LOAD_TOKENS,
+  //     payload: tokens
+  //   })
+  // } catch (err) {
+  //   console.log(err)
+  // }
 }
 
 export const loadTokenCurves = async () => {
@@ -187,7 +188,7 @@ export const loadTokenCurves = async () => {
         const stablecoinCollected = ethers.utils.formatEther(collected[1]);
 
         // Token
-        const uri = await TokenMinter.svg(id)
+        const uri = await TokenMinter.svg(id);
         const _title = await TokenMinter.getTokenTitle(id)
         const title = { name: _title[0], desc: _title[1] }
         const _source = await TokenMinter.getTokenSource(id)

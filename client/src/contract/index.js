@@ -2,6 +2,7 @@ import BULLETIN_ABI from "./Bulletin.json";
 import LOGGER_ABI from "./Log.json";
 import TOKEN_MINTER_ABI from "./TokenMinter.json";
 import TOKEN_CURVE_ABI from "./TokenCurve.json";
+import TOKEN_URI_BUILDER_ABI from "./TokenUriBuilder.json";
 import CURRENCY_ABI from "./Currency.json";
 
 // ===================================
@@ -44,27 +45,32 @@ import CURRENCY_ABI from "./Currency.json";
 // ===================================
 
 export const Bulletin = {
-  address: "0x7a4FA2913B875Fb961115fA770e323FFb7D4c3aB",
+  address: "0xdbe54c88a1dec1072aedb8322e13ede842d2de0f",
   abi: BULLETIN_ABI,
 };
 
 export const Logger = {
-  address: "0x1FD2775fcb3Bf31eEf66eF6D96AFe34E68310De6",
+  address: "0x51c86d11344861e733A5976a67486D1Bf9515221",
   abi: LOGGER_ABI,
 };
 
 export const TokenMinter = {
-  address: "0x852310d7a78b9790B750487C88eaFabb36108211",
+  address: "0x83Ad8826166c23Bb7083B5403106859a4ab8C8eC",
   abi: TOKEN_MINTER_ABI,
 };
 
 export const TokenCurve = {
-  address: "0x52188896ebC407F7Eaf8000FA109482f37260f4e",
+  address: "0x3081710c4f756a217E631Ad05F0b872A85e5A459",
   abi: TOKEN_CURVE_ABI,
 };
 
+export const TokenUriBuilder = {
+  address: "0x76FC65cB8Ed8DE05c89f5E7ea231CD1015a14Ce0",
+  abi: TOKEN_URI_BUILDER_ABI,
+};
+
 export const Currency = {
-  address: "0xE0c1a5E685ca9a170bAEb4FA5a121de34aa10838",
+  address: "0xEE38f46bb8d2d12d10AA0c8fF82558f1b7320A0f",
   abi: CURRENCY_ABI,
 };
 
