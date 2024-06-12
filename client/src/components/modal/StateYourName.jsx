@@ -17,6 +17,8 @@ const StateYourNameModal = ({ modalPayload }) => {
   const bulletin = modalPayload.content.bulletin;
   const listId = modalPayload.content.listId;
   const itemId = modalPayload.content.itemId;
+  const uuid = (bulletin != undefined) ? bulletin.address + listId + itemId : "";
+
   const { address, isConnected, isDisconnected } = useAccount();
   const {
     register,
@@ -24,7 +26,7 @@ const StateYourNameModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { seed: "", moon: "", string1: "", string2: "" },
+    defaultValues: { seed: "", moon: "", string1: "", string2: "", slider: "", slider2: "", slider3: "", flavor: "", body: "", aroma: "" },
   });
 
   const { write: log, state: logState } = useWriteContract({
@@ -98,21 +100,16 @@ const StateYourNameModal = ({ modalPayload }) => {
 
   const onSubmit = async (data) => {
 
-    let _data = 0
-    for (let i = 0; i < data.moon.length; i++) {
-      _data = _data + 10 ** parseInt(data.moon[i])
-    }
 
     // TODO: Need to use switch to build the correct data structure for list and item
     let structuredData;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = await abiCoder.encode(["uint256"], [_data]);
+    structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [data.flavor, data.body, data.aroma]);
+    console.log(data, structuredData)
 
-    if (data.string1 != "") {
-      structuredData = await abiCoder.encode(["string"], [data.string1]);
-    }
-
-    console.log("hello", data, _data, structuredData,);
+    // if (data.string1 != "") {
+    //   structuredData = await abiCoder.encode(["string"], [data.string1]);
+    // }
 
     if (isConnected) {
       setInPrepare(true);
@@ -139,38 +136,71 @@ const StateYourNameModal = ({ modalPayload }) => {
 
   const ListTouchpointDataStructure = () => {
     let address = ethers.constants.HashZero;
-    const ds = (bulletin != undefined) ? bulletin.address + listId + itemId : "";
     address = (bulletin != undefined) ? bulletin.address : "";;
 
-    switch (ds) {
+    switch (uuid) {
+      case address + 1 + 0:
+        return (
+          <>
+            <div className="flex flex-row justify-center space-x-20">
+              <div className="flex flex-row space-x-5 items-center mb-6">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Flavor
+                </label>
+                <input required type="number" max={10} min={1} {...register("flavor")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+              <div className="flex flex-row space-x-5 items-center mb-6">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Body
+                </label>
+                <input required type="number" max={10} min={1} {...register("body")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+              <div className="flex flex-row space-x-5 items-center mb-6">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Aroma
+                </label>
+                <input required type="number" max={10} min={1} {...register("aroma")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+            </div>
+
+          </>
+        );
       case address + 2 + 0:
         return (
           <>
-            <div className="mb-6 ">
-              <label
-                className=" block text-sm font-medium text-gray-900 "
-              >
-                How did you have your cold brew?
-              </label>
-              <div className="flex flex-col items-start justify-between">
-                <MoodRadio moon="Black" value={1} register={register} />
-                <MoodRadio moon="With milk / cream" value={2} register={register} />
-                <MoodRadio moon="Sweetened" value={3} register={register} />
-                <MoodRadio moon="Flavored" value={4} register={register} />
+            <div className="flex flex-row justify-center space-x-20">
+              <div className="flex flex-row space-x-5 items-center mb-6">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Flavor
+                </label>
+                <input required type="number" max={10} min={1} {...register("flavor")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+              <div className="flex flex-row space-x-5 items-center mb-6">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Body
+                </label>
+                <input required type="number" max={10} min={1} {...register("body")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+              <div className="flex flex-row space-x-5 items-center mb-6">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Aroma
+                </label>
+                <input required type="number" max={10} min={1} {...register("aroma")} className="rounded-md text-center p-1" placeholder="1" />
               </div>
             </div>
-            <div className="mb-6 ">
-              <label
-                className=" block text-sm font-medium text-gray-900 "
-              >
-                When did you enjoy your cold brew?
-              </label>
-              <div className="flex flex-col items-start justify-between">
-                <MoodRadio moon="Morning" value={5} register={register} />
-                <MoodRadio moon="Afternoon" value={6} register={register} />
-                <MoodRadio moon="Evening" value={7} register={register} />
-              </div>
-            </div>
+
           </>
         );
       case address + 3 + 0:

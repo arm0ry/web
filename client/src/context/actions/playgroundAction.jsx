@@ -128,46 +128,6 @@ export const loadLogger = async () => {
   }
 };
 
-export const loadTokens = async () => {
-  // try {
-  //   const _tokenId = await TokenMinter.tokenId()
-  //   const tokenId = parseInt(_tokenId._hex)
-
-  //   let tokens = {}
-
-  //   await Promise.all(
-  //     [...Array(tokenId)].map(async (_, _id) => {
-  //       const id = _id + 1
-  //       const owner = await TokenMinter.ownerOf(id)
-  //       const _title = await TokenMinter.getTokenTitle(id)
-  //       const title = { name: _title[0], desc: _title[1] }
-  //       const _source = await TokenMinter.getTokenSource(id)
-  //       const source = { bulletin: _source[0], id: _source[1], logger: _source[2] }
-  //       const builder = await TokenMinter.getTokenBuilder(id)
-  //       const market = await TokenMinter.getTokenMarket(id)
-  //       const uri = await TokenMinter.uri(id)
-
-  //       tokens[id] = {
-  //         id: id,
-  //         owner: owner,
-  //         uri: uri,
-  //         title: title,
-  //         source: source,
-  //         builder: builder,
-  //         market: market
-  //       }
-  //     })
-  //   )
-
-  //   dispatch.fn({
-  //     type: LOAD_TOKENS,
-  //     payload: tokens
-  //   })
-  // } catch (err) {
-  //   console.log(err)
-  // }
-}
-
 export const loadTokenCurves = async () => {
   try {
     const _curveId = await TokenCurve.curveId()
@@ -193,8 +153,9 @@ export const loadTokenCurves = async () => {
         const title = { name: _title[0], desc: _title[1] }
         const _source = await TokenMinter.getTokenSource(id)
         const source = { bulletin: _source[0], id: parseInt(_source[1]._hex), logger: _source[2] }
-
-
+        const _market = await TokenMinter.getTokenSource(id)
+        const market = { market: _market[0], limit: ethers.utils.formatEther(_market[1]) }
+        console.log(_market, market)
         curves[id] = {
           owner: curve.owner,
           treasury: parseInt(treasury._hex),
@@ -216,10 +177,13 @@ export const loadTokenCurves = async () => {
           tokenUri: uri,
           tokenTitle: title,
           tokenSource: source,
+          tokenMarket: market,
           tokenSupply: parseInt(curve.supply._hex)
         }
       })
     )
+
+    console.log(curves)
     dispatch.fn({
       type: LOAD_TOKEN_CURVE,
       payload: curves

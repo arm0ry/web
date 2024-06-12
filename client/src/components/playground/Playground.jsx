@@ -23,7 +23,6 @@ import {
   loadItems,
   loadLists,
   loadLogger,
-  loadTokens,
   loadTokenCurves,
   loadCurrency
 } from "@context/actions/playgroundAction";
@@ -155,7 +154,6 @@ const Playground = () => {
       await loadItems();
       await loadLists();
       await loadLogger();
-      await loadTokens();
       await loadTokenCurves();
       await loadCurrency();
     }
