@@ -17,6 +17,8 @@ const CurveCard = ({ curve }) => {
     const signer = await provider.getSigner();
     const tokenCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
 
+    console.log(curve.mintPrice)
+
     try {
       const tx = await tokenCurve.support(curve.curveId, user, curve.mintPrice, { value: curve.mintPrice })
 
@@ -25,7 +27,7 @@ const CurveCard = ({ curve }) => {
           <span>
             Success! Check your mint transaction on
             <a
-              href={`https://sepolia.etherscan.io/tx/${tx.hash}`}
+              href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
               target="_blank"
               rel="noreferrer"
               className="font-extrabold text-green-900"
@@ -55,7 +57,7 @@ const CurveCard = ({ curve }) => {
             <span>
               Success! Check your burn transaction on
               <a
-                href={`https://sepolia.etherscan.io/tx/${tx.hash}`}
+                href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
                 target="_blank"
                 rel="noreferrer"
                 className="font-extrabold text-green-900"

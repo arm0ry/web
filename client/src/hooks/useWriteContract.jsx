@@ -49,7 +49,7 @@ const useWriteContract = ({ address, abi, functionName }) => {
               {" "}
               區塊驗證中... | Blockchain is doing its work...
               <a
-                href={`https://sepolia.etherscan.io/tx/${hash}`}
+                href={`https://gnosis-chiado.blockscout.com/tx/${hash}`}
                 target="_blank"
                 rel="noreferrer"
                 className="font-extrabold text-blue-900"
