@@ -14,34 +14,35 @@ import {
 
 // Provider & Contract
 export const sepolia_provider = new ethers.providers.JsonRpcProvider(RPC.sepolia);
+export const chiado_provider = new ethers.providers.JsonRpcProvider(RPC.chiado);
 
 export const Bulletin = getContract({
   ..._Bulletin,
-  signerOrProvider: sepolia_provider,
+  signerOrProvider: chiado_provider,
 });
 
 export const Logger = getContract({
   ..._Logger,
-  signerOrProvider: sepolia_provider,
+  signerOrProvider: chiado_provider,
 });
 
 export const TokenMinter = getContract({
   ..._TokenMinter,
-  signerOrProvider: sepolia_provider,
+  signerOrProvider: chiado_provider,
 });
 
 export const TokenCurve = getContract({
   ..._TokenCurve,
-  signerOrProvider: sepolia_provider,
+  signerOrProvider: chiado_provider,
 });
 
 export const TokenUriBuilder = getContract({
   ..._TokenUriBuilder,
-  signerOrProvider: sepolia_provider,
+  signerOrProvider: chiado_provider,
 });
 
 export const Currency = getContract({
   ..._Currency,
-  signerOrProvider: sepolia_provider,
+  signerOrProvider: chiado_provider,
 });
 

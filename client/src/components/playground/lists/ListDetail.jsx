@@ -121,14 +121,14 @@ const ListDetail = () => {
               <div className=" peer flex -space-x-[0.5rem]">
                 {[...Array(5)].map((_, i) => {
                   return (
-                    <>
+                    <div key={i}>
                       <Avatar
                         key={i}
                         className={"h-7 w-7 "}
                         address={Math.random()}
                         color="f7f0eb"
                       />
-                    </>
+                    </div>
                   );
                 })}
                 <div className="border-1 ml-2 flex h-7 w-12 cursor-cell	items-center justify-center rounded-full border-white bg-[#f7f0eb] text-xs font-semibold text-black hover:bg-[#ece2dc]">

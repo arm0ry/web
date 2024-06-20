@@ -94,7 +94,7 @@ export const loadLogger = async () => {
       [...Array(logId)].map(async (_, _id) => {
         const id = _id + 1;
         const log = await Logger.getLog(id);
-        const tps = await Logger.getLogTouchpoints(id)
+        const tps = await Logger.getTouchpointsByLog(id)
         let _tps = []
         logs[id] = { logId: id, user: log.user, bulletin: log.bulletin, listId: parseInt(log.listId._hex), nonce: parseInt(log.nonce._hex), touchpoints: tps };
 
@@ -141,11 +141,11 @@ export const loadTokenCurves = async () => {
         const id = _id + 1
         const curve = await TokenCurve.getCurve(id);
         const treasury = await TokenCurve.treasuries(id);
-        // const mintPrice = await TokenCurve.getCurvePrice(true, id, 0);
-        // const burnPrice = await TokenCurve.getCurvePrice(false, id, 0);
-        const collected = await TokenCurve.collected(curve.owner, id);
+        const collected = await TokenCurve.collected(id);
         const currencyCollected = ethers.utils.formatEther(collected[0]);
         const stablecoinCollected = ethers.utils.formatEther(collected[1]);
+        const mintPrice = await TokenCurve.getCurvePrice(true, id, 0);
+        const burnPrice = await TokenCurve.getCurvePrice(false, id, 0);
 
         // Token
         const uri = await TokenMinter.svg(id);
@@ -153,12 +153,11 @@ export const loadTokenCurves = async () => {
         const title = { name: _title[0], desc: _title[1] }
         const _source = await TokenMinter.getTokenSource(id)
         const source = { bulletin: _source[0], id: parseInt(_source[1]._hex), logger: _source[2] }
-        const _market = await TokenMinter.getTokenSource(id)
-        const market = { market: _market[0], limit: ethers.utils.formatEther(_market[1]) }
-        console.log(_market, market)
+        const _market = await TokenMinter.getTokenMarket(id)
+        const market = { market: _market[0], limit: parseInt(_market[1]._hex) }
         curves[id] = {
           owner: curve.owner,
-          treasury: parseInt(treasury._hex),
+          treasury: ethers.utils.formatEther(treasury),
           curveType: curve.curveType,
           currency: curve.currency,
           scale: ethers.utils.formatEther(curve.scale),
@@ -168,8 +167,8 @@ export const loadTokenCurves = async () => {
           burn_a: curve.burn_a,
           burn_b: curve.burn_b,
           burn_c: curve.burn_c,
-          // mintPrice: mintPrice,
-          // burnPrice: burnPrice,
+          mintPrice: ethers.utils.formatEther(mintPrice),
+          burnPrice: ethers.utils.formatEther(burnPrice),
           currencyCollected: currencyCollected,
           stablecoinCollected: stablecoinCollected,
           token: curve.token,
@@ -183,7 +182,6 @@ export const loadTokenCurves = async () => {
       })
     )
 
-    console.log(curves)
     dispatch.fn({
       type: LOAD_TOKEN_CURVE,
       payload: curves
