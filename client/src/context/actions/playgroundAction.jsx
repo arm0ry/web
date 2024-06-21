@@ -16,10 +16,13 @@ import {
   TokenMinter,
   TokenCurve,
   TokenUriBuilder,
-  Currency
+  Coffee,
+  Croissant
 } from "@utils/contract";
 import { ethers } from "ethers";
 import { fetchIpfsCID } from "@utils/ipfs";
+import CURRENCY_ABI from "../../contract/Currency.json";
+
 
 export const loadItems = async () => {
   try {
@@ -147,6 +150,13 @@ export const loadTokenCurves = async () => {
         const mintPrice = await TokenCurve.getCurvePrice(true, id, 0);
         const burnPrice = await TokenCurve.getCurvePrice(false, id, 0);
 
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = await provider.getSigner();
+        const currency = new ethers.Contract(curve.currency, CURRENCY_ABI, signer)
+
+        const currency_name = await currency.name();
+        const currency_symbol = await currency.symbol();
+
         // Token
         const uri = await TokenMinter.svg(id);
         const _title = await TokenMinter.getTokenTitle(id)
@@ -160,6 +170,8 @@ export const loadTokenCurves = async () => {
           treasury: ethers.utils.formatEther(treasury),
           curveType: curve.curveType,
           currency: curve.currency,
+          currency_name: currency_name,
+          currency_symbol: currency_symbol,
           scale: ethers.utils.formatEther(curve.scale),
           mint_a: curve.mint_a,
           mint_b: curve.mint_b,
@@ -185,26 +197,6 @@ export const loadTokenCurves = async () => {
     dispatch.fn({
       type: LOAD_TOKEN_CURVE,
       payload: curves
-    })
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-export const loadCurrency = async () => {
-  try {
-    const name = await Currency.name()
-    const symbol = await Currency.symbol()
-    const owner = await Currency.owner();
-    const currency = {
-      name: name,
-      symbol: symbol,
-      owner: owner
-    }
-
-    dispatch.fn({
-      type: LOAD_CURRENCY,
-      payload: currency
     })
   } catch (err) {
     console.log(err)

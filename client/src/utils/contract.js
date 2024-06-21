@@ -8,7 +8,8 @@ import {
   TokenMinter as _TokenMinter,
   TokenCurve as _TokenCurve,
   TokenUriBuilder as _TokenUriBuilder,
-  Currency as _Currency,
+  Coffee as _Coffee,
+  Croissant as _Croissant,
   RPC,
 } from "@contract";
 
@@ -41,8 +42,13 @@ export const TokenUriBuilder = getContract({
   signerOrProvider: chiado_provider,
 });
 
-export const Currency = getContract({
-  ..._Currency,
+export const Coffee = getContract({
+  ..._Coffee,
+  signerOrProvider: chiado_provider,
+});
+
+export const Croissant = getContract({
+  ..._Croissant,
   signerOrProvider: chiado_provider,
 });
 

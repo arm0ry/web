@@ -357,11 +357,6 @@
                 "type": "address"
             },
             {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
                 "internalType": "address",
                 "name": "logger",
                 "type": "address"

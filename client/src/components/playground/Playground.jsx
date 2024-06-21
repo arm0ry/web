@@ -23,8 +23,7 @@ import {
   loadItems,
   loadLists,
   loadLogger,
-  loadTokenCurves,
-  loadCurrency
+  loadTokenCurves
 } from "@context/actions/playgroundAction";
 import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
@@ -155,7 +154,6 @@ const Playground = () => {
       await loadLists();
       await loadLogger();
       await loadTokenCurves();
-      await loadCurrency();
     }
     load()
   }, []);
