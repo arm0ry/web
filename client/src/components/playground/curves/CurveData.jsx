@@ -12,7 +12,7 @@ const CurveData = ({ curve }) => {
 
         <div className="flex flex-col space-y-1">
           <label className="text-xs font-medium text-gray-500">price in $local</label>
-          <label className="text-sm font-normal text-gray-900">{(curve.mintPrice !== undefined) ? curve.mintPrice : 0} ${(curve.currency_symbol !== undefined) ? String(curve.currency_symbol).toLowerCase() : ""}</label>
+          <label className="text-sm font-normal text-gray-900">{(curve.mint_c !== undefined && curve.scale !== undefined) ? curve.mint_c * curve.scale : 0} ${(curve.currency_symbol !== undefined) ? String(curve.currency_symbol).toLowerCase() : ""}</label>
         </div>
 
         <div className="flex flex-col space-y-1">

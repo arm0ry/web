@@ -4,7 +4,6 @@ import { useGlobalContext } from "@context/store";
 
 const CommonsReports = () => {
   const { playground } = useGlobalContext();
-  console.log(playground.curves)
   return (
     <>
       <div className="flex flex-col">
