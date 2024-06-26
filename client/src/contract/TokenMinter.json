@@ -342,6 +342,11 @@
                 "type": "address"
             },
             {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
@@ -542,6 +547,11 @@
                 "components": [
                     {
                         "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
                         "name": "bulletin",
                         "type": "address"
                     },
@@ -696,6 +706,11 @@
         "outputs": [
             {
                 "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
                 "name": "bulletin",
                 "type": "address"
             },
@@ -786,6 +801,46 @@
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "bulletin",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "listId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "logger",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct TokenSource",
+                "name": "source",
+                "type": "tuple"
+            }
+        ],
+        "name": "updateMinter",
+        "outputs": [],
+        "stateMutability": "payable",
         "type": "function"
     },
     {

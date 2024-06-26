@@ -132,6 +132,16 @@ export const loadLogger = async () => {
 };
 
 export const loadTokenCurves = async () => {
+  // try {
+  //   const _log = "0x3d8fbEd663474b25C0c8aE9CC8D4BcB87d52331a";
+  //   const _bulletin = "0x545b87611FD5d4CECcBF4b33D77C873a5b9b93B2.";
+  //   const beverage = await TokenUriBuilder.generateSvg(1, ethers.constants.AddressZero, _bulletin, 1, _log)
+  //   // const beverage = await TokenUriBuilder.generateSvgForBeverages(_bulletin, 1, _log)
+  //   console.log(beverage)
+  // } catch (err) {
+  //   console.log(err)
+  // }
+
   try {
     const _curveId = await TokenCurve.curveId()
     const curveId = parseInt(_curveId._hex)
@@ -159,6 +169,7 @@ export const loadTokenCurves = async () => {
 
         // Token
         const uri = await TokenMinter.svg(id);
+        // let uri;
         const _title = await TokenMinter.getTokenTitle(id)
         const title = { name: _title[0], desc: _title[1] }
         const _source = await TokenMinter.getTokenSource(id)

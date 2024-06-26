@@ -27,6 +27,11 @@
                 "components": [
                     {
                         "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
                         "name": "bulletin",
                         "type": "address"
                     },
@@ -60,17 +65,22 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
+                "internalType": "uint256",
+                "name": "coffee_gram",
+                "type": "uint256"
             },
             {
                 "internalType": "uint256",
-                "name": "listId",
+                "name": "water_liter",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "compost_gram",
                 "type": "uint256"
             }
         ],
-        "name": "buildConsumption",
+        "name": "buildCoffeeUsageSvg",
         "outputs": [
             {
                 "internalType": "string",
@@ -78,7 +88,7 @@
                 "type": "string"
             }
         ],
-        "stateMutability": "view",
+        "stateMutability": "pure",
         "type": "function"
     },
     {
@@ -132,73 +142,51 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            }
-        ],
-        "name": "buildTasks",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "desc",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct TokenTitle",
+                "name": "title",
+                "type": "tuple"
             },
             {
                 "components": [
                     {
                         "internalType": "address",
-                        "name": "owner",
+                        "name": "user",
                         "type": "address"
                     },
                     {
-                        "internalType": "string",
-                        "name": "title",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "detail",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "schema",
-                        "type": "bytes"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "itemIds",
-                        "type": "uint256[]"
+                        "internalType": "address",
+                        "name": "bulletin",
+                        "type": "address"
                     },
                     {
                         "internalType": "uint256",
-                        "name": "drip",
+                        "name": "listId",
                         "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "logger",
+                        "type": "address"
                     }
                 ],
-                "internalType": "struct List",
-                "name": "list",
+                "internalType": "struct TokenSource",
+                "name": "source",
                 "type": "tuple"
             }
         ],
-        "name": "buildTasksCompletions",
+        "name": "deliveryRecord",
         "outputs": [
             {
                 "internalType": "string",
@@ -230,6 +218,11 @@
             },
             {
                 "components": [
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
                     {
                         "internalType": "address",
                         "name": "bulletin",
@@ -265,9 +258,72 @@
     {
         "inputs": [
             {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "desc",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct TokenTitle",
+                "name": "title",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "bulletin",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "listId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "logger",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct TokenSource",
+                "name": "source",
+                "type": "tuple"
+            }
+        ],
+        "name": "feedbackForDelivery",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "uint256",
                 "name": "builderId",
                 "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
             },
             {
                 "internalType": "address",
@@ -336,9 +392,48 @@
                 "internalType": "uint256",
                 "name": "listId",
                 "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "logger",
+                "type": "address"
             }
         ],
-        "name": "generateSvgForListOverview",
+        "name": "generateSvgForCoffeeConsumption",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "bulletin",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "logger",
+                "type": "address"
+            }
+        ],
+        "name": "generateSvgForDeliveryRecord",
         "outputs": [
             {
                 "internalType": "string",
@@ -355,6 +450,79 @@
                 "internalType": "address",
                 "name": "bulletin",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "logger",
+                "type": "address"
+            }
+        ],
+        "name": "generateSvgForDeliveryService",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "bulletin",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "logger",
+                "type": "address"
+            }
+        ],
+        "name": "getCoffeeUsageData",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "coffee_gram",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "water_liter",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "compost_gram",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "bulletin",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listId",
+                "type": "uint256"
             },
             {
                 "internalType": "address",
@@ -386,6 +554,146 @@
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "bulletin",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listId",
+                "type": "uint256"
+            }
+        ],
+        "name": "loadCoffeeConsumption",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "fridge",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+            },
+            {
+                "internalType": "bool",
+                "name": "recycled",
+                "type": "bool"
+            }
+        ],
+        "name": "loadDeliveryRecord",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "bulletin",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "itemIds",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "loadDeliveryTasks",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "bulletin",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "logger",
+                "type": "address"
+            }
+        ],
+        "name": "loadNumOfRecylcedPitchers",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "numOfRecylced",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "bulletin",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "logger",
+                "type": "address"
+            }
+        ],
+        "name": "loadPitcherConsumption",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "components": [
                     {
                         "internalType": "string",
@@ -404,6 +712,11 @@
             },
             {
                 "components": [
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
                     {
                         "internalType": "address",
                         "name": "bulletin",
@@ -425,7 +738,7 @@
                 "type": "tuple"
             }
         ],
-        "name": "listOverview",
+        "name": "recordCoffeeConsumption",
         "outputs": [
             {
                 "internalType": "string",
