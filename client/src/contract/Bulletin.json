@@ -1,6 +1,11 @@
 [
     {
         "inputs": [],
+        "name": "AlreadyInitialized",
+        "type": "error"
+    },
+    {
+        "inputs": [],
         "name": "InvalidItem",
         "type": "error"
     },
@@ -1112,7 +1117,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "id",
+                "name": "",
                 "type": "uint256"
             }
         ],
@@ -1120,7 +1125,7 @@
         "outputs": [
             {
                 "internalType": "uint256",
-                "name": "runs",
+                "name": "",
                 "type": "uint256"
             }
         ],
@@ -1160,6 +1165,11 @@
     },
     {
         "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_listId",
+                "type": "uint256"
+            },
             {
                 "internalType": "uint256",
                 "name": "_itemId",

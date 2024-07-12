@@ -1,752 +1,847 @@
 [
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "builderId",
-                "type": "uint256"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "desc",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct TokenTitle",
-                "name": "title",
-                "type": "tuple"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "user",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "bulletin",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "listId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "logger",
-                        "type": "address"
-                    }
-                ],
-                "internalType": "struct TokenSource",
-                "name": "source",
-                "type": "tuple"
-            }
-        ],
-        "name": "build",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "coffee_gram",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "water_liter",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "compost_gram",
-                "type": "uint256"
-            }
-        ],
-        "name": "buildCoffeeUsageSvg",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "flavor",
-                "type": "uint256"
-            }
-        ],
-        "name": "buildFlavorBars",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "flavor",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "body",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "aroma",
-                "type": "uint256"
-            }
-        ],
-        "name": "buildPerformanceBars",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "desc",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct TokenTitle",
-                "name": "title",
-                "type": "tuple"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "user",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "bulletin",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "listId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "logger",
-                        "type": "address"
-                    }
-                ],
-                "internalType": "struct TokenSource",
-                "name": "source",
-                "type": "tuple"
-            }
-        ],
-        "name": "deliveryRecord",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "desc",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct TokenTitle",
-                "name": "title",
-                "type": "tuple"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "user",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "bulletin",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "listId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "logger",
-                        "type": "address"
-                    }
-                ],
-                "internalType": "struct TokenSource",
-                "name": "source",
-                "type": "tuple"
-            }
-        ],
-        "name": "feedbackForBeverages",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "desc",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct TokenTitle",
-                "name": "title",
-                "type": "tuple"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "user",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "bulletin",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "listId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "logger",
-                        "type": "address"
-                    }
-                ],
-                "internalType": "struct TokenSource",
-                "name": "source",
-                "type": "tuple"
-            }
-        ],
-        "name": "feedbackForDelivery",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "builderId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "generateSvg",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "generateSvgForBeverages",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "generateSvgForCoffeeConsumption",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "generateSvgForDeliveryRecord",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "generateSvgForDeliveryService",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "getCoffeeUsageData",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "coffee_gram",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "water_liter",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "compost_gram",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "getPerformanceData",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "flavor",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "body",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "aroma",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            }
-        ],
-        "name": "loadCoffeeConsumption",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "fridge",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-            },
-            {
-                "internalType": "bool",
-                "name": "recycled",
-                "type": "bool"
-            }
-        ],
-        "name": "loadDeliveryRecord",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256[]",
-                "name": "itemIds",
-                "type": "uint256[]"
-            }
-        ],
-        "name": "loadDeliveryTasks",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "loadNumOfRecylcedPitchers",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "numOfRecylced",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "logger",
-                "type": "address"
-            }
-        ],
-        "name": "loadPitcherConsumption",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "desc",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct TokenTitle",
-                "name": "title",
-                "type": "tuple"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "user",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "bulletin",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "listId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "logger",
-                        "type": "address"
-                    }
-                ],
-                "internalType": "struct TokenSource",
-                "name": "source",
-                "type": "tuple"
-            }
-        ],
-        "name": "recordCoffeeConsumption",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "builderId",
+				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "desc",
+						"type": "string"
+					}
+				],
+				"internalType": "struct TokenTitle",
+				"name": "title",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "bulletin",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "listId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "logger",
+						"type": "address"
+					}
+				],
+				"internalType": "struct TokenSource",
+				"name": "source",
+				"type": "tuple"
+			}
+		],
+		"name": "build",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "header",
+				"type": "string"
+			}
+		],
+		"name": "buildHeader",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "num",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "str",
+				"type": "string"
+			}
+		],
+		"name": "buildNumericalHeader",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "flavor",
+				"type": "uint256"
+			}
+		],
+		"name": "buildProgressBar",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "prompt",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "subtext",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "yValue",
+				"type": "uint256"
+			}
+		],
+		"name": "buildQaWithCurrencyResponse",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "prompt",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "result",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "subtext",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "yValue",
+				"type": "uint256"
+			}
+		],
+		"name": "buildQaWithNumericalResponse",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "buildSignature",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "detail",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes",
+						"name": "schema",
+						"type": "bytes"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "itemIds",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "drip",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct List",
+				"name": "list",
+				"type": "tuple"
+			}
+		],
+		"name": "buildTasksCompletions",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			}
+		],
+		"name": "buildTitle",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "desc",
+						"type": "string"
+					}
+				],
+				"internalType": "struct TokenTitle",
+				"name": "title",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "bulletin",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "listId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "logger",
+						"type": "address"
+					}
+				],
+				"internalType": "struct TokenSource",
+				"name": "source",
+				"type": "tuple"
+			}
+		],
+		"name": "deliveryRecord",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "builderId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "generateSvg",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "generateSvgForDeliveryRecord",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "generateSvgForQsForCoffee",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "generateSvgForQsForCroissant",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "generateSvgForQsForPitcherDelivery",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "getDeliveryTaskCompletions",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "numOfDeliveries",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numOfRecyling",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "getResponseByCoffee",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "costOfCups",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "costOfLabor",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "costOfBenefits",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numOfCoffee",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "getResponseByCroissant",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "percentage",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "score",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numOfCoffee",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "bulletin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "listId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "logger",
+				"type": "address"
+			}
+		],
+		"name": "getResponseByPitcherDelivery",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "costOfDelivery",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "costOfLabor",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "costOfRecycling",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numOfPitchers",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "desc",
+						"type": "string"
+					}
+				],
+				"internalType": "struct TokenTitle",
+				"name": "title",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "bulletin",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "listId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "logger",
+						"type": "address"
+					}
+				],
+				"internalType": "struct TokenSource",
+				"name": "source",
+				"type": "tuple"
+			}
+		],
+		"name": "qsForCoffee",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "desc",
+						"type": "string"
+					}
+				],
+				"internalType": "struct TokenTitle",
+				"name": "title",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "bulletin",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "listId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "logger",
+						"type": "address"
+					}
+				],
+				"internalType": "struct TokenSource",
+				"name": "source",
+				"type": "tuple"
+			}
+		],
+		"name": "qsForCroissant",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "desc",
+						"type": "string"
+					}
+				],
+				"internalType": "struct TokenTitle",
+				"name": "title",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "bulletin",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "listId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "logger",
+						"type": "address"
+					}
+				],
+				"internalType": "struct TokenSource",
+				"name": "source",
+				"type": "tuple"
+			}
+		],
+		"name": "qsForPitcherDelivry",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ]

@@ -1,6 +1,11 @@
 [
     {
         "inputs": [],
+        "name": "AlreadyInitialized",
+        "type": "error"
+    },
+    {
+        "inputs": [],
         "name": "InvalidEvaluation",
         "type": "error"
     },
@@ -76,9 +81,9 @@
         "inputs": [
             {
                 "indexed": false,
-                "internalType": "enum LogType",
-                "name": "logType",
-                "type": "uint8"
+                "internalType": "uint256",
+                "name": "role",
+                "type": "uint256"
             },
             {
                 "indexed": false,
@@ -205,38 +210,12 @@
     },
     {
         "inputs": [],
-        "name": "GASBUDDIES",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
         "name": "LOG_TYPEHASH",
         "outputs": [
             {
                 "internalType": "bytes32",
                 "name": "",
                 "type": "bytes32"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "MEMBERS",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -279,17 +258,12 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "id",
+                "name": "role",
                 "type": "uint256"
             },
             {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "listId",
+                "name": "id",
                 "type": "uint256"
             },
             {
@@ -433,9 +407,9 @@
             {
                 "components": [
                     {
-                        "internalType": "enum LogType",
-                        "name": "logType",
-                        "type": "uint8"
+                        "internalType": "uint256",
+                        "name": "role",
+                        "type": "uint256"
                     },
                     {
                         "internalType": "bool",
@@ -479,9 +453,9 @@
             {
                 "components": [
                     {
-                        "internalType": "enum LogType",
-                        "name": "logType",
-                        "type": "uint8"
+                        "internalType": "uint256",
+                        "name": "role",
+                        "type": "uint256"
                     },
                     {
                         "internalType": "bool",
@@ -530,9 +504,9 @@
             {
                 "components": [
                     {
-                        "internalType": "enum LogType",
-                        "name": "logType",
-                        "type": "uint8"
+                        "internalType": "uint256",
+                        "name": "role",
+                        "type": "uint256"
                     },
                     {
                         "internalType": "bool",
@@ -659,99 +633,8 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "itemId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "feedback",
-                "type": "string"
-            },
-            {
-                "internalType": "bytes",
-                "name": "data",
-                "type": "bytes"
-            }
-        ],
-        "name": "logByPublic",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
                 "internalType": "uint256",
                 "name": "role",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "signer",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "bulletin",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "itemId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "feedback",
-                "type": "string"
-            },
-            {
-                "internalType": "bytes",
-                "name": "data",
-                "type": "bytes"
-            },
-            {
-                "internalType": "uint8",
-                "name": "v",
-                "type": "uint8"
-            },
-            {
-                "internalType": "bytes32",
-                "name": "r",
-                "type": "bytes32"
-            },
-            {
-                "internalType": "bytes32",
-                "name": "s",
-                "type": "bytes32"
-            }
-        ],
-        "name": "logBySig",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "userRole",
                 "type": "uint256"
             },
             {
@@ -973,9 +856,9 @@
         "name": "touchpointByItemId",
         "outputs": [
             {
-                "internalType": "enum LogType",
-                "name": "logType",
-                "type": "uint8"
+                "internalType": "uint256",
+                "name": "role",
+                "type": "uint256"
             },
             {
                 "internalType": "bool",
