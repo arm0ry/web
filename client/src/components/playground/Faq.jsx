@@ -19,7 +19,7 @@ const Faq = () => {
 
       <div>
 
-        <iframe width="100%" height="1000" src="https://hackmd.io/@audsssy/SktJjLKj6" ></iframe>
+        <iframe width="100%" height="1000" src="https://docs.google.com/presentation/d/1kysaw45nEqj2xFnyhUhTBs__oTaKyGdaQCRNVUH0Boc/edit?usp=sharing" ></iframe>
       </div>
 
     </>

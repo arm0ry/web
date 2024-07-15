@@ -22,7 +22,7 @@ import {
 import { ethers } from "ethers";
 import { fetchIpfsCID } from "@utils/ipfs";
 import CURRENCY_ABI from "../../contract/Currency.json";
-
+import { useAccount } from "wagmi";
 
 export const loadItems = async () => {
   try {
@@ -160,13 +160,19 @@ export const loadTokenCurves = async () => {
         const mintPrice = await TokenCurve.getCurvePrice(true, id, 0);
         const burnPrice = await TokenCurve.getCurvePrice(false, id, 0);
 
-//         const provider = new ethers.providers.Web3Provider(ethereum);
-//         const currency = new ethers.Contract(curve.currency, CURRENCY_ABI, provider)
-// console.log(currency)
-        // const currency_name = currency ? await currency.name() : "$local";
-        // const currency_symbol = currency ? await currency.symbol() : "$LOCAL";
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const currency = new ethers.Contract(curve.currency, CURRENCY_ABI, provider)
+        let currency_name = "$local";
+        let currency_symbol = "$LOCAL";
 
-        // Token
+        try {
+          currency_name = await currency.name();
+          currency_symbol = await currency.symbol();
+        } catch (err) {
+          console.log(err);
+        }
+
+        // Token 
         const uri = await TokenMinter.svg(id);
         // let uri;
         const _title = await TokenMinter.getTokenTitle(id)
@@ -180,8 +186,8 @@ export const loadTokenCurves = async () => {
           treasury: ethers.utils.formatEther(treasury),
           curveType: curve.curveType,
           currency: curve.currency,
-          currency_name: "local",
-          currency_symbol: "LOCAL",
+          currency_name: currency_name,
+          currency_symbol: currency_symbol,
           scale: ethers.utils.formatEther(curve.scale),
           mint_a: curve.mint_a,
           mint_b: curve.mint_b,

@@ -6,37 +6,37 @@ import TOKEN_URI_BUILDER_ABI from "./TokenUriBuilder.json";
 import CURRENCY_ABI from "./Currency.json";
 
 export const Bulletin = {
-  address: "0x394AD964417ebF10c85222D3a9bB25d478f0a623",
+  address: "0x82Aa0CBaC55618aF11104cC29761729bB237D455",
   abi: BULLETIN_ABI,
 };
 
 export const Logger = {
-  address: "0x9aF5A3F02Cc6aaC14e37229c89821a475162F91f",
+  address: "0xa61c0b3f59aCDF12a89dc57f951C95047217D7A7",
   abi: LOGGER_ABI,
 };
 
 export const TokenMinter = {
-  address: "0x9C1Dcf1c2EC80E7460beE9DC8C57750c81Ef03a3",
+  address: "0x57eAED22d70E111c8793214015352E0032c15A16",
   abi: TOKEN_MINTER_ABI,
 };
 
 export const TokenCurve = {
-  address: "0xF6fefF6ad83B8Ae2358E1924B69826F5D8f23044",
+  address: "0x2BC74139e7f9989Aa0Acb0E4eFee81170ddaD1D0",
   abi: TOKEN_CURVE_ABI,
 };
 
 export const TokenUriBuilder = {
-  address: "0xbedb26104e57d75b7d06143fdB4FC48081398129",
+  address: "0xb10D45E3D0337cF9901e548c4CB2f3098405Fa11",
   abi: TOKEN_URI_BUILDER_ABI,
 };
 
 export const Coffee = {
-  address: "0x4A2ac571Aa67DCf0858Baa443Eb38B73CFF89dC2",
+  address: "0xDE5A492E017b77e450cdaC119a70B402C004937c",
   abi: CURRENCY_ABI,
 };
 
 export const Croissant = {
-  address: "0x14a2D5C282f68B26e24B669067Af5D566e9b131a",
+  address: "0x4Cf67c4EA25D45aB7B4eAe09a2cC316650D7E083",
   abi: CURRENCY_ABI,
 };
 

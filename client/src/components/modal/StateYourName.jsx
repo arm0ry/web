@@ -13,12 +13,22 @@ import useWriteContract from "@hooks/useWriteContract";
 const StateYourNameModal = ({ modalPayload }) => {
   const [inPrepare, setInPrepare] = useState(false);
   const [fetching, setFetching] = useState(false);
+  const [role, setRole] = useState(0);
 
   const bulletin = modalPayload.content.bulletin;
   const listId = modalPayload.content.listId;
   const itemId = modalPayload.content.itemId;
   const uuid = (bulletin != undefined) ? bulletin.address + listId + itemId : "";
 
+  const MEMBERS = 1 << 1;
+  const REVIEWERS = 1 << 2;
+  const GASBOT = 1 << 3;
+  const AUTHORIZED_TOKENS = 1 << 4;
+  const CROISSANT = 1 << 5;
+  const COFFEE = 1 << 6;
+  const STAFF = 1 << 7;
+  const HELPERS = 1 << 8;
+  
   const { address, isConnected, isDisconnected } = useAccount();
   const {
     register,
@@ -27,7 +37,19 @@ const StateYourNameModal = ({ modalPayload }) => {
     formState: { errors },
   } = useForm({
     defaultValues: { seed: "", moon: "", string1: "", string2: "", slider: "", slider2: "", slider3: "", flavor: "", body: "", aroma: "" },
-  });
+  }); 
+
+   const { data:  staff} = useContractRead({
+    ...Logger,
+    functionName: 'hasAnyRole',
+    args: [isConnected ? address : ethers.constants.AddressZero, MEMBERS+STAFF+HELPERS]
+   })
+  
+  const { data:  community} = useContractRead({
+    ...Logger,
+    functionName: 'hasAnyRole',
+    args: [isConnected ? address : ethers.constants.AddressZero, MEMBERS+CROISSANT+COFFEE]
+  })
 
   const { write: log, state: logState } = useWriteContract({
     ...Logger,
@@ -36,6 +58,17 @@ const StateYourNameModal = ({ modalPayload }) => {
 
   useEffect(() => {
   }, [isConnected]);
+
+  useEffect(() => {
+  }, [staff]);
+
+  // useEffect(() => {
+  //   if (isRole != undefined) {
+  //     console.log(uuid + ethers.utils.formatUnits(isRole, "wei"));
+  //     setRole(uuid + ethers.utils.formatUnits(isRole, "wei"));
+  //   }
+  
+  // }, [isRole]);
 
   const MoodRadio = ({ moon, value, register }) => {
     return (
@@ -104,7 +137,7 @@ const StateYourNameModal = ({ modalPayload }) => {
     // TODO: Need to use switch to build the correct data structure for list and item
     let structuredData;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [data.flavor, data.body, data.aroma]);
+    structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.flavor), ethers.utils.parseEther(data.body), ethers.utils.parseEther(data.aroma)]);
     console.log(data, structuredData)
 
     // if (data.string1 != "") {
@@ -116,7 +149,7 @@ const StateYourNameModal = ({ modalPayload }) => {
 
       try {
         log({
-          args: [bulletin.address, listId, itemId, data.feedback, structuredData],
+          args: [STAFF, bulletin.address, listId, itemId, data.feedback, structuredData],
         })
         setInPrepare(false)
       } catch (error) {
@@ -141,106 +174,47 @@ const StateYourNameModal = ({ modalPayload }) => {
     switch (uuid) {
       case address + 1 + 0:
         return (
-          <>
-            <div className="flex flex-row justify-center space-x-20">
-              <div className="flex flex-row space-x-5 items-center mb-6">
+          <div className="flex flex-col space-y-4 mb-6">
+            <label className="block text-sm font-medium text-gray-600">
+            Costs: 
+            </label>
+            <div className="flex space-x-5 mb-6">
+              <div className="flex flex-row space-x-5 items-center">
                 <label
                   className=" block text-sm font-medium text-gray-900 "
                 >
-                  Flavor
+                  Cups
                 </label>
                 <input required type="number" max={10} min={1} {...register("flavor")} className="rounded-md text-center p-1" placeholder="1" />
               </div>
-              <div className="flex flex-row space-x-5 items-center mb-6">
+              <div className="flex flex-row space-x-5 items-center">
                 <label
                   className=" block text-sm font-medium text-gray-900 "
                 >
-                  Body
+                  Labor
                 </label>
                 <input required type="number" max={10} min={1} {...register("body")} className="rounded-md text-center p-1" placeholder="1" />
               </div>
-              <div className="flex flex-row space-x-5 items-center mb-6">
+              <div className="flex flex-row space-x-5 items-center">
                 <label
                   className=" block text-sm font-medium text-gray-900 "
                 >
-                  Aroma
+                  Labor Benefits
                 </label>
                 <input required type="number" max={10} min={1} {...register("aroma")} className="rounded-md text-center p-1" placeholder="1" />
               </div>
             </div>
-
-          </>
+            </div>
         );
       case address + 2 + 0:
         return (
           <>
-            <div className="flex flex-row justify-center space-x-20">
-              <div className="flex flex-row space-x-5 items-center mb-6">
-                <label
-                  className=" block text-sm font-medium text-gray-900 "
-                >
-                  Flavor
-                </label>
-                <input required type="number" max={10} min={1} {...register("flavor")} className="rounded-md text-center p-1" placeholder="1" />
-              </div>
-              <div className="flex flex-row space-x-5 items-center mb-6">
-                <label
-                  className=" block text-sm font-medium text-gray-900 "
-                >
-                  Body
-                </label>
-                <input required type="number" max={10} min={1} {...register("body")} className="rounded-md text-center p-1" placeholder="1" />
-              </div>
-              <div className="flex flex-row space-x-5 items-center mb-6">
-                <label
-                  className=" block text-sm font-medium text-gray-900 "
-                >
-                  Aroma
-                </label>
-                <input required type="number" max={10} min={1} {...register("aroma")} className="rounded-md text-center p-1" placeholder="1" />
-              </div>
-            </div>
-
           </>
         );
       case address + 3 + 0:
-        return (
-          <>
-            <div className="mb-6 ">
-              <label
-                className=" block text-sm font-medium text-gray-900 "
-              >
-                How satisfied are you with our espresso?
-              </label>
-              <div className="flex flex-col items-start justify-between">
-                <MoodRadio moon="Not satisfied" value={"1"} register={register} />
-                <MoodRadio moon="Moderately satisfied" value={"2"} register={register} />
-                <MoodRadio moon="Satisfied" value={"3"} register={register} />
-                <MoodRadio moon="Very satisfied" value={"4"} register={register} />
-              </div>
-            </div>
-          </>);
+        return (<></>);
       case address + 4 + 0:
-        return (
-          <>
-            <div className="mb-6 ">
-              <label
-                className=" block text-sm font-medium text-gray-900 mb-2"
-              >
-                Is there anything you'd like to know more from our espress making process?
-              </label>
-              <div className="flex flex-col items-start justify-between">
-                <input
-                  type="text"
-                  id="seed"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                  placeholder="..."
-                  required
-                  {...register("string1")}
-                />
-              </div>
-            </div>
-          </>);
+        return (<></>); 
       default:
         return (<></>);
     }
@@ -362,8 +336,8 @@ const StateYourNameModal = ({ modalPayload }) => {
       </div>
 
 
-      <div div className="flex h-auto h-space-y-2 overflow-y-scroll px-6 py-4 bg-slate-100" >
-        <div className="w-full mx-auto items-center justify-center gap-3">
+      <div div className="flex w-full space-y-2 px-6 py-4 bg-slate-100" >
+        <div className=" items-center w-full justify-center gap-3">
           <form onSubmit={handleSubmit(onSubmit)}>
 
             <div className="mb-6">
@@ -412,8 +386,8 @@ const StateYourNameModal = ({ modalPayload }) => {
               ></textarea>
             </div>
 
-            <div>
-              <ListTouchpointDataStructure />
+            <div >
+              {(staff) ? <ListTouchpointDataStructure /> : <></>}
               <ItemTouchpointDataStructure />
             </div>
             <div className="flex flex-col space-y-4 w-full">
