@@ -36,13 +36,13 @@ const StateYourNameModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { seed: "", moon: "", string1: "", string2: "", slider: "", slider2: "", slider3: "", flavor: "", body: "", aroma: "" },
+    defaultValues: { seed: "", moon: "", string1: "", string2: "", slider: "", slider2: "", slider3: "", number1: "", number2: "", number3: "" },
   }); 
 
    const { data:  staff} = useContractRead({
     ...Logger,
     functionName: 'hasAnyRole',
-    args: [isConnected ? address : ethers.constants.AddressZero, MEMBERS+STAFF+HELPERS]
+    args: [isConnected ? address : ethers.constants.AddressZero, MEMBERS+STAFF]
    })
   
   const { data:  community} = useContractRead({
@@ -60,6 +60,7 @@ const StateYourNameModal = ({ modalPayload }) => {
   }, [isConnected]);
 
   useEffect(() => {
+    console.log(staff)
   }, [staff]);
 
   // useEffect(() => {
@@ -132,12 +133,19 @@ const StateYourNameModal = ({ modalPayload }) => {
   };
 
   const onSubmit = async (data) => {
-
-
     // TODO: Need to use switch to build the correct data structure for list and item
-    let structuredData;
+    let structuredData = ethers.constants.HashZero;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.flavor), ethers.utils.parseEther(data.body), ethers.utils.parseEther(data.aroma)]);
+
+    switch (uuid) {
+      case address + 1 + 0:
+        structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.number1), ethers.utils.parseEther(data.number2), ethers.utils.parseEther(data.number3)]);
+      case address + 2 + 0:
+        structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.number1), ethers.utils.parseEther(data.number2), ethers.utils.parseEther(data.number3)]);
+      default:
+        structuredData;
+    }
+
     console.log(data, structuredData)
 
     // if (data.string1 != "") {
@@ -185,7 +193,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                 >
                   Cups
                 </label>
-                <input required type="number" max={10} min={1} {...register("flavor")} className="rounded-md text-center p-1" placeholder="1" />
+                <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
               </div>
               <div className="flex flex-row space-x-5 items-center">
                 <label
@@ -193,7 +201,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                 >
                   Labor
                 </label>
-                <input required type="number" max={10} min={1} {...register("body")} className="rounded-md text-center p-1" placeholder="1" />
+                <input required type="number" max={10} min={1} {...register("number2")} className="rounded-md text-center p-1" placeholder="1" />
               </div>
               <div className="flex flex-row space-x-5 items-center">
                 <label
@@ -201,15 +209,44 @@ const StateYourNameModal = ({ modalPayload }) => {
                 >
                   Labor Benefits
                 </label>
-                <input required type="number" max={10} min={1} {...register("aroma")} className="rounded-md text-center p-1" placeholder="1" />
+                <input required type="number" max={10} min={1} {...register("number3")} className="rounded-md text-center p-1" placeholder="1" />
               </div>
             </div>
-            </div>
+          </div>
         );
       case address + 2 + 0:
         return (
-          <>
-          </>
+           <div className="flex flex-col space-y-4 mb-6">
+            <label className="block text-sm font-medium text-gray-600">
+            Costs: 
+            </label>
+            <div className="flex space-x-5 mb-6">
+              <div className="flex flex-row space-x-5 items-center">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Delivery
+                </label>
+                <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+              <div className="flex flex-row space-x-5 items-center">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Labor
+                </label>
+                <input required type="number" max={10} min={1} {...register("number2")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+              <div className="flex flex-row space-x-5 items-center">
+                <label
+                  className=" block text-sm font-medium text-gray-900 "
+                >
+                  Recycling
+                </label>
+                <input required type="number" max={10} min={1} {...register("number3")} className="rounded-md text-center p-1" placeholder="1" />
+              </div>
+            </div>
+          </div>
         );
       case address + 3 + 0:
         return (<></>);
