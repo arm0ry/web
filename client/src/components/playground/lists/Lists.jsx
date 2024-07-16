@@ -24,10 +24,10 @@ const Lists = () => {
             <div className="space-y-3">
               <label className=" block text-md font-normal text-gray-900">
                 This is a prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
-                >Gnosis Chiado testnet</a> to demo this system can enable reciprocity and mutuality onchain.
+                >Gnosis Chiado testnet</a> to demo an onchain coordination system can enable reciprocity and mutuality onchain.
               </label>
               <label className=" block text-md font-normal text-gray-900">
-                Here, we use a fictional coffee shop to share how such a shop may build presence locally and online.
+                Here, we offer a fictional coffee shop that uses $coffee as a medium of exchange to illustrate how this system works.
               </label>
             </div>
           </div>
