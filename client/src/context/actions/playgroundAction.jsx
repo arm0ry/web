@@ -162,8 +162,8 @@ export const loadTokenCurves = async () => {
 
         const provider = new ethers.providers.Web3Provider(ethereum);
         const currency = new ethers.Contract(curve.currency, CURRENCY_ABI, provider)
-        let currency_name = "$local";
-        let currency_symbol = "$LOCAL";
+        let currency_name = "local";
+        let currency_symbol = "LOCAL";
 
         try {
           currency_name = await currency.name();
@@ -184,6 +184,7 @@ export const loadTokenCurves = async () => {
         curves[id] = {
           owner: curve.owner,
           treasury: ethers.utils.formatEther(treasury),
+          curveId: id,
           curveType: curve.curveType,
           currency: curve.currency,
           currency_name: currency_name,

@@ -28,7 +28,7 @@ const Responses = ({ itemId }) => {
   return (
     <>
       <label className="w-full my-3 font-3xl text-slate-600 font-semibold ">
-        心得 ｜ Feedback：
+        Feedback | 心得 :
       </label>
       <div className="grid grid-cols-2 gap-10 xl:grid-cols-3 2xl:grid-cols-4">
         {(touchpoints.length > 0) ? (touchpoints.map((response, id) => {
@@ -36,7 +36,7 @@ const Responses = ({ itemId }) => {
         }))
           : (
             <div className="bg-slate-100 text-slate-400 h-32 rounded-lg flex items-center justify-center">
-              等待中... ｜ Patiently waiting...
+              Patiently waiting... | 等待中... 
             </div>
           )}
       </div>

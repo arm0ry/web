@@ -206,7 +206,7 @@ const Playground = () => {
           <ul className="space-y-2 border-tpt-4 ">
             <SidebarItem
               to="faq"
-              name="開始 ｜ Start here"
+              name="Start here"
               Icon={TaskIcon}
               setToggleMenu={setToggleMenu}
             />
@@ -226,7 +226,7 @@ const Playground = () => {
             />
             <SidebarItem
               to="commons-reports" // todo: update to a logger page?
-              name="Impact"
+              name="Marketplace"
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />

@@ -20,12 +20,15 @@ const Lists = () => {
           <label className="py-5 text-md font-normal text-gray-900">
             💡
           </label>
-          <div className="flex flex-col py-5 space-y-3">
-            <div className="space-y-1">
+          <div className="flex flex-col py-5">
+            <div className="space-y-3">
               <label className=" block text-md font-normal text-gray-900">
-                This is a prototype built on the Sepolia testnet to demo how individuals, organizations, and communities can build assets onchain with reciprocity and mutuality.
+                This is a prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
+                >Gnosis Chiado testnet</a> to demo this system can enable reciprocity and mutuality onchain.
               </label>
-
+              <label className=" block text-md font-normal text-gray-900">
+                Here, we use a fictional coffee shop to share how such a shop may build presence locally and online.
+              </label>
             </div>
           </div>
         </div >

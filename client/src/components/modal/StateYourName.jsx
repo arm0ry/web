@@ -60,7 +60,6 @@ const StateYourNameModal = ({ modalPayload }) => {
   }, [isConnected]);
 
   useEffect(() => {
-    console.log(staff)
   }, [staff]);
 
   // useEffect(() => {
@@ -362,7 +361,7 @@ const StateYourNameModal = ({ modalPayload }) => {
       <div className="flex items-start justify-between rounded-t px-4 pt-4 text-gray-500  bg-slate-100">
         <div className="flex flex-col">
           <label className="mb-2 block text-lg font-semibold text-gray-900">
-            一起上鏈吧！ ｜ Let's get onchain!
+            Let's get onchain! | 一起上鏈吧！
           </label>
           <label className="mt-1 ml-3 mb-1 block text-sm font-medium text-gray-500">
             Connect your wallet or use a public alias to participate! Public alias feature is experimental, and recommended for single-use only.
@@ -381,7 +380,7 @@ const StateYourNameModal = ({ modalPayload }) => {
               <label
                 className="mb-2 block text-sm font-medium text-gray-900 "
               >
-                {isConnected ? "地址 | Address" : "稱呼 | Name"}
+                {isConnected ? "Address | 地址" : "Name | 稱呼"}
               </label>
               <div className="flex space-x-4 items-center justify-start">
                 <div className="w-2/3">
@@ -395,7 +394,7 @@ const StateYourNameModal = ({ modalPayload }) => {
                       type="text"
                       id="seed"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
-                      placeholder="麵包小偷 | Baguette thief"
+                      placeholder="0xVitalik"
                       required
                       {...register("seed")}
                     />
@@ -413,12 +412,12 @@ const StateYourNameModal = ({ modalPayload }) => {
               <label
                 className="mb-2 block text-sm font-medium text-gray-900 "
               >
-                心得 | Feedback
+                Feedback | 心得 
               </label>
               <textarea
                 id="feedback"
                 className="w-full h-100vh rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="炸雞超好吃～ | Fried chicken was so good~"
+                placeholder="Fried chicken was so good~"
                 {...register("feedback")}
               ></textarea>
             </div>

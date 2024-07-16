@@ -56,7 +56,7 @@ const ListDetail = () => {
               className="button h-10 w-fit cursor-pointer select-none rounded-xl border-b-[1px] border-yellow-200 bg-yellow-200 px-10 transition-all duration-150 [box-shadow:0_6px_0_0_#018edf] hover:-translate-y-1 hover:[box-shadow:0_10px_0_0_#018edf] active:translate-y-2 active:border-b-[0px] active:[box-shadow:0_1px_0_0_#018edf,0_0px_0_0_#1b70f841]  "
             >
               <span className="flex h-full flex-col items-center justify-center font-PasseroOne text-lg font-bold	 tracking-widest text-[#2b328e]">
-                分享 | Share
+                Share
               </span>
             </div>
           </div>
@@ -171,19 +171,19 @@ const ListDetail = () => {
           <footer className="fixed bottom-0 left-0 z-20 h-fit w-full bg-[#fffcfa] pb-2 md:pl-64 md:pb-0">
             <div className="mx-auto flex max-w-[1024px] flex-row items-center justify-between border-t-2 p-3">
               <div className="flex flex-col  flex-nowrap gap-2 md:flex-row md:p-2">
-                <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm  text-[#D6E6F2]">
+                {/* <div className="  relative inline-flex w-fit  items-center  whitespace-nowrap rounded-full bg-[#303481] px-2  py-1 text-sm  text-[#D6E6F2]">
                   <span className="peer mr-1 font-bold ">
                     <span className="mr-1 hidden md:inline">
                       完成人數 ｜ # of Completions ：
                     </span>
-                    {/* {lists[listId]?.completionsCount} 人 */}
+                    {lists[listId]?.completionsCount} 人
                   </span>
                   <div
                     className={` tooltip absolute left-[0%]  -top-1 z-10 inline-block -translate-y-full rounded-lg bg-gray-200 px-1 py-1 text-xs font-medium text-black  opacity-0 shadow-sm peer-hover:opacity-80 md:hidden`}
                   >
                     Mission Impact
                   </div>
-                </div>
+                </div> */}
               </div>
               <div>
               </div>
