@@ -17,10 +17,16 @@ const CurveCard = ({ curve }) => {
     const signer = await provider.getSigner();
     const tokenCurve = new ethers.Contract(TokenCurve.address, TokenCurve.abi, signer)
 
-    console.log(curve.mintPrice)
+    
+    console.log(curve);
+
+    const basePrice = curve.mint_c * parseFloat(curve.scale);
+    const curvePrice = parseFloat(curve.mintPrice) -  basePrice;
+    console.log("base price - ", basePrice);
+    console.log("curve price - ", parseFloat(curve.mintPrice), parseInt(basePrice), curvePrice.toFixed(4));
 
     try {
-      const tx = await tokenCurve.support(curve.curveId, user, curve.mintPrice, { value: curve.mintPrice })
+      const tx = await tokenCurve.support(curve.curveId, user, ethers.utils.parseEther(basePrice.toFixed(4)), { value: ethers.utils.parseEther(curvePrice.toFixed(4)) });
 
       pushAlert({
         msg: (
