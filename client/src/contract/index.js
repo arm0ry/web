@@ -6,37 +6,37 @@ import TOKEN_URI_BUILDER_ABI from "./TokenUriBuilder.json";
 import CURRENCY_ABI from "./Currency.json";
 
 export const Bulletin = {
-  address: "0x82Aa0CBaC55618aF11104cC29761729bB237D455",
+  address: "0x1516eA29b019D43AbF06Ce9b28a8EbB1a8e0F429",
   abi: BULLETIN_ABI,
 };
 
 export const Logger = {
-  address: "0xa61c0b3f59aCDF12a89dc57f951C95047217D7A7",
+  address: "0xa666554DAc3012849680BFE85F338A28661F8cEC",
   abi: LOGGER_ABI,
 };
 
 export const TokenMinter = {
-  address: "0x57eAED22d70E111c8793214015352E0032c15A16",
+  address: "0x39a37fa0399ABa243b9C127C96d369F2d4D8b915",
   abi: TOKEN_MINTER_ABI,
 };
 
 export const TokenCurve = {
-  address: "0x2BC74139e7f9989Aa0Acb0E4eFee81170ddaD1D0",
+  address: "0x0f9cc3E6893c11ba1EcE2817725078383D97Ddd2",
   abi: TOKEN_CURVE_ABI,
 };
 
 export const TokenUriBuilder = {
-  address: "0xb10D45E3D0337cF9901e548c4CB2f3098405Fa11",
+  address: "0x0e86De2973f63D7aAC26a7033e0e8576A9C3577b",
   abi: TOKEN_URI_BUILDER_ABI,
 };
 
 export const Coffee = {
-  address: "0xDE5A492E017b77e450cdaC119a70B402C004937c",
+  address: "0x93d3afa63dBd9957E42219C4cE3FEa570Ef12daa",
   abi: CURRENCY_ABI,
 };
 
 export const Croissant = {
-  address: "0x4Cf67c4EA25D45aB7B4eAe09a2cC316650D7E083",
+  address: "0x092a414d0aAd8E90a2699Af400A506E542c7E914",
   abi: CURRENCY_ABI,
 };
 
@@ -44,3 +44,4 @@ const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";
 const chiado = "https://rpc.chiadochain.net";
 export const RPC = { sepolia, chiado };
 export const zero_address = "0x0000000000000000000000000000000000000000"
+

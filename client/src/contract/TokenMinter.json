@@ -227,11 +227,6 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
                 "name": "id",
                 "type": "uint256"
@@ -835,6 +830,23 @@
                 ],
                 "internalType": "struct TokenSource",
                 "name": "source",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "builder",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint48",
+                        "name": "builderId",
+                        "type": "uint48"
+                    }
+                ],
+                "internalType": "struct TokenBuilder",
+                "name": "builder",
                 "type": "tuple"
             }
         ],
