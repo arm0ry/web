@@ -137,15 +137,15 @@ const StateYourNameModal = ({ modalPayload }) => {
     const abiCoder = ethers.utils.defaultAbiCoder;
 
     switch (uuid) {
-      case address + 1 + 0:
-        structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.number1), ethers.utils.parseEther(data.number2), ethers.utils.parseEther(data.number3)]);
-      case address + 2 + 0:
-        structuredData = await abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.number1), ethers.utils.parseEther(data.number2), ethers.utils.parseEther(data.number3)]);
+      case bulletin.address + 1 + 0:
+        structuredData = abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.number1), ethers.utils.parseEther(data.number2), ethers.utils.parseEther(data.number3)]);
+      case bulletin.address + 2 + 0:
+        structuredData = abiCoder.encode(["uint256", "uint256", "uint256"], [ethers.utils.parseEther(data.number1), ethers.utils.parseEther(data.number2), ethers.utils.parseEther(data.number3)]);
       default:
         structuredData;
     }
 
-    console.log(data, structuredData)
+    console.log(bulletin.address, data, structuredData)
 
     // if (data.string1 != "") {
     //   structuredData = await abiCoder.encode(["string"], [data.string1]);
