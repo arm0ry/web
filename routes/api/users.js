@@ -9,6 +9,8 @@ const send_token = require("../../ethers/send.js");
 const sponsored_start = require("../../ethers/sponsored_start.js");
 const sponsored_respond = require("../../ethers/sponsored_respond.js");
 const auth = require("../../middleware/auth");
+const send_currency = require("../../ethers/send_currency.js");
+const grant_roles = require("../../ethers/grant_roles.js");
 
 // User Model
 const User = require("../../models/User");
@@ -126,6 +128,43 @@ router.post("/sponsored_respond", async (req, res) => {
   // console.log(res);
 
   const tx = await sponsored_respond(seed, mission, missionId, taskId, response, feedback);
+
+  if (tx === "Something went wrong.") {
+    return res.status(404).json({ msg: tx });
+  } else {
+    console.log(tx)
+    return res.status(202).json({
+      "txhash": tx,
+      "msg": "Thank you for your contribution!",
+    });
+  }
+})
+
+
+// @route   POST api/users/send_currency
+// @desc    Mint user currency.
+// @access  Private
+router.post("/send_currency", async (req, res) => {
+  const { currency, recipient } = req.body;
+  const tx = await send_currency(currency, recipient);
+
+  if (tx === "Something went wrong.") {
+    return res.status(404).json({ msg: tx });
+  } else {
+    console.log(tx)
+    return res.status(202).json({
+      "txhash": tx,
+      "msg": "Thank you for your contribution!",
+    });
+  }
+})
+
+// @route   POST api/users/grant_roles
+// @desc    Grant user roles.
+// @access  Private
+router.post("/grant_roles", async (req, res) => {
+  const { user } = req.body;
+  const tx = await grant_roles(user);
 
   if (tx === "Something went wrong.") {
     return res.status(404).json({ msg: tx });
