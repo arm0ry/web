@@ -38,7 +38,7 @@ const CurveCard = ({ curve }) => {
               rel="noreferrer"
               className="font-extrabold text-green-900"
             >
-              &nbsp;Etherscan &#128279;
+              &nbsp;Blockscout &#128279;
             </a>
           </span>
         ),

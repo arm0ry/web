@@ -54,7 +54,7 @@ const useWriteContract = ({ address, abi, functionName }) => {
                 rel="noreferrer"
                 className="font-extrabold text-blue-900"
               >
-                &nbsp;View on Etherscan &#128279;
+                &nbsp;View on Blockscout &#128279;
               </a>
             </span>
           ),

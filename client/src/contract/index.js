@@ -42,6 +42,6 @@ export const Croissant = {
 
 const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";
 const chiado = "https://rpc.chiadochain.net";
-export const RPC = { sepolia, chiado };
+export const RPC = { chiado };
 export const zero_address = "0x0000000000000000000000000000000000000000"
 

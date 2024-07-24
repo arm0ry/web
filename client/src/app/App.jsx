@@ -7,21 +7,6 @@ import { DynamicContextProvider } from "@dynamic-labs/sdk-react";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 
 const evmNetworks = [
-  // {
-  //   blockExplorerUrls: ["https://sepolia.etherscan.io/"],
-  //   chainId: 11155111,
-  //   chainName: "Ethereum Sepolia",
-  //   iconUrls: ["https://app.dynamic.xyz/assets/networks/eth.svg"],
-  //   nativeCurrency: {
-  //     decimals: 18,
-  //     name: "Ether",
-  //     symbol: "ETH",
-  //   },
-  //   networkId: 11155111,
-  //   rpcUrls: ["https://ethereum-sepolia-rpc.publicnode.com", "https://rpc.ankr.com/eth_sepolia"],
-  //   shortName: "eth",
-  //   vanityName: "Sepolia",
-  // },
   {
     blockExplorerUrls: ["https://gnosis-chiado.blockscout.com/"],
     chainId: 10200,

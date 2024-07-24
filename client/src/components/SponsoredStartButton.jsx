@@ -45,7 +45,7 @@ function SponsoredStartButton({ username }) {
                   rel="noreferrer"
                   className="font-extrabold text-green-900"
                 >
-                  &nbsp;View on Etherscan &#128279;
+                  &nbsp;View on Blockscout &#128279;
                 </a>
               </span>
             ),
