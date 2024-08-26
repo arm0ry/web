@@ -4,6 +4,7 @@ import {
   Home,
   Onboard,
   Playground,
+  Remix,
   Funding,
   ProposeItem,
   ItemDetail,
@@ -66,6 +67,9 @@ const Routers = () => {
           <Route path="review" element={<Review />} />
           <Route path="responses" element={<Responses />} />
           {/* <Route path="curves" element={<Curves />} /> */}
+        </Route>
+
+        <Route path="/remix" element={<Remix />}>
         </Route>
 
         <Route path="/funding" element={HomeLayout(<Funding />)} />

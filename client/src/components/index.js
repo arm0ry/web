@@ -15,6 +15,8 @@ export { CustomButton, Spinner, Avatar, Alert, Money, Modal, Markdown, Cube };
 export { default as Home } from "./home/Home";
 export { default as Onboard } from "./onboard/Onboard";
 
+export { default as Remix } from "./remix/Remix";
+
 export { default as Playground } from "./playground/Playground";
 export { default as ProposeItem } from "./playground/propose/ProposeItem";
 export { default as Items } from "./playground/item/Items";
