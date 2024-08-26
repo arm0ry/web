@@ -21,7 +21,7 @@ import {
 } from "@utils/contract";
 import { ethers } from "ethers";
 import { fetchIpfsCID } from "@utils/ipfs";
-import CURRENCY_ABI from "../../contract/Currency.json";
+import CURRENCY_ABI from "../../contract/playground/Currency.json";
 import { useAccount } from "wagmi";
 
 export const loadItems = async () => {

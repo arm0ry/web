@@ -1,9 +1,12 @@
-import BULLETIN_ABI from "./Bulletin.json";
-import LOGGER_ABI from "./Log.json";
-import TOKEN_MINTER_ABI from "./TokenMinter.json";
-import TOKEN_CURVE_ABI from "./TokenCurve.json";
-import TOKEN_URI_BUILDER_ABI from "./TokenUriBuilder.json";
-import CURRENCY_ABI from "./Currency.json";
+/// $LOCAL
+
+import BULLETIN_ABI from "./playground/Bulletin.json";
+import LOGGER_ABI from "./playground/Log.json";
+import TOKEN_MINTER_ABI from "./playground/TokenMinter.json";
+import TOKEN_CURVE_ABI from "./playground/TokenCurve.json";
+import TOKEN_URI_BUILDER_ABI from "./playground/TokenUriBuilder.json";
+import CURRENCY_ABI from "./playground/Currency.json";
+
 
 export const Bulletin = {
   address: "0x1516eA29b019D43AbF06Ce9b28a8EbB1a8e0F429",
@@ -39,6 +42,17 @@ export const Croissant = {
   address: "0x092a414d0aAd8E90a2699Af400A506E542c7E914",
   abi: CURRENCY_ABI,
 };
+
+/// Remix
+
+import REMIX_ABI from "./remix/Remix.json";
+
+export const Remix = {
+  address: "0x696e4A33D9741aB239482B3796dC23630a1e71E3",
+  abi: REMIX_ABI,
+};
+
+/// RPC
 
 const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";
 const chiado = "https://rpc.chiadochain.net";
