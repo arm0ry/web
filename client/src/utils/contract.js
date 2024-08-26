@@ -10,6 +10,7 @@ import {
   TokenUriBuilder as _TokenUriBuilder,
   Coffee as _Coffee,
   Croissant as _Croissant,
+  Remix as _Remix,
   RPC,
 } from "@contract";
 
@@ -50,5 +51,10 @@ export const Coffee = getContract({
 export const Croissant = getContract({
   ..._Croissant,
   signerOrProvider: chiado_provider,
+});
+
+export const Remix = getContract({
+  ..._Remix,
+  signerOrProvider: sepolia_provider,
 });
 

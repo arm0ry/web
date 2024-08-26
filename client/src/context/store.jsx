@@ -1,14 +1,6 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from "react";
-
+import React, { createContext, useContext, } from "react";
 import { useAccount } from "wagmi";
-import dispatch, { alertReducer, modalReducer, userReducer, playgroundReducer } from "./reducer";
+import dispatch, { alertReducer, modalReducer, userReducer, playgroundReducer, remixReducer } from "./reducer";
 
 const GlobalContext = createContext();
 const combineDispatch =
@@ -18,14 +10,12 @@ const combineDispatch =
 
 export const GlobalContextProvider = ({ children }) => {
   const { address, isConnected, isDisconnected } = useAccount();
-  // 
-  const [tasks, setTasks] = useState({});
-  const [missions, setMissions] = useState({});
-  // 
+  
   const [alerts, _alertDispatch] = alertReducer();
   const [modalPayload, _modalDispatch] = modalReducer();
   const [userInfo, _userDispatch] = userReducer();
   const [playground, _playgroundDispatch] = playgroundReducer();
+  const [remix, _remixDispatch] = remixReducer();
 
   // * dispatch set
   if (!dispatch.isReady) {
@@ -36,12 +26,11 @@ export const GlobalContextProvider = ({ children }) => {
       _alertDispatch,
       _modalDispatch,
       _userDispatch,
-      _playgroundDispatch
+      _playgroundDispatch,
+      _remixDispatch,
     );
     Object.freeze(dispatch);
   }
-
-
 
   return (
     <GlobalContext.Provider
@@ -50,6 +39,7 @@ export const GlobalContextProvider = ({ children }) => {
         playground,
         alerts,
         modalPayload,
+        remix,
       }}
     >
       {children}
