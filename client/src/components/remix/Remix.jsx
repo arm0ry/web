@@ -15,8 +15,7 @@ const Remix = () => {
   return (  
     <>
       <ProjectRootLayer />
-      <ProjectRootLayer />
-      <ProjectRootLayer />
+
     </>
   )
 }
