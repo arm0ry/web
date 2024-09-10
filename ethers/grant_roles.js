@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { ethers, Wallet } = require("ethers");
-const LOGGER_ABI = require("../client/src/contract/Log.json");
+const LOGGER_ABI = require("../client/src/contract/playground/Log.json");
 
 const ACCOUNT_KEY = process.env.ARM0RY_DEPLOYER_ACCOUNT_PRIVATE_KEY;
 const RPC_ENDPOINT = process.env.ARM0RY_RPC_ENDPOINT;

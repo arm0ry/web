@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { ethers, Wallet } = require("ethers");
-const CURRENCY_ABI = require("../client/src/contract/Currency.json");
-const TOKEN_CURVE_ABI = require("../client/src/contract/TokenCurve.json");
+const CURRENCY_ABI = require("../client/src/contract/playground/Currency.json");
+const TOKEN_CURVE_ABI = require("../client/src/contract/playground/TokenCurve.json");
 
 const ACCOUNT_KEY = process.env.ARM0RY_DEPLOYER_ACCOUNT_PRIVATE_KEY;
 const RPC_ENDPOINT = process.env.ARM0RY_RPC_ENDPOINT;
