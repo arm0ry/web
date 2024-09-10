@@ -12,15 +12,23 @@ export const loadRemix = async () => {
     const royalties = parseInt(_royalties._hex);
     const rootLayer = await Remix.getLayer(0);
     const rootLayerUri = await Remix.tokenURI(0);
-    
+    const _rootLayerPrice = await Remix.calculatePrice(0);
+    const rootLayerPrice = parseInt(_rootLayerPrice._hex) / 10**18;
     
     let _layers = {};
     
     await Promise.all(
-      [...Array(layerId)].map(async (_, id) => {
+      [...Array(layerId)].map(async (_, _id) => {
+        const id = _id + 1;
         const layer = await Remix.getLayer(id);
-        console.log(layer)
-        _layers[id] = layer
+        const tokenURI = await Remix.tokenURI(id);
+        
+        _layers[id] = {
+          mixer: layer[0],
+          name: layer[1],
+          symbol: layer[2],
+          uri: tokenURI
+        }
       })
     );
 
@@ -29,6 +37,7 @@ export const loadRemix = async () => {
       royalties: royalties,
       rootLayer: rootLayer,
       rootLayerUri: rootLayerUri,
+      rootLayerPrice: rootLayerPrice,
       layers: _layers,
     };
     
