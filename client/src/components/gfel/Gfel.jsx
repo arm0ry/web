@@ -89,9 +89,6 @@ const Gfel = () => {
     args: [1]
   })
   
-console.log(svg)
-
-
   const clickMint = async () => {
     const curveId = 1;
 
@@ -138,7 +135,6 @@ console.log(svg)
     } else {
       setError("")
     }
-    console.log(data, structuredData)
 
     try {
       structuredData = abiCoder.encode(["uint256", "uint256"], [data.moon, data.question]);
@@ -175,7 +171,6 @@ console.log(svg)
             // console.log(tps)
   
             for (let j = 0; j <= tps.length; j++) {
-              console.log(tps[j][3])
               if (tps[j][3] != undefined) {
                 _tps.push({
                   user: log.user,
@@ -189,10 +184,7 @@ console.log(svg)
           }
           
         }
-
-        console.log(_tps);
         setTouchpoint(_tps);
-
       }
     }
     loadTps();
@@ -211,7 +203,7 @@ console.log(svg)
                 disabled={!clickMint}
                 onClick={() => clickMint()}
                 className='w-40 h-10 bg-yellow-300 rounded-md font-medium'>
-                Donate 3 xDAI
+                Donate 0.003 xDAI
               </button> 
             </div>) : 
             <></>
@@ -251,12 +243,12 @@ console.log(svg)
 
                     <div className="flex flex-col space-y-1">
                       <label className=" block text-sm font-medium text-gray-900 ">
-                        How are you feeling?
+                        How are you feeling? (1-10)
                       </label>
                       
                       <input required type="number" max={10} min={1}
                         {...register("question")}
-                        className="rounded-md text-center p-1 w-full" placeholder="1" />
+                        className="rounded-md text-center p-1 w-full" placeholder="8" />
                     </div>
 
                     <div className="flex flex-col space-y-2 w-full">
@@ -267,7 +259,7 @@ console.log(svg)
                       <textarea
                         id="feedback"
                         className="w-full h-100vh rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Fried chicken was so good~"
+                        placeholder="Have a great day~"
                         {...register("feedback")}
                       ></textarea>
                     </div>
