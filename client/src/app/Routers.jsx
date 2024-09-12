@@ -5,6 +5,7 @@ import {
   Onboard,
   Playground,
   Remix,
+  Gfel,
   Funding,
   ProposeItem,
   ItemDetail,
@@ -43,9 +44,6 @@ const HomeLayout = (component) => (
 );
 
 const Routers = () => {
-  const experiment = "EXPERIMENT"
-  const commons = "COMMONS"
-
   return (
     <>
       <ScrollToTop />
@@ -68,6 +66,10 @@ const Routers = () => {
           <Route path="responses" element={<Responses />} />
           {/* <Route path="curves" element={<Curves />} /> */}
         </Route>
+
+        <Route path="/gfel" element={<Gfel />}>
+        </Route>
+
 
         <Route path="/remix" element={<Remix />}>
         </Route>

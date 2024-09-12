@@ -90,11 +90,12 @@ const Navbar = () => {
             {/* <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/> */}
 
             <NavBarItem title="$LOCAL | $社區穩定幣" to="/playground" onClick={() => setToggleMenu(false)} />
-            <NavBarItem title="Remix My Art Please | 混藝術" to="/remix" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="$GFEL | $社區穩定幣之波特蘭篇" to="/gfel" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="ReMAP | 混藝術" to="/remix" onClick={() => setToggleMenu(false)} />
 
-            {/* <NavbarDropdown title={"Playground"} to="/playground" >
-              <NavbarDropdownItem key={0} title={"Basics"} />
-              <NavbarDropdownItem key={1} title={"Advance"} />
+            {/* <NavbarDropdown title={"$LOCAL | $社區穩定幣"} to="/playground" >
+              <NavbarDropdownItem key={0} title={"Prototype"} />
+              <NavbarDropdownItem key={1} title={"General Forum on Ethereum Localism | 波特蘭篇"} />
             </NavbarDropdown> */}
 
             {/* <NavBarItem title="Funding" to="/funding" onClick={() => setToggleMenu(false)}/> */}

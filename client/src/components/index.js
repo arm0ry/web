@@ -17,6 +17,8 @@ export { default as Onboard } from "./onboard/Onboard";
 
 export { default as Remix } from "./remix/Remix";
 
+export { default as Gfel } from "./gfel/Gfel";
+
 export { default as Playground } from "./playground/Playground";
 export { default as ProposeItem } from "./playground/propose/ProposeItem";
 export { default as Items } from "./playground/item/Items";
