@@ -202,20 +202,20 @@ const Gfel = () => {
               {/* NFT */}
               <div className='flex w-1/2 h-full justify-center items-center bg-slate-300'>
                 <img
-                className="ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg"
+                className="ring-1 ring-slate-400 opacity-100 blur-0 z-[10] m-1 rounded-lg w-4/5"
                 src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
                 alt="Supporter Token"
                   ></img>
               </div>
 
               {/* Feedback */}
-              <div className='flex flex-col w-1/2 space-y-2 bg-slate-100 items-center'>
+              <div className='flex flex-col w-1/2 space-y-2 bg-slate-100 items-center overflow-auto'>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                 {/* Inputs */}
-                <div className='flex flex-col h-4/5 w-full space-y-4 mb-6 items-start my-10'>
+                <div className='flex flex-col w-full space-y-4 mb-6 items-start my-10'>
                   <div className="flex flex-col space-y-2">
-                    <label className=" block text-md font-medium text-gray-900 ">
+                    <label className=" block text-sm font-medium text-gray-900 lg:text-md md:text-sm sm:text-left">
                       Did you have coffee with food?
                     </label>
                     
@@ -225,7 +225,7 @@ const Gfel = () => {
                   </div>
 
                   <div className="flex flex-col space-y-2">
-                    <label className=" block text-md font-medium text-gray-900 ">
+                    <label className=" block text-sm font-medium text-gray-900 ">
                       How are you feeling?
                     </label>
                     
@@ -235,7 +235,7 @@ const Gfel = () => {
                   </div>
 
                   <div className="flex flex-col space-y-2 w-full">
-                    <label className=" block text-md font-medium text-gray-900 ">
+                    <label className=" block text-sm font-medium text-gray-900 ">
                       Feedback
                     </label>
                     
@@ -251,29 +251,22 @@ const Gfel = () => {
                 </div>  
 
                 {/* Buttons */}
-                <div className='flex w-full h-1/5 space-x-5 items-center justify-center'>
-                   {/* <button className='w-2/5 h-2/3 bg-sky-300 rounded-md'>
-                    Submit
-                  </button> */}
+                  <div className='flex w-full items-center justify-center pb-2'>
                      <button
-                type="submit"
-                disabled={logState.writeStatus > 0}
-                className="text-gray px-auto flex w-4/5 h-2/3 bg-yellow-300 rounded-md flex-row items-center justify-center py-2 text-center text-base font-medium transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
-              >
-                {(logState.writeStatus === 0) && (inPrepare ? "Wait..." : "Share")}
-                {(logState.writeStatus > 0) && <Spinner />}
-                <div className={`${(logState.writeStatus > 0) ? "ml-2" : ""}`}>
-
-                  {(logState.writeStatus === 1) && "Waiting for approval"}
-                  {(logState.writeStatus === 2) && "pending"}
-                </div>
-              </button>
+                        type="submit"
+                        disabled={logState.writeStatus > 0}
+                        className="text-gray px-auto flex w-4/5 h-2/3 bg-yellow-300 rounded-md flex-row items-center justify-center py-2 text-center text-base font-medium transition duration-300 ease-in-out  hover:ring-4 hover:ring-yellow-200 active:ring-2 disabled:pointer-events-none disabled:opacity-25"
+                    >     
+                      {(logState.writeStatus === 0) && (inPrepare ? "Wait..." : "Share")}
+                      {(logState.writeStatus > 0) && <Spinner />}
+                      <div className={`${(logState.writeStatus > 0) ? "ml-2" : ""}`}>
+                        {(logState.writeStatus === 1) && "Waiting for approval"}
+                        {(logState.writeStatus === 2) && "pending"}
+                      </div>
+                    </button>
                   </div>
-                </form>
-                  
+                </form>   
               </div>
-
-
             </div>
 
             {/* Comments */}

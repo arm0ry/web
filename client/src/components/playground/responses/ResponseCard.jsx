@@ -14,7 +14,7 @@ const ResponseCard = ({ response }) => {
             <div
               className={`flex space-x-2 shrink-0 flex-row items-center rounded-full bg-[#B6E4F4] h-min md:px-3 md:py-2 text-sm font-semibold  text-black  shadow-sm`}
             >
-              <Avatar className={`h-5 w-5 `} address={response} />
+              <Avatar className={`h-5 w-5 `} address={response.user} />
               <span className=" hidden items-center md:block">
                 {shortenAddress(response.user)}
               </span>
