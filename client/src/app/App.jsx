@@ -22,6 +22,21 @@ const evmNetworks = [
     shortName: "chiado",
     vanityName: "Chiado",
   },
+  {
+    blockExplorerUrls: ["https://gnosis.blockscout.com/"],
+    chainId: 100,
+    chainName: "Gnosis Mainnet",
+    iconUrls: ["https://app.dynamic.xyz/assets/networks/gnosis.svg"],
+    nativeCurrency: {
+      decimals: 18,
+      name: "xDAI",
+      symbol: "XDAI",
+    },
+    networkId: 100,
+    rpcUrls: ["https://rpc.gnosischain.com/"],
+    shortName: "gnosis",
+    vanityName: "Gnosis",
+  }
 ];
 const VITE_DYNAMIC = import.meta.env.VITE_DYNAMIC;
 const overrides = `

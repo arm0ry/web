@@ -14,22 +14,22 @@ import TOKEN_CURVE_ABI from "../../contract/playground/TokenCurve.json";
 import ResponseCard from '../playground/responses/ResponseCard';
 
 export const Bulletin = {
-  address: "0x57443571dc66B666403Bf3eb581691916d5656c7",
+  address: "0x389A8899d3Fe6E755bFFAB7d0467b700602023f9",
   abi: BULLETIN_ABI,
 };
 
 export const Logger = {
-  address: "0xCDBaf7bA0aa88c6DA10573e98b0b94B0a6EcD03C",
+  address: "0x9012072B1fc4a67a60DC53365592bf0B7ad722F4",
   abi: LOGGER_ABI,
 };
 
 export const TokenMinter = {
-  address: "0x7B696A60A2658577369C6ad0CB0aCdcd728D502E",
+  address: "0x5A629972C39fbb6d96c5Ff6074b7C9AAcA5b39D2",
   abi: TOKEN_MINTER_ABI,
 };
 
 export const TokenCurve = {
-  address: "0x581135BCd0fCE63ad856676DA1A1a434f5f606F7",
+  address: "0x118BF134Ac905bd4fE25081eee681aCFde41f0b0",
   abi: TOKEN_CURVE_ABI,
 };
 
@@ -88,7 +88,13 @@ const Gfel = () => {
     functionName: 'svg',
     args: [1]
   })
-  
+
+  const { data:  price} = useContractRead({
+    ...TokenCurve,
+    functionName: 'getCurvePrice',
+    args: [true, 1, 0]
+  })
+
   const clickMint = async () => {
     const curveId = 1;
 
@@ -160,31 +166,33 @@ const Gfel = () => {
 
   useEffect(() => {
     const loadTps = async () => {
-      if (parseInt(nonce._hex) > 0 && parseInt(logId._hex) > 0) {
-        const logger = new ethers.Contract(Logger.address, Logger.abi, provider);
-        let _tps = [];
-        
-        for (let i = 1; i <= logId; i++) {
-          try {
-            const log = await logger.getLog(i);
-            const tps = await logger.getTouchpointsByLog(i);
-            // console.log(tps)
-  
-            for (let j = 0; j <= tps.length; j++) {
-              if (tps[j][3] != undefined) {
-                _tps.push({
-                  user: log.user,
-                  feedback: tps[j][3],
-                });
-              }
-            }
-
-          } catch (err) {
-            console.log(err)
-          }
+      if (nonce != undefined && logId != undefined) {
+        if (parseInt(nonce._hex) > 0 && parseInt(logId._hex) > 0) {
+          const logger = new ethers.Contract(Logger.address, Logger.abi, provider);
+          let _tps = [];
           
+          for (let i = 1; i <= logId; i++) {
+            try {
+              const log = await logger.getLog(i);
+              const tps = await logger.getTouchpointsByLog(i);
+              // console.log(tps)
+    
+              for (let j = 0; j <= tps.length; j++) {
+                if (tps[j][3] != undefined) {
+                  _tps.push({
+                    user: log.user,
+                    feedback: tps[j][3],
+                  });
+                }
+              }
+  
+            } catch (err) {
+              console.log(err)
+            }
+            
+          }
+          setTouchpoint(_tps);
         }
-        setTouchpoint(_tps);
       }
     }
     loadTps();
@@ -203,7 +211,7 @@ const Gfel = () => {
                 disabled={!clickMint}
                 onClick={() => clickMint()}
                 className='w-40 h-10 bg-yellow-300 rounded-md font-medium'>
-                Donate 0.003 xDAI
+                Donate {(price != undefined) ? ethers.utils.formatEther(price) : price} xDAI
               </button> 
             </div>) : 
             <></>
