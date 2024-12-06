@@ -1,6 +1,6 @@
 import React, { createContext, useContext, } from "react";
 import { useAccount } from "wagmi";
-import dispatch, { alertReducer, modalReducer, userReducer, playgroundReducer, remixReducer } from "./reducer";
+import dispatch, { alertReducer, modalReducer, userReducer, playgroundReducer, bulletinReducer, remixReducer } from "./reducer";
 
 const GlobalContext = createContext();
 const combineDispatch =
@@ -15,6 +15,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [modalPayload, _modalDispatch] = modalReducer();
   const [userInfo, _userDispatch] = userReducer();
   const [playground, _playgroundDispatch] = playgroundReducer();
+  const [bulletin, _bulletinDispatch] = bulletinReducer();
   const [remix, _remixDispatch] = remixReducer();
 
   // * dispatch set
@@ -27,6 +28,7 @@ export const GlobalContextProvider = ({ children }) => {
       _modalDispatch,
       _userDispatch,
       _playgroundDispatch,
+      _bulletinDispatch,
       _remixDispatch,
     );
     Object.freeze(dispatch);
@@ -40,6 +42,7 @@ export const GlobalContextProvider = ({ children }) => {
         alerts,
         modalPayload,
         remix,
+        bulletin
       }}
     >
       {children}

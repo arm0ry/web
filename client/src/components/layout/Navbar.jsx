@@ -89,8 +89,10 @@ const Navbar = () => {
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
             {/* <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/> */}
 
-            <NavBarItem title="$LOCAL | $社區穩定幣" to="/playground" onClick={() => setToggleMenu(false)} />
-            <NavBarItem title="$GFEL | $社區穩定幣之波特蘭篇" to="/gfel" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="$LOCAL | $社區穩定幣" disabled />
+            <NavBarItem title="v0" to="/playground" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="vGFEL" to="/gfel" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="vMUTUAL" to="/bulletin" onClick={() => setToggleMenu(false)} />
             <NavBarItem title="ReMAP | 混藝術" to="/remix" onClick={() => setToggleMenu(false)} />
 
             {/* <NavbarDropdown title={"$LOCAL | $社區穩定幣"} to="/playground" >
@@ -99,7 +101,7 @@ const Navbar = () => {
             </NavbarDropdown> */}
 
             {/* <NavBarItem title="Funding" to="/funding" onClick={() => setToggleMenu(false)}/> */}
-            <NavBarItem disable title="Donate ｜ 抖內" to="/donate" onClick={() => setToggleMenu(false)} />
+            {/* <NavBarItem disable title="Donate ｜ 抖內" to="/donate" onClick={() => setToggleMenu(false)} /> */}
             {/* <li>
                 <CustomButton
                   title="connect wallet"

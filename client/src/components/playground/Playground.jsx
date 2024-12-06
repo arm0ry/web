@@ -230,7 +230,7 @@ const Playground = () => {
               Icon={BuddiesIcon}
               setToggleMenu={setToggleMenu}
             />
-            <div className="pt-5">
+            {/* <div className="pt-5">
               <label className="ml-2 font-medium">🧑‍🍳 Staff Only</label>
             </div>
             <SidebarItem
@@ -244,7 +244,7 @@ const Playground = () => {
               name="Create a List"
               Icon={ProposeIcon}
               setToggleMenu={setToggleMenu}
-            />
+            /> */}
           </ul>
 
 

@@ -22,6 +22,7 @@ import Reports from "../components/playground/reports/Reports";
 import { Navbar, Footer } from "../components/layout";
 import { useGlobalContext } from "@context/store";
 import ScrollToTop from "@utils/ScrollToTop";
+import Bulletin from "../components/bulletin/Bulletin";
 
 const ProtectedRoute = (children) => {
   // const { token } = useAuth();
@@ -50,6 +51,9 @@ const Routers = () => {
       <Routes>
         <Route path="/" element={HomeLayout(<Home />)} />
         <Route path="/onboard" element={HomeLayout(<Onboard />)} />
+        <Route path="/bulletin" element={<Bulletin />}></Route>
+        <Route path="bulletin/:askId" element={<ListDetail />} />
+        
         <Route path="/playground" element={<Playground />}>
           <Route index element={<Navigate to="faq" replace />} />
           <Route path="faq" element={<Faq />} />

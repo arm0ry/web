@@ -1,4 +1,4 @@
-/// $LOCAL
+/// $LOCAL v0
 
 import BULLETIN_ABI from "./playground/Bulletin.json";
 import LOGGER_ABI from "./playground/Log.json";
@@ -43,6 +43,20 @@ export const Croissant = {
   abi: CURRENCY_ABI,
 };
 
+/// $LOCAL vMUTUAL
+import BULLETINFACTORY_ABI from "./bulletin/BulletinFactory.json";
+import M_BULLETIN_ABI from "./bulletin/Bulletin.json";
+
+export const BulletinFactory = {
+  address: "0x21C424249Fc983513413e702C6C61D83e92ea9FC",
+  abi: BULLETINFACTORY_ABI,
+};
+
+export const mBulletin = {
+  address: "0x4AEA4050397638F1A701B528E4Ed8De8402D2AE4",
+  abi: M_BULLETIN_ABI,
+};
+
 /// Remix
 
 import REMIX_ABI from "./remix/Remix.json";
@@ -51,6 +65,8 @@ export const Remix = {
   address: "0x696e4A33D9741aB239482B3796dC23630a1e71E3",
   abi: REMIX_ABI,
 };
+
+
 
 /// RPC
 

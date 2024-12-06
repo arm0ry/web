@@ -11,12 +11,16 @@ import {
   Coffee as _Coffee,
   Croissant as _Croissant,
   Remix as _Remix,
+  BulletinFactory as _BulletinFactory,
+  mBulletin as _mBulletin,
   RPC,
 } from "@contract";
 
 // Provider & Contract
 export const sepolia_provider = new ethers.providers.JsonRpcProvider(RPC.sepolia);
 export const chiado_provider = new ethers.providers.JsonRpcProvider(RPC.chiado);
+
+// $LOCAL v0
 
 export const Bulletin = getContract({
   ..._Bulletin,
@@ -52,6 +56,19 @@ export const Croissant = getContract({
   ..._Croissant,
   signerOrProvider: chiado_provider,
 });
+
+// $LOCAL vMUTUAL
+export const BulletinFactory = getContract({
+  ..._BulletinFactory,
+  signerOrProvider: chiado_provider,
+});
+
+export const mBulletin = getContract({
+  ..._mBulletin,
+  signerOrProvider: chiado_provider,
+});
+
+// REMIX
 
 export const Remix = getContract({
   ..._Remix,
