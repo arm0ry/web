@@ -9,8 +9,6 @@ const AskCard = ({ askId }) => {
   return (
     <>
       <div className="group relative flex h-44 flex-col rounded-lg border border-gray-200 bg-white p-6 shadow">
-        
-
         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">
           {bulletin.asks[askId]?.title}
         </h5>

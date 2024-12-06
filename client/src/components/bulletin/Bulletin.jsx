@@ -99,10 +99,10 @@ const Bulletin = () => {
         </div>
       </nav>
 
-      <div className="mb-2 h-1/2 bg-blue-50">
+      <div className="mb-2 h-1/2 bg-amber-50">
         <Asks></Asks>
       </div>
-      <div className="h-1/2 bg-amber-200">
+      <div className="h-1/2 bg-blue-200">
         <Resources></Resources>
       </div>
     </>
