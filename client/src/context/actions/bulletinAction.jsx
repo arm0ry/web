@@ -23,7 +23,7 @@ export const loadBulletins = async () => {
       type: LOAD_BULLETINS,
       payload: _bulletins,
     });
-  } catch (e) {
+  } catch (error) {
     console.error(error);
     pushAlert({ msg: `Error loading bulletin factory`, type: "failure" });
   }
@@ -41,8 +41,8 @@ export const loadAsks = async () => {
         const ask = await Bulletin.getAsk(id);
         _asks[id] = {
           fulfilled: ask[0],
-          owner: ask[1],
-          role: ask[2]._hex,
+          owner: ask[2],
+          role: ask[1],
           title: ask[3],
           detail: ask[4],
           currency: ask[5],
@@ -50,8 +50,9 @@ export const loadAsks = async () => {
           trades: []
         }
 
-        const tradeId = await Bulletin.tradeIds(id);
-        // if (tradeId <= 0) return;
+        const _tradeId = await Bulletin.tradeIds(id);
+        const tradeId = parseInt(_tradeId._hex);
+        if (tradeId <= 0) return;
         [...Array(tradeId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
           const trade = await Bulletin.getTrade(id, id_);
@@ -71,7 +72,7 @@ export const loadAsks = async () => {
       payload: _asks,
     });
 
-  } catch (e) {
+  } catch (error) {
     console.error(error);
     pushAlert({ msg: `Error loading bulletin factory`, type: "failure" });
   }
