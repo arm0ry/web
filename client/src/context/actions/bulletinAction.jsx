@@ -46,8 +46,24 @@ export const loadAsks = async () => {
           title: ask[3],
           detail: ask[4],
           currency: ask[5],
-          drop: parseInt(ask[6]._hex)
+          drop: parseInt(ask[6]._hex),
+          trades: []
         }
+
+        const tradeId = await Bulletin.tradeIds(id);
+        // if (tradeId <= 0) return;
+        [...Array(tradeId)].map(async (_, _id_) => {
+          const id_ = _id_ + 1;
+          const trade = await Bulletin.getTrade(id, id_);
+          _asks[id].trades.push({
+            approved: trade[0],
+            role: trade[1],
+            proposer: trade[2],
+            resource: trade[3],
+            feedback: trade[4],
+            data: trade[5]
+          });
+        })
       })
     );
     dispatch.fn({
@@ -80,6 +96,20 @@ export const loadResources = async () => {
         }
       })
     );
+
+    const usageId = await Bulletin.usageIds(id);
+    if (usageId <= 0) return;
+    [...Array(usageId)].map(async (_, _id_) => {
+      const id_ = _id_ + 1;
+      const usage = await Bulletin.getUsage(id, id_);
+      _asks[id].trades.push({
+        ask: usage[0],
+        timestamp: usage[1],
+        feedback: usage[2],
+        data: usage[3]
+      });
+    })
+    
     dispatch.fn({
       type: LOAD_RESOURCES,
       payload: _resources,

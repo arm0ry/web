@@ -69,7 +69,7 @@ const Asks = () => {
                 >Gnosis Chiado testnet</a> to demo a local currencies circulation system.
               </label>
             </div>
-            <div className="flex flex-row space-x-4 justify-end w-1/5">
+            {/* <div className="flex flex-row space-x-4 justify-end w-1/5">
               <button
                   disabled={!grantRoles}
                   onClick={() => grantRoles()}
@@ -82,7 +82,7 @@ const Asks = () => {
               </div>
               </button>
             
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
