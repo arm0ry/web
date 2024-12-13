@@ -57,6 +57,7 @@ export const loadAsks = async () => {
           const id_ = _id_ + 1;
           const trade = await Bulletin.getTrade(id, id_);
           _asks[id].trades.push({
+            id: id_,
             approved: trade[0],
             role: trade[1],
             proposer: trade[2],
@@ -64,6 +65,8 @@ export const loadAsks = async () => {
             feedback: trade[4],
             data: trade[5]
           });
+
+          _asks[id].trades.sort((a, b) => a.id - b.id);
         })
       })
     );

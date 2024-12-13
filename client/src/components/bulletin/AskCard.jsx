@@ -7,21 +7,20 @@ import { shortenAddress } from "@utils/shortenAddress";
 import { useAccount, useContractRead } from "wagmi";
 import { mBulletin } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
+import { pushAlert } from "@context/actions/alertAction";
 
 
 const AskCard = ({ askId }) => {
   const { address, isConnected } = useAccount();
   const { bulletin } = useGlobalContext();
   const ask = bulletin.asks[askId];
-  console.log(ask.trades)
-  const [inPrepare, setInPrepare] = useState(false);
 
-  const { write: proposeTrade } = useWriteContract({
+  const { write: proposeTrade, state: proposeState } = useWriteContract({
     ...mBulletin,
     functionName: "trade",
   });
 
-  const { write: approveTrade } = useWriteContract({
+  const { write: approveTrade, state: approveState } = useWriteContract({
     ...mBulletin,
     functionName: "approveTrade",
   });
@@ -32,15 +31,20 @@ const AskCard = ({ askId }) => {
     args: [address, 2]
   })
 
+   const { data: owner } = useContractRead({
+    ...mBulletin,
+    functionName: 'owner',
+    args: []
+  })
+
   const checkIn = async () => {
     let structuredData = ethers.constants.HashZero;
-    let role = ethers.BigNumber.from(2);
+    let role = ethers.BigNumber.from(0);
 
     if (isConnected) {
-      setInPrepare(true);
 
       try {
-        proposeTrade({
+        const tx = proposeTrade({
           args: [
             askId,
           {
@@ -53,8 +57,24 @@ const AskCard = ({ askId }) => {
           }
           ]
         })
+
+        pushAlert({
+          msg: (
+            <span>
+              Success! Check your transaction on
+              <a
+                href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
+                target="_blank"
+                rel="noreferrer"
+                className="font-extrabold text-green-900"
+              >
+                &nbsp;Blockscout &#128279;
+              </a>
+            </span>
+          ),
+          type: "success",
+        });
         
-        setInPrepare(false)
       } catch (error) {
         console.log(error)
       }
@@ -62,19 +82,32 @@ const AskCard = ({ askId }) => {
   };
 
   const approve = async (id) => {
-   console.log(id)
     if (isConnected) {
-      setInPrepare(true);
-
+      
       try {
-        approveTrade({
+        const tx = approveTrade({
           args: [
             askId,
-            id++
+            id
           ]
         })
         
-        setInPrepare(false)
+         pushAlert({
+          msg: (
+            <span>
+              Success! Check your transaction on
+              <a
+                href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
+                target="_blank"
+                rel="noreferrer"
+                className="font-extrabold text-green-900"
+              >
+                &nbsp;Blockscout &#128279;
+              </a>
+            </span>
+          ),
+          type: "success",
+        });
       } catch (error) {
         console.log(error)
       }
@@ -100,16 +133,21 @@ console.log(ask.trades)
               {ask.detail}
             </p>
           </div>
-          {hasAnyRole ? ( <div className="flex items-center justify-end w-1/2">
+          {(owner || hasAnyRole) ? ( <div className="flex items-center justify-end w-1/2">
               <button
-                  disabled={inPrepare}
+                  disabled={proposeState.writeStatus > 0 }
                   onClick={() => checkIn()}
-                className=" w-1/2 rounded-lg p-3 text-amber-600 hover:bg-amber-100 bg-amber-200"
+                className="w-1/2 rounded-lg p-3 text-black hover:bg-amber-100 bg-amber-200"
               >
-                <div className="flex flex-row space-x-4 items-center justify-center">
-                  <label className=" block text-md font-normal text-gray-700">
-                    Check-in
-                  </label>
+              <div className="flex flex-row space-x-4 items-center justify-center">
+                  <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
+                  {(proposeState.writeStatus === 0) && "Check-in"}
+                  {(proposeState.writeStatus === 1) && "Pending..."}
+                  {(proposeState.writeStatus === 2) && "Pending..."}
+                  {(proposeState.writeStatus === 3) && "Success!"}
+                  {(proposeState.writeStatus === 4) && "Error!"}
+                  </div>
+                
               </div>
               </button>
             </div>) : (<></>)}
@@ -120,26 +158,32 @@ console.log(ask.trades)
             return (
               <div key={id} className="flex flex-row bg-slate-200 rounded-lg w-full">
                 <div className="flex flex-col w-full">
-                  <div>
+                  {/* <div>Trade ID: {ask.trades[id].id}</div> */}
+                  {/* <div>
                     Approved: {(ask.trades[id].approved) ? "true" : "false"}
-                  </div>
+                  </div> */}
                   <div>Role: {ask.trades[id].role}</div>
-                  <div>Proposer: {shortenAddress(ask.trades[id].proposer)}</div>
-                  <div>Resource: {ask.trades[id].resource}</div>
+                  <div>User: {shortenAddress(ask.trades[id].proposer)}</div>
+                  {/* <div>Resource: {ask.trades[id].resource}</div> */}
                   <div>Feedback: {ask.trades[id].feedback}</div>
-                  <div>Data: {ask.trades[id].data}</div>
+                  {/* <div>Data: {ask.trades[id].data}</div> */}
                 </div>
-                {(ask.trades[id].approved) ? "" :
+                {(ask.trades[id].approved) ? <div className="flex h-full p-4 justify-center items-center">✅</div> :
                   <button
                     disabled={!approve}
-                    onClick={() => approve(id)}
-                    className=" rounded-lg p-3 text-amber-600 hover:bg-amber-100 bg-green-500"
+                    onClick={() => approve(ask.trades[id].id)}
+                    className=" rounded-lg p-3 text-black hover:bg-amber-100 bg-green-500"
                   >
                     <div className="flex flex-row space-x-4 items-center justify-center">
-                    <label className=" text-md font-normal text-gray-700">
-                      Approve
-                    </label>
-                    </div>
+                  <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
+                  {(proposeState.writeStatus === 0) && "Approve"}
+                  {(proposeState.writeStatus === 1) && "Pending..."}
+                  {(proposeState.writeStatus === 2) && "Pending..."}
+                  {(proposeState.writeStatus === 3) && "Success!"}
+                  {(proposeState.writeStatus === 4) && "Error!"}
+                  </div>
+                
+              </div>
                   </button>}
                 
               </div>

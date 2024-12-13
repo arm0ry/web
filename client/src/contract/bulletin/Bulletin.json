@@ -205,36 +205,22 @@
                 "internalType": "uint256",
                 "name": "askId",
                 "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "tradeId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "approved",
+                "type": "bool"
             }
         ],
-        "name": "TradeApproved",
+        "name": "TradeProcessed",
         "type": "event"
-    },
-    {
-        "inputs": [],
-        "name": "AGENT_ROLE",
-        "outputs": [
-            {
-                "internalType": "uint40",
-                "name": "",
-                "type": "uint40"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "BULLETIN_ROLE",
-        "outputs": [
-            {
-                "internalType": "uint40",
-                "name": "",
-                "type": "uint40"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
     },
     {
         "inputs": [],
@@ -313,6 +299,56 @@
             }
         ],
         "name": "ask",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "bool",
+                        "name": "fulfilled",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint40",
+                        "name": "role",
+                        "type": "uint40"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "owner",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "title",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "detail",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "currency",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "drop",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct IBulletin.Ask",
+                "name": "a",
+                "type": "tuple"
+            }
+        ],
+        "name": "askByAgent",
         "outputs": [],
         "stateMutability": "payable",
         "type": "function"
@@ -507,9 +543,9 @@
                 "type": "uint256"
             },
             {
-                "internalType": "bytes32",
-                "name": "key",
-                "type": "bytes32"
+                "internalType": "bool",
+                "name": "approved",
+                "type": "bool"
             },
             {
                 "internalType": "uint40",
@@ -875,11 +911,6 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "role",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
                 "name": "_resourceId",
                 "type": "uint256"
             },
@@ -1025,6 +1056,46 @@
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "bool",
+                        "name": "active",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint40",
+                        "name": "role",
+                        "type": "uint40"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "owner",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "title",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "detail",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct IBulletin.Resource",
+                "name": "r",
+                "type": "tuple"
+            }
+        ],
+        "name": "resourceByAgent",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "resourceId",
         "outputs": [
@@ -1119,6 +1190,11 @@
                 "internalType": "uint40",
                 "name": "_askId",
                 "type": "uint40"
+            },
+            {
+                "internalType": "bool",
+                "name": "approved",
+                "type": "bool"
             },
             {
                 "internalType": "uint40",

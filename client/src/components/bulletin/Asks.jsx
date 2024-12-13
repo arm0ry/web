@@ -5,12 +5,10 @@ import AskCard from "./AskCard";
 
 const Asks = () => {
   const { bulletin } = useGlobalContext();
-
   return (
     <>
       <div className="flex flex-col mt-16">
         <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-          Asks
         </label>
         <div className="w-5/6 mx-auto mb-10 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <div className="flex flex-row space-x-10 items-center">
@@ -22,7 +20,7 @@ const Asks = () => {
             <div className="w-3/4 space-y-4">
               <label className=" block text-md font-normal text-gray-900">
                 This is a prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
-                >Gnosis Chiado testnet</a> to demo a local currencies circulation system.
+                >Gnosis Chiado testnet</a> to demonstration circulation of local currencies.
               </label>
             </div>
           </div>
