@@ -8,6 +8,7 @@ import { useAccount, useContractRead } from "wagmi";
 import { mBulletin } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 import { pushAlert } from "@context/actions/alertAction";
+import { showModal, cleanModal } from "@context/actions/modalAction";
 
 
 const AskCard = ({ askId }) => {
@@ -38,47 +39,52 @@ const AskCard = ({ askId }) => {
   })
 
   const checkIn = async () => {
-    let structuredData = ethers.constants.HashZero;
-    let role = ethers.BigNumber.from(0);
+     showModal({
+      type: 9,
+      size: "3xl",
+      content: { checkin: true },
+    });
+    // let structuredData = ethers.constants.HashZero;
+    // let role = ethers.BigNumber.from(0);
 
-    if (isConnected) {
+    // if (isConnected) {
 
-      try {
-        const tx = proposeTrade({
-          args: [
-            askId,
-          {
-            approved: true,
-            role: role,
-            proposer: address,
-            resource: structuredData,
-            feedback: "TEST CHECKIN",
-            data: structuredData
-          }
-          ]
-        })
+    //   try {
+    //     const tx = proposeTrade({
+    //       args: [
+    //         askId,
+    //       {
+    //         approved: true,
+    //         role: role,
+    //         proposer: address,
+    //         resource: structuredData,
+    //         feedback: "TEST CHECKIN",
+    //         data: structuredData
+    //       }
+    //       ]
+    //     })
 
-        pushAlert({
-          msg: (
-            <span>
-              Success! Check your transaction on
-              <a
-                href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
-                target="_blank"
-                rel="noreferrer"
-                className="font-extrabold text-green-900"
-              >
-                &nbsp;Blockscout &#128279;
-              </a>
-            </span>
-          ),
-          type: "success",
-        });
+    //     pushAlert({
+    //       msg: (
+    //         <span>
+    //           Success! Check your transaction on
+    //           <a
+    //             href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
+    //             target="_blank"
+    //             rel="noreferrer"
+    //             className="font-extrabold text-green-900"
+    //           >
+    //             &nbsp;Blockscout &#128279;
+    //           </a>
+    //         </span>
+    //       ),
+    //       type: "success",
+    //     });
         
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
   };
 
   const approve = async (id) => {
@@ -165,8 +171,9 @@ console.log(ask.trades)
                   <div>Role: {ask.trades[id].role}</div>
                   <div>User: {shortenAddress(ask.trades[id].proposer)}</div>
                   {/* <div>Resource: {ask.trades[id].resource}</div> */}
-                  <div>Feedback: {ask.trades[id].feedback}</div>
-                  {/* <div>Data: {ask.trades[id].data}</div> */}
+                  {/* <div>Commentary: {ask.trades[id].feedback}</div> */}
+                  {(ask.trades[id].data == 0) ? <div>Data: N/A </div> : <div>Data: {ask.trades[id].data}</div>}
+                  
                 </div>
                 {(ask.trades[id].approved) ? <div className="flex h-full p-4 justify-center items-center">✅</div> :
                   <button
