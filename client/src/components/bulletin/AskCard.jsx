@@ -39,52 +39,19 @@ const AskCard = ({ askId }) => {
   })
 
   const checkIn = async () => {
-     showModal({
-      type: 9,
-      size: "3xl",
-      content: { checkin: true },
-    });
-    // let structuredData = ethers.constants.HashZero;
-    // let role = ethers.BigNumber.from(0);
-
-    // if (isConnected) {
-
-    //   try {
-    //     const tx = proposeTrade({
-    //       args: [
-    //         askId,
-    //       {
-    //         approved: true,
-    //         role: role,
-    //         proposer: address,
-    //         resource: structuredData,
-    //         feedback: "TEST CHECKIN",
-    //         data: structuredData
-    //       }
-    //       ]
-    //     })
-
-    //     pushAlert({
-    //       msg: (
-    //         <span>
-    //           Success! Check your transaction on
-    //           <a
-    //             href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
-    //             target="_blank"
-    //             rel="noreferrer"
-    //             className="font-extrabold text-green-900"
-    //           >
-    //             &nbsp;Blockscout &#128279;
-    //           </a>
-    //         </span>
-    //       ),
-    //       type: "success",
-    //     });
-        
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
+    if (parseInt(askId) == 1) {
+      showModal({
+       type: 9,
+       size: "3xl",
+       content: { askId: askId },
+     });
+    } else {
+      showModal({
+       type: 4,
+       size: "3xl",
+       content: { askId: askId },
+     });
+    }
   };
 
   const approve = async (id) => {
@@ -120,13 +87,54 @@ const AskCard = ({ askId }) => {
     }
   };
 
+  const DisplayDataByAsk = (data) => {
+    const abiCoder = ethers.utils.defaultAbiCoder;
+    if (parseInt(askId) == 1) {
+      let _data;
+      try {
+        _data = abiCoder.decode(["bool", "bool", "bool", "bool", "bool"], ask.trades[data.id].data);
+      } catch (e) {
+        console.log(e);
+      }
+
+      return (
+        <>
+          <div className="flex flex-col">
+            <div className="text-md">今日心情：</div>
+            <div className="flex flex-row space-x-2">
+              <div className="text-sm">{_data[0] ? "🥰" : ""}</div>
+              <div className="text-sm">{_data[1] ? "😃" : ""}</div>
+              <div className="text-sm">{_data[2] ? "🤫" : ""}</div>
+              <div className="text-sm">{_data[3] ? "😋" : ""}</div>
+              <div className="text-sm">{_data[4] ? "🫡" : ""}</div>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+           <div className="flex flex-col">
+            <div className="text-md">今日心情：</div>
+            <div className="flex flex-row space-x-2">
+            </div>
+          </div>
+        </>
+      );
+    }
+  }
+
+  const ButtonNameByAsk = () => {
+    if (parseInt(askId) == 1) {
+      return "Check-in";
+    } else {
+      return "Tally";
+    }
+  }
 
   useEffect(() => {
-
-    // console.log(bulletin, askId, ask.trades)
-console.log(ask.trades)
-
   }, [ask])
+
   return (
     <>
       <div className="group relative flex flex-col rounded-lg border border-gray-200 bg-white p-6 shadow">
@@ -147,7 +155,7 @@ console.log(ask.trades)
               >
               <div className="flex flex-row space-x-4 items-center justify-center">
                   <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-                  {(proposeState.writeStatus === 0) && "Check-in"}
+                  {(proposeState.writeStatus === 0) && ButtonNameByAsk()}
                   {(proposeState.writeStatus === 1) && "Pending..."}
                   {(proposeState.writeStatus === 2) && "Pending..."}
                   {(proposeState.writeStatus === 3) && "Success!"}
@@ -163,16 +171,16 @@ console.log(ask.trades)
           {Object.keys(ask.trades).map((id) => {
             return (
               <div key={id} className="flex flex-row bg-slate-200 rounded-lg w-full">
-                <div className="flex flex-col w-full">
+                <div className="flex flex-col w-full space-y-2">
                   {/* <div>Trade ID: {ask.trades[id].id}</div> */}
                   {/* <div>
                     Approved: {(ask.trades[id].approved) ? "true" : "false"}
                   </div> */}
                   <div>Role: {ask.trades[id].role}</div>
-                  <div>User: {shortenAddress(ask.trades[id].proposer)}</div>
+                  <div>參與者: {shortenAddress(ask.trades[id].proposer)}</div>
                   {/* <div>Resource: {ask.trades[id].resource}</div> */}
                   {/* <div>Commentary: {ask.trades[id].feedback}</div> */}
-                  {(ask.trades[id].data == 0) ? <div>Data: N/A </div> : <div>Data: {ask.trades[id].data}</div>}
+                  {(ask.trades[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
                   
                 </div>
                 {(ask.trades[id].approved) ? <div className="flex h-full p-4 justify-center items-center">✅</div> :
