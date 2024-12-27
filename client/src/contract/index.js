@@ -48,12 +48,12 @@ import BULLETINFACTORY_ABI from "./bulletin/BulletinFactory.json";
 import M_BULLETIN_ABI from "./bulletin/Bulletin.json";
 
 export const BulletinFactory = {
-  address: "0x65eDf281d826A63278ad03aa1aa0C5DcE8408D14..",
+  address: "",
   abi: BULLETINFACTORY_ABI,
 };
 
 export const mBulletin = {
-  address: "0x49d55dcb5497494d8a3f896ab75f0c986c0a16a8",
+  address: "0x35639C9C7f60CcA759cBD6A7a859818Ffa5D12f7",
   abi: M_BULLETIN_ABI,
 };
 

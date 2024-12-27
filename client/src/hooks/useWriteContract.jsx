@@ -43,7 +43,6 @@ const useWriteContract = ({ address, abi, functionName }) => {
           args: args ?? [],
         });
 
-
         console.log("hello 1")
         pushAlert({
           msg: (

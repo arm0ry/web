@@ -12,14 +12,14 @@ import useWriteContract from "@hooks/useWriteContract";
 import { mBulletin } from "@contract";
 import { shortenAddress } from "@utils/shortenAddress";
 
-const CheckinModal = ({ modalPayload }) => {
+const TallyModal = ({ modalPayload }) => {
   const [inPrepare, setInPrepare] = useState(false);
 
   const checkin = modalPayload.content.checkin;
   
   const { write: proposeTrade, state: proposeState } = useWriteContract({
     ...mBulletin,
-    functionName: "respond",
+    functionName: "trade",
   });
   
   const { address, isConnected } = useAccount();
@@ -57,48 +57,21 @@ const CheckinModal = ({ modalPayload }) => {
   };
 
   const onSubmit = async (data) => {
-    let firstEmoji = false;
-    let secondEmoji = false;
-    let thirdEmoji = false;
-    let fourthEmoji = false;
-    let fifthEmoji = false;
-
-    if (data.moon.length > 0) {
-      for (let i = 0; i < data.moon.length; i++) {
-            console.log(data.moon[i]);
-
-        if (data.moon[i] == 1) {
-          firstEmoji = true;
-        } else if (data.moon[i]== 2) {
-          secondEmoji = true;
-        } else if (data.moon[i]== 3) {
-          thirdEmoji = true;
-        } else if (data.moon[i] == 4) {
-          fourthEmoji = true;
-        } else if (data.moon[i] == 5) {
-          fifthEmoji = true;
-        } else {}
-      }
-    }
-    
     let structuredData = ethers.constants.HashZero;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = abiCoder.encode(["bool", "bool", "bool", "bool", "bool"], [firstEmoji, secondEmoji, thirdEmoji, fourthEmoji, fifthEmoji]);
-    
-    console.log(structuredData);
+    structuredData = abiCoder.encode(["uint256"], [count]);
+
     if (isConnected) {
       try {
         const tx = proposeTrade({
           args: [
             modalPayload.content.askId,
-            0,
           {
             approved: true,
-            from: address,
+            role: 0,
+            proposer: address,
             resource: ethers.constants.HashZero,
-            currency: ethers.constants.AddressZero,
-            amount: 0,
-            content: "TEST",
+            feedback: "TEST",
             data: structuredData
           }
           ]
@@ -127,19 +100,32 @@ const CheckinModal = ({ modalPayload }) => {
     }
   };
 
-  const CheckinQs = () => {
+  const TallyQs = () => {
     return (
       <>  
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <label className="text-sm font-medium text-gray-900 mb-1">
-            今天心情如何？ 
+            報到後，請用貼紙留下你這次參與大松的紀錄～
           </label>
           <div className="flex flex-row space-x-3 justify-star">
-            <MoodRadio moon="🥰" value={"1"} register={register} />
-            <MoodRadio moon="😃" value={"2"} register={register} />
-            <MoodRadio moon="🤫" value={"3"} register={register} />
-            <MoodRadio moon="😋" value={"4"} register={register} />
-            <MoodRadio moon="🫡" value={"5"} register={register} />
+            <label className=" block text-sm font-medium text-gray-900 ">
+              茶水
+            </label>
+            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+          </div>
+
+          <div className="flex flex-row space-x-3 justify-star">
+            <label className=" block text-sm font-medium text-gray-900 ">
+              熱食
+            </label>
+            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+          </div>
+
+          <div className="flex flex-row space-x-3 justify-star">
+            <label className=" block text-sm font-medium text-gray-900 "> 
+              小幫手
+            </label>
+            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
           </div>
         </div>
       </>
@@ -162,7 +148,7 @@ const CheckinModal = ({ modalPayload }) => {
 
       <div div className="flex flex-col w-full space-y-2 px-6 py-4 bg-slate-100" >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CheckinQs />
+          <TallyQs />
 
           {isConnected ?
             <div className="flex flex-col w-full items-center">
@@ -192,4 +178,4 @@ const CheckinModal = ({ modalPayload }) => {
   );
 };
 
-export default CheckinModal;
+export default TallyModal;

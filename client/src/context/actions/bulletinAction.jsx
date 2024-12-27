@@ -31,42 +31,47 @@ export const loadBulletins = async () => {
 
 export const loadAsks = async () => {
   try {
-    const askId = await Bulletin.askId();
-    if (askId <= 0) return;
+    const requestId = await Bulletin.requestId();
+    if (requestId <= 0) return;
 
     let _asks = {};
     await Promise.all(
-      [...Array(askId)].map(async (_, _id) => {
+      [...Array(requestId)].map(async (_, _id) => {
         const id = _id + 1;
-        const ask = await Bulletin.getAsk(id);
+        const ask = await Bulletin.getRequest(id);
         _asks[id] = {
           fulfilled: ask[0],
-          owner: ask[2],
-          role: ask[1],
-          title: ask[3],
-          detail: ask[4],
-          currency: ask[5],
-          drop: parseInt(ask[6]._hex),
+          owner: ask[1],
+          title: ask[2],
+          detail: ask[3],
+          currency: ask[4],
+          drop: parseInt(ask[5]._hex),
           trades: []
         }
 
-        const _tradeId = await Bulletin.tradeIds(id);
-        const tradeId = parseInt(_tradeId._hex);
-        if (tradeId <= 0) return;
-        [...Array(tradeId)].map(async (_, _id_) => {
+        const _responseId = await Bulletin.responseIdsPerRequest(id);
+        const responseId = parseInt(_responseId._hex);
+        if (responseId <= 0) return;
+        [...Array(responseId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
-          const trade = await Bulletin.getTrade(id, id_);
+          const trade = await Bulletin.getResponse(id, id_);
+          const role = await Bulletin.rolesOf(trade[1]);
+          console.log(parseInt(role._hex), trade[1])
           _asks[id].trades.push({
             id: id_,
+            role: parseInt(role._hex),
             approved: trade[0],
-            role: trade[1],
-            proposer: trade[2],
-            resource: trade[3],
-            feedback: trade[4],
-            data: trade[5]
+            proposer: trade[1],
+            resource: trade[2],
+            currency: trade[3],
+            amount: trade[4],
+            content: trade[5],
+            data: trade[6]
           });
 
           _asks[id].trades.sort((a, b) => a.id - b.id);
+
+          console.log(_asks , trade);
         })
       })
     );
@@ -93,24 +98,27 @@ export const loadResources = async () => {
         const resource = await Bulletin.getResource(id);
         _resources[id] = {
           active: resource[0],
-          owner: resource[2],
-          role: resource[1],
-          title: resource[3],
-          detail: resource[4]
+          owner: resource[1],
+          title: resource[2],
+          detail: resource[3]
         }
       })
     );
 
-    const usageId = await Bulletin.usageIds(id);
+    const usageId = await Bulletin.exchangeIdsPerResource(resourceId);
     if (usageId <= 0) return;
     [...Array(usageId)].map(async (_, _id_) => {
       const id_ = _id_ + 1;
-      const usage = await Bulletin.getUsage(id, id_);
+      const usage = await Bulletin.getExchange(resourceId, id_);
       _asks[id].trades.push({
-        ask: usage[0],
-        timestamp: usage[1],
-        feedback: usage[2],
-        data: usage[3]
+        id: id_,
+        approved: trade[0],
+        proposer: trade[1],
+        resource: trade[2],
+        currency: trade[3],
+        amount: trade[4],
+        content: trade[5],
+        data: trade[6]
       });
     })
     

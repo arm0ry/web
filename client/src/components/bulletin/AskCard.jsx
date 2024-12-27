@@ -47,7 +47,7 @@ const AskCard = ({ askId }) => {
      });
     } else {
       showModal({
-       type: 4,
+       type: 10,
        size: "3xl",
        content: { askId: askId },
      });

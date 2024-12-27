@@ -22,6 +22,7 @@ import StateYourNameModal from "./StateYourName";
 import SpinnerModal from "./SpinnerModal";
 import FallingFlowerModal from "./FallingFlowerModal";
 import CheckinModal from "./CheckinModal";
+import TallyModal from "./TallyModal";
 
 const sizeVariants = {
   lg: "max-w-lg",
@@ -122,7 +123,13 @@ const Modal = ({ children }) => {
             <CheckinModal modalPayload={modalPayload} />
           </>
         );
-
+  case 10:
+        return (
+          <>
+            <TallyModal modalPayload={modalPayload} />
+          </>
+        );
+      
       case -1:
         return <></>;
 
