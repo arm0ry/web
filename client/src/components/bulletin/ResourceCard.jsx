@@ -12,7 +12,7 @@ const ResourceCard = ({ resourceId }) => {
   return (
     <>
       
-      <div className={`bg-blue-50 h-30 group relative w-full overflow-hidden rounded-lg`}>
+      <div className={`flex flex-row bg-blue-50 h-30 group relative w-full overflow-hidden rounded-lg`}>
         <div className="flex h-full w-full flex-col items-start justify-between  px-4 py-3 ">
           <label className="w-fit mx-3 font-medium text-slate-800  group-hover:font-semibold ">
             #{resourceId}.
@@ -39,6 +39,24 @@ const ResourceCard = ({ resourceId }) => {
               Detail: {bulletin.resources[resourceId]?.detail}
             </p>
           </div>
+        </div>
+
+         <div className="flex  w-1/3 justify-end">
+          <button
+            disabled={""}
+            // onClick={() => approve(ask.trades[id].id)}
+            className=" rounded-lg p-3 text-black hover:bg-amber-100 bg-green-500">
+            <div className="flex flex-row space-x-4 items-center justify-center">
+              Donate
+              {/* <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
+              {(proposeState.writeStatus === 0) && "Approve"}
+              {(proposeState.writeStatus === 1) && "Pending..."}
+              {(proposeState.writeStatus === 2) && "Pending..."}
+              {(proposeState.writeStatus === 3) && "Success!"}
+              {(proposeState.writeStatus === 4) && "Error!"}
+              </div> */}
+            </div>
+          </button>
         </div>
       </div>
 

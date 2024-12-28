@@ -17,10 +17,10 @@ const Asks = () => {
                 💡
               </label>
             </div>
-            <div className="w-3/4 space-y-4">
-              <label className=" block text-md font-normal text-gray-900">
+            <div className="space-y-4">
+              <label className="text-md font-normal text-gray-900">
                 This is a prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
-                >Gnosis Chiado testnet</a> to demonstration circulation of local currencies.
+                >Gnosis Chiado testnet</a> to demonstrate circulation of local currencies.
               </label>
             </div>
           </div>

@@ -51,12 +51,11 @@ export const loadAsks = async () => {
 
         const _responseId = await Bulletin.responseIdsPerRequest(id);
         const responseId = parseInt(_responseId._hex);
-        if (responseId <= 0) return;
+        // if (responseId <= 0) return;
         [...Array(responseId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
           const trade = await Bulletin.getResponse(id, id_);
           const role = await Bulletin.rolesOf(trade[1]);
-          console.log(parseInt(role._hex), trade[1])
           _asks[id].trades.push({
             id: id_,
             role: parseInt(role._hex),
@@ -70,8 +69,6 @@ export const loadAsks = async () => {
           });
 
           _asks[id].trades.sort((a, b) => a.id - b.id);
-
-          console.log(_asks , trade);
         })
       })
     );
@@ -91,7 +88,6 @@ export const loadResources = async () => {
     const resourceId = await Bulletin.resourceId();
     if (resourceId <= 0) return;
     let _resources = {};
-
     await Promise.all(
       [...Array(resourceId)].map(async (_, _id) => {
         const id = _id + 1;
@@ -100,28 +96,31 @@ export const loadResources = async () => {
           active: resource[0],
           owner: resource[1],
           title: resource[2],
-          detail: resource[3]
+          detail: resource[3],
+          exchanges: []
         }
       })
     );
+console.log(_resources)
 
     const usageId = await Bulletin.exchangeIdsPerResource(resourceId);
-    if (usageId <= 0) return;
+    // if (usageId <= 0) return;
     [...Array(usageId)].map(async (_, _id_) => {
       const id_ = _id_ + 1;
-      const usage = await Bulletin.getExchange(resourceId, id_);
-      _asks[id].trades.push({
+      const exchange = await Bulletin.getExchange(resourceId, id_);
+      _resources[id].exchanges.push({
         id: id_,
-        approved: trade[0],
-        proposer: trade[1],
-        resource: trade[2],
-        currency: trade[3],
-        amount: trade[4],
-        content: trade[5],
-        data: trade[6]
+        approved: exchange[0],
+        proposer: exchange[1],
+        resource: exchange[2],
+        currency: exchange[3],
+        amount: exchange[4],
+        content: exchange[5],
+        data: exchange[6]
       });
     })
-    
+
+    console.log(_resources)
     dispatch.fn({
       type: LOAD_RESOURCES,
       payload: _resources,

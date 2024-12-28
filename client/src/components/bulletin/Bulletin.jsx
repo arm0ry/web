@@ -29,9 +29,9 @@ import Resources from "./Resources";
 
 const Bulletin = () => {
   const { address, isConnected, isDisconnected } = useAccount();
-  const { playground, bulletin } = useGlobalContext();
+  const { playground } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
-  
+
   useEffect(() => {
     if (isConnected) {
       signIn({

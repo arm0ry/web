@@ -104,26 +104,36 @@ const TallyModal = ({ modalPayload }) => {
     return (
       <>  
         <div className="flex flex-col space-y-2 mt-2 mb-5">
-          <label className="text-sm font-medium text-gray-900 mb-1">
-            報到後，請用貼紙留下你這次參與大松的紀錄～
-          </label>
+          <div className="flex items-center">
+            <label className="text-md font-medium text-gray-900 mb-1">
+              報到後，請用貼紙留下你這次參與大松的紀錄～
+            </label>
+            <CloseModalButton />
+          </div>
           <div className="flex flex-row space-x-3 justify-star">
             <label className=" block text-sm font-medium text-gray-900 ">
-              茶水
+              詢問小幫手
             </label>
             <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
           </div>
 
           <div className="flex flex-row space-x-3 justify-star">
             <label className=" block text-sm font-medium text-gray-900 ">
-              熱食
+              使用茶水、熱食
             </label>
             <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
           </div>
 
           <div className="flex flex-row space-x-3 justify-star">
             <label className=" block text-sm font-medium text-gray-900 "> 
-              小幫手
+              拉人入坑
+            </label>
+            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+          </div>
+
+          <div className="flex flex-row space-x-3 justify-star">
+            <label className=" block text-sm font-medium text-gray-900 "> 
+              入坑討論
             </label>
             <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
           </div>
@@ -135,17 +145,6 @@ const TallyModal = ({ modalPayload }) => {
 
   return (
     <>
-      <div className="flex items-start justify-between rounded-t px-4 pt-4 text-gray-500  bg-slate-100">
-        <div className="flex flex-col">
-          <label className="mb-2 block text-lg font-semibold text-gray-900">
-            Let's get onchain! | 一起上鏈吧！
-          </label>
-        </div>
-        <CloseModalButton />
-      </div>
-      
-
-
       <div div className="flex flex-col w-full space-y-2 px-6 py-4 bg-slate-100" >
         <form onSubmit={handleSubmit(onSubmit)}>
           <TallyQs />

@@ -6,7 +6,7 @@ import ResourceCard from "./ResourceCard";
 const Resources = () => {
   const { bulletin } = useGlobalContext();
   const navigate = useNavigate();
-  // console.log(playground.tasks)
+  console.log(bulletin)
   return (
     <div className="flex flex-col h-screen">
       <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
