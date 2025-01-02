@@ -126,9 +126,9 @@ const AskCard = ({ askId }) => {
 
   const ButtonNameByAsk = () => {
     if (parseInt(askId) == 1) {
-      return "Check-in";
+      return "報到 ｜ Check-in";
     } else {
-      return "Tally";
+      return "分享 ｜ Share";
     }
   }
 

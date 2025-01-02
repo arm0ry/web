@@ -92,8 +92,10 @@ export const loadResources = async () => {
       [...Array(resourceId)].map(async (_, _id) => {
         const id = _id + 1;
         const resource = await Bulletin.getResource(id);
+        const role = await Bulletin.rolesOf(resource[1]);
         _resources[id] = {
           active: resource[0],
+          role: parseInt(role._hex),
           owner: resource[1],
           title: resource[2],
           detail: resource[3],
@@ -101,14 +103,13 @@ export const loadResources = async () => {
         }
       })
     );
-console.log(_resources)
 
     const usageId = await Bulletin.exchangeIdsPerResource(resourceId);
     // if (usageId <= 0) return;
     [...Array(usageId)].map(async (_, _id_) => {
       const id_ = _id_ + 1;
       const exchange = await Bulletin.getExchange(resourceId, id_);
-      _resources[id].exchanges.push({
+      _resources[resourceId].exchanges.push({
         id: id_,
         approved: exchange[0],
         proposer: exchange[1],
