@@ -4,13 +4,7 @@ import { ethers } from "ethers";
 import {
   logo,
   MenuUpIcon,
-  MenuDownIcon,
-  MissionIcon,
-  BuddiesIcon,
-  ProposeIcon,
-  TaskIcon,
-  ArrowSVG,
-  QuestIcon,
+  MenuDownIcon
 } from "@assets";
 import FacuetButton from "../FacuetButton";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
@@ -33,28 +27,6 @@ const Bulletin = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
-    if (isConnected) {
-      signIn({
-        address,
-        taskId: playground.taskId,
-        missionId: playground.missionId,
-      });
-    }
-  }, [isConnected]);
-  useEffect(() => {
-    if (isConnected) {
-      // getTravelerTask(address, playground.taskId);
-      // getTravelerQuest(address, playground.missionId);
-    }
-  }, [playground.taskId, playground.missionId]);
-
-  useEffect(() => {
-    if (isDisconnected) {
-      signOut();
-    }
-  }, [isDisconnected]);
-
-  useEffect(() => {
     const load = async () => {
       await loadBulletins();
       await loadAsks();
@@ -70,24 +42,11 @@ const Bulletin = () => {
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
-              <button
-                type="button"
-                onClick={() => setToggleMenu((t) => !t)}
-                className="ml-3 inline-flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 md:hidden"
-              >
-                <span className="sr-only">Open main menu</span>
-                {!toggleMenu ? (
-                  <MenuDownIcon className="h-6 w-6" />
-                ) : (
-                  <MenuUpIcon className="h-6 w-6" />
-                )}
-              </button>
               <Link to="/" className="ml-2 flex md:mr-24">
                 <img src={logo} alt="arm0ry" />
               </Link>
             </div>
             <div className="flex items-center">
-              <FacuetButton />
               <div className="relative ml-3 flex items-center ">
                 <DynamicWidget
                   buttonClassName="connectButton"

@@ -56,49 +56,77 @@ const TallyModal = ({ modalPayload }) => {
     );
   };
 
-  const onSubmit = async (data) => {
-    let structuredData = ethers.constants.HashZero;
-    const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = abiCoder.encode(["uint256"], [count]);
-
-    if (isConnected) {
-      try {
-        const tx = proposeTrade({
-          args: [
-            modalPayload.content.askId,
-          {
-            approved: true,
-            role: 0,
-            proposer: address,
-            resource: ethers.constants.HashZero,
-            feedback: "TEST",
-            data: structuredData
-          }
-          ]
-        })
-
-        pushAlert({
-          msg: (
-            <span>
-              Success! Check your transaction on
-              <a
-                href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
-                target="_blank"
-                rel="noreferrer"
-                className="font-extrabold text-green-900"
-              >
-                &nbsp;Blockscout &#128279;
-              </a>
-            </span>
-          ),
-          type: "success",
-        });
-        
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  };
+ 
+   const onSubmit = async (data) => {
+     let firstEmoji = false;
+     let secondEmoji = false;
+     let thirdEmoji = false;
+     let fourthEmoji = false;
+     let fifthEmoji = false;
+ 
+     if (data.moon.length > 0) {
+       for (let i = 0; i < data.moon.length; i++) {
+             console.log(data.moon[i]);
+ 
+         if (data.moon[i] == 1) {
+           firstEmoji = true;
+         } else if (data.moon[i]== 2) {
+           secondEmoji = true;
+         } else if (data.moon[i]== 3) {
+           thirdEmoji = true;
+         } else if (data.moon[i] == 4) {
+           fourthEmoji = true;
+         } else if (data.moon[i] == 5) {
+           fifthEmoji = true;
+         } else {}
+       }
+     }
+     
+     let structuredData = ethers.constants.HashZero;
+     const abiCoder = ethers.utils.defaultAbiCoder;
+     structuredData = abiCoder.encode(["bool", "bool", "bool", "bool", "bool"], [firstEmoji, secondEmoji, thirdEmoji, fourthEmoji, fifthEmoji]);
+     
+     console.log(structuredData);
+     if (isConnected) {
+       try {
+         const tx = proposeTrade({
+           args: [
+             modalPayload.content.askId,
+             0,
+           {
+             approved: true,
+             from: address,
+             resource: ethers.constants.HashZero,
+             currency: ethers.constants.AddressZero,
+             amount: 0,
+             content: "TEST",
+             data: structuredData
+           }
+           ]
+         })
+ 
+         pushAlert({
+           msg: (
+             <span>
+               Success! Check your transaction on
+               <a
+                 href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
+                 target="_blank"
+                 rel="noreferrer"
+                 className="font-extrabold text-green-900"
+               >
+                 &nbsp;Blockscout &#128279;
+               </a>
+             </span>
+           ),
+           type: "success",
+         });
+         
+       } catch (error) {
+         console.log(error)
+       }
+     }
+   };
 
   const TallyQs = () => {
     return (
@@ -106,36 +134,26 @@ const TallyModal = ({ modalPayload }) => {
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              報到後，請用貼紙留下你這次參與大松的紀錄～
+              這次參與大松最大的收穫 🌾
             </label>
             <CloseModalButton />
           </div>
           <div className="flex flex-row space-x-3 justify-star">
-            <label className=" block text-sm font-medium text-gray-900 ">
-              詢問小幫手
-            </label>
-            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+            <MoodRadio moon="提升對社會相關議題的了解程度" value={"1"} register={register} />
           </div>
 
           <div className="flex flex-row space-x-3 justify-star">
-            <label className=" block text-sm font-medium text-gray-900 ">
-              使用茶水、熱食
-            </label>
-            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+            <MoodRadio moon="結識志同道合的夥伴" value={"2"} register={register} />
           </div>
 
           <div className="flex flex-row space-x-3 justify-star">
-            <label className=" block text-sm font-medium text-gray-900 "> 
-              拉人入坑
-            </label>
-            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+            <MoodRadio moon="增進專業能力與解題經驗" value={"3"} register={register} />
           </div>
-
           <div className="flex flex-row space-x-3 justify-star">
-            <label className=" block text-sm font-medium text-gray-900 "> 
-              入坑討論
-            </label>
-            <input required type="number" max={10} min={1} {...register("number1")} className="rounded-md text-center p-1" placeholder="1" />
+            <MoodRadio moon="增進人際溝通與團隊合作的能力" value={"4"} register={register} />
+          </div>
+          <div className="flex flex-row space-x-3 justify-star">
+            <MoodRadio moon="活動與自我興趣結合的快樂" value={"5"} register={register} />
           </div>
         </div>
       </>

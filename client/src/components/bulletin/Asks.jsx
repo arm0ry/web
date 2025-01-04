@@ -12,16 +12,26 @@ const Asks = () => {
         </label>
         <div className="w-5/6 mx-auto mb-10 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <div className="flex flex-row space-x-10 items-center">
-            <div className="">
-              <label className="py-5 text-md font-normal text-gray-900">
-                💡
+            <div className="flex flex-col space-y-2">
+              <label className="text-2xl font-semibold text-amber-500">
+                100
+              </label>
+              <label className=" text-xs font-normal text-gray-400">
+                $ARM0RY
               </label>
             </div>
-            <div className="space-y-4">
+            <div className="flex flex-col">
+              <div>
               <label className="text-md font-normal text-gray-900">
-                This is a prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
-                >Gnosis Chiado testnet</a> to demonstrate circulation of local currencies.
+                用區塊鏈的社群貨幣具體化我們在 g0v 黑客松所創造的影響力～
               </label>
+              </div>
+              <div>
+                <label className="text-sm font-normal text-gray-900">
+                  This is a prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
+                  >Gnosis Chiado testnet</a> to circulate $ARM0RY at g0v's bi-monthly hackathons.
+                </label>
+              </div>
             </div>
           </div>
         </div>

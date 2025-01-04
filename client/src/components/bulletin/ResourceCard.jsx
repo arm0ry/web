@@ -61,53 +61,32 @@ const ResourceCard = ({ resourceId }) => {
   return (
     <>
       <div className={`flex flex-col bg-blue-50 group relative overflow-hidden rounded-lg`}>
-        <div className="flex h-full w-full flex-col items-start justify-between  px-4 py-3 ">
-          <div className="my-3 px-3 py-2 font- text-slate-800 bg-slate-200 rounded-lg">
-            <p className="text-slate-800 line-clamp-2 my-0 mx-auto leading-5 font-medium  group-hover:font-semibold ">
-              {/* Role: {bulletin.resources[resourceId]?.role} */}
-            </p>
+        <div className="flex h-full w-full flex-col items-center justify-between  px-4 py-3 ">
+          <div className="flex flex-col space-y-2 my-3 text-slate-800">
+            <div className="flex justify-center items-center space-x-3">
+              <label className="text-slate-800 mx-auto text-xl font-medium  group-hover:font-semibold ">
+                {bulletin.resources[resourceId]?.title}
+              </label>
+              <div className="text-xs">by</div>
+            </div>
 
-            <p className="text-slate-800 line-clamp-2 my-0 mx-auto leading-5 font-medium  group-hover:font-semibold ">
-              {bulletin.resources[resourceId]?.title}
-            </p>
-
-            <p className="text-slate-800 line-clamp-2 my-0 mx-auto leading-5 font-medium  group-hover:font-semibold ">
-              {/* Detail: {bulletin.resources[resourceId]?.detail} */}
-            </p>
-          </div>
-
-          <div
-            className={`flex space-x-2 shrink-0 flex-row items-center rounded-full bg-[#B6E4F4] h-min md:px-3 md:py-2 text-sm font-semibold  text-black  shadow-sm`}
-          >
-            <Avatar className={`h-5 w-5 `} address={bulletin.resources[resourceId]?.owner} />
-            <span className=" hidden items-center md:block">
-              {shortenAddress(bulletin.resources[resourceId]?.owner)}
-            </span>
+            <div className={`flex space-x-2 items-center md:px-3 md:py-2 text-xs font-medium  text-slate-500`}>
+              <Avatar className={`h-5 w-5`} address={bulletin.resources[resourceId]?.owner} />
+              <span className="items-center">
+                {shortenAddress(bulletin.resources[resourceId]?.owner)}
+              </span>
+            </div>
           </div>
         </div>
+          
          
         <div className="flex flex-row w-full">
           <button
             disabled={""}
             onClick={() => support()}
-            className="w-1/2 p-3 text-black hover:bg-amber-100 bg-green-200">
-            <div className="flex items-center justify-center">
-              抖內 | Support 1 $ARM0RY
-              {/* <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-              {(proposeState.writeStatus === 0) && "Approve"}
-              {(proposeState.writeStatus === 1) && "Pending..."}
-              {(proposeState.writeStatus === 2) && "Pending..."}
-              {(proposeState.writeStatus === 3) && "Success!"}
-              {(proposeState.writeStatus === 4) && "Error!"}
-              </div> */}
-            </div>
-          </button>
-          <button
-            disabled={""}
-            // onClick={() => approve(ask.trades[id].id)}
-            className="w-1/2 p-3 text-black hover:bg-amber-100 bg-blue-500">
-            <div className="flex items-center justify-center">
-              回饋 | Comments
+            className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
+            <div className="flex text-md items-center justify-center">
+              抖內 | Support
               {/* <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
               {(proposeState.writeStatus === 0) && "Approve"}
               {(proposeState.writeStatus === 1) && "Pending..."}

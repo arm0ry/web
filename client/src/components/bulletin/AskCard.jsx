@@ -100,13 +100,13 @@ const AskCard = ({ askId }) => {
       return (
         <>
           <div className="flex flex-col">
-            <div className="text-md">今日心情：</div>
+            <div className="text-md">自我介紹：</div>
             <div className="flex flex-row space-x-2">
-              <div className="text-sm">{_data[0] ? "🥰" : ""}</div>
-              <div className="text-sm">{_data[1] ? "😃" : ""}</div>
-              <div className="text-sm">{_data[2] ? "🤫" : ""}</div>
-              <div className="text-sm">{_data[3] ? "😋" : ""}</div>
-              <div className="text-sm">{_data[4] ? "🫡" : ""}</div>
+              <div className="text-sm">{_data[0] ? "我是新手" : ""}</div>
+              <div className="text-sm">{_data[1] ? "我想入坑" : ""}</div>
+              <div className="text-sm">{_data[2] ? "我想開坑" : ""}</div>
+              <div className="text-sm">{_data[3] ? "我想拉人入坑" : ""}</div>
+              <div className="text-sm">{_data[4] ? "我來逛逛" : ""}</div>
             </div>
           </div>
         </>
@@ -183,22 +183,22 @@ const AskCard = ({ askId }) => {
                   {(ask.trades[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
                   
                 </div>
-                {(ask.trades[id].approved) ? <div className="flex h-full p-4 justify-center items-center">✅</div> : (ask.trades[id].role == 1) ? 
+                {(ask.trades[id].approved) ? <div className="flex h-full p-4 justify-center items-center">✅</div> : 
                   <button
                     disabled={!approve}
                     onClick={() => approve(ask.trades[id].id)}
-                    className=" rounded-lg p-3 text-black hover:bg-amber-100 bg-green-500"
+                    className=" rounded-lg p-3 text-black hover:bg-amber-10"
                   >
                     <div className="flex flex-row space-x-4 items-center justify-center">
                       <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-                        {(proposeState.writeStatus === 0) && "Approve"}
+                        {(proposeState.writeStatus === 0) && "☑️"}
                         {(proposeState.writeStatus === 1) && "Pending..."}
                         {(proposeState.writeStatus === 2) && "Pending..."}
                         {(proposeState.writeStatus === 3) && "Success!"}
                         {(proposeState.writeStatus === 4) && "Error!"}
                       </div>
                     </div>
-                  </button> : <div></div>}
+                  </button>}
                 
               </div>
             )

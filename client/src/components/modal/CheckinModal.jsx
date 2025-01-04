@@ -13,10 +13,7 @@ import { mBulletin } from "@contract";
 import { shortenAddress } from "@utils/shortenAddress";
 
 const CheckinModal = ({ modalPayload }) => {
-  const [inPrepare, setInPrepare] = useState(false);
-
-  const checkin = modalPayload.content.checkin;
-  
+  const [inPrepare, setInPrepare] = useState(false);  
   const { write: proposeTrade, state: proposeState } = useWriteContract({
     ...mBulletin,
     functionName: "respond",
@@ -132,14 +129,14 @@ const CheckinModal = ({ modalPayload }) => {
       <>  
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <label className="text-sm font-medium text-gray-900 mb-1">
-            今天心情如何？ 
+            自我介紹 
           </label>
           <div className="flex flex-row space-x-3 justify-star">
-            <MoodRadio moon="🥰" value={"1"} register={register} />
-            <MoodRadio moon="😃" value={"2"} register={register} />
-            <MoodRadio moon="🤫" value={"3"} register={register} />
-            <MoodRadio moon="😋" value={"4"} register={register} />
-            <MoodRadio moon="🫡" value={"5"} register={register} />
+            <MoodRadio moon="我是新手" value={"1"} register={register} />
+            <MoodRadio moon="我想入坑" value={"2"} register={register} />
+            <MoodRadio moon="我想開坑" value={"3"} register={register} />
+            <MoodRadio moon="我想拉人入坑" value={"4"} register={register} />
+            <MoodRadio moon="我來逛逛" value={"5"} register={register} />
           </div>
         </div>
       </>
