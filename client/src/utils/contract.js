@@ -13,6 +13,7 @@ import {
   Remix as _Remix,
   BulletinFactory as _BulletinFactory,
   mBulletin as _mBulletin,
+  mCurrency as _mCurrency,
   RPC,
 } from "@contract";
 
@@ -65,6 +66,11 @@ export const BulletinFactory = getContract({
 
 export const mBulletin = getContract({
   ..._mBulletin,
+  signerOrProvider: chiado_provider,
+});
+
+export const mCurrency = getContract({
+  ..._mCurrency,
   signerOrProvider: chiado_provider,
 });
 

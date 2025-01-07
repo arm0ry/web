@@ -5,6 +5,7 @@ import AskCard from "./AskCard";
 
 const Asks = () => {
   const { bulletin } = useGlobalContext();
+  console.log(bulletin.currency.supply)
   return (
     <>
       <div className="flex flex-col mt-16">
@@ -14,10 +15,13 @@ const Asks = () => {
           <div className="flex flex-row space-x-10 items-center">
             <div className="flex flex-col space-y-2">
               <label className="text-2xl font-semibold text-amber-500">
-                100
+                {(bulletin.currency.supply != undefined) ?
+                  bulletin.currency.supply : "-"}
               </label>
               <label className=" text-xs font-normal text-gray-400">
-                $ARM0RY
+                <a target="_blank" href="https://gnosis-chiado.blockscout.com/address/0x9c2471750cbc9abeebcd396fd84137977ab1b3a8" className="underline">
+                  $ARM0RY
+                </a>
               </label>
             </div>
             <div className="flex flex-col">

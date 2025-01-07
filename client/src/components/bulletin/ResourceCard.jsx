@@ -86,7 +86,7 @@ const ResourceCard = ({ resourceId }) => {
             onClick={() => support()}
             className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
             <div className="flex text-md items-center justify-center">
-              抖內 | Support
+              交流 | Engage
               {/* <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
               {(proposeState.writeStatus === 0) && "Approve"}
               {(proposeState.writeStatus === 1) && "Pending..."}

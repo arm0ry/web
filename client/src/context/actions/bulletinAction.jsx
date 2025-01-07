@@ -1,9 +1,24 @@
 import dispatch from "../reducer";
-import { LOAD_ASKS, LOAD_BULLETINS, LOAD_RESOURCES } from "../reducer/bulletinReducer";
+import { LOAD_CURRENCY, LOAD_ASKS, LOAD_BULLETINS, LOAD_RESOURCES } from "../reducer/bulletinReducer";
 import { pushAlert } from "@context/actions/alertAction";
-import { BulletinFactory, mBulletin as Bulletin } from "@utils/contract";
+import { BulletinFactory, mBulletin as Bulletin, mCurrency as Currency } from "@utils/contract";
 import { ethers } from "ethers";
-import BULLETIN_ABI from "../../contract/bulletin/Bulletin.json";
+
+export const loadCurrency = async () => {
+  try {
+    const totalSupply = await Currency.totalSupply();
+    const currency = {
+      supply: parseInt(totalSupply._hex)
+    }
+    dispatch.fn({
+      type: LOAD_CURRENCY,
+      payload: currency,
+    });
+  } catch (error) {
+    console.error(error);
+    pushAlert({ msg: `Error loading bulletin factory`, type: "failure" });
+  }
+}
 
 export const loadBulletins = async () => {
   try {
@@ -39,13 +54,13 @@ export const loadAsks = async () => {
       [...Array(requestId)].map(async (_, _id) => {
         const id = _id + 1;
         const ask = await Bulletin.getRequest(id);
+        if (ask[0] == ethers.constants.AddressZero) return;
         _asks[id] = {
-          fulfilled: ask[0],
-          owner: ask[1],
-          title: ask[2],
-          detail: ask[3],
-          currency: ask[4],
-          drop: parseInt(ask[5]._hex),
+          owner: ask[0],
+          title: ask[1],
+          detail: ask[2],
+          currency: ask[3],
+          drop: parseInt(ask[4]._hex),
           trades: []
         }
 
@@ -56,6 +71,7 @@ export const loadAsks = async () => {
           const id_ = _id_ + 1;
           const trade = await Bulletin.getResponse(id, id_);
           const role = await Bulletin.rolesOf(trade[1]);
+          
           _asks[id].trades.push({
             id: id_,
             role: parseInt(role._hex),
@@ -92,13 +108,10 @@ export const loadResources = async () => {
       [...Array(resourceId)].map(async (_, _id) => {
         const id = _id + 1;
         const resource = await Bulletin.getResource(id);
-        const role = await Bulletin.rolesOf(resource[1]);
         _resources[id] = {
-          active: resource[0],
-          role: parseInt(role._hex),
-          owner: resource[1],
-          title: resource[2],
-          detail: resource[3],
+          owner: resource[0],
+          title: resource[1],
+          detail: resource[2],
           exchanges: []
         }
       })

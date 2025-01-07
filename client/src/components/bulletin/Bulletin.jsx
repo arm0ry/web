@@ -14,7 +14,7 @@ import {
   signOut,
 } from "@context/actions/userAction";
 import {
-  loadBulletins, loadAsks, loadResources
+  loadBulletins, loadAsks, loadResources, loadCurrency
 } from "@context/actions/bulletinAction";
 import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
@@ -31,6 +31,7 @@ const Bulletin = () => {
       await loadBulletins();
       await loadAsks();
       await loadResources();
+      await loadCurrency();
     }
     load()
   }, []);

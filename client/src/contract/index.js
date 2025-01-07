@@ -46,6 +46,7 @@ export const Croissant = {
 /// $LOCAL vMUTUAL
 import BULLETINFACTORY_ABI from "./bulletin/BulletinFactory.json";
 import M_BULLETIN_ABI from "./bulletin/Bulletin.json";
+import M_CURRENCY_ABI from "./bulletin/Currency.json";
 
 export const BulletinFactory = {
   address: "",
@@ -53,8 +54,13 @@ export const BulletinFactory = {
 };
 
 export const mBulletin = {
-  address: "0x35639C9C7f60CcA759cBD6A7a859818Ffa5D12f7",
+  address: "0xdbe8B7a2C394dBcE1895EBA5c622D5A646eA22c4",
   abi: M_BULLETIN_ABI,
+};
+
+export const mCurrency = {
+  address: "0x9C2471750CbC9abeeBcd396Fd84137977AB1B3a8",
+  abi: M_CURRENCY_ABI,
 };
 
 /// Remix
