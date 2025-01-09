@@ -10,7 +10,7 @@ const Resources = () => {
   return (
     <div className="flex flex-col h-screen">
       <label className="p-4 mb-2 block text-2xl font-bold text-gray-900 mx-auto">
-          資源列表 | Resources
+          本屆大松資源列表 | Resources
         </label>
       <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 p-4">
         {/* {Object.keys(tasks).map((id) => {

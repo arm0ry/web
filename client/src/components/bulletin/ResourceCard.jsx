@@ -58,43 +58,34 @@ const approve = async (id) => {
 
   const support = async () => {
     if (isConnected) {
-        try {
-          const tx = exchange({
-            args: [
-              resourceId,
-              {
-                approved: true,
-                from: address,
-                resource: ethers.constants.HashZero,
-                currency: mCurrency.address,
-                amount: ethers.utils.parseUnits("1", "ether"),
-                content: "TEST",
-                data: ethers.constants.HashZero
-              }
-            ]
-          })
-          
-           pushAlert({
-            msg: (
-              <span>
-                Success! Check your transaction on
-                <a
-                  href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-extrabold text-green-900"
-                >
-                  &nbsp;Blockscout &#128279;
-                </a>
-              </span>
-            ),
-            type: "success",
-          });
-        } catch (error) {
-          console.log(error)
+      try {
+        const trade = {
+              approved: true,
+              from: address,
+              resource: ethers.constants.HashZero,
+              currency: mCurrency.address,
+              amount: ethers.utils.parseUnits("1", "ether"),
+              content: "TEST",
+              data: ethers.constants.HashZero
         }
+        const tx = exchange({ args: [resourceId, trade] })
+          
+        pushAlert({
+          msg: (
+            <span>
+              Success! Check your transaction on
+              <a href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`} target="_blank" rel="noreferrer" className="font-extrabold text-green-900">
+                &nbsp;Blockscout &#128279;
+              </a>
+            </span>
+          ),
+          type: "success",
+        });
+      } catch (error) {
+        console.log(error)
       }
-    };
+    }
+  };
 
   return (
     <>
@@ -117,30 +108,24 @@ const approve = async (id) => {
           </div>
         </div>
         
-              <div className="flex flex-row">
-                {Object.keys(bulletin.resources[resourceId]?.exchanges).map((id) => {
-                  return (
-                    <div key={id} className="">
-                        <button
-                          disabled={!approve}
-                          onClick={() => approve(bulletin.resources[resourceId]?.exchanges[id].id)}
-                          className=" rounded-lg p-3 text-black hover:bg-amber-10"
-                        >
-                          <div className="flex flex-col ">
-                      <Avatar className={`h-10 w-10 ${(bulletin.resources[resourceId]?.exchanges[id].approved) ? "" : "opacity-40"}`} address={bulletin.resources[resourceId]?.exchanges[id].proposer} />
-                            {/* <div className={`${(approveState.writeStatus == 1 || approveState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-                              {(approveState.writeStatus === 0) && "☑️"}
-                              {(approveState.writeStatus === 1) && "Pending..."}
-                              {(approveState.writeStatus === 2) && "Pending..."}
-                              {(approveState.writeStatus === 3) && "Success!"}
-                              {(approveState.writeStatus === 4) && "Error!"}
-                            </div> */}
-                          </div>
-                        </button>
-                    </div>
-                  )
-                })}
-                </div>
+        <div className="flex flex-row items-center ">
+          <div className="flex justify-center items-center h-10 w-10 text-amber-500 font-semibold">🪙 { bulletin.resources[resourceId]?.collection}</div>
+          {Object.keys(bulletin.resources[resourceId]?.exchanges).map((id) => {
+            return (
+              <div key={id} className="flex overflow-scroll">
+                <button
+                  disabled={!approve}
+                  onClick={() => approve(bulletin.resources[resourceId]?.exchanges[id].id)}
+                  className=" rounded-lg p-3 text-black hover:bg-amber-10"
+                >
+                  <div className="">
+                    <Avatar className={`h-10 w-10 ${(bulletin.resources[resourceId]?.exchanges[id].approved) ? "" : "opacity-40"}`} address={bulletin.resources[resourceId]?.exchanges[id].proposer} />
+                  </div>
+                </button>
+              </div>
+            )})}
+        </div>
+        
          
         <div className="flex flex-row w-full">
           <button
@@ -148,9 +133,8 @@ const approve = async (id) => {
             onClick={() => support()}
             className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
             <div className="flex text-md items-center justify-center">
-              交流 | Engage
               <div className={`${(exchangeState.writeStatus == 1 || exchangeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-              {(exchangeState.writeStatus === 0) && "Approve"}
+              {(exchangeState.writeStatus === 0) && "交流 | Engage"}
               {(exchangeState.writeStatus === 1) && "Pending..."}
               {(exchangeState.writeStatus === 2) && "Pending..."}
               {(exchangeState.writeStatus === 3) && "Success!"}

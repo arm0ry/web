@@ -104,7 +104,6 @@ export const loadResources = async () => {
     const resourceId = await Bulletin.resourceId();
     if (resourceId <= 0) return;
     let _resources = {};
-    let amount = 0;
     await Promise.all(
       [...Array(resourceId)].map(async (_, _id) => {
         const id = _id + 1;
@@ -142,8 +141,6 @@ export const loadResources = async () => {
       })
     );
 
-
-    console.log(_resources)
     dispatch.fn({
       type: LOAD_RESOURCES,
       payload: _resources,
