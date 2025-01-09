@@ -88,7 +88,6 @@ const CheckinModal = ({ modalPayload }) => {
         const tx = proposeTrade({
           args: [
             modalPayload.content.askId,
-            0,
           {
             approved: true,
             from: address,

@@ -5,7 +5,6 @@ import AskCard from "./AskCard";
 
 const Asks = () => {
   const { bulletin } = useGlobalContext();
-  console.log(bulletin.currency.supply)
   return (
     <>
       <div className="flex flex-col mt-16">
@@ -14,7 +13,7 @@ const Asks = () => {
         <div className="w-5/6 mx-auto mb-10 flex flex-row rounded-lg px-5 py-5 bg-slate-50 space-x-5">
           <div className="flex flex-row space-x-10 items-center">
             <div className="flex flex-col space-y-2">
-              <label className="text-2xl font-semibold text-amber-500">
+              <label className="text-2xl font-semibold text-amber-500 flex justify-end">
                 {(bulletin.currency.supply != undefined) ?
                   bulletin.currency.supply : "-"}
               </label>

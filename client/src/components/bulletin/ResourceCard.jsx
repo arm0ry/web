@@ -5,11 +5,12 @@ import { Spinner, Markdown, Avatar } from "@components";
 import { useAccount, useContractRead } from "wagmi";
 import useWriteContract from "@hooks/useWriteContract";
 import { ethers } from "ethers";
-import { mBulletin } from "@contract";
+import { mBulletin, mCurrency } from "@contract";
 import { showModal, cleanModal } from "@context/actions/modalAction";
+import { pushAlert } from "@context/actions/alertAction";
 
 const ResourceCard = ({ resourceId }) => {
-  const { bulletin } = useGlobalContext();
+  const { bulletin, resources } = useGlobalContext();
   const { address, isConnected } = useAccount();
 
   const { write: exchange, state: exchangeState } = useWriteContract({
@@ -17,19 +18,56 @@ const ResourceCard = ({ resourceId }) => {
     functionName: "exchange",
   });
 
-   const support = async () => {
-     if (isConnected) {
+const { write: approveExchange, state: approveState } = useWriteContract({
+    ...mBulletin,
+    functionName: "approveExchange",
+  });
+
+const approve = async (id) => {
+    if (isConnected) {
+      try {
+        const tx = approveExchange({
+          args: [
+            resourceId,
+            id
+          ]
+        })
+        
+        
+         pushAlert({
+          msg: (
+            <span>
+              Success! Check your transaction on
+              <a
+                href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
+                target="_blank"
+                rel="noreferrer"
+                className="font-extrabold text-green-900"
+              >
+                &nbsp;Blockscout &#128279;
+              </a>
+            </span>
+          ),
+          type: "success",
+        });
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  };
+
+  const support = async () => {
+    if (isConnected) {
         try {
           const tx = exchange({
             args: [
               resourceId,
-              0,
               {
                 approved: true,
                 from: address,
                 resource: ethers.constants.HashZero,
-                currency: ethers.constants.AddressZero,
-                amount: 0,
+                currency: mCurrency.address,
+                amount: ethers.utils.parseUnits("1", "ether"),
                 content: "TEST",
                 data: ethers.constants.HashZero
               }
@@ -78,7 +116,31 @@ const ResourceCard = ({ resourceId }) => {
             </div>
           </div>
         </div>
-          
+        
+              <div className="flex flex-row">
+                {Object.keys(bulletin.resources[resourceId]?.exchanges).map((id) => {
+                  return (
+                    <div key={id} className="">
+                        <button
+                          disabled={!approve}
+                          onClick={() => approve(bulletin.resources[resourceId]?.exchanges[id].id)}
+                          className=" rounded-lg p-3 text-black hover:bg-amber-10"
+                        >
+                          <div className="flex flex-col ">
+                      <Avatar className={`h-10 w-10 ${(bulletin.resources[resourceId]?.exchanges[id].approved) ? "" : "opacity-40"}`} address={bulletin.resources[resourceId]?.exchanges[id].proposer} />
+                            {/* <div className={`${(approveState.writeStatus == 1 || approveState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
+                              {(approveState.writeStatus === 0) && "☑️"}
+                              {(approveState.writeStatus === 1) && "Pending..."}
+                              {(approveState.writeStatus === 2) && "Pending..."}
+                              {(approveState.writeStatus === 3) && "Success!"}
+                              {(approveState.writeStatus === 4) && "Error!"}
+                            </div> */}
+                          </div>
+                        </button>
+                    </div>
+                  )
+                })}
+                </div>
          
         <div className="flex flex-row w-full">
           <button
@@ -87,28 +149,17 @@ const ResourceCard = ({ resourceId }) => {
             className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
             <div className="flex text-md items-center justify-center">
               交流 | Engage
-              {/* <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-              {(proposeState.writeStatus === 0) && "Approve"}
-              {(proposeState.writeStatus === 1) && "Pending..."}
-              {(proposeState.writeStatus === 2) && "Pending..."}
-              {(proposeState.writeStatus === 3) && "Success!"}
-              {(proposeState.writeStatus === 4) && "Error!"}
-              </div> */}
+              <div className={`${(exchangeState.writeStatus == 1 || exchangeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
+              {(exchangeState.writeStatus === 0) && "Approve"}
+              {(exchangeState.writeStatus === 1) && "Pending..."}
+              {(exchangeState.writeStatus === 2) && "Pending..."}
+              {(exchangeState.writeStatus === 3) && "Success!"}
+              {(exchangeState.writeStatus === 4) && "Error!"}
+              </div>
             </div>
           </button>
         </div>
       </div>
-
-            {/* <p className="text-slate-500 line-clamp-2 my-0 mx-auto  leading-5 font-normal  group-hover:font-semibold ">
-              參與人數 | # of Participants：
-            </p> */}
-            {/* <Link
-              to={`${itemId}`}
-              state={{ items: items }}
-              className="block pt-4 text-indigo-500 transition duration-200"
-            >
-              Read Detail →
-            </Link> */}
     </>
   );
 };

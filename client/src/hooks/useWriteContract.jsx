@@ -43,7 +43,6 @@ const useWriteContract = ({ address, abi, functionName }) => {
           args: args ?? [],
         });
 
-        console.log("hello 1")
         pushAlert({
           msg: (
             <span>
@@ -65,13 +64,11 @@ const useWriteContract = ({ address, abi, functionName }) => {
         const data = await waitForTransaction({
           hash,
         });
-        console.log("hello 2")
         pushAlert({ msg: "Success! Refresh page to see new updates 🎉", type: "success" });
         dispatch({ type: "success", payload: data });
 
         await _onSuccess();
       } catch (error) {
-        console.log("hello 3")
         console.log(error);
         dispatch({ type: "error", payload: error });
         pushAlert({ msg: `Error! ${error}`, type: "failure" });

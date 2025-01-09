@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "@context/store";
-import { Spinner } from "@components";
+import { Avatar } from "@components";
 import { ethers } from "ethers";
 import { shortenAddress } from "@utils/shortenAddress";
 import { useAccount, useContractRead } from "wagmi";
@@ -23,7 +23,7 @@ const AskCard = ({ askId }) => {
 
   const { write: approveTrade, state: approveState } = useWriteContract({
     ...mBulletin,
-    functionName: "approveTrade",
+    functionName: "approveResponse",
   });
 
   const { data: hasAnyRole } = useContractRead({
@@ -39,7 +39,7 @@ const AskCard = ({ askId }) => {
   })
 
   const checkIn = async () => {
-    if (parseInt(askId) == 1) {
+    if (parseInt(askId) == 4) {
       showModal({
        type: 9,
        size: "3xl",
@@ -61,7 +61,8 @@ const AskCard = ({ askId }) => {
         const tx = approveTrade({
           args: [
             askId,
-            id
+            id,
+            ethers.utils.parseUnits("2", "ether")
           ]
         })
         
@@ -89,7 +90,7 @@ const AskCard = ({ askId }) => {
 
   const DisplayDataByAsk = (data) => {
     const abiCoder = ethers.utils.defaultAbiCoder;
-    if (parseInt(askId) == 1) {
+    if (parseInt(askId) == 4) {
       let _data;
       try {
         _data = abiCoder.decode(["bool", "bool", "bool", "bool", "bool"], ask.trades[data.id].data);
@@ -111,6 +112,28 @@ const AskCard = ({ askId }) => {
           </div>
         </>
       );
+    } else if (parseInt(askId) == 5) { 
+      let _data;
+      try {
+        _data = abiCoder.decode(["bool", "bool", "bool", "bool", "bool"], ask.trades[data.id].data);
+      } catch (e) {
+        console.log(e);
+      }
+
+      return (
+        <>
+          <div className="flex flex-col">
+            <div className="text-md">自備：</div>
+            <div className="flex flex-row space-x-2">
+              <div className="text-sm">{_data[0] ? "筷子 🥢" : ""}</div>
+              <div className="text-sm">{_data[1] ? "叉子 🍴" : ""}</div>
+              <div className="text-sm">{_data[2] ? "湯匙 🥄" : ""}</div>
+              <div className="text-sm">{_data[3] ? "水壺 🫙" : ""}</div>
+              <div className="text-sm">{_data[4] ? "吸管" : ""}</div>
+            </div>
+          </div>
+        </>
+      );
     } else {
       return (
         <>
@@ -125,7 +148,7 @@ const AskCard = ({ askId }) => {
   }
 
   const ButtonNameByAsk = () => {
-    if (parseInt(askId) == 1) {
+    if (parseInt(askId) == 4) {
       return "報到 ｜ Check-in";
     } else {
       return "分享 ｜ Share";
@@ -139,7 +162,7 @@ const AskCard = ({ askId }) => {
     <>
       <div className="group relative flex flex-col rounded-lg border border-gray-200 bg-white p-6 shadow">
         <div className="flex flex-row w-full">
-          <div className="w-1/2">
+          <div className="w-1/2 ">
             <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">
               {ask.title}
             </h5>
@@ -167,21 +190,15 @@ const AskCard = ({ askId }) => {
             </div>) : (<></>)}
         </div>
 
-        <div className="grid grid-rows-5 grid-flow-col gap-2 bg-purple-50 w-full">
+      <div className="grid grid-col-3 grid-flow-col gap-2 bg-purple-50 w-1/3">
           {Object.keys(ask.trades).map((id) => {
             return (
               <div key={id} className="flex flex-row bg-slate-200 rounded-lg w-full">
                 <div className="flex flex-col w-full space-y-2">
-                  {/* <div>Trade ID: {ask.trades[id].id}</div> */}
-                  {/* <div>
-                    Approved: {(ask.trades[id].approved) ? "true" : "false"}
-                  </div> */}
                   <div>Role: {ask.trades[id].role}</div>
                   <div>參與者: {shortenAddress(ask.trades[id].proposer)}</div>
-                  {/* <div>Resource: {ask.trades[id].resource}</div> */}
-                  {/* <div>Commentary: {ask.trades[id].feedback}</div> */}
+                  <Avatar className={`h-10 w-10`} address={ask.trades[id].proposer} />
                   {(ask.trades[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
-                  
                 </div>
                 {(ask.trades[id].approved) ? <div className="flex h-full p-4 justify-center items-center">✅</div> : 
                   <button
@@ -190,22 +207,28 @@ const AskCard = ({ askId }) => {
                     className=" rounded-lg p-3 text-black hover:bg-amber-10"
                   >
                     <div className="flex flex-row space-x-4 items-center justify-center">
-                      <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-                        {(proposeState.writeStatus === 0) && "☑️"}
-                        {(proposeState.writeStatus === 1) && "Pending..."}
-                        {(proposeState.writeStatus === 2) && "Pending..."}
-                        {(proposeState.writeStatus === 3) && "Success!"}
-                        {(proposeState.writeStatus === 4) && "Error!"}
+                      <div className={`${(approveState.writeStatus == 1 || approveState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
+                        {(approveState.writeStatus === 0) && "☑️"}
+                        {(approveState.writeStatus === 1) && "Pending..."}
+                        {(approveState.writeStatus === 2) && "Pending..."}
+                        {(approveState.writeStatus === 3) && "Success!"}
+                        {(approveState.writeStatus === 4) && "Error!"}
                       </div>
                     </div>
                   </button>}
                 
               </div>
             )
-          // return <ResourceCard key={id} resourceId={id} />;
           })}
+          
+        </div>
+       
+             
+        <div className="flex mt-3 justify-end items-end font-semibold text-amber-500 ">
+            💰 {ask.drop} $ARM0RY
         </div>
         
+      
         {/* <Link
           to={askId}
           className="mt-auto inline-flex items-center text-blue-600 hover:underline"
