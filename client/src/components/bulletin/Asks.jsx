@@ -26,13 +26,13 @@ const Asks = () => {
             <div className="flex flex-col">
               <div>
               <label className="text-md font-normal text-gray-900">
-                用區塊鏈的社群貨幣具體化我們在 g0v 黑客松所創造的影響力～
+                在 g0v 黑客松模擬使用虛擬社群貨幣，並呈現共同創造的影響力～
               </label>
               </div>
               <div>
                 <label className="text-sm font-normal text-gray-900">
-                  This is a prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
-                  >Gnosis Chiado testnet</a> to circulate $ARM0RY at g0v's bi-monthly hackathons.
+                  This is a experimental prototype built on the <a target="_blank" href="https://gnosis-chiado.blockscout.com/" className="underline"
+                  >Gnosis Chiado testnet</a> to circulate ARM0RY within g0v's bi-monthly hackathons.
                 </label>
               </div>
             </div>

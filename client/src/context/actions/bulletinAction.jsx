@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 export const loadCurrency = async () => {
   try {
     const totalSupply = await Currency.totalSupply();
+    console.log("supply is ", totalSupply, Currency)
     const currency = {
       supply: ethers.utils.formatEther(totalSupply._hex)
     }

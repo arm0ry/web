@@ -127,15 +127,28 @@ const CheckinModal = ({ modalPayload }) => {
     return (
       <>  
         <div className="flex flex-col space-y-2 mt-2 mb-5">
-          <label className="text-sm font-medium text-gray-900 mb-1">
-            自我介紹 
-          </label>
-          <div className="flex flex-row space-x-3 justify-star">
+          <div className="flex items-center">
+            <label className="text-md font-medium text-gray-900 mb-1">
+              自我介紹 📣
+            </label>
+            <CloseModalButton />
+          </div>
+           <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我是新手" value={"1"} register={register} />
+          </div>
+
+          <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我想入坑" value={"2"} register={register} />
+          </div>
+
+          <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我想開坑" value={"3"} register={register} />
+          </div>
+          <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我想拉人入坑" value={"4"} register={register} />
-            <MoodRadio moon="我來逛逛" value={"5"} register={register} />
+          </div>
+          <div className="flex flex-row space-x-3 justify-star">
+            <MoodRadio moon="我來逛逛 " value={"5"} register={register} />
           </div>
         </div>
       </>
@@ -145,17 +158,6 @@ const CheckinModal = ({ modalPayload }) => {
 
   return (
     <>
-      <div className="flex items-start justify-between rounded-t px-4 pt-4 text-gray-500  bg-slate-100">
-        <div className="flex flex-col">
-          <label className="mb-2 block text-lg font-semibold text-gray-900">
-            Let's get onchain! | 一起上鏈吧！
-          </label>
-        </div>
-        <CloseModalButton />
-      </div>
-      
-
-
       <div div className="flex flex-col w-full space-y-2 px-6 py-4 bg-slate-100" >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CheckinQs />

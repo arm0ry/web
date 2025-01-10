@@ -39,7 +39,7 @@ const AskCard = ({ askId }) => {
   })
 
   const checkIn = async () => {
-    if (parseInt(askId) == 4) {
+    if (parseInt(askId) == 1) {
       showModal({
        type: 9,
        size: "3xl",
@@ -90,7 +90,7 @@ const AskCard = ({ askId }) => {
 
   const DisplayDataByAsk = (data) => {
     const abiCoder = ethers.utils.defaultAbiCoder;
-    if (parseInt(askId) == 4) {
+    if (parseInt(askId) == 1) {
       let _data;
       try {
         _data = abiCoder.decode(["bool", "bool", "bool", "bool", "bool"], ask.trades[data.id].data);
@@ -112,7 +112,7 @@ const AskCard = ({ askId }) => {
           </div>
         </>
       );
-    } else if (parseInt(askId) == 5) { 
+    } else if (parseInt(askId) == 2) { 
       let _data;
       try {
         _data = abiCoder.decode(["bool", "bool", "bool", "bool", "bool"], ask.trades[data.id].data);
@@ -138,8 +138,9 @@ const AskCard = ({ askId }) => {
       return (
         <>
            <div className="flex flex-col">
-            <div className="text-md">今日心情：</div>
-            <div className="flex flex-row space-x-2">
+            <div className="text-xs text-gray-700 mb-1">自我介紹：</div>
+            <div className="flex text-gray-400">
+              ...
             </div>
           </div>
         </>
@@ -148,7 +149,7 @@ const AskCard = ({ askId }) => {
   }
 
   const ButtonNameByAsk = () => {
-    if (parseInt(askId) == 4) {
+    if (parseInt(askId) == 1) {
       return "報到 ｜ Check-in";
     } else {
       return "分享 ｜ Share";
@@ -166,7 +167,7 @@ const AskCard = ({ askId }) => {
             <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">
               {ask.title}
             </h5>
-            <p className="mb-3 font-normal text-gray-500 line-clamp-3 ">
+            <p className="mb-3 text-sm font-light text-gray-500 line-clamp-3 ">
               {ask.detail}
             </p>
           </div>
@@ -190,11 +191,11 @@ const AskCard = ({ askId }) => {
             </div>) : (<></>)}
         </div>
 
-      <div className="grid grid-col-3 grid-flow-col gap-2 bg-purple-50 w-1/3">
+      <div className="flex space-x-2 w-full overflow-auto">
           {Object.keys(ask.trades).map((id) => {
             return (
               <div key={id} className="flex flex-row bg-slate-200 rounded-lg w-full">
-                <div className="flex flex-col w-full space-y-1">
+                <div className={`flex flex-col w-full space-y-1 ${(ask.trades[id].approved) ? "" : "opacity-70"}`}>
                   <Avatar className={`h-10 w-10`} address={ask.trades[id].proposer} />
                   <label className="text-xs">{shortenAddress(ask.trades[id].proposer)}</label>
                   <div className="text-xs text-blue-700 pb-2">{(ask.trades[id].role == 0) ? "遊客" : "新參者"}</div>
@@ -205,10 +206,8 @@ const AskCard = ({ askId }) => {
 
                   {(ask.trades[id].approved) ? <button disabled className="">✅</button> :
                     <button disabled={!approve} onClick={() => approve(ask.trades[id].id)}>
-                      <div className="">
-                        <div className={`${(approveState.writeStatus == 1 || approveState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>
-                          {(approveState.writeStatus === 0) && "☑️"}
-                        </div>
+                      <div className="opacity-70">
+                        {(approveState.writeStatus === 0) && "☑️"}
                       </div>
                     </button>}
                 </div>

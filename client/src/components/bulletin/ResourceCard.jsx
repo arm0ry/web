@@ -68,7 +68,8 @@ const approve = async (id) => {
               content: "TEST",
               data: ethers.constants.HashZero
         }
-        const tx = exchange({ args: [resourceId, trade] })
+        console.log(trade)
+        const tx = exchange({ args: [resourceId, trade] });
           
         pushAlert({
           msg: (
@@ -90,16 +91,13 @@ const approve = async (id) => {
   return (
     <>
       <div className={`flex flex-col bg-blue-50 group relative overflow-hidden rounded-lg`}>
-        <div className="flex h-full w-full flex-col items-center justify-between  px-4 py-3 ">
-          <div className="flex flex-col space-y-2 my-3 text-slate-800">
-            <div className="flex justify-center items-center space-x-3">
-              <label className="text-slate-800 mx-auto text-xl font-medium  group-hover:font-semibold ">
-                {bulletin.resources[resourceId]?.title}
-              </label>
-              <div className="text-xs">by</div>
-            </div>
+        <div className="flex w-full h-full flex-col items-center justify-between px-6 py-3 ">
+          <div className="flex flex-col space-y-1 my-3 text-slate-800">
+            <label className="text-slate-800 text-xl font-medium  group-hover:font-semibold ">
+              {bulletin.resources[resourceId]?.title}
+            </label>
 
-            <div className={`flex space-x-2 items-center md:px-3 md:py-2 text-xs font-medium  text-slate-500`}>
+            <div className={`flex space-x-2 py-2 items-center text-xs font-light text-slate-500`}>
               <Avatar className={`h-5 w-5`} address={bulletin.resources[resourceId]?.owner} />
               <span className="items-center">
                 {shortenAddress(bulletin.resources[resourceId]?.owner)}
@@ -108,7 +106,7 @@ const approve = async (id) => {
           </div>
         </div>
         
-        <div className="flex flex-row items-center ">
+        <div className="flex flex-row mx-5 items-center ">
           <div className="flex justify-center items-center h-10 w-10 text-amber-500 font-semibold">🪙 { bulletin.resources[resourceId]?.collection}</div>
           {Object.keys(bulletin.resources[resourceId]?.exchanges).map((id) => {
             return (
