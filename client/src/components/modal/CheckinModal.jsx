@@ -133,23 +133,11 @@ const CheckinModal = ({ modalPayload }) => {
             </label>
             <CloseModalButton />
           </div>
-           <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我是新手" value={"1"} register={register} />
-          </div>
-
-          <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我想入坑" value={"2"} register={register} />
-          </div>
-
-          <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我想開坑" value={"3"} register={register} />
-          </div>
-          <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我想拉人入坑" value={"4"} register={register} />
-          </div>
-          <div className="flex flex-row space-x-3 justify-star">
             <MoodRadio moon="我來逛逛 " value={"5"} register={register} />
-          </div>
         </div>
       </>
     );
@@ -158,12 +146,12 @@ const CheckinModal = ({ modalPayload }) => {
 
   return (
     <>
-      <div div className="flex flex-col w-full space-y-2 px-6 py-4 bg-slate-100" >
+      <div div className="flex flex-col space-y-2 px-6 py-4 bg-slate-100" >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CheckinQs />
 
           {isConnected ?
-            <div className="flex flex-col w-full items-center">
+            <div className="flex flex-col items-center">
               <button
                 type="submit"
                 disabled={proposeState.writeStatus > 0}

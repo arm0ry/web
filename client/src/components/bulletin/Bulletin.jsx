@@ -20,10 +20,11 @@ import { useGlobalContext } from "@context/store";
 import { Avatar, Alert } from "@components";
 import Asks from "./Asks";
 import Resources from "./Resources";
+import Info from "./Info";
 
 const Bulletin = () => {
   const { address, isConnected, isDisconnected } = useAccount();
-  const { playground } = useGlobalContext();
+  const { bulletin } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
@@ -59,10 +60,9 @@ const Bulletin = () => {
         </div>
       </nav>
 
-      <div className="mb-2 h-1/2 bg-amber-50">
+      <div className="flex flex-col space-y-3 p-4 mt-14">
+        <Info />
         <Asks></Asks>
-      </div>
-      <div className="h-1/2 bg-blue-200">
         <Resources></Resources>
       </div>
     </>

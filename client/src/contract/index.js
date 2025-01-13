@@ -79,6 +79,6 @@ export const Remix = {
 const sepolia = "https://ethereum-sepolia-rpc.publicnode.com";
 const chiado = "https://rpc.chiadochain.net";
 const gnosis = "https://rpc.gnosisc`hain.com/";
-export const RPC = { gnosis, chiado, sepolia};
+export const RPC = { gnosis, chiado, sepolia };
 export const zero_address = "0x0000000000000000000000000000000000000000"
 

@@ -101,7 +101,7 @@ const AskCard = ({ askId }) => {
       return (
         <>
           <div className="flex flex-col">
-            <div className="text-xs text-gray-700 mb-1">自我介紹：</div>
+            <div className="text-xs text-gray-700 mb-1">自我介紹 | Introduction：</div>
             <div className="flex flex-col">
               <div className="text-sm">{_data[0] ? "我是新手" : ""}</div>
               <div className="text-sm">{_data[1] ? "我想入坑" : ""}</div>
@@ -123,7 +123,7 @@ const AskCard = ({ askId }) => {
       return (
         <>
           <div className="flex flex-col">
-            <div className="text-xs text-gray-700 mb-1">自備：</div>
+            <div className="text-xs text-gray-700 mb-1">自備 | Prepared：</div>
             <div className="flex flex-col">
               <div className="text-sm">{_data[0] ? "筷子 🥢" : ""}</div>
               <div className="text-sm">{_data[1] ? "叉子 🍴" : ""}</div>
@@ -138,7 +138,7 @@ const AskCard = ({ askId }) => {
       return (
         <>
            <div className="flex flex-col">
-            <div className="text-xs text-gray-700 mb-1">自我介紹：</div>
+            <div className="text-xs text-gray-700 mb-1">自我介紹 | Introduction：</div>
             <div className="flex text-gray-400">
               ...
             </div>
@@ -195,10 +195,10 @@ const AskCard = ({ askId }) => {
           {Object.keys(ask.trades).map((id) => {
             return (
               <div key={id} className="flex flex-row bg-slate-200 rounded-lg w-full">
-                <div className={`flex flex-col w-full space-y-1 ${(ask.trades[id].approved) ? "" : "opacity-70"}`}>
+                <div className={`flex flex-col w-full space-y-1 ${(ask.trades[id].approved) ? "" : "opacity-50"}`}>
                   <Avatar className={`h-10 w-10`} address={ask.trades[id].proposer} />
                   <label className="text-xs">{shortenAddress(ask.trades[id].proposer)}</label>
-                  <div className="text-xs text-blue-700 pb-2">{(ask.trades[id].role == 0) ? "遊客" : "新參者"}</div>
+                  <div className="text-xs text-blue-700 pb-2">{(ask.trades[id].role == 0) ? "遊客 | Traveler" : "新參者 | New Participant"}</div>
                   {(ask.trades[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
                 </div>
                 

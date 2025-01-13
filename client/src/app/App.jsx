@@ -8,6 +8,21 @@ import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 
 const evmNetworks = [
   {
+    blockExplorerUrls: ["https://sepolia.etherscan.io/"],
+    chainId: 11155111,
+    chainName: "Ethereum Sepolia",
+    iconUrls: ["https://app.dynamic.xyz/assets/networks/eth.svg"],
+    nativeCurrency: {
+      decimals: 18,
+      name: "Ether",
+      symbol: "ETH",
+    },
+    networkId: 11155111,
+    rpcUrls: ["wss://ethereum-sepolia-rpc.publicnode.com"],
+    shortName: "sepolia",
+    vanityName: "Sepolia",
+  },
+  {
     blockExplorerUrls: ["https://gnosis-chiado.blockscout.com/"],
     chainId: 10200,
     chainName: "Gnosis Chiado Testnet",
