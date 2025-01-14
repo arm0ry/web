@@ -7,10 +7,14 @@ import { ethers } from "ethers";
 export const loadCurrency = async () => {
   try {
     const totalSupply = await Currency.totalSupply();
-    console.log("supply is ", totalSupply, Currency)
+    const name = await Currency.name();
+    const symbol = await Currency.symbol();
     const currency = {
-      supply: ethers.utils.formatEther(totalSupply._hex)
+      supply: ethers.utils.formatEther(totalSupply._hex),
+      name: name, 
+      symbol: symbol
     }
+    console.log(currency)
     dispatch.fn({
       type: LOAD_CURRENCY,
       payload: currency,

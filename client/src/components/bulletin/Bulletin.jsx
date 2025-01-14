@@ -50,10 +50,11 @@ const Bulletin = () => {
             </div>
             <div className="flex items-center">
               <div className="relative ml-3 flex items-center ">
-                <DynamicWidget
+                <Info />
+                {/* <DynamicWidget
                   buttonClassName="connectButton"
                   innerButtonComponent="Connect Wallet"
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -61,7 +62,7 @@ const Bulletin = () => {
       </nav>
 
       <div className="flex flex-col space-y-3 p-4 mt-14">
-        <Info />
+        
         <Asks></Asks>
         <Resources></Resources>
       </div>

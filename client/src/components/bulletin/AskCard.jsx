@@ -219,7 +219,7 @@ const AskCard = ({ askId }) => {
        
              
         <div className="flex mt-3 justify-end items-end font-semibold text-amber-500 ">
-            🪙 {ask.drop} $ARM0RY
+            {ask.drop} 🪙 
         </div>
         
       

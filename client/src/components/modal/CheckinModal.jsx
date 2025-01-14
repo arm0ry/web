@@ -165,7 +165,7 @@ const CheckinModal = ({ modalPayload }) => {
                   {(proposeState.writeStatus === 2) && "pending"}
                 </div>
               </button>
-              <label className="mt-2 block text-sm font-medium text-gray-900 "> Connected: {shortenAddress(address)}  </label> 
+              <label className="mt-2 block text-xs font-medium text-gray-500 "> Connected: {shortenAddress(address)}  </label> 
             </div> :
 
             <DynamicWidget

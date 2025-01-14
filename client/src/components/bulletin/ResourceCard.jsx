@@ -57,35 +57,11 @@ const approve = async (id) => {
   };
 
   const support = async () => {
-    if (isConnected) {
-      try {
-        const trade = {
-              approved: true,
-              from: address,
-              resource: ethers.constants.HashZero,
-              currency: mCurrency.address,
-              amount: ethers.utils.parseUnits("1", "ether"),
-              content: "TEST",
-              data: ethers.constants.HashZero
-        }
-        console.log(trade)
-        const tx = exchange({ args: [resourceId, trade] });
-          
-        pushAlert({
-          msg: (
-            <span>
-              Success! Check your transaction on
-              <a href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`} target="_blank" rel="noreferrer" className="font-extrabold text-green-900">
-                &nbsp;Blockscout &#128279;
-              </a>
-            </span>
-          ),
-          type: "success",
-        });
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    showModal({
+       type: 11,
+       size: "3xl",
+       content: { resourceId: resourceId},
+    });
   };
 
   return (
@@ -106,8 +82,8 @@ const approve = async (id) => {
           </div>
         </div>
         
-        <div className="flex flex-row mx-5 items-center ">
-          <div className="flex justify-center items-center h-10 w-10 text-amber-500 font-semibold">🪙 { bulletin.resources[resourceId]?.collection}</div>
+        <div className="flex mx-5 items-center ">
+          <div className="flex justify-center text-xl items-center h-10 w-1/6 mx-3 text-amber-500 font-semibold">🪙 { bulletin.resources[resourceId]?.collection}</div>
           {Object.keys(bulletin.resources[resourceId]?.exchanges).map((id) => {
             return (
               <div key={id} className="flex overflow-scroll">
@@ -116,8 +92,9 @@ const approve = async (id) => {
                   onClick={() => approve(bulletin.resources[resourceId]?.exchanges[id].id)}
                   className=" rounded-lg p-3 text-black hover:bg-amber-10"
                 >
-                  <div className="">
-                    <Avatar className={`h-10 w-10 ${(bulletin.resources[resourceId]?.exchanges[id].approved) ? "" : "opacity-40"}`} address={bulletin.resources[resourceId]?.exchanges[id].proposer} />
+                  <div className={`${(bulletin.resources[resourceId]?.exchanges[id].approved) ? "" : "opacity-40"}`}>
+                    <Avatar className={`h-10 w-10`} address={bulletin.resources[resourceId]?.exchanges[id].proposer} />
+                    {(bulletin.resources[resourceId]?.exchanges[id].amount != undefined) ? <div className="text-amber-500">{bulletin.resources[resourceId]?.exchanges[id].amount}</div> : 0}
                   </div>
                 </button>
               </div>
