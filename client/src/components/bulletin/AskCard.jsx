@@ -26,18 +26,6 @@ const AskCard = ({ askId }) => {
     functionName: "approveResponse",
   });
 
-  const { data: hasAnyRole } = useContractRead({
-    ...mBulletin,
-    functionName: 'hasAnyRole',
-    args: [address, 2]
-  })
-
-   const { data: owner } = useContractRead({
-    ...mBulletin,
-    functionName: 'owner',
-    args: []
-  })
-
   const checkIn = async () => {
     if (parseInt(askId) == 1) {
       showModal({
@@ -171,24 +159,16 @@ const AskCard = ({ askId }) => {
               {ask.detail}
             </p>
           </div>
-          {(owner || hasAnyRole) ? ( <div className="flex items-center justify-end w-1/2">
+          <div className="flex items-center justify-end w-1/2">
               <button
-                  disabled={proposeState.writeStatus > 0 }
                   onClick={() => checkIn()}
                 className="w-1/2 rounded-lg p-3 text-black hover:bg-amber-100 bg-amber-200"
               >
               <div className="flex flex-row space-x-4 items-center justify-center">
-                  <div className={`${(proposeState.writeStatus == 1 || proposeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-                  {(proposeState.writeStatus === 0) && ButtonNameByAsk()}
-                  {(proposeState.writeStatus === 1) && "Pending..."}
-                  {(proposeState.writeStatus === 2) && "Pending..."}
-                  {(proposeState.writeStatus === 3) && "Success!"}
-                  {(proposeState.writeStatus === 4) && "Error!"}
-                  </div>
-                
+                {ButtonNameByAsk()}
               </div>
               </button>
-            </div>) : (<></>)}
+            </div>
         </div>
 
       <div className="flex space-x-2 w-full overflow-auto">
