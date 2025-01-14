@@ -48,6 +48,8 @@ const Bulletin = () => {
                 <img src={logo} alt="arm0ry" />
               </Link>
             </div>
+            <label className="text-sm text-gray-500">G0V 65 大松</label>
+            
             <div className="flex items-center">
               <div className="relative ml-3 flex items-center ">
                 <Info />

@@ -89,10 +89,10 @@ const Navbar = () => {
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
             {/* <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/> */}
 
-            <NavBarItem title="$LOCAL | $社區穩定幣" disabled />
+            <NavBarItem title="$LOCAL | $社群貨幣" disabled />
             <NavBarItem title="v0" to="/playground" onClick={() => setToggleMenu(false)} />
             <NavBarItem title="vGFEL" to="/gfel" onClick={() => setToggleMenu(false)} />
-            <NavBarItem title="vMUTUAL" to="/bulletin" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="65 大松" to="/bulletin" onClick={() => setToggleMenu(false)} />
             <NavBarItem title="ReMAP | 混藝術" to="/remix" onClick={() => setToggleMenu(false)} />
 
             {/* <NavbarDropdown title={"$LOCAL | $社區穩定幣"} to="/playground" >

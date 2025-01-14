@@ -82,8 +82,8 @@ const approve = async (id) => {
           </div>
         </div>
         
-        <div className="flex mx-5 items-center ">
-          <div className="flex justify-center text-xl items-center h-10 w-1/6 mx-3 text-amber-500 font-semibold">🪙 { bulletin.resources[resourceId]?.collection}</div>
+        <div className="flex mx-5 space-x-2 items-center ">
+          <div className="flex justify-center text-md items-center h-10 w-1/6 text-gray-600">肯定: { bulletin.resources[resourceId]?.collection}</div>
           {Object.keys(bulletin.resources[resourceId]?.exchanges).map((id) => {
             return (
               <div key={id} className="flex overflow-scroll">
@@ -94,7 +94,6 @@ const approve = async (id) => {
                 >
                   <div className={`${(bulletin.resources[resourceId]?.exchanges[id].approved) ? "" : "opacity-40"}`}>
                     <Avatar className={`h-10 w-10`} address={bulletin.resources[resourceId]?.exchanges[id].proposer} />
-                    {(bulletin.resources[resourceId]?.exchanges[id].amount != undefined) ? <div className="text-amber-500">{bulletin.resources[resourceId]?.exchanges[id].amount}</div> : 0}
                   </div>
                 </button>
               </div>
