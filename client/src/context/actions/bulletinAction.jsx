@@ -1,8 +1,25 @@
 import dispatch from "../reducer";
-import { LOAD_CURRENCY, LOAD_ASKS, LOAD_BULLETINS, LOAD_RESOURCES } from "../reducer/bulletinReducer";
+import { LOAD_CURRENCY, LOAD_ASKS, LOAD_BULLETINS, LOAD_RESOURCES, LOAD_USER } from "../reducer/bulletinReducer";
 import { pushAlert } from "@context/actions/alertAction";
 import { BulletinFactory, mBulletin as Bulletin, mCurrency as Currency } from "@utils/contract";
 import { ethers } from "ethers";
+
+export const loadUser = async (isConnected, address) => {
+  if (!isConnected) return;
+  try {
+    const balance = await Currency.balanceOf(address);
+    const user = {
+      balance: ethers.utils.formatEther(balance),
+    }
+    dispatch.fn({
+      type: LOAD_USER,
+      payload: user,
+    });
+  } catch (error) {
+    console.error(error);
+    pushAlert({ msg: `Error loading bulletin factory`, type: "failure" });
+  }
+}
 
 export const loadCurrency = async () => {
   try {
@@ -14,7 +31,6 @@ export const loadCurrency = async () => {
       name: name, 
       symbol: symbol
     }
-    console.log(currency)
     dispatch.fn({
       type: LOAD_CURRENCY,
       payload: currency,

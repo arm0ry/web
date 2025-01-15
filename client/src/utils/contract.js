@@ -66,12 +66,12 @@ export const BulletinFactory = getContract({
 
 export const mBulletin = getContract({
   ..._mBulletin,
-  signerOrProvider: chiado_provider,
+  signerOrProvider: sepolia_provider,
 });
 
 export const mCurrency = getContract({
   ..._mCurrency,
-  signerOrProvider: chiado_provider,
+  signerOrProvider: sepolia_provider,
 });
 
 // REMIX

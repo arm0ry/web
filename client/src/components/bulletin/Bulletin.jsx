@@ -1,29 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, Outlet } from "react-router-dom";
 import { ethers } from "ethers";
-import {
-  logo,
-  MenuUpIcon,
-  MenuDownIcon
-} from "@assets";
+import { logo } from "@assets";
 import FacuetButton from "../FacuetButton";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
 import { useAccount } from "wagmi";
 import {
-  signIn,
-  signOut,
-} from "@context/actions/userAction";
-import {
-  loadBulletins, loadAsks, loadResources, loadCurrency
+  loadBulletins, loadAsks, loadResources, loadCurrency, loadUser
 } from "@context/actions/bulletinAction";
 import { useGlobalContext } from "@context/store";
-import { Avatar, Alert } from "@components";
 import Asks from "./Asks";
 import Resources from "./Resources";
 import Info from "./Info";
 
 const Bulletin = () => {
-  const { address, isConnected, isDisconnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const { bulletin } = useGlobalContext();
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -33,10 +24,10 @@ const Bulletin = () => {
       await loadAsks();
       await loadResources();
       await loadCurrency();
+      await loadUser(isConnected, address);
     }
     load()
-  }, []);
-
+  }, [isConnected]);
 
   return (
     <>

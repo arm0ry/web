@@ -24,11 +24,8 @@ const EngageModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { seed: "", moon: ""},
+    defaultValues: {},
   }); 
-
-  useEffect(() => {
-  }, [isConnected]);
 
   const onSubmit = async () => {
     if (isConnected) {
@@ -62,7 +59,6 @@ const EngageModal = ({ modalPayload }) => {
     }
   };
 
-console.log(modalPayload.content.balance)
 
   const Content = () => {
     return (
@@ -76,7 +72,7 @@ console.log(modalPayload.content.balance)
           </div>
           <div className="flex items-center space-x-2 py-2">
             <label className="text-md font-normal text-gray-900">持有貨幣數量：</label> 
-            <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? ethers.utils.formatEther(modalPayload.content.balance) : "-"}</label>
+            <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? modalPayload.content.balance : "-"}</label>
           </div>
 
           <div className="flex items-center space-x-2 py-2">

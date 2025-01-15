@@ -88,9 +88,9 @@ const AskCard = ({ askId }) => {
 
       return (
         <>
-          <div className="flex flex-col">
-            <div className="text-xs text-gray-700 mb-1">自我介紹 | Introduction：</div>
-            <div className="flex flex-col">
+          <div className="flex flex-col items-start">
+            <div className="text-xs text-gray-700 mb-1">自我介紹:</div>
+            <div className="flex flex-col  items-start">
               <div className="text-sm">{_data[0] ? "我是新手" : ""}</div>
               <div className="text-sm">{_data[1] ? "我想入坑" : ""}</div>
               <div className="text-sm">{_data[2] ? "我想開坑" : ""}</div>
@@ -110,9 +110,9 @@ const AskCard = ({ askId }) => {
 
       return (
         <>
-          <div className="flex flex-col">
-            <div className="text-xs text-gray-700 mb-1">自備 | Prepared：</div>
-            <div className="flex flex-col">
+          <div className="flex flex-col items-start">
+            <div className="text-xs text-gray-700 mb-1">自備:</div>
+            <div className="flex flex-col items-start">
               <div className="text-sm">{_data[0] ? "筷子 🥢" : ""}</div>
               <div className="text-sm">{_data[1] ? "叉子 🍴" : ""}</div>
               <div className="text-sm">{_data[2] ? "湯匙 🥄" : ""}</div>
@@ -171,30 +171,19 @@ const AskCard = ({ askId }) => {
             </div>
         </div>
 
-      <div className="flex space-x-2 w-full overflow-auto">
+        <div className="flex space-x-2 w-full overflow-auto">
           {Object.keys(ask.trades).map((id) => {
             return (
-              <div key={id} className="flex flex-row bg-slate-200 rounded-lg w-full">
-                <div className={`flex flex-col w-full space-y-1 ${(ask.trades[id].approved) ? "" : "opacity-50"}`}>
+              <button disabled={ask.trades[id].approved} onClick={() => approve(ask.trades[id].id)} key={id} className="flex bg-slate-200 rounded-lg w-1/5">
+                <div className={`flex flex-col w-full h-full space-y-1 items-start justify-start  ${(ask.trades[id].approved) ? "" : "opacity-50"}`}>
                   <Avatar className={`h-10 w-10`} address={ask.trades[id].proposer} />
                   <label className="text-xs">{shortenAddress(ask.trades[id].proposer)}</label>
-                  <div className="text-xs text-blue-700 pb-2">{(ask.trades[id].role == 0) ? "遊客 | Traveler" : "新參者 | New Participant"}</div>
+                  <label className="text-xs text-blue-700 pb-2">{(ask.trades[id].role == 0) ? "遊客" : "新參者"}</label>
                   {(ask.trades[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
                 </div>
-                
-                <div className="flex h-full items-end">
-
-                  {(ask.trades[id].approved) ? <button disabled className="">✅</button> :
-                    <button disabled={!approve} onClick={() => approve(ask.trades[id].id)}>
-                      <div className="opacity-70">
-                        {(approveState.writeStatus === 0) && "☑️"}
-                      </div>
-                    </button>}
-                </div>
-              </div>
+              </button>
             )
           })}
-          
         </div>
        
              

@@ -23,13 +23,6 @@ const { write: approveExchange, state: approveState } = useWriteContract({
     functionName: "approveExchange",
 });
   
-  
-const { data:  balance} = useContractRead({
-  ...mCurrency,
-  functionName: 'balanceOf',
-  args: [address]
-})
-  
 
 const approve = async (id) => {
     if (isConnected) {
@@ -68,7 +61,7 @@ const approve = async (id) => {
     showModal({
        type: 11,
        size: "3xl",
-       content: { resourceId: resourceId, balance: balance},
+       content: { resourceId: resourceId, balance: bulletin.user.balance},
     });
   };
 
