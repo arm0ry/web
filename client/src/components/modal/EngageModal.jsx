@@ -27,14 +27,6 @@ const EngageModal = ({ modalPayload }) => {
     defaultValues: { seed: "", moon: ""},
   }); 
 
-
-    const { data:  balance} = useContractRead({
-      ...mCurrency,
-      functionName: 'balanceOf',
-      args: [address]
-    })
-
-
   useEffect(() => {
   }, [isConnected]);
 
@@ -70,7 +62,7 @@ const EngageModal = ({ modalPayload }) => {
     }
   };
 
-console.log(balance)
+console.log(modalPayload.content.balance)
 
   const Content = () => {
     return (
@@ -84,7 +76,7 @@ console.log(balance)
           </div>
           <div className="flex items-center space-x-2 py-2">
             <label className="text-md font-normal text-gray-900">持有貨幣數量：</label> 
-            <label className="text-amber-600 text-md">{(balance != undefined) ? ethers.utils.formatEther(balance) : 0}</label>
+            <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? ethers.utils.formatEther(modalPayload.content.balance) : "-"}</label>
           </div>
 
           <div className="flex items-center space-x-2 py-2">
