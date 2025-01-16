@@ -16,11 +16,6 @@ const AskCard = ({ askId }) => {
   const { bulletin } = useGlobalContext();
   const ask = bulletin.asks[askId];
 
-  const { write: proposeTrade, state: proposeState } = useWriteContract({
-    ...mBulletin,
-    functionName: "trade",
-  });
-
   const { write: approveTrade, state: approveState } = useWriteContract({
     ...mBulletin,
     functionName: "approveResponse",
@@ -138,9 +133,9 @@ const AskCard = ({ askId }) => {
 
   const ButtonNameByAsk = () => {
     if (parseInt(askId) == 1) {
-      return "報到 ｜ Check-in";
+      return "報到 Check-in";
     } else {
-      return "分享 ｜ Share";
+      return "分享 Share";
     }
   }
 
@@ -149,26 +144,27 @@ const AskCard = ({ askId }) => {
 
   return (
     <>
-      <div className="group relative flex flex-col rounded-lg border border-gray-200 bg-white p-6 shadow">
-        <div className="flex flex-row w-full">
-          <div className="w-1/2 ">
-            <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 ">
+      <div className="flex flex-col rounded-lg justify-between border border-gray-200 bg-white p-5 shadow">
+        <div className="flex flex-row justify-between w-full">
+          <div className="w-full">
+            <h5 className="mb-2 text-2xl font-medium text-gray-900 ">
               {ask.title}
             </h5>
             <p className="mb-3 text-sm font-light text-gray-500 line-clamp-3 ">
               {ask.detail}
             </p>
           </div>
-          <div className="flex items-center justify-end w-1/2">
+          <div className="flex w-1/3 items-center justify-end">
               <button
                   onClick={() => checkIn()}
-                className="w-1/2 rounded-lg p-3 text-black hover:bg-amber-100 bg-amber-200"
+                className="rounded-lg p-3 text-black hover:bg-amber-100 bg-amber-200"
               >
               <div className="flex flex-row space-x-4 items-center justify-center">
                 {ButtonNameByAsk()}
               </div>
               </button>
-            </div>
+          </div>
+          
         </div>
 
         <div className="flex space-x-2 w-full overflow-auto">
@@ -186,9 +182,12 @@ const AskCard = ({ askId }) => {
           })}
         </div>
        
-             
-        <div className="flex mt-3 justify-end items-end font-semibold text-amber-500 ">
-            {ask.drop} 🪙 
+        <div className="flex w-full items-center justify-between my-3">
+          <div className="font-extralight text-sm">主辦: <a href={`https://sepolia.etherscan.io/address/${ask.owner}`} target="_blank" rel="noreferrer" className="underline">
+            {shortenAddress(ask.owner)}
+          </a>
+          </div>   
+          <div className="font-semibold text-amber-500 ">{ask.drop} 🪙 </div>
         </div>
         
       

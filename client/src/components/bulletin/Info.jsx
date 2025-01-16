@@ -13,7 +13,7 @@ const Info = () => {
           </a>
         </label>
         <label className="w-1/2 text-2xl font-semibold text-amber-500 flex justify-end">
-          {(bulletin.currency.supply != undefined) ? bulletin.currency.supply : "-"}
+          {(bulletin.currency.supply != undefined) ? bulletin.currency.supply : "..."}
         </label>
       </div>
     </div>

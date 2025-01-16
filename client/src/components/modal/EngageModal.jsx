@@ -90,8 +90,6 @@ const EngageModal = ({ modalPayload }) => {
       <div div className="flex flex-col space-y-2 px-6 py-4 bg-slate-100" >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Content />
-
-          
           {isConnected ?
             <div className="flex flex-col items-center">
               <button
