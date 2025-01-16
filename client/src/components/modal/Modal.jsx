@@ -24,6 +24,7 @@ import FallingFlowerModal from "./FallingFlowerModal";
 import CheckinModal from "./CheckinModal";
 import TallyModal from "./TallyModal";
 import EngageModal from "./EngageModal";
+import AddResourceModal from "./AddResourceModal";
 
 const sizeVariants = {
   lg: "max-w-lg",
@@ -136,7 +137,12 @@ const Modal = ({ children }) => {
             <EngageModal modalPayload={modalPayload} />
           </>
         );
-      
+      case 12:
+        return (
+          <>
+            <AddResourceModal modalPayload={modalPayload} />
+          </>
+        );
       case -1:
         return <></>;
 
