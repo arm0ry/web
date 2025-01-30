@@ -11,6 +11,9 @@ import useWriteContract from "@hooks/useWriteContract";
 import { mBulletin, mCurrency } from "@contract";
 import { shortenAddress } from "@utils/shortenAddress";
 
+
+
+
 const EngageModal = ({ modalPayload }) => {
   const { write: exchange, state: exchangeState } = useWriteContract({
     ...mBulletin,
@@ -24,17 +27,18 @@ const EngageModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: {type: ""},
   }); 
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
+    console.log(data)
     if (isConnected) {
       try {
         const trade = {
               approved: true,
               from: address,
               resource: ethers.constants.HashZero,
-              currency: mCurrency.address,
+              currency: (data == "currency") ? mCurrency.address : ethers.constants.AddressZero,
               amount: ethers.utils.parseUnits("1", "ether"),
               content: "TEST",
               data: ethers.constants.HashZero
@@ -59,6 +63,25 @@ const EngageModal = ({ modalPayload }) => {
     }
   };
 
+  const PaymentRadio = ({ type, value, register }) => {
+    return (
+      <>
+        <div className="flex items-center">
+          <input
+            type="radio"
+            value={value}
+            {...register("type")}
+          />
+
+          <label
+            className="ml-2 text-md font-normal text-gray-900 "
+          >
+            {type}
+          </label>
+        </div>
+      </>
+    );
+  };
 
   const Content = () => {
     return (
@@ -71,14 +94,23 @@ const EngageModal = ({ modalPayload }) => {
             <CloseModalButton />
           </div>
           <div className="flex items-center space-x-2 py-2">
+            <label className="text-md font-normal text-gray-900">肯定所需的數量：</label> 
+            <label className="text-amber-600 text-md">1  </label>
+            
+          </div>
+          <div className="flex items-center space-x-2 py-2">
             <label className="text-md font-normal text-gray-900">持有貨幣數量：</label> 
             <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? modalPayload.content.balance : "-"}</label>
+            <PaymentRadio type="社群貨幣" value={"currency"} register={register} />
           </div>
 
           <div className="flex items-center space-x-2 py-2">
-            <label className="text-md font-normal text-gray-900">肯定的數量：</label> 
-            <label className="text-amber-600 text-md">1  </label>
+            <label className="text-md font-normal text-gray-900">持有互惠資本：</label> 
+            <label className="text-amber-600 text-md">{(modalPayload.content.credit != undefined) ? modalPayload.content.credit : "-"}</label>
+            <PaymentRadio type="互惠資本" value={"credit"} register={register} />
           </div>
+
+          
         </div>
       </>
     );
@@ -90,6 +122,7 @@ const EngageModal = ({ modalPayload }) => {
       <div div className="flex flex-col space-y-2 px-6 py-4 bg-slate-100" >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Content />
+          
           {isConnected ?
             <div className="flex flex-col items-center">
               <button

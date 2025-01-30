@@ -61,7 +61,7 @@ const approve = async (id) => {
     showModal({
        type: 11,
        size: "3xl",
-       content: { resourceId: resourceId, balance: bulletin.user.balance},
+       content: { resourceId: resourceId, balance: bulletin.user.balance, credit: bulletin.user.credit},
     });
   };
 

@@ -6,7 +6,7 @@ import FacuetButton from "../FacuetButton";
 import { DynamicWidget } from "@dynamic-labs/sdk-react";
 import { useAccount } from "wagmi";
 import {
-  loadBulletins, loadAsks, loadResources, loadCurrency, loadUser
+  loadAsks, loadResources, loadCurrency, loadUser
 } from "@context/actions/bulletinAction";
 import { useGlobalContext } from "@context/store";
 import Asks from "./Asks";
@@ -20,7 +20,6 @@ const Bulletin = () => {
 
   useEffect(() => {
     const load = async () => {
-      await loadBulletins();
       await loadAsks();
       await loadResources();
       await loadCurrency();
@@ -29,6 +28,8 @@ const Bulletin = () => {
     load()
   }, [isConnected]);
 
+
+  console.log(bulletin)
   return (
     <>
       <nav className="fixed top-0 z-50 h-16 w-full border-b border-gray-200 bg-white ">

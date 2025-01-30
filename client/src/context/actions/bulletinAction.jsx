@@ -7,9 +7,13 @@ import { ethers } from "ethers";
 export const loadUser = async (isConnected, address) => {
   if (!isConnected) return;
   try {
+    const credit = await Bulletin.getCredit(address);
     const balance = await Currency.balanceOf(address);
+    console.log(balance)
     const user = {
       balance: ethers.utils.formatEther(balance),
+      credit: ethers.utils.formatEther(credit.amount),
+      limit: ethers.utils.formatEther(credit.limit)
     }
     dispatch.fn({
       type: LOAD_USER,
@@ -41,30 +45,6 @@ export const loadCurrency = async () => {
   }
 }
 
-export const loadBulletins = async () => {
-  // try {
-  //   const _bulletinId = await BulletinFactory.bulletinId();
-  //   const bulletinId = parseInt(_bulletinId._hex);
-  //   if (bulletinId <= 0) return;
-  //   let _bulletins = {};
-
-  //   await Promise.all(
-  //     [...Array(bulletinId)].map(async (_, _id) => {
-  //       const id = _id + 1;
-  //       const bulletin = await BulletinFactory.bulletins(id);
-  //       _bulletins[id] = bulletin
-  //     })
-  //   );
-  //   dispatch.fn({
-  //     type: LOAD_BULLETINS,
-  //     payload: _bulletins,
-  //   });
-  // } catch (error) {
-  //   console.error(error);
-  //   pushAlert({ msg: `Error loading bulletin factory`, type: "failure" });
-  // }
-}
-
 export const loadAsks = async () => {
   try {
     const requestId = await Bulletin.requestId();
@@ -90,7 +70,7 @@ export const loadAsks = async () => {
         // if (responseId <= 0) return;
         [...Array(responseId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
-          const trade = await Bulletin.getResponse(id, id_);
+          const trade = await Bulletin.getTrade(true, id, id_);
           const role = await Bulletin.rolesOf(trade[1]);
           
           _asks[id].trades.push({
@@ -139,11 +119,10 @@ export const loadResources = async () => {
 
         const _exchangeId = await Bulletin.exchangeIdsPerResource(id);
         const exchangeId = parseInt(_exchangeId._hex);
-        console.log(exchangeId);
         // if (exchangeId <= 0) return;
         [...Array(exchangeId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
-          const exchange = await Bulletin.getExchange(id, id_);
+          const exchange = await Bulletin.getTrade(false ,id, id_);
 
           _resources[id].exchanges.push({
             id: id_,
