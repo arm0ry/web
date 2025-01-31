@@ -9,7 +9,7 @@ export const loadUser = async (isConnected, address) => {
   try {
     const credit = await Bulletin.getCredit(address);
     const balance = await Currency.balanceOf(address);
-    console.log(balance)
+
     const user = {
       balance: ethers.utils.formatEther(balance),
       credit: ethers.utils.formatEther(credit.amount),

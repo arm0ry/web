@@ -38,7 +38,7 @@ const EngageModal = ({ modalPayload }) => {
               approved: true,
               from: address,
               resource: ethers.constants.HashZero,
-              currency: (data == "currency") ? mCurrency.address : ethers.constants.AddressZero,
+              currency: (data.type == "currency") ? mCurrency.address : ethers.constants.AddressZero,
               amount: ethers.utils.parseUnits("1", "ether"),
               content: "TEST",
               data: ethers.constants.HashZero
@@ -72,12 +72,9 @@ const EngageModal = ({ modalPayload }) => {
             value={value}
             {...register("type")}
           />
-
-          <label
-            className="ml-2 text-md font-normal text-gray-900 "
-          >
-            {type}
-          </label>
+          <div>
+            <label className="ml-2 text-md font-normal text-gray-900 ">{type}</label>
+          </div>
         </div>
       </>
     );
@@ -89,25 +86,23 @@ const EngageModal = ({ modalPayload }) => {
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              互相肯定 🫡 
+              互相肯定 | Engage and endorse 🫡 
             </label>
             <CloseModalButton />
           </div>
           <div className="flex items-center space-x-2 py-2">
-            <label className="text-md font-normal text-gray-900">肯定所需的數量：</label> 
+            <label className="text-md font-normal text-gray-900">肯定所需要的數量：</label> 
             <label className="text-amber-600 text-md">1  </label>
             
           </div>
           <div className="flex items-center space-x-2 py-2">
-            <label className="text-md font-normal text-gray-900">持有貨幣數量：</label> 
-            <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? modalPayload.content.balance : "-"}</label>
             <PaymentRadio type="社群貨幣" value={"currency"} register={register} />
+            <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? modalPayload.content.balance : "-"}</label>
           </div>
 
           <div className="flex items-center space-x-2 py-2">
-            <label className="text-md font-normal text-gray-900">持有互惠資本：</label> 
-            <label className="text-amber-600 text-md">{(modalPayload.content.credit != undefined) ? modalPayload.content.credit : "-"}</label>
             <PaymentRadio type="互惠資本" value={"credit"} register={register} />
+            <label className="text-amber-600 text-md">{(modalPayload.content.credit != undefined) ? modalPayload.content.credit : "-"}</label>
           </div>
 
           

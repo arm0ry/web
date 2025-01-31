@@ -25,6 +25,7 @@ const { write: approveExchange, state: approveState } = useWriteContract({
   
 
 const approve = async (id) => {
+  console.log("hello ---", resourceId, id)
     if (isConnected) {
       try {
         const tx = approveExchange({
@@ -33,8 +34,7 @@ const approve = async (id) => {
             id
           ]
         })
-        
-        
+
          pushAlert({
           msg: (
             <span>
