@@ -182,12 +182,15 @@ const AskCard = ({ askId }) => {
           })}
         </div>
        
-        <div className="flex w-full items-center justify-between my-3">
+        <div className="flex w-full justify-between my-2">
           <div className="font-extralight text-sm">主辦: <a href={`https://sepolia.etherscan.io/address/${ask.owner}`} target="_blank" rel="noreferrer" className="underline">
             {shortenAddress(ask.owner)}
           </a>
           </div>   
-          <div className="font-semibold text-amber-500 ">{ask.drop} 🪙 </div>
+          <div className="flex w-1/3 h-full space-x-1 text-gray-700 font-medium items-baseline justify-end">
+            <label className="h-full text-sm">💰 {ask.drop} </label>
+            <label className="h-full text-sm">{(ask.currency == ethers.constants.AddressZero) ? "互惠資本 | Credits" : "社群貨幣 | Currency"} </label>
+          </div>
         </div>
         
       

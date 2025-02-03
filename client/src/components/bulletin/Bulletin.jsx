@@ -11,7 +11,6 @@ import {
 import { useGlobalContext } from "@context/store";
 import Asks from "./Asks";
 import Resources from "./Resources";
-import Info from "./Info";
 
 const Bulletin = () => {
   const { address, isConnected } = useAccount();
@@ -37,18 +36,16 @@ const Bulletin = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
               <Link to="/" className="ml-2 flex md:mr-24">
-                <img src={logo} alt="arm0ry" />
+                <label className="text-lg font-semibold text-gray-500">hackath65n | 第陸拾伍次黑客松</label>
               </Link>
             </div>
-            <label className="text-sm text-gray-500">G0V 65 大松</label>
             
             <div className="flex items-center">
               <div className="relative ml-3 flex items-center ">
-                <Info />
-                {/* <DynamicWidget
+                <DynamicWidget
                   buttonClassName="connectButton"
                   innerButtonComponent="Connect Wallet"
-                /> */}
+                />
               </div>
             </div>
           </div>

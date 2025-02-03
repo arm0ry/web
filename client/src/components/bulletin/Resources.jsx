@@ -19,13 +19,13 @@ const Resources = () => {
   return (
     <div className="flex flex-col h-screen bg-amber-50">
       <label className="p-4 m-2 text-2xl font-semibold text-slate-600">
-          大松資源列表 | Resources
+          大松資源列表 | hackath65n Resources
       </label>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-2 gap-5">
         {Object.keys(bulletin.resources).map((id) => {
           return <ResourceCard key={id} resourceId={id} />;
         })}
-        <div className="flex w-1/2 items-center justify-center rounded-lg border-4 border-dashed border-gray-200">
+        <div className="flex w-full h-24 items-center justify-center rounded-lg border-4 border-dashed border-gray-200">
           <button onClick={addResource}>
             <LegoBrickIcon className="h-12 w-12 text-gray-300" />
           </button>
