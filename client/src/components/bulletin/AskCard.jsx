@@ -174,7 +174,7 @@ const AskCard = ({ askId }) => {
                 <div className={`flex flex-col w-full h-full space-y-1 items-start justify-start  ${(ask.trades[id].approved) ? "" : "opacity-50"}`}>
                   <Avatar className={`h-10 w-10`} address={ask.trades[id].proposer} />
                   <label className="text-xs">{shortenAddress(ask.trades[id].proposer)}</label>
-                  <label className="text-xs text-blue-700 pb-2">{(ask.trades[id].role == 0) ? "遊客" : "新參者"}</label>
+                  <label className="text-xs text-blue-700 pb-2">{(ask.trades[id].credit_limit == 0) ? "遊客" : "新參者"}</label>
                   {(ask.trades[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
                 </div>
               </button>
@@ -189,7 +189,7 @@ const AskCard = ({ askId }) => {
           </div>   
           <div className="flex w-1/3 h-full space-x-1 text-gray-700 font-medium items-baseline justify-end">
             <label className="h-full text-sm">💰 {ask.drop} </label>
-            <label className="h-full text-sm">{(ask.currency == ethers.constants.AddressZero) ? "互惠資本 | Credits" : "社群貨幣 | Currency"} </label>
+            <label className="h-full text-sm">{(ask.currency == ethers.constants.AddressZero) ? "互惠信用 | Credits" : "社群貨幣 | Currency"} </label>
           </div>
         </div>
         
