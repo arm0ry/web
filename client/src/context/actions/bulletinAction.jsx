@@ -72,6 +72,7 @@ export const loadAsks = async () => {
           const id_ = _id_ + 1;
           const trade = await Bulletin.getTrade(true, id, id_);
           const role = await Bulletin.rolesOf(trade[1]);
+          const credit = await Bulletin.getCredit(trade[1])
           
           _asks[id].trades.push({
             id: id_,
@@ -82,7 +83,9 @@ export const loadAsks = async () => {
             currency: trade[3],
             amount: trade[4],
             content: trade[5],
-            data: trade[6]
+            data: trade[6],
+            credit_limit: ethers.utils.formatEther(credit[0]),
+            credit_amount: ethers.utils.formatEther(credit[1])
           });
 
           _asks[id].trades.sort((a, b) => a.id - b.id);
@@ -123,6 +126,7 @@ export const loadResources = async () => {
         [...Array(exchangeId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
           const exchange = await Bulletin.getTrade(false ,id, id_);
+          const credit = await Bulletin.getCredit(exchange[1])
 
           _resources[id].exchanges.push({
             id: id_,
@@ -132,7 +136,9 @@ export const loadResources = async () => {
             currency: exchange[3],
             amount: ethers.utils.formatEther(exchange[4]),
             content: exchange[5],
-            data: exchange[6]
+            data: exchange[6],
+            credit_limit: ethers.utils.formatEther(credit[0]),
+            credit_amount: ethers.utils.formatEther(credit[1])
           });
 
           _resources[id].exchanges.sort((a, b) => a.id - b.id);
