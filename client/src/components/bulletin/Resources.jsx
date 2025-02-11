@@ -21,7 +21,7 @@ const Resources = () => {
       <label className="p-4 m-2 text-2xl font-semibold text-slate-600">
           大松資源列表 | hackath65n Resources
       </label>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-3 gap-5">
         {Object.keys(bulletin.resources).map((id) => {
           return <ResourceCard key={id} resourceId={id} />;
         })}

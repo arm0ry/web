@@ -54,12 +54,12 @@ export const BulletinFactory = {
 };
 
 export const mBulletin = {
-  address: "0x1CE91ECFFC0bb04bc42DA62637441E1732cFAD15",
+  address: "0xCdF0abB6D3dAE9D6Ff55AE34E14648B87F67765d",
   abi: M_BULLETIN_ABI,
 };
 
 export const mCurrency = {
-  address: "0x6a6A3CE1d00e494c728d9D2749b68F2D92B2f958",
+  address: "0x9F511404C1fa5EaA9bc0f4Dcf195352a8fE5844F",
   abi: M_CURRENCY_ABI,
 };
 

@@ -114,8 +114,9 @@ export const loadResources = async () => {
         const resource = await Bulletin.getResource(id);
         _resources[id] = {
           owner: resource[0],
-          title: resource[1],
-          detail: resource[2],
+          beneficiary: resource[1],
+          title: resource[2],
+          detail: resource[3],
           exchanges: [],
           collection: 0
         }
