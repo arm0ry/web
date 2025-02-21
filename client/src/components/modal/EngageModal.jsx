@@ -90,18 +90,23 @@ const EngageModal = ({ modalPayload }) => {
             </label>
             <CloseModalButton />
           </div>
-          <div className="flex items-center space-x-2 py-2">
-            <label className="text-md font-normal text-gray-900">給予肯定所需要的數量：</label> 
-            <label className="text-amber-600 text-md">1  </label>
-            
+          <div className="flex flex-col pb-2">
+            <div>
+              <label className="text-md font-normal text-gray-900">給予肯定所需要的數量：</label> 
+              <label className="text-amber-600 text-lg font-semibold">1</label>
+              <label className="text-md">枚社群貨幣或互惠信用</label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <label className="text-sm font-normal text-gray-900">Amount to endorse </label> 
+            </div>
           </div>
           <div className="flex items-center space-x-2 py-2">
-            <PaymentRadio type="社群貨幣" value={"currency"} register={register} />
+            <PaymentRadio type="社群貨幣 | Currency" value={"currency"} register={register} />
             <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? modalPayload.content.balance : "-"}</label>
           </div>
 
           <div className="flex items-center space-x-2 py-2">
-            <PaymentRadio type="互惠信用" value={"credit"} register={register} />
+            <PaymentRadio type="互惠信用 | CrΞdit" value={"credit"} register={register} />
             <label className="text-amber-600 text-md">{(modalPayload.content.credit != undefined) ? modalPayload.content.credit : "-"}</label>
           </div>
 

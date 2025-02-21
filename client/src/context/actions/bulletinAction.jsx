@@ -57,7 +57,7 @@ export const loadAsks = async () => {
         const ask = await Bulletin.getRequest(id);
         if (ask[0] == ethers.constants.AddressZero) return;
         _asks[id] = {
-          owner: ask[0],
+          from: ask[0],
           title: ask[1],
           detail: ask[2],
           currency: ask[3],
@@ -113,10 +113,9 @@ export const loadResources = async () => {
         const id = _id + 1;
         const resource = await Bulletin.getResource(id);
         _resources[id] = {
-          owner: resource[0],
-          beneficiary: resource[1],
-          title: resource[2],
-          detail: resource[3],
+          from: resource[0],
+          title: resource[1],
+          detail: resource[2],
           exchanges: [],
           collection: 0
         }
@@ -126,7 +125,7 @@ export const loadResources = async () => {
         // if (exchangeId <= 0) return;
         [...Array(exchangeId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
-          const exchange = await Bulletin.getTrade(false ,id, id_);
+          const exchange = await Bulletin.getTrade(Bulletin.TradeType.EXCHANGE ,id, id_);
           const credit = await Bulletin.getCredit(exchange[1])
 
           _resources[id].exchanges.push({

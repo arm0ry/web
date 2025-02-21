@@ -10,8 +10,10 @@ import { showModal, cleanModal } from "@context/actions/modalAction";
 import { pushAlert } from "@context/actions/alertAction";
 
 const ResourceCard = ({ resourceId }) => {
-  const { bulletin, resources } = useGlobalContext();
+  const { bulletin } = useGlobalContext();
   const { address, isConnected } = useAccount();
+
+  const resource = bulletin.resources[resourceId];
 
   const { write: exchange, state: exchangeState } = useWriteContract({
     ...mBulletin,
@@ -71,12 +73,12 @@ const approve = async (id) => {
         <div className="flex flex-col p-3">
           <div className="flex flex-col space-y-1 my-3 text-slate-800 w-full">
             <label className="text-slate-800 text-xl font-medium h-2/3 justify-start overflow-auto">
-              {bulletin.resources[resourceId]?.title}
+              {resource.title}
             </label>
             <div className={`flex py-2 space-x-2 items-center text-xs font-light text-slate-500`}>
-              <Avatar className={`h-5 w-5`} address={bulletin.resources[resourceId]?.owner} />
+              <Avatar className={`h-5 w-5`} address={resource.from} />
               <span>
-                {shortenAddress(bulletin.resources[resourceId]?.owner)}
+                {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? "Arm0ry 機器人" : shortenAddress(resource.from) }
               </span>
             </div>
           </div>
@@ -84,17 +86,17 @@ const approve = async (id) => {
         
         <div>
           <div className="flex w-full space-x-2 items-center ">
-            <div className="flex justify-center text-sm items-center h-10 w-1/4 text-gray-600">肯定: { bulletin.resources[resourceId]?.collection}</div>
-            {Object.keys(bulletin.resources[resourceId]?.exchanges).map((id) => {
+            <div className="flex justify-center text-sm items-center h-10 w-1/4 text-gray-600">肯定: {resource.collection}</div>
+            {Object.keys(resource.exchanges).map((id) => {
               return (
                 <div key={id} className="overflow-scroll">
                   <button
                     disabled={!approve}
-                    onClick={() => approve(bulletin.resources[resourceId]?.exchanges[id].id)}
+                    onClick={() => approve(resource.exchanges[id].id)}
                     className=" rounded-lg p-1 text-black hover:bg-amber-10"
                   >
-                    <div className={`${(bulletin.resources[resourceId]?.exchanges[id].approved) ? "" : "opacity-40"}`}>
-                      <Avatar className={`h-8 w-8`} address={bulletin.resources[resourceId]?.exchanges[id].proposer} />
+                    <div className={`${(resource.exchanges[id].approved) ? "" : "opacity-40"}`}>
+                      <Avatar className={`h-8 w-8`} address={resource.exchanges[id].proposer} />
                     </div>
                   </button>
                 </div>
@@ -109,7 +111,7 @@ const approve = async (id) => {
               className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
               <div className="flex text-md items-center justify-center">
                 <div className={`${(exchangeState.writeStatus == 1 || exchangeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-                {(exchangeState.writeStatus === 0) && "交流 | Engage"}
+                {(exchangeState.writeStatus === 0) && "肯定 | Endorse"}
                 {(exchangeState.writeStatus === 1) && "Pending..."}
                 {(exchangeState.writeStatus === 2) && "Pending..."}
                 {(exchangeState.writeStatus === 3) && "Success!"}

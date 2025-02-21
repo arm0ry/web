@@ -129,15 +129,15 @@ const CheckinModal = ({ modalPayload }) => {
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              自我介紹 📣
+              自我介紹 | Introduction 📣
             </label>
             <CloseModalButton />
           </div>
-            <MoodRadio moon="我是新手" value={"1"} register={register} />
-            <MoodRadio moon="我想入坑" value={"2"} register={register} />
-            <MoodRadio moon="我想開坑" value={"3"} register={register} />
-            <MoodRadio moon="我想拉人入坑" value={"4"} register={register} />
-            <MoodRadio moon="我來逛逛 " value={"5"} register={register} />
+            <MoodRadio moon="我是新手 | I'm new" value={"1"} register={register} />
+            <MoodRadio moon="我想入坑 | I want to join a project" value={"2"} register={register} />
+            <MoodRadio moon="我想開坑 | I want to start a project" value={"3"} register={register} />
+            <MoodRadio moon="我想拉人入坑 | I want to recruit others to join a project" value={"4"} register={register} />
+            <MoodRadio moon="我來逛逛 | I'm just hanging around" value={"5"} register={register} />
         </div>
       </>
     );

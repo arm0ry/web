@@ -133,26 +133,26 @@ const TallyModal = ({ modalPayload }) => {
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              這次大松自備的用具 🍴 
+              這次大松自備的用具 | BYO-Utensils 🍴 
             </label>
             <CloseModalButton />
           </div>
           <div className="flex flex-row space-x-3 justify-star">
-            <MoodRadio moon="筷子 🥢" value={"1"} register={register} />
+            <MoodRadio moon="筷子 | Chopsticks 🥢" value={"1"} register={register} />
           </div>
 
           <div className="flex flex-row space-x-3 justify-star">
-            <MoodRadio moon="叉子 🍴" value={"2"} register={register} />
+            <MoodRadio moon="叉子 | Fork 🍴" value={"2"} register={register} />
           </div>
 
           <div className="flex flex-row space-x-3 justify-star">
-            <MoodRadio moon="湯匙 🥄" value={"3"} register={register} />
+            <MoodRadio moon="湯匙 | Spoon 🥄" value={"3"} register={register} />
           </div>
           <div className="flex flex-row space-x-3 justify-star">
-            <MoodRadio moon="水壺 🫙" value={"4"} register={register} />
+            <MoodRadio moon="水壺 | Water Bottle 🫙" value={"4"} register={register} />
           </div>
           <div className="flex flex-row space-x-3 justify-star">
-            <MoodRadio moon="吸管 " value={"5"} register={register} />
+            <MoodRadio moon="吸管 | Straw" value={"5"} register={register} />
           </div>
         </div>
       </>
