@@ -19,7 +19,7 @@ const TallyModal = ({ modalPayload }) => {
   
   const { write: proposeTrade, state: proposeState } = useWriteContract({
     ...mBulletin,
-    functionName: "respond",
+    functionName: "trade",
   });
   
   const { address, isConnected } = useAccount();
@@ -91,6 +91,7 @@ const TallyModal = ({ modalPayload }) => {
        try {
          const tx = proposeTrade({
            args: [
+             0,
              modalPayload.content.askId,
            {
              approved: true,

@@ -17,7 +17,7 @@ import { shortenAddress } from "@utils/shortenAddress";
 const EngageModal = ({ modalPayload }) => {
   const { write: exchange, state: exchangeState } = useWriteContract({
     ...mBulletin,
-    functionName: "exchange",
+    functionName: "trade",
   });
   
   const { address, isConnected } = useAccount();
@@ -31,10 +31,10 @@ const EngageModal = ({ modalPayload }) => {
   }); 
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data, address)
     if (isConnected) {
       try {
-        const trade = {
+        const t = {
               approved: true,
               from: address,
               resource: ethers.constants.HashZero,
@@ -43,8 +43,8 @@ const EngageModal = ({ modalPayload }) => {
               content: "TEST",
               data: ethers.constants.HashZero
         }
-        console.log(trade)
-        const tx = exchange({ args: [modalPayload.content.resourceId, trade] });
+        console.log(t)
+        const tx = exchange({ args: [1, modalPayload.content.resourceId, t] });
           
         pushAlert({
           msg: (

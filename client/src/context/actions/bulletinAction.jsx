@@ -70,7 +70,7 @@ export const loadAsks = async () => {
         // if (responseId <= 0) return;
         [...Array(responseId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
-          const trade = await Bulletin.getTrade(true, id, id_);
+          const trade = await Bulletin.getTrade(0, id, id_);
           const role = await Bulletin.rolesOf(trade[1]);
           const credit = await Bulletin.getCredit(trade[1])
           
@@ -125,7 +125,7 @@ export const loadResources = async () => {
         // if (exchangeId <= 0) return;
         [...Array(exchangeId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
-          const exchange = await Bulletin.getTrade(Bulletin.TradeType.EXCHANGE ,id, id_);
+          const exchange = await Bulletin.getTrade(1 ,id, id_);
           const credit = await Bulletin.getCredit(exchange[1])
 
           _resources[id].exchanges.push({
