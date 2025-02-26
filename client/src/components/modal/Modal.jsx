@@ -25,6 +25,8 @@ import CheckinModal from "./CheckinModal";
 import TallyModal from "./TallyModal";
 import EngageModal from "./EngageModal";
 import AddResourceModal from "./AddResourceModal";
+import StakeModal from "./StakeModal";
+
 
 const sizeVariants = {
   lg: "max-w-lg",
@@ -141,6 +143,12 @@ const Modal = ({ children }) => {
         return (
           <>
             <AddResourceModal modalPayload={modalPayload} />
+          </>
+        );
+      case 13:
+        return (
+          <>
+            <StakeModal modalPayload={modalPayload} />
           </>
         );
       case -1:

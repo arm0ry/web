@@ -14,7 +14,7 @@ import { shortenAddress } from "@utils/shortenAddress";
 
 
 
-const EngageModal = ({ modalPayload }) => {
+const StakeModal = ({ modalPayload }) => {
   const { write: exchange, state: exchangeState } = useWriteContract({
     ...mBulletin,
     functionName: "trade",
@@ -27,7 +27,7 @@ const EngageModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: {type: ""},
+    defaultValues: {amount: ""},
   }); 
 
   const onSubmit = async (data) => {
@@ -38,8 +38,8 @@ const EngageModal = ({ modalPayload }) => {
               approved: true,
               from: address,
               resource: ethers.constants.HashZero,
-              currency: (data.type == "currency") ? mCurrency.address : ethers.constants.AddressZero,
-              amount: ethers.utils.parseUnits("1", "ether"),
+              currency: "0x000000000000000000000000000000000000bEEF",
+              amount: data.amount,
               content: "TEST",
               data: ethers.constants.HashZero
         }
@@ -63,17 +63,19 @@ const EngageModal = ({ modalPayload }) => {
     }
   };
 
-  const PaymentRadio = ({ type, value, register }) => {
+  const PaymentRadio = ({ title, value, register }) => {
     return (
       <>
         <div className="flex items-center">
           <input
-            type="radio"
+            type="number"
+            placeholder="0"
             value={value}
-            {...register("type")}
+            className="pl-2 rounded-sm w-1/5"
+            {...register("amount")}
           />
           <div>
-            <label className="ml-2 text-md font-normal text-gray-900 ">{type}</label>
+            <label className="ml-2 text-md font-normal text-gray-900 ">{title}</label>
           </div>
         </div>
       </>
@@ -86,31 +88,18 @@ const EngageModal = ({ modalPayload }) => {
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              互相肯定 | Engage, endorse, stake 🫡 
+              送一份牛排！ | Stake and rewards 🥩 
             </label>
             <CloseModalButton />
           </div>
-          <div className="flex flex-col pb-2">
-            <div>
-              <label className="text-md font-normal text-gray-900">給予肯定所需要的數量：</label> 
-              <label className="text-amber-600 text-lg font-semibold">1</label>
-              <label className="text-md">枚社群貨幣或互惠信用</label>
-            </div>
-             <div className="flex items-center pt-1">
-              <label className="text-xs font-normal text-gray-900">Amount to endorse </label> 
-            </div>
+          <div className="flex flex-col space-y-1 py-1 justify-center items-start rounded-md">
+              <label className="text-md font-normal text-gray-900">信用點數決定牛排的大小，牛排大小決定空頭的數量</label> 
+              <label className="text-xs font-normal text-gray-900">Stake with crΞdit to send and receive rewards </label> 
           </div>
           <div className="flex items-center space-x-2 py-2">
-            <PaymentRadio type="社群貨幣 | Currency" value={"currency"} register={register} />
-            <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? modalPayload.content.balance : "-"}</label>
-          </div>
-
-          <div className="flex items-center space-x-2 py-2">
-            <PaymentRadio type="互惠信用 | CrΞdit" value={"credit"} register={register} />
+            <PaymentRadio title="互惠信用 | CrΞdit" register={register} />
             <label className="text-amber-600 text-md">{(modalPayload.content.credit != undefined) ? modalPayload.content.credit : "-"}</label>
           </div>
-
-          報到沒？ check if account is activated on contract yet
         </div>
       </>
     );
@@ -151,4 +140,4 @@ const EngageModal = ({ modalPayload }) => {
   );
 };
 
-export default EngageModal;
+export default StakeModal;
