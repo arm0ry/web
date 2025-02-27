@@ -14,20 +14,18 @@ const ResourceCard = ({ resourceId }) => {
   const { address, isConnected } = useAccount();
 
   const resource = bulletin.resources[resourceId];
+  const exchanges = bulletin.resources[resourceId].exchanges;
 
-  const { write: exchange, state: exchangeState } = useWriteContract({
-    ...mBulletin,
-    functionName: "exchange",
+  const basicExchange = bulletin.resources[resourceId].exchanges.filter(item => !item.stake);
+  const stakedExchange = bulletin.resources[resourceId].exchanges.filter(item => item.stake);
+  
+  const { write: approveExchange, state: approveState } = useWriteContract({
+      ...mBulletin,
+      functionName: "approveExchange",
   });
-
-const { write: approveExchange, state: approveState } = useWriteContract({
-    ...mBulletin,
-    functionName: "approveExchange",
-});
   
 
 const approve = async (id) => {
-  console.log("hello ---", resourceId, id)
     if (isConnected) {
       try {
         const tx = approveExchange({
@@ -59,11 +57,19 @@ const approve = async (id) => {
     }
   };
 
-  const support = async () => {
+  const endorse = async () => {
     showModal({
        type: 11,
        size: "3xl",
        content: { resourceId: resourceId, balance: bulletin.user.balance, credit: bulletin.user.credit},
+    });
+
+  };
+  const stake = async () => {
+    showModal({
+      type: 13,
+      size: "3xl",
+      content: { resourceId: resourceId, balance: bulletin.user.balance, credit: bulletin.user.credit },
     });
   };
 
@@ -85,38 +91,54 @@ const approve = async (id) => {
         </div>
         
         <div>
-          <div className="flex w-full space-x-2 items-center ">
-            <div className="flex justify-center text-sm items-center h-10 w-1/4 text-gray-600">肯定: {resource.collection}</div>
-            {Object.keys(resource.exchanges).map((id) => {
-              return (
-                <div key={id} className="overflow-scroll">
-                  <button
-                    disabled={!approve}
-                    onClick={() => approve(resource.exchanges[id].id)}
-                    className=" rounded-lg p-1 text-black hover:bg-amber-10"
-                  >
-                    <div className={`${(resource.exchanges[id].approved) ? "" : "opacity-40"}`}>
-                      <Avatar className={`h-8 w-8`} address={resource.exchanges[id].proposer} />
-                    </div>
-                  </button>
-                </div>
-              )})}
+          <div className="flex flex-col w-full">
+            <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">肯定 | Endorsements</div>
+            <div className="flex w-full pb-2">
+              {Object.keys(basicExchange).map((id) => {
+                return (
+                  <div key={id} className="flex w-1/5">
+                    <button
+                      disabled={!approve}
+                      onClick={() => approve(basicExchange[id].id)}
+                      className="flex rounded-lg p-1 text-black hover:bg-amber-10"
+                    >
+                      <div className={`${(basicExchange[id].approved) ? "" : "opacity-40"} flex space-x-2 items-center`}>
+                        <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} /> 
+                        <label>x { basicExchange[id].amount}</label>
+                      </div>
+                    </button>
+                  </div>
+                )
+              }).filter((item) => !item.stake)}
+            </div>
+            <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">牛排 | Stakes</div>
+            <div className="flex w-full pb-2">
+              {Object.keys(stakedExchange).map((id) => {
+                return (
+                  <div key={id} className="flex w-1/5">
+                    <button
+                      className="flex rounded-lg p-1 text-black hover:bg-amber-10"
+                    >
+                      <div className="flex space-x-2 items-center">
+                        <Avatar className={`h-8 w-8`} address={stakedExchange[id].proposer} />
+                        <label>{ stakedExchange[id].amount}</label>
+                      </div>
+                    </button>
+                  </div>
+                )})}
+            </div>
           </div>
           
           
           <div className="flex flex-row w-full">
-            <button
-              disabled={""}
-              onClick={() => support()}
-              className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
+            <button disabled={""} onClick={() => endorse()} className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
               <div className="flex text-md items-center justify-center">
-                <div className={`${(exchangeState.writeStatus == 1 || exchangeState.writeStatus == 2) ? "ml-2 text-slate-500" : ""}`}>    
-                {(exchangeState.writeStatus === 0) && "肯定 | Endorse"}
-                {(exchangeState.writeStatus === 1) && "Pending..."}
-                {(exchangeState.writeStatus === 2) && "Pending..."}
-                {(exchangeState.writeStatus === 3) && "Success!"}
-                {(exchangeState.writeStatus === 4) && "Error!"}
-                </div>
+               肯定 | Endorse
+              </div>
+            </button>
+            <button disabled={""} onClick={() => stake()} className="w-full p-3 text-black hover:bg-amber-100 bg-yellow-100">
+              <div className="flex text-md items-center justify-center">
+                挺你 | Stake
               </div>
             </button>
           </div>

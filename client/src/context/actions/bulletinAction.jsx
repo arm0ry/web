@@ -9,7 +9,6 @@ export const loadUser = async (isConnected, address) => {
   try {
     const credit = await Bulletin.getCredit(address);
     const balance = await Currency.balanceOf(address);
-
     const user = {
       balance: ethers.utils.formatEther(balance),
       credit: ethers.utils.formatEther(credit.amount),
@@ -130,6 +129,7 @@ export const loadResources = async () => {
 
           _resources[id].exchanges.push({
             id: id_,
+            stake: (exchange[3] == "0x000000000000000000000000000000000000bEEF") ? true : false,
             approved: exchange[0],
             proposer: exchange[1],
             resource: exchange[2],

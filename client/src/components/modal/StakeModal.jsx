@@ -39,7 +39,7 @@ const StakeModal = ({ modalPayload }) => {
               from: address,
               resource: ethers.constants.HashZero,
               currency: "0x000000000000000000000000000000000000bEEF",
-              amount: data.amount,
+              amount: ethers.utils.parseEther(data.amount),
               content: "TEST",
               data: ethers.constants.HashZero
         }
@@ -93,7 +93,7 @@ const StakeModal = ({ modalPayload }) => {
             <CloseModalButton />
           </div>
           <div className="flex flex-col space-y-1 py-1 justify-center items-start rounded-md">
-              <label className="text-md font-normal text-gray-900">信用點數決定牛排的大小，牛排大小決定空頭的數量</label> 
+              <label className="text-md font-normal text-gray-900">信用點數決定牛排的大小，牛排大小決定報酬的數量</label> 
               <label className="text-xs font-normal text-gray-900">Stake with crΞdit to send and receive rewards </label> 
           </div>
           <div className="flex items-center space-x-2 py-2">
