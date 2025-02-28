@@ -15,7 +15,6 @@ import Resources from "./Resources";
 const Bulletin = () => {
   const { address, isConnected } = useAccount();
   const { bulletin } = useGlobalContext();
-  const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -24,11 +23,9 @@ const Bulletin = () => {
       await loadCurrency();
       await loadUser(isConnected, address);
     }
-    load()
+    load();
   }, [isConnected]);
 
-
-  console.log(bulletin)
   return (
     <>
       <nav className="fixed top-0 z-50 h-16 w-full border-b border-gray-200 bg-white ">

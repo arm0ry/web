@@ -5,6 +5,7 @@ import { BulletinFactory, mBulletin as Bulletin, mCurrency as Currency } from "@
 import { ethers } from "ethers";
 
 export const loadUser = async (isConnected, address) => {
+  address = (address == undefined) ? ethers.constants.AddressZero : address;
   if (!isConnected) return;
   try {
     const credit = await Bulletin.getCredit(address);
@@ -34,6 +35,7 @@ export const loadCurrency = async () => {
       name: name, 
       symbol: symbol
     }
+
     dispatch.fn({
       type: LOAD_CURRENCY,
       payload: currency,
@@ -45,6 +47,7 @@ export const loadCurrency = async () => {
 }
 
 export const loadAsks = async () => {
+  
   try {
     const requestId = await Bulletin.requestId();
     if (requestId <= 0) return;
