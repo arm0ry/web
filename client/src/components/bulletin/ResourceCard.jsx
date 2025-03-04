@@ -131,15 +131,11 @@ const approve = async (id) => {
           
           
           <div className="flex flex-row w-full">
-            <button disabled={""} onClick={() => endorse()} className="w-full p-3 text-black hover:bg-amber-100 bg-green-200">
-              <div className="flex text-md items-center justify-center">
+            <button disabled={""} onClick={() => endorse()} className="w-3/4 p-3 text-black hover:bg-blue-100 bg-blue-200">
                肯定 | Endorse
-              </div>
             </button>
-            <button disabled={""} onClick={() => stake()} className="w-full p-3 text-black hover:bg-amber-100 bg-yellow-100">
-              <div className="flex text-md items-center justify-center">
-                挺你 | Stake
-              </div>
+            <button disabled={""} onClick={() => stake()} className="w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-200">
+                🥩
             </button>
           </div>
         </div>

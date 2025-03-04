@@ -15,7 +15,7 @@ const Asks = () => {
         {/* <CurrencyBalance /> */}
       </div>
 
-      <div className="grid grid-cols-1 scroll-smooth gap-5 px-4 md:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 scroll-smooth gap-5 px-4 md:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-2">
         {Object.keys(bulletin.asks).map((id) => {
           return <AskCard key={id} askId={id} />;
         })}

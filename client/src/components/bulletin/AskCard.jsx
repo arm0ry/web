@@ -37,6 +37,14 @@ const AskCard = ({ askId }) => {
     }
   };
 
+  const stake = async () => {
+      showModal({
+        type: 13,
+        size: "3xl",
+        content: { resourceId: askId, balance: bulletin.user.balance, credit: bulletin.user.credit },
+      });
+    };
+
   const approve = async (id) => {
     if (isConnected) {
       
@@ -146,23 +154,21 @@ const AskCard = ({ askId }) => {
     <>
       <div className="flex flex-col rounded-lg justify-between border border-gray-200 bg-white p-5 shadow">
         <div className="flex flex-row justify-between w-full">
-          <div className="w-full">
+          <div className="w-1/2">
             <h5 className="mb-2 text-2xl font-medium text-gray-900 ">
               {ask.title}
             </h5>
-            <p className="mb-3 text-sm font-light text-gray-500 line-clamp-3 ">
+            <p className="mb-3 text-sm font-light text-gray-500 line-clamp-3 overflow-scroll">
               {ask.detail}
             </p>
           </div>
-          <div className="flex w-1/3 items-center justify-end">
-              <button
-                  onClick={() => checkIn()}
-                className="rounded-lg p-3 text-black hover:bg-amber-100 bg-amber-200"
-              >
-              <div className="flex flex-row space-x-4 items-center justify-center">
-                {ButtonNameByAsk()}
-              </div>
-              </button>
+          <div className="flex w-1/3 items-start justify-end rounded-md">
+            <button onClick={() => checkIn()} className="flex items-center justify-center w-3/4 p-3 text-black hover:bg-green-100 bg-green-200">
+              {ButtonNameByAsk()}
+            </button>
+            <button onClick={() => stake()} className="flex items-center justify-center  w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-200">
+                🥩
+            </button>
           </div>
           
         </div>

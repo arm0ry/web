@@ -54,33 +54,33 @@ const CheckinModal = ({ modalPayload }) => {
   };
 
   const onSubmit = async (data) => {
-    let firstEmoji = false;
-    let secondEmoji = false;
-    let thirdEmoji = false;
-    let fourthEmoji = false;
-    let fifthEmoji = false;
+    let firstOption = false;
+    let secondOption = false;
+    let thirdOption = false;
+    let fourthOption = false;
+    let fifthOption = false;
 
     if (data.moon.length > 0) {
       for (let i = 0; i < data.moon.length; i++) {
             console.log(data.moon[i]);
 
         if (data.moon[i] == 1) {
-          firstEmoji = true;
+          firstOption = true;
         } else if (data.moon[i]== 2) {
-          secondEmoji = true;
+          secondOption = true;
         } else if (data.moon[i]== 3) {
-          thirdEmoji = true;
+          thirdOption = true;
         } else if (data.moon[i] == 4) {
-          fourthEmoji = true;
+          fourthOption = true;
         } else if (data.moon[i] == 5) {
-          fifthEmoji = true;
+          fifthOption = true;
         } else {}
       }
     }
     
     let structuredData = ethers.constants.HashZero;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = abiCoder.encode(["bool", "bool", "bool", "bool", "bool"], [firstEmoji, secondEmoji, thirdEmoji, fourthEmoji, fifthEmoji]);
+    structuredData = abiCoder.encode(["bool", "bool", "bool", "bool", "bool"], [firstOption, secondOption, thirdOption, fourthOption, fifthOption]);
     
     console.log(structuredData);
     if (isConnected) {
