@@ -10,17 +10,19 @@ import { ethers } from "ethers";
 import useWriteContract from "@hooks/useWriteContract";
 import { mBulletin, mCurrency } from "@contract";
 import { shortenAddress } from "@utils/shortenAddress";
-
-
+import { useGlobalContext } from "@context/store";
 
 
 const StakeModal = ({ modalPayload }) => {
+  const [error, setError] = useState(".");
   const { write: exchange, state: exchangeState } = useWriteContract({
     ...mBulletin,
     functionName: "trade",
   });
   
+  const { bulletin } = useGlobalContext();
   const { address, isConnected } = useAccount();
+
   const {
     register,
     handleSubmit,
@@ -54,7 +56,7 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
       <>
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
-            <label className="text-md font-medium text-gray-900 mb-1">想法：</label>
+            <label className="text-md font-medium text-gray-900 mb-1">牛排內容 | Type of stake：</label>
           </div>
           <MoodRadio mandarin="我有入坑，因為..." english={"I joined, because ..."} value={"1"} register={register} />
           <MoodRadio mandarin="我沒有入坑，因為..." english={"I did not join, because ..."} value={"2"} register={register} />
@@ -68,6 +70,11 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
 
   const onSubmit = async (data) => {
     console.log(data, address)
+
+    if (data.amount > bulletin.user.credit) {
+      setError("信用貨幣不足 | Insufficient crΞdit");
+      return;
+    }
     
     let option;
     if (data.moon == 1) {
@@ -121,19 +128,19 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
     return (
       <>
         <div className="flex flex-col justify-start items-start">
-          <label className=" text-md font-medium text-gray-900 mb-2">牛排份量：</label>
+          <label className=" text-md font-medium text-gray-900 mb-2">牛排份量 | Size of stake：</label>
           <div className="flex items-end">
             <input
               type="number"
-              placeholder="0"
-              min={0}
+              placeholder="1"
+              min={1}
               value={value}
               required
               className="ml-2 pl-2 rounded-sm w-1/5"
               {...register("amount")}
             />
             <label className="ml-2 text-sm text-gray-600 ">/</label>
-            <label className="ml-2 text-amber-600 text-md">{(modalPayload.content.credit != undefined) ? modalPayload.content.credit : "-"}</label>
+            <label className="ml-2 text-amber-600 text-md">{(bulletin.user.credit != undefined) ? bulletin.user.credit : "-"}</label>
             <label className="ml-2 text-sm text-gray-600 ">{payment}</label>
           </div>
         </div>
@@ -153,11 +160,11 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
           </div>
           <div className="flex flex-col space-y-6">
             <div className="flex flex-col space-y-1 justify-center items-start rounded-md">
-              <label className="text-md font-normal text-gray-900">好比以太坊運用質押來提高本身的安全性與永續性，地方社群也可以質押信用，互挺社群內的資產或是給予回饋，建立社群互惠文化與資產，甚至作為未來申請補助的根據</label>
-              <label className="text-xs font-normal text-gray-900">Stake with crΞdit to communicate preferences, distribute rewards, and potentially secure matched funding from local businesses or authorities  </label>
+              <label className="text-md font-normal text-gray-900">好比以太坊運用質押來提高本身的安全性與永續性，地方社群也可以質押信用貨幣，互挺社群內的資產或是給予回饋，建立社群互惠文化與資產，甚至作為未來申請補助的根據</label>
+              <label className="text-xs font-normal text-gray-900">Stake with crΞdit to communicate preferences, contextualize communications, distribute rewards, and potentially secure matched funding from local businesses or authorities  </label>
             </div>
             <div className="flex flex-col space-y-4">
-              <PaymentInput payment="crΞdits" register={register}/>
+              <PaymentInput payment="🐚" register={register}/>
               <Opinions />
             </div>
           </div>
@@ -175,6 +182,7 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
           
           {isConnected ?
             <div className="flex flex-col items-center">
+              <label className="mb-2 block text-xs font-medium text-red-500 ">{error ?? error }</label> 
               <button
                 type="submit"
                 disabled={exchangeState.writeStatus > 0}

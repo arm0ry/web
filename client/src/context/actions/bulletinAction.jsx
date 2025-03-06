@@ -11,9 +11,9 @@ export const loadUser = async (isConnected, address) => {
     const credit = await Bulletin.getCredit(address);
     const balance = await Currency.balanceOf(address);
     const user = {
-      balance: ethers.utils.formatEther(balance),
-      credit: ethers.utils.formatEther(credit.amount),
-      limit: ethers.utils.formatEther(credit.limit)
+      balance: parseFloat(ethers.utils.formatEther(balance)),
+      credit: parseFloat(ethers.utils.formatEther(credit.amount)),
+      limit: parseFloat(ethers.utils.formatEther(credit.limit))
     }
     dispatch.fn({
       type: LOAD_USER,

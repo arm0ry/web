@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { LegoBrickIcon } from "@assets";
 import { useGlobalContext } from "@context/store";
 import AskCard from "./AskCard";
 import CurrencyBalance from "./CurrencyBalance";
@@ -10,7 +9,7 @@ const Asks = () => {
     <>
       <div className="flex justify-between items-center">
         <label className="px-4 m-2 text-2xl font-semibold text-slate-600">
-          報到領取 | Earn
+          報到領取 | earn
         </label>
         {/* <CurrencyBalance /> */}
       </div>

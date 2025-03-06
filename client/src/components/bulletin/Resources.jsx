@@ -19,7 +19,7 @@ const Resources = () => {
   return (
     <div className="flex flex-col h-screen bg-amber-50">
       <label className="p-4 m-2 text-2xl font-semibold text-slate-600">
-          大松專案列表 | hackath65n Projects 
+          第零次專案列表 | hackath0n-chain projects 
       </label>
       <div className="grid grid-cols-3 gap-5">
         {Object.keys(bulletin.resources).map((id) => {

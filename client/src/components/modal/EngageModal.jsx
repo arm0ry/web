@@ -10,16 +10,15 @@ import { ethers } from "ethers";
 import useWriteContract from "@hooks/useWriteContract";
 import { mBulletin, mCurrency } from "@contract";
 import { shortenAddress } from "@utils/shortenAddress";
-
-
-
+import { useGlobalContext } from "@context/store";
 
 const EngageModal = ({ modalPayload }) => {
+  const [error, setError] = useState(".");
   const { write: exchange, state: exchangeState } = useWriteContract({
     ...mBulletin,
     functionName: "trade",
   });
-  
+  const { bulletin } = useGlobalContext();
   const { address, isConnected } = useAccount();
   const {
     register,
@@ -31,8 +30,29 @@ const EngageModal = ({ modalPayload }) => {
   }); 
 
   const onSubmit = async (data) => {
+    setError("");
     console.log(data, address)
     if (isConnected) {
+      if (data.type == "") {
+        setError("請選擇貨幣 | Please select a type of currency.");
+        return;
+      };
+
+      if (data.type == "credit" && bulletin.user.credit == 0) {
+        setError("信用貨幣不足 | Insufficient crΞdit");
+        return;
+      };
+
+      if (data.type == "credit" && bulletin.user.limit == 0) {
+        setError("申請使用信用貨幣 | Register to use crΞdit");
+        return;
+      };
+
+      if (data.type == "currency" && bulletin.user.balance == 0) {
+        setError("社群貨幣不足 | Insufficient currency");
+        return;
+      };
+
       try {
         const t = {
               approved: true,
@@ -79,42 +99,40 @@ const EngageModal = ({ modalPayload }) => {
       </>
     );
   };
-
+console.log(bulletin)
   const Content = () => {
     return (
-      <>  
+      <>
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              互相肯定 | Engage, endorse, stake 🫡 
+              互相肯定 | Engage, endorse, stake 🫡
             </label>
             <CloseModalButton />
           </div>
           <div className="flex flex-col pb-2">
-            <div>
-              <label className="text-md font-normal text-gray-900">給予肯定所需要的數量：</label> 
-              <label className="text-amber-600 text-lg font-semibold">1</label>
-              <label className="text-md">枚社群貨幣或互惠信用</label>
-            </div>
-             <div className="flex items-center pt-1">
-              <label className="text-xs font-normal text-gray-900">Amount to endorse </label> 
+            <div className="flex items-baseline">
+              <div className="flex flex-col">
+                <label className="text-md font-normal text-gray-900">給予肯定所需要的數量：</label>
+                <label className="text-xs font-normal text-gray-900">Amount needed to endorse </label>
+              </div>
+              <label className="text-amber-600 text-lg font-semibold mx-2">1</label>
+              <label className="text-sm">💰 or 🐚</label>
             </div>
           </div>
           <div className="flex items-center space-x-2 py-2">
-            <PaymentRadio type="社群貨幣 | Currency" value={"currency"} register={register} />
-            <label className="text-amber-600 text-md">{(modalPayload.content.balance != undefined) ? modalPayload.content.balance : "-"}</label>
+            <PaymentRadio type="💰 社群貨幣 | currency" value={"currency"} register={register} />
+            <label className="text-amber-600 text-md">{(bulletin.user.balance != undefined) ? bulletin.user.balance : "-"}</label>
           </div>
 
           <div className="flex items-center space-x-2 py-2">
-            <PaymentRadio type="互惠信用 | CrΞdit" value={"credit"} register={register} />
-            <label className="text-amber-600 text-md">{(modalPayload.content.credit != undefined) ? modalPayload.content.credit : "-"}</label>
+            <PaymentRadio type="🐚 信用貝幣 | crΞdit" value={"credit"} register={register} />
+            <label className="text-amber-600 text-md">{(bulletin.user.credit != undefined) ? bulletin.user.credit : "-"}</label>
           </div>
-
-          報到沒？ check if account is activated on contract yet
         </div>
       </>
     );
-  }
+  };
 
 
   return (
@@ -125,6 +143,7 @@ const EngageModal = ({ modalPayload }) => {
           
           {isConnected ?
             <div className="flex flex-col items-center">
+              <label className="mb-2 block text-xs font-medium text-red-500 ">{error ?? error }</label> 
               <button
                 type="submit"
                 disabled={exchangeState.writeStatus > 0}

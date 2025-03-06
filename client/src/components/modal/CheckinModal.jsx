@@ -11,14 +11,17 @@ import { Logger } from "@contract";
 import useWriteContract from "@hooks/useWriteContract";
 import { mBulletin } from "@contract";
 import { shortenAddress } from "@utils/shortenAddress";
+import { useGlobalContext } from "@context/store";
+
 
 const CheckinModal = ({ modalPayload }) => {
   const [inPrepare, setInPrepare] = useState(false);  
   const { write: proposeTrade, state: proposeState } = useWriteContract({
     ...mBulletin,
-    functionName: "respond",
+    functionName: "trade",
   });
   
+  const { bulletin } = useGlobalContext();
   const { address, isConnected } = useAccount();
   const {
     register,
@@ -54,49 +57,70 @@ const CheckinModal = ({ modalPayload }) => {
   };
 
   const onSubmit = async (data) => {
-    let firstOption = false;
-    let secondOption = false;
-    let thirdOption = false;
-    let fourthOption = false;
-    let fifthOption = false;
+    let params = [];
+    let values = [];
 
     if (data.moon.length > 0) {
       for (let i = 0; i < data.moon.length; i++) {
-            console.log(data.moon[i]);
-
+        
         if (data.moon[i] == 1) {
-          firstOption = true;
-        } else if (data.moon[i]== 2) {
-          secondOption = true;
-        } else if (data.moon[i]== 3) {
-          thirdOption = true;
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("我是新手 | I'm new");
+          console.log(params, values);
+        } else if (data.moon[i] == 2) {
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("我想入坑 | I want to join a project");
+        } else if (data.moon[i] == 3) {
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("我想開坑 | I want to start a project");
         } else if (data.moon[i] == 4) {
-          fourthOption = true;
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("我想拉人入坑 | I want to recruit others to join a project");
         } else if (data.moon[i] == 5) {
-          fifthOption = true;
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("我來逛逛 | I'm just hanging around");
         } else {}
       }
+      
+      let length = data.moon.length;
+      do {
+        params.push("uint256");
+        params.push("string");
+        values.push(0);
+        values.push("");
+        length++;
+      } while (length < 5);
     }
     
     let structuredData = ethers.constants.HashZero;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = abiCoder.encode(["bool", "bool", "bool", "bool", "bool"], [firstOption, secondOption, thirdOption, fourthOption, fifthOption]);
+    structuredData = abiCoder.encode(params, values);
     
     console.log(structuredData);
     if (isConnected) {
       try {
         const tx = proposeTrade({
           args: [
-            modalPayload.content.askId,
-          {
-            approved: true,
-            from: address,
-            resource: ethers.constants.HashZero,
-            currency: ethers.constants.AddressZero,
-            amount: 0,
-            content: "TEST",
-            data: structuredData
-          }
+            0, modalPayload.content.askId,
+            {
+              approved: true,
+              from: address,
+              resource: ethers.constants.HashZero,
+              currency: ethers.constants.AddressZero,
+              amount: 0,
+              content: "TEST",
+              data: structuredData
+            }
           ]
         })
 

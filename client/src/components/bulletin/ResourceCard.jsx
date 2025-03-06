@@ -69,7 +69,7 @@ const approve = async (id) => {
     showModal({
       type: 13,
       size: "3xl",
-      content: { resourceId: resourceId, balance: bulletin.user.balance, credit: bulletin.user.credit },
+      content: { resourceId: resourceId },
     });
   };
 
@@ -134,7 +134,7 @@ const approve = async (id) => {
             <button disabled={""} onClick={() => endorse()} className="w-3/4 p-3 text-black hover:bg-blue-100 bg-blue-200">
                肯定 | Endorse
             </button>
-            <button disabled={""} onClick={() => stake()} className="w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-200">
+            <button disabled={""} onClick={() => stake()} className="w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-100">
                 🥩
             </button>
           </div>

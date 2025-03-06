@@ -57,76 +57,96 @@ const TallyModal = ({ modalPayload }) => {
   };
 
  
-   const onSubmit = async (data) => {
-     let firstEmoji = false;
-     let secondEmoji = false;
-     let thirdEmoji = false;
-     let fourthEmoji = false;
-     let fifthEmoji = false;
- 
-     if (data.moon.length > 0) {
-       for (let i = 0; i < data.moon.length; i++) {
-             console.log(data.moon[i]);
- 
-         if (data.moon[i] == 1) {
-           firstEmoji = true;
-         } else if (data.moon[i]== 2) {
-           secondEmoji = true;
-         } else if (data.moon[i]== 3) {
-           thirdEmoji = true;
-         } else if (data.moon[i] == 4) {
-           fourthEmoji = true;
-         } else if (data.moon[i] == 5) {
-           fifthEmoji = true;
-         } else {}
-       }
-     }
+  const onSubmit = async (data) => {
+    let params = [];
+    let values = [];
      
-     let structuredData = ethers.constants.HashZero;
-     const abiCoder = ethers.utils.defaultAbiCoder;
-     structuredData = abiCoder.encode(["bool", "bool", "bool", "bool", "bool"], [firstEmoji, secondEmoji, thirdEmoji, fourthEmoji, fifthEmoji]);
-     
-     console.log(structuredData);
-     if (isConnected) {
-       try {
-         const tx = proposeTrade({
-           args: [
-             0,
-             modalPayload.content.askId,
-           {
-             approved: true,
-             from: address,
-             resource: ethers.constants.HashZero,
-             currency: ethers.constants.AddressZero,
-             amount: 0,
-             content: "TEST",
-             data: structuredData
-           }
-           ]
-         })
- 
-         pushAlert({
-           msg: (
-             <span>
-               Success! Check your transaction on
-               <a
-                 href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
-                 target="_blank"
-                 rel="noreferrer"
-                 className="font-extrabold text-green-900"
-               >
-                 &nbsp;Blockscout &#128279;
-               </a>
-             </span>
-           ),
-           type: "success",
-         });
+    if (data.moon.length > 0) {
+      for (let i = 0; i < data.moon.length; i++) {
+             
+        if (data.moon[i] == 1) {
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("🥢 筷子 | Chopsticks");
+        } else if (data.moon[i] == 2) {
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("🍴 叉子 | Fork");
+        } else if (data.moon[i] == 3) {
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("🥄 湯匙 | Spoon");
+        } else if (data.moon[i] == 4) {
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("🫙 水壺 | Water Bottle");
+        } else if (data.moon[i] == 5) {
+          params.push("uint256");
+          params.push("string");
+          values.push(data.moon[i]);
+          values.push("吸管 | Straw");
+        } else { }
+      }
+
+      let length = data.moon.length;
+      do {
+        params.push("uint256");
+        params.push("string");
+        values.push(0);
+        values.push("");
+        length++;
+      } while (length < 5);
+    }
          
-       } catch (error) {
-         console.log(error)
-       }
-     }
-   };
+    let structuredData = ethers.constants.HashZero;
+    const abiCoder = ethers.utils.defaultAbiCoder;
+    structuredData = abiCoder.encode(params, values);
+     
+    console.log(structuredData, params, values);
+    if (isConnected) {
+      try {
+        const tx = proposeTrade({
+          args: [
+            0,
+            modalPayload.content.askId,
+            {
+              approved: true,
+              from: address,
+              resource: ethers.constants.HashZero,
+              currency: ethers.constants.AddressZero,
+              amount: 0,
+              content: "TEST",
+              data: structuredData
+            }
+          ]
+        })
+ 
+        pushAlert({
+          msg: (
+            <span>
+              Success! Check your transaction on
+              <a
+                href={`https://gnosis-chiado.blockscout.com/tx/${tx.hash}`}
+                target="_blank"
+                rel="noreferrer"
+                className="font-extrabold text-green-900"
+              >
+                &nbsp;Blockscout &#128279;
+              </a>
+            </span>
+          ),
+          type: "success",
+        });
+         
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  };
 
   const TallyQs = () => {
     return (
