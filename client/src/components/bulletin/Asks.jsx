@@ -5,7 +5,6 @@ import CurrencyBalance from "./CurrencyBalance";
 
 const Asks = () => {
   const { bulletin } = useGlobalContext();
-  console.log(bulletin)
   return (
     <>
       <div className="flex justify-between items-center">

@@ -14,7 +14,21 @@ const AskCard = ({ askId }) => {
   const { address, isConnected } = useAccount();
   const { bulletin } = useGlobalContext();
   const ask = bulletin.asks[askId];
-console.log(ask.trades)
+  const exchanges = ask?.trades;
+
+  const basicExchange = exchanges?.filter(item => !item.stake);
+  const stakedExchange = exchanges?.filter(item => item.stake);
+  
+  const calculateStaked = () => {
+    let staked = 0;
+    for (let i = 0; i < stakedExchange.length; i++) {
+      staked += stakedExchange[i].amount;
+    }
+    return staked;
+  };
+
+  console.log(basicExchange)
+
   const { write: approveTrade, state: approveState } = useWriteContract({
     ...mBulletin,
     functionName: "approveResponse",
@@ -134,28 +148,28 @@ console.log(ask.trades)
               {ask.detail}
             </p>
           </div>
-          <div className="flex items-start justify-end rounded-md">
-            <button onClick={() => stake()} className="flex items-center justify-center rounded-full p-3 text-black hover:bg-amber-100 bg-yellow-100">
-              🥩
+          <div className="flex w-full items-start justify-end rounded-md">
+            <button onClick={() => stake()} className="flex items-center justify-center rounded-full py-4 px-4 text-black hover:bg-amber-100 bg-yellow-100">
+              🥩 x {calculateStaked()}
             </button>
           </div>
           
         </div>
 
         <div className="flex space-x-2 w-full h-full mb-4 overflow-scroll">
-          {Object.keys(ask.trades).map((id) => {
+          {Object.keys(basicExchange).map((id) => {
             return (
-              <button disabled={ask.trades[id].approved} onClick={() => approve(ask.trades[id].id)} key={id} className="flex h-full bg-slate-200 rounded-lg p-3">
-                <div className={`flex flex-col space-y-1 items-start ${(ask.trades[id].approved) ? "" : "opacity-50"}`}>
-                  <Avatar className={`h-10 w-10`} address={ask.trades[id].proposer} />
-                  <label className="text-xs">{shortenAddress(ask.trades[id].proposer)}</label>
-                  <label className="text-xs text-blue-700 pb-2">{(ask.trades[id].credit_limit == 0) ? "遊客 | Visitor" : "新參者 | Member"}</label>
-                  {(ask.trades[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
+              <button disabled={basicExchange[id].approved} onClick={() => approve(basicExchange[id].id)} key={id} className="flex h-full bg-slate-200 rounded-lg p-3">
+                <div className={`flex flex-col space-y-1 items-start ${(basicExchange[id].approved) ? "" : "opacity-50"}`}>
+                  <Avatar className={`h-10 w-10`} address={basicExchange[id].proposer} />
+                  <label className="text-xs">{shortenAddress(basicExchange[id].proposer)}</label>
+                  <label className="text-xs text-blue-700 pb-2">{(basicExchange[id].credit_limit == 0) ? "遊客 | Visitor" : "新參者 | Member"}</label>
+                  {(basicExchange[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
                 </div>
               </button>
             )
           })}
-          <div className={`flex ${(ask.trades.length != 0) ? "h-full" : "h-52" } w-32 items-center justify-center rounded-lg border-4 border-dashed border-gray-200`}>
+          <div className={`flex ${(basicExchange.length != 0) ? "h-full" : "h-52" } w-32 items-center justify-center rounded-lg border-4 border-dashed border-gray-200`}>
             <button onClick={() => checkIn()} className="w-24 h-full">
               <div className="flex flex-col text-gray-600">
                 <label className="text-sm">分享</label>

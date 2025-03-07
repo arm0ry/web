@@ -12,20 +12,28 @@ import { pushAlert } from "@context/actions/alertAction";
 const ResourceCard = ({ resourceId }) => {
   const { bulletin } = useGlobalContext();
   const { address, isConnected } = useAccount();
-
   const resource = bulletin.resources[resourceId];
   const exchanges = bulletin.resources[resourceId].exchanges;
 
-  const basicExchange = bulletin.resources[resourceId].exchanges.filter(item => !item.stake);
-  const stakedExchange = bulletin.resources[resourceId].exchanges.filter(item => item.stake);
+  const basicExchange = exchanges.filter(item => !item.stake);
+  const stakedExchange = exchanges.filter(item => item.stake);
+
+  const calculateStaked = () => {
+    let staked = 0;
+    for (let i = 0; i < stakedExchange.length; i++) {
+      staked += stakedExchange[i].amount;
+    }
+    return staked;
+  };
   
   const { write: approveExchange, state: approveState } = useWriteContract({
-      ...mBulletin,
-      functionName: "approveExchange",
+    ...mBulletin,
+    functionName: "approveExchange",
   });
   
+  
 
-const approve = async (id) => {
+  const approve = async (id) => {
     if (isConnected) {
       try {
         const tx = approveExchange({
@@ -35,7 +43,7 @@ const approve = async (id) => {
           ]
         })
 
-         pushAlert({
+        pushAlert({
           msg: (
             <span>
               Success! Check your transaction on
@@ -59,9 +67,9 @@ const approve = async (id) => {
 
   const endorse = async () => {
     showModal({
-       type: 11,
-       size: "3xl",
-       content: { resourceId: resourceId, balance: bulletin.user.balance, credit: bulletin.user.credit},
+      type: 11,
+      size: "3xl",
+      content: { resourceId: resourceId, balance: bulletin.user.balance, credit: bulletin.user.credit },
     });
 
   };
@@ -72,6 +80,8 @@ const approve = async (id) => {
       content: { resourceId: resourceId },
     });
   };
+
+ 
 
   return (
     <>
@@ -84,7 +94,7 @@ const approve = async (id) => {
             <div className={`flex py-2 space-x-2 items-center text-xs font-light text-slate-500`}>
               <Avatar className={`h-5 w-5`} address={resource.from} />
               <span>
-                {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? "Arm0ry 機器人" : shortenAddress(resource.from) }
+                {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? "Arm0ry 機器人" : shortenAddress(resource.from)}
               </span>
             </div>
           </div>
@@ -103,8 +113,8 @@ const approve = async (id) => {
                       className="flex rounded-lg p-1 text-black hover:bg-amber-10"
                     >
                       <div className={`${(basicExchange[id].approved) ? "" : "opacity-40"} flex space-x-2 items-center`}>
-                        <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} /> 
-                        <label>x { basicExchange[id].amount}</label>
+                        <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} />
+                        <label>x {basicExchange[id].amount}</label>
                       </div>
                     </button>
                   </div>
@@ -121,21 +131,22 @@ const approve = async (id) => {
                     >
                       <div className="flex space-x-2 items-center">
                         <Avatar className={`h-8 w-8`} address={stakedExchange[id].proposer} />
-                        <label>{ stakedExchange[id].amount}</label>
+                        {/* <label>{stakedExchange[id].amount}</label> */}
                       </div>
                     </button>
                   </div>
-                )})}
+                )
+              })}
             </div>
           </div>
           
           
           <div className="flex flex-row w-full">
             <button disabled={""} onClick={() => endorse()} className="w-3/4 p-3 text-black hover:bg-blue-100 bg-blue-200">
-               肯定 | Endorse
+              肯定 | Endorse
             </button>
             <button disabled={""} onClick={() => stake()} className="w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-100">
-                🥩
+              🥩 x {calculateStaked()}
             </button>
           </div>
         </div>

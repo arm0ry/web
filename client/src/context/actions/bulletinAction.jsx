@@ -137,7 +137,7 @@ export const loadResources = async () => {
             proposer: exchange[1],
             resource: exchange[2],
             currency: exchange[3],
-            amount: ethers.utils.formatEther(exchange[4]),
+            amount: parseFloat(ethers.utils.formatEther(exchange[4])),
             content: exchange[5],
             data: exchange[6],
             credit_limit: ethers.utils.formatEther(credit[0]),
