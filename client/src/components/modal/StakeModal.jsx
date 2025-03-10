@@ -104,8 +104,8 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
           content: "TEST",
           data: structuredData
         }
-        console.log(t)
-        const tx = exchange({ args: [1, modalPayload.content.resourceId, t] });
+        console.log(modalPayload)
+        const tx = exchange({ args: [modalPayload.content.type, modalPayload.content.subjectId, t] });
           
         pushAlert({
           msg: (

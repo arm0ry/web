@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import { Web3Button, Web3NetworkSwitch } from "@web3modal/react";
-import { useDynamicContext, DynamicWidget } from "@dynamic-labs/sdk-react";
+import { useDynamicContext, DynamicWidget, shortenWalletAddress } from "@dynamic-labs/sdk-react";
 import { useAccount } from "wagmi";
 import { createAvatar } from "@dicebear/core";
 import { openPeeps, micah, bigSmile } from "@dicebear/collection";
@@ -24,6 +24,7 @@ const Avatar = ({ className, address, color}) => {
         className={`${className} rounded-full `}
         src={avatar}
         alt="avatar"
+        title={shortenWalletAddress(address)}
       />
     </>
   );

@@ -15,6 +15,7 @@ const AskCard = ({ askId }) => {
   const { bulletin } = useGlobalContext();
   const ask = bulletin.asks[askId];
   const exchanges = ask?.trades;
+  const RESPONSE = 0;
 
   const basicExchange = exchanges?.filter(item => !item.stake);
   const stakedExchange = exchanges?.filter(item => item.stake);
@@ -26,8 +27,6 @@ const AskCard = ({ askId }) => {
     }
     return staked;
   };
-
-  console.log(basicExchange)
 
   const { write: approveTrade, state: approveState } = useWriteContract({
     ...mBulletin,
@@ -54,7 +53,7 @@ const AskCard = ({ askId }) => {
       showModal({
         type: 13,
         size: "3xl",
-        content: { resourceId: askId, balance: bulletin.user.balance, credit: bulletin.user.credit },
+        content: { type: RESPONSE, subjectId: askId },
       });
     };
 
@@ -97,14 +96,14 @@ const AskCard = ({ askId }) => {
     if (parseInt(askId) == 1) {
       let _data;
       try {
-        _data = abiCoder.decode(["uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string"], ask.trades[data.id].data);
+        _data = abiCoder.decode(["uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string"], basicExchange[data.id].data);
       } catch (e) {
         console.log(e);
       }
-
+console.log(basicExchange, _data)
       return (
         <div className="flex flex-col items-start w-full overflow-clip">
-            {parseInt(_data[0]._hex) > 0 ? <label className="flex items-start overflow-auto text-sm whitespace-nowrap">{_data[1]}</label> : ""}
+            {parseInt(_data[0] ?? _data[0]._hex) > 0 ? <label className="flex items-start overflow-auto text-sm whitespace-nowrap">{_data[1] ?? _data[1]}</label> : ""}
             {parseInt(_data[2]._hex) > 0 ? <label className="flex items-start overflow-auto text-sm whitespace-nowrap">{_data[3]}</label> : ""}
             {parseInt(_data[4]._hex) > 0 ? <label className="flex items-start overflow-auto w-64 text-sm whitespace-nowrap">{_data[5]}</label> : ""}
             {parseInt(_data[6]._hex) > 0 ? <label className="flex items-start overflow-auto w-64 text-sm whitespace-nowrap">{_data[7]}</label> : ""}
@@ -114,7 +113,7 @@ const AskCard = ({ askId }) => {
     } else if (parseInt(askId) == 2) { 
       let _data;
       try {
-        _data = abiCoder.decode(["uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string"], ask.trades[data.id].data);
+        _data = abiCoder.decode(["uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string"], basicExchange[data.id].data);
       } catch (e) {
         console.log(e);
       }

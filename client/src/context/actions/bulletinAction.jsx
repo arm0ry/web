@@ -78,12 +78,13 @@ export const loadAsks = async () => {
           
           _asks[id].trades.push({
             id: id_,
+            stake: (trade[3] == "0x000000000000000000000000000000000000bEEF") ? true : false,
             role: parseInt(role._hex),
             approved: trade[0],
             proposer: trade[1],
             resource: trade[2],
             currency: trade[3],
-            amount: trade[4],
+            amount: parseFloat(ethers.utils.formatEther(trade[4])),
             content: trade[5],
             data: trade[6],
             credit_limit: ethers.utils.formatEther(credit[0]),
