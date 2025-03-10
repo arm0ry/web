@@ -87,7 +87,7 @@ const ResourceCard = ({ resourceId }) => {
 
   return (
     <>
-      <div className={`flex flex-col bg-blue-50 rounded-lg`}>
+      <div className={`flex flex-col bg-blue-50 justify-between rounded-lg`}>
         <div className="flex flex-col p-3">
           <div className="flex flex-col space-y-1 m-3 text-slate-800 w-full">
             <label className="text-slate-800 text-xl font-medium h-2/3 justify-start overflow-auto">

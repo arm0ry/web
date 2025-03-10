@@ -100,7 +100,7 @@ const AskCard = ({ askId }) => {
       } catch (e) {
         console.log(e);
       }
-console.log(basicExchange, _data)
+
       return (
         <div className="flex flex-col items-start w-full overflow-clip">
             {parseInt(_data[0] ?? _data[0]._hex) > 0 ? <label className="flex items-start overflow-auto text-sm whitespace-nowrap">{_data[1] ?? _data[1]}</label> : ""}
@@ -162,7 +162,7 @@ console.log(basicExchange, _data)
                 <div className={`flex flex-col space-y-1 items-start ${(basicExchange[id].approved) ? "" : "opacity-50"}`}>
                   <Avatar className={`h-10 w-10`} address={basicExchange[id].proposer} />
                   <label className="text-xs">{shortenAddress(basicExchange[id].proposer)}</label>
-                  <label className="text-xs text-blue-700 pb-2">{(basicExchange[id].credit_limit == 0) ? "遊客 | Visitor" : "新參者 | Member"}</label>
+                  <label className="text-xs text-blue-700 pb-2">{(basicExchange[id].credit_limit == 0) ? "遊客 | Visitor" : "參與者 | Member"}</label>
                   {(basicExchange[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
                 </div>
               </button>
