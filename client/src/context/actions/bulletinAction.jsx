@@ -47,6 +47,8 @@ export const loadCurrency = async () => {
 }
 
 export const loadAsks = async () => {
+  let data;
+  const abiCoder = ethers.utils.defaultAbiCoder;
   
   try {
     const requestId = await Bulletin.requestId();
@@ -58,12 +60,15 @@ export const loadAsks = async () => {
         const id = _id + 1;
         const ask = await Bulletin.getRequest(id);
         if (ask[0] == ethers.constants.AddressZero) return;
+
+        data = abiCoder.decode(["string", "string"], ask[3]);
+
         _asks[id] = {
           from: ask[0],
-          title: ask[1],
-          detail: ask[2],
-          currency: ask[3],
-          drop: ethers.utils.formatEther(ask[4]),
+          title: data[0],
+          detail: data[1],
+          currency: ask[1],
+          drop: ethers.utils.formatEther(ask[2]),
           trades: []
         }
 
@@ -107,6 +112,9 @@ export const loadAsks = async () => {
 }
 
 export const loadResources = async () => {
+  let data;
+  const abiCoder = ethers.utils.defaultAbiCoder;
+
   try {
     const resourceId = await Bulletin.resourceId();
     if (resourceId <= 0) return;
@@ -115,13 +123,17 @@ export const loadResources = async () => {
       [...Array(resourceId)].map(async (_, _id) => {
         const id = _id + 1;
         const resource = await Bulletin.getResource(id);
+        data = abiCoder.decode(["string", "string"], resource[2]);
         _resources[id] = {
           from: resource[0],
-          title: resource[1],
-          detail: resource[2],
+          stake: parseFloat(ethers.utils.formatEther(resource[1])),
+          title: data[0],
+          detail: data[1],
           exchanges: [],
           collection: 0
         }
+
+        console.log(_resources)
 
         const _exchangeId = await Bulletin.exchangeIdsPerResource(id);
         const exchangeId = parseInt(_exchangeId._hex);

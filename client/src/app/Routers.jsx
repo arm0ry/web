@@ -51,8 +51,11 @@ const Routers = () => {
       <Routes>
         <Route path="/" element={HomeLayout(<Home />)} />
         <Route path="/onboard" element={HomeLayout(<Onboard />)} />
+        
+
+
+       {/* Legacy */}
         <Route path="/bulletin" element={<Bulletin />}></Route>
-        <Route path="bulletin/:askId" element={<ListDetail />} />
         
         <Route path="/playground" element={<Playground />}>
           <Route index element={<Navigate to="faq" replace />} />
@@ -71,12 +74,7 @@ const Routers = () => {
           {/* <Route path="curves" element={<Curves />} /> */}
         </Route>
 
-        <Route path="/gfel" element={<Gfel />}>
-        </Route>
-
-
-        <Route path="/remix" element={<Remix />}>
-        </Route>
+        <Route path="/gfel" element={<Gfel />}></Route>
 
         <Route path="/funding" element={HomeLayout(<Funding />)} />
         <Route path="/donate" element={HomeLayout(<Donate />)} />

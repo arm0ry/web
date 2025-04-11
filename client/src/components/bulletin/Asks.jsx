@@ -9,7 +9,6 @@ const Asks = () => {
     <>
       <div className="flex justify-between items-center">
         <label className="px-4 m-2 text-2xl font-semibold text-slate-600">
-          報到領取 | earn
         </label>
         {/* <CurrencyBalance /> */}
       </div>

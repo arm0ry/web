@@ -123,7 +123,7 @@ const ResourceCard = ({ resourceId }) => {
                 )
               }).filter((item) => !item.stake)}
             </div>
-            <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">牛排 | Stakes</div>
+            <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">投票 | Votes </div>
             <div className="flex w-full h-10">
               {Object.keys(stakedExchange).map((id) => {
                 return (
@@ -148,7 +148,7 @@ const ResourceCard = ({ resourceId }) => {
               肯定 | Endorse
             </button>
             <button disabled={""} onClick={() => stake()} className="w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-100">
-              🥩 x {calculateStaked()}
+              🗳️ x {calculateStaked()}
             </button>
           </div>
         </div>

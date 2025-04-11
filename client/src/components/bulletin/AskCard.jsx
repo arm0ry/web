@@ -149,7 +149,7 @@ const AskCard = ({ askId }) => {
           </div>
           <div className="flex w-full items-start justify-end rounded-md">
             <button onClick={() => stake()} className="flex items-center justify-center rounded-full py-4 px-4 text-black hover:bg-amber-100 bg-yellow-100">
-              🥩 x {calculateStaked()}
+              🗳️ x {calculateStaked()}
             </button>
           </div>
           

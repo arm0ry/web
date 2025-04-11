@@ -33,7 +33,7 @@ const Bulletin = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
               <Link to="/" className="ml-2 flex md:mr-24">
-                <label className="text-lg font-semibold text-gray-500">hackath0n-chain | 第零次鏈上黑客松</label>
+                <label className="text-lg font-semibold text-gray-500">Season Zero</label>
               </Link>
             </div>
             
@@ -51,8 +51,8 @@ const Bulletin = () => {
 
       <div className="flex flex-col space-y-3 p-4 mt-14">
         
-        <Asks></Asks>
-        <Resources></Resources>
+        <Asks />
+        <Resources />
       </div>
     </>
   );

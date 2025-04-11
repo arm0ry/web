@@ -90,10 +90,7 @@ const Navbar = () => {
             {/* <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/> */}
 
             <NavBarItem title="$LOCAL | $社群貨幣" disabled />
-            <NavBarItem title="v0" to="/playground" onClick={() => setToggleMenu(false)} />
-            <NavBarItem title="vGFEL" to="/gfel" onClick={() => setToggleMenu(false)} />
             <NavBarItem title="65 大松" to="/bulletin" onClick={() => setToggleMenu(false)} />
-            <NavBarItem title="ReMAP | 混藝術" to="/remix" onClick={() => setToggleMenu(false)} />
 
             {/* <NavbarDropdown title={"$LOCAL | $社區穩定幣"} to="/playground" >
               <NavbarDropdownItem key={0} title={"Prototype"} />
