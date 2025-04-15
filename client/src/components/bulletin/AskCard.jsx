@@ -36,7 +36,7 @@ const AskCard = ({ askId }) => {
   const checkIn = async () => {
     if (parseInt(askId) == 1) {
       showModal({
-       type: 9,
+       type: 12,
        size: "3xl",
        content: { askId: askId },
      });
@@ -96,18 +96,15 @@ const AskCard = ({ askId }) => {
     if (parseInt(askId) == 1) {
       let _data;
       try {
-        _data = abiCoder.decode(["uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string", "uint256", "string"], basicExchange[data.id].data);
+        _data = abiCoder.decode(["string", "string"], basicExchange[data.id].data);
       } catch (e) {
         console.log(e);
       }
 
       return (
-        <div className="flex flex-col items-start w-full overflow-clip">
-            {parseInt(_data[0] ?? _data[0]._hex) > 0 ? <label className="flex items-start overflow-auto text-sm whitespace-nowrap">{_data[1] ?? _data[1]}</label> : ""}
-            {parseInt(_data[2]._hex) > 0 ? <label className="flex items-start overflow-auto text-sm whitespace-nowrap">{_data[3]}</label> : ""}
-            {parseInt(_data[4]._hex) > 0 ? <label className="flex items-start overflow-auto w-64 text-sm whitespace-nowrap">{_data[5]}</label> : ""}
-            {parseInt(_data[6]._hex) > 0 ? <label className="flex items-start overflow-auto w-64 text-sm whitespace-nowrap">{_data[7]}</label> : ""}
-            {parseInt(_data[8]._hex) > 0 ? <label className="flex items-start overflow-auto text-sm whitespace-nowrap">{_data[9]}</label> : ""}
+        <div className="relative">
+          <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="w-32" />
+          <h1 class="absolute text-3xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
       );
     } else if (parseInt(askId) == 2) { 
@@ -159,11 +156,13 @@ const AskCard = ({ askId }) => {
           {Object.keys(basicExchange).map((id) => {
             return (
               <button disabled={basicExchange[id].approved} onClick={() => approve(basicExchange[id].id)} key={id} className="flex h-full bg-slate-200 rounded-lg p-3">
-                <div className={`flex flex-col space-y-1 items-start ${(basicExchange[id].approved) ? "" : "opacity-50"}`}>
-                  <Avatar className={`h-10 w-10`} address={basicExchange[id].proposer} />
-                  <label className="text-xs">{shortenAddress(basicExchange[id].proposer)}</label>
-                  <label className="text-xs text-blue-700 pb-2">{(basicExchange[id].credit_limit == 0) ? "遊客 | Visitor" : "參與者 | Member"}</label>
+                <div className={`flex flex-col space-y-2 ${(basicExchange[id].approved) ? "" : "opacity-50"}`}>
                   {(basicExchange[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
+                  <div className="flex items-center space-x-2">
+                    <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} />
+                    {/* <label className="text-xs">{shortenAddress(basicExchange[id].proposer)}</label> */}
+                    <label className="text-xs text-blue-700">{(basicExchange[id].credit_limit == 0) ? "路過 | Visitor" : "參與者 | Community"}</label>
+                  </div>
                 </div>
               </button>
             )

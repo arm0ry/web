@@ -32,7 +32,6 @@ const ResourceCard = ({ resourceId }) => {
     functionName: "approveExchange",
   });
   
-  
 
   const approve = async (id) => {
     if (isConnected) {
@@ -83,16 +82,16 @@ const ResourceCard = ({ resourceId }) => {
     });
   };
 
- 
-
   return (
     <>
       <div className={`flex flex-col bg-blue-50 justify-between rounded-lg`}>
         <div className="flex flex-col p-3">
-          <div className="flex flex-col space-y-1 m-3 text-slate-800 w-full">
-            <label className="text-slate-800 text-xl font-medium h-2/3 justify-start overflow-auto">
-              {resource.title}
-            </label>
+          
+          <div className="relative">
+            <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="w-full" />
+            <h1 class="absolute text-5xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
+          </div>
+          <div className="flex justify-between p-3 text-slate-800 w-full">
             <div className={`flex py-2 space-x-2 items-center text-xs font-light text-slate-500`}>
               <Avatar className={`h-5 w-5`} address={resource.from} />
               <span>
@@ -104,7 +103,23 @@ const ResourceCard = ({ resourceId }) => {
         
         <div>
           <div className="flex flex-col w-full pb-2">
-            <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">肯定 | Endorsements</div>
+            <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">投票 | Votes </div>
+            <div className="flex w-full h-10">
+              {Object.keys(stakedExchange).map((id) => {
+                return (
+                  <div key={id} className="flex w-1/5 pb-2">
+                    <button
+                      className="flex rounded-lg p-1 text-black hover:bg-amber-10"
+                    >
+                      <div className="flex space-x-2 items-center">
+                        <Avatar className={`h-8 w-8`} address={stakedExchange[id].proposer} />
+                      </div>
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+            {/* <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">留言 | Endorsements</div> */}
             <div className="flex w-full pb-2 h-10">
               {Object.keys(basicExchange).map((id) => {
                 return (
@@ -116,38 +131,21 @@ const ResourceCard = ({ resourceId }) => {
                     >
                       <div className={`${(basicExchange[id].approved) ? "" : "opacity-40"} flex w-24 space-x-2 items-center`}>
                         <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} />
-                        {/* <label>x {basicExchange[id].amount}</label> */}
+                        <label>{basicExchange[id].content}</label>
                       </div>
                     </button>
                   </div>
                 )
               }).filter((item) => !item.stake)}
             </div>
-            <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">投票 | Votes </div>
-            <div className="flex w-full h-10">
-              {Object.keys(stakedExchange).map((id) => {
-                return (
-                  <div key={id} className="flex w-1/5 pb-2">
-                    <button
-                      className="flex rounded-lg p-1 text-black hover:bg-amber-10"
-                    >
-                      <div className="flex space-x-2 items-center">
-                        <Avatar className={`h-8 w-8`} address={stakedExchange[id].proposer} />
-                        {/* <label>{stakedExchange[id].amount}</label> */}
-                      </div>
-                    </button>
-                  </div>
-                )
-              })}
-            </div>
           </div>
           
           
           <div className="flex flex-row w-full">
-            <button disabled={""} onClick={() => endorse()} className="w-3/4 p-3 text-black hover:bg-blue-100 bg-blue-200">
-              肯定 | Endorse
+            <button disabled={""} onClick={() => endorse()} className="w-3/4 p-3 text-black rounded-sm hover:bg-blue-100 bg-blue-200">
+              留言 | Comment
             </button>
-            <button disabled={""} onClick={() => stake()} className="w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-100">
+            <button disabled={""} onClick={() => stake()} className="w-1/4 p-3 text-black rounde-sm hover:bg-amber-100 bg-yellow-100">
               🗳️ x {calculateStaked()}
             </button>
           </div>
