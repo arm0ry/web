@@ -29,42 +29,98 @@ const StakeModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: {amount: "", moon: 0},
+    defaultValues: {amount: "", moon: 0, comments: ""},
   }); 
 
-const MoodRadio = ({ mandarin, english, value, register }) => {
-  return (
-    <>
-      <div className="flex items-center space-x-4">
-        <input
-          type="radio"
-          value={value}
-          required
-          {...register("moon")}
-        />
-        <div className="flex flex-col">
-          <label className="text-md text-gray-900 ">{mandarin}</label>
-          <label className="text-sm text-gray-600 ">{english}</label>
+  const MoodRadio = ({ mandarin, english, value, register }) => {
+    return (
+      <>
+        <div className="flex items-center space-x-4">
+          <input
+            type="radio"
+            value={value}
+            {...register("moon")}
+          />
+          <div className="flex flex-col">
+            <label className="text-md text-gray-900 ">{mandarin}</label>
+            <label className="text-sm text-gray-600 ">{english}</label>
+          </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  };
+
+  const Scoring = ({ mandarin, english, value, register }) => {
+    return (
+      <>
+        <div className="flex items-center space-x-4">
+          <input
+            type="number"
+            className="border-2 "
+            min={1}
+            max={4}
+            {...register("moon")}
+          />
+          <div className="flex flex-col">
+            <label className="text-md text-gray-900 ">{mandarin}</label>
+            <label className="text-sm text-gray-600 ">{english}</label>
+          </div>
+        </div>
+      </>
+    );
+  };
+  
+  
+  const PaymentInput = ({ payment, value, register }) => {
+    return (
+      <>
+        <div className="flex flex-col justify-start items-start">
+          <label className=" text-md font-medium text-gray-900 mb-2">質押 |  Stake：</label>
+          <div className="flex items-end">
+            <input
+              type="number"
+              placeholder="1"
+              min={0}
+              value={value}
+              required
+              className="border-2 ml-2 pl-2 rounded-sm w-1/5"
+              {...register("amount")}
+            />
+            <label className="ml-2 text-sm text-gray-600 ">/</label>
+            <label className="ml-2 text-amber-600 text-md">{(bulletin.user.credit != undefined) ? bulletin.user.credit : "-"}</label>
+            <label className="ml-2 text-sm text-gray-600 ">{payment}</label>
+          </div>
+        </div>
+      </>
+    );
+  };
   
   const Opinions = () => {
     return (
       <>
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
-            <label className="text-md font-medium text-gray-900 mb-1">牛排內容 | Type of stake：</label>
+            <label className="text-md font-medium text-gray-900 mb-1">想用什麼方式呈現這個元素？ | How might we use this element?</label>
           </div>
-          <MoodRadio mandarin="我有入坑，因為..." english={"I joined, because ..."} value={"1"} register={register} />
-          <MoodRadio mandarin="我沒有入坑，因為..." english={"I did not join, because ..."} value={"2"} register={register} />
-          <MoodRadio mandarin="我還想多了解..." english={"I want to learn more about ..."} value={"3"} register={register} />
-          <MoodRadio mandarin="如果這個坑有...會更好" english={"I'd love it more if there was more of ..."} value={"4"} register={register} />
-          <MoodRadio mandarin="我希望更多人知道這個坑，因為..." english={"More people should know about this, because ..."} value={"5"} register={register} />
+          <div className="flex justify-between">
+            <Scoring mandarin="數位創作" english={"digital artwork"} value={"1"} register={register} />
+            <Scoring mandarin="實體創作" english={"physical artwork"} value={"2"} register={register} />
+            <Scoring mandarin="T恤" english={"t-shirt"} value={"3"} register={register} />
+            <Scoring mandarin="帽子" english={"cap"} value={"4"} register={register} />
+          </div>
         </div>
       </>
+    );
+  };
+
+  const Comments = () => {
+    return (
+      <div className="flex flex-col space-y-2 mt-2 mb-5">
+        <div className="flex flex-col items-start space-y-1">
+          <label className="text-md font-medium text-gray-900 mb-1">留言 | Comments：</label>
+          <textarea className="border-2 rounded-sm w-full" {...register("comments")} />
+        </div>
+      </div>
     );
   };
 
@@ -77,21 +133,25 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
     }
     
     let option;
-    if (data.moon == 1) {
-      option = "我有入坑，因為... | I joined, because ...";
-    } else if (data.moon == 2) {
-      option = "我沒有入坑，因為... | I did not join, because ...";
-    } else if (data.moon == 3) {
-      option = "我還想多了解... | I want to learn more about ...";
-    } else if (data.moon == 4) {
-      option = "如果這個坑有...會更好 | I'd love it more if there was more of ...";
-    } else if (data.moon == 5) {
-      option = "我希望更多人知道這個坑，因為... | More people should know about this, because ...";
-    } else { }
-    
     let structuredData = ethers.constants.HashZero;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = abiCoder.encode(["uint256", "string"], [data.moon, option]);
+
+    if (data.amount > 0) {
+      if (data.moon == 1) {
+        option = "我有入坑，因為... | I joined, because ...";
+      } else if (data.moon == 2) {
+        option = "我沒有入坑，因為... | I did not join, because ...";
+      } else if (data.moon == 3) {
+        option = "我還想多了解... | I want to learn more about ...";
+      } else if (data.moon == 4) {
+        option = "如果這個坑有...會更好 | I'd love it more if there was more of ...";
+      } else if (data.moon == 5) {
+        option = "我希望更多人知道這個坑，因為... | More people should know about this, because ...";
+      } else { }
+
+      structuredData = abiCoder.encode(["uint256", "string"], [data.moon, option]);
+    }
+    
 
     if (isConnected) {
       try {
@@ -99,12 +159,11 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
           approved: true,
           from: address,
           resource: ethers.constants.HashZero,
-          currency: "0x000000000000000000000000000000000000bEEF",
+          currency: (data.amount > 0) ? "0x000000000000000000000000000000000000bEEF" : ethers.constants.AddressZero,
           amount: ethers.utils.parseEther(data.amount),
-          content: "TEST",
+          content: data.comments,
           data: structuredData
         }
-        console.log(modalPayload)
         const tx = exchange({ args: [modalPayload.content.type, modalPayload.content.subjectId, t] });
           
         pushAlert({
@@ -124,47 +183,24 @@ const MoodRadio = ({ mandarin, english, value, register }) => {
     }
   };
 
-  const PaymentInput = ({ payment, value, register }) => {
-    return (
-      <>
-        <div className="flex flex-col justify-start items-start">
-          <label className=" text-md font-medium text-gray-900 mb-2">牛排份量 | Size of stake：</label>
-          <div className="flex items-end">
-            <input
-              type="number"
-              placeholder="1"
-              min={1}
-              value={value}
-              required
-              className="ml-2 pl-2 rounded-sm w-1/5"
-              {...register("amount")}
-            />
-            <label className="ml-2 text-sm text-gray-600 ">/</label>
-            <label className="ml-2 text-amber-600 text-md">{(bulletin.user.credit != undefined) ? bulletin.user.credit : "-"}</label>
-            <label className="ml-2 text-sm text-gray-600 ">{payment}</label>
-          </div>
-        </div>
-      </>
-    );
-  };
-
   const Content = () => {
     return (
       <>
         <div className="flex flex-col space-y-2 mt-2 mb-5">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              送一份想法牛排 | Stake and voice your opinion 🥩
+              留言或質押你的信用點數 | Share comments or stake to coordinate 🥩
             </label>
             <CloseModalButton />
           </div>
           <div className="flex flex-col space-y-6">
             <div className="flex flex-col space-y-1 justify-center items-start rounded-md">
-              <label className="text-md font-normal text-gray-900">好比以太坊運用質押來提高本身的安全性與永續性，地方社群也可以質押信用貨幣，互挺社群內的資產或是給予回饋，建立社群互惠文化與資產，甚至作為未來申請補助的根據</label>
-              <label className="text-xs font-normal text-gray-900">Stake with crΞdit to communicate preferences, contextualize communications, distribute rewards, and potentially secure matched funding from local businesses or authorities  </label>
+              <label className="text-md font-normal text-gray-900">你可以選擇單純留言或是在這季質押你的信用點數，表達你對於呈現這個元素的想法</label>
+              <label className="text-xs font-normal text-gray-900">Leave a comment or stake with crΞdit to communicate your preference for a production direction for this element  </label>
             </div>
             <div className="flex flex-col space-y-4">
-              <PaymentInput payment="🐚" register={register}/>
+              <Comments />
+              <PaymentInput payment="信用點數 ｜ crΞdit" register={register} />
               <Opinions />
             </div>
           </div>

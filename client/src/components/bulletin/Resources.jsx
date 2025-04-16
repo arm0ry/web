@@ -59,9 +59,9 @@ const Resources = () => {
             </div>
             : <></>}
           
-          <button onClick={addResource} className="flex w-full h-64 items-center justify-center rounded-lg border-4 border-dashed border-gray-200">
+          {/* <button onClick={addResource} className="flex w-full h-64 items-center justify-center rounded-lg border-4 border-dashed border-gray-200">
             <LegoBrickIcon className="h-12 w-12 text-gray-300" />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

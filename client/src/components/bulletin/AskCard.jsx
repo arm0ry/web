@@ -104,7 +104,7 @@ const AskCard = ({ askId }) => {
       return (
         <div className="relative">
           <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="w-32" />
-          <h1 class="absolute text-3xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
+          <h1 class="absolute text-2xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
       );
     } else if (parseInt(askId) == 2) { 

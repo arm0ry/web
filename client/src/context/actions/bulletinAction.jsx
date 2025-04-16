@@ -133,7 +133,6 @@ export const loadResources = async () => {
           collection: 0
         }
 
-        console.log(_resources)
 
         const _exchangeId = await Bulletin.exchangeIdsPerResource(id);
         const exchangeId = parseInt(_exchangeId._hex);
