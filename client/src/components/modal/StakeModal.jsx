@@ -23,6 +23,13 @@ const StakeModal = ({ modalPayload }) => {
   const { bulletin } = useGlobalContext();
   const { address, isConnected } = useAccount();
 
+  const utility = {
+    digital: { tag: "digital", mandarin: "數位創作", english: "digital work" },
+    physical: { tag: "physical", mandarin: "實體創作", english: "physical work" },
+    shirt: { tag: "shirt", mandarin: "T恤", english: "t-shirt" },
+    cap: {tag: "cap", mandarin: "帽子", english: "cap"},
+  }
+
   const {
     register,
     handleSubmit,
@@ -50,7 +57,7 @@ const StakeModal = ({ modalPayload }) => {
     );
   };
 
-  const Scoring = ({ mandarin, english, value, register }) => {
+  const Scoring = ({ utility, value, register }) => {
     return (
       <>
         <div className="flex items-center space-x-4">
@@ -59,11 +66,12 @@ const StakeModal = ({ modalPayload }) => {
             className="border-2 "
             min={1}
             max={4}
-            {...register("moon")}
+          value={value}
+            {...register(utility.tag)}
           />
           <div className="flex flex-col">
-            <label className="text-md text-gray-900 ">{mandarin}</label>
-            <label className="text-sm text-gray-600 ">{english}</label>
+            <label className="text-md text-gray-900 ">{utility.mandarin}</label>
+            <label className="text-sm text-gray-600 ">{utility.english}</label>
           </div>
         </div>
       </>
@@ -83,7 +91,7 @@ const StakeModal = ({ modalPayload }) => {
               min={0}
               value={value}
               required
-              className="border-2 ml-2 pl-2 rounded-sm w-1/5"
+              className="border-2 pl-2 rounded-sm w-1/5"
               {...register("amount")}
             />
             <label className="ml-2 text-sm text-gray-600 ">/</label>
@@ -98,15 +106,15 @@ const StakeModal = ({ modalPayload }) => {
   const Opinions = () => {
     return (
       <>
-        <div className="flex flex-col space-y-2 mt-2 mb-5">
+        <div className="flex flex-col space-y-3 pt-4">
           <div className="flex items-center">
-            <label className="text-md font-medium text-gray-900 mb-1">想用什麼方式呈現這個元素？ | How might we use this element?</label>
+            <label className="text-md font-medium text-gray-900">請以 1-4 排序以下設計方向 | Rank product direction from 1-4 </label>
           </div>
-          <div className="flex justify-between">
-            <Scoring mandarin="數位創作" english={"digital artwork"} value={"1"} register={register} />
-            <Scoring mandarin="實體創作" english={"physical artwork"} value={"2"} register={register} />
-            <Scoring mandarin="T恤" english={"t-shirt"} value={"3"} register={register} />
-            <Scoring mandarin="帽子" english={"cap"} value={"4"} register={register} />
+          <div className="grid grid-cols-2 space-y-1 justify-between">
+            <Scoring utility={utility.digital} register={register} />
+            <Scoring utility={utility.physical} register={register} />
+            <Scoring utility={utility.shirt} register={register} />
+            <Scoring utility={utility.cap} register={register} />
           </div>
         </div>
       </>
@@ -131,25 +139,39 @@ const StakeModal = ({ modalPayload }) => {
       setError("信用貨幣不足 | Insufficient crΞdit");
       return;
     }
+
+    if (parseInt(data.digital) + parseInt(data.physical) + parseInt(data.shirt) + parseInt(data.cap) > 10) {
+      setError("請重新排序 | Insufficient crΞdit");
+      return;
+    }
     
-    let option;
+    let params = [];
+    let values = [];
     let structuredData = ethers.constants.HashZero;
     const abiCoder = ethers.utils.defaultAbiCoder;
 
     if (data.amount > 0) {
-      if (data.moon == 1) {
-        option = "我有入坑，因為... | I joined, because ...";
-      } else if (data.moon == 2) {
-        option = "我沒有入坑，因為... | I did not join, because ...";
-      } else if (data.moon == 3) {
-        option = "我還想多了解... | I want to learn more about ...";
-      } else if (data.moon == 4) {
-        option = "如果這個坑有...會更好 | I'd love it more if there was more of ...";
-      } else if (data.moon == 5) {
-        option = "我希望更多人知道這個坑，因為... | More people should know about this, because ...";
-      } else { }
-
-      structuredData = abiCoder.encode(["uint256", "string"], [data.moon, option]);
+      params.push("string");
+      params.push("uint256");
+      values.push(`${utility.digital.mandarin} | ${utility.digital.english}`);
+      values.push(data.digital);
+      
+      params.push("string");
+      params.push("uint256");
+      values.push(`${utility.physical.mandarin} | ${utility.physical.english}`);
+      values.push(data.physical);
+      
+      params.push("string");
+      params.push("uint256");
+      values.push(`${utility.shirt.mandarin} | ${utility.shirt.english}`);
+      values.push(data.shirt);
+      
+      params.push("string");
+      params.push("uint256");
+      values.push(`${utility.cap.mandarin} | ${utility.cap.english}`);
+      values.push(data.cap);
+     
+      structuredData = abiCoder.encode(params, values);
     }
     
 
@@ -186,19 +208,20 @@ const StakeModal = ({ modalPayload }) => {
   const Content = () => {
     return (
       <>
-        <div className="flex flex-col space-y-2 mt-2 mb-5">
+        <div className="flex flex-col space-y-2 mt-2">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              留言或質押你的信用點數 | Share comments or stake to coordinate 🥩
+              留言與質押 | Comment or stake 🥩
             </label>
             <CloseModalButton />
           </div>
-          <div className="flex flex-col space-y-6">
+          <div className="flex flex-col space-y-2">
             <div className="flex flex-col space-y-1 justify-center items-start rounded-md">
-              <label className="text-md font-normal text-gray-900">你可以選擇單純留言或是在這季質押你的信用點數，表達你對於呈現這個元素的想法</label>
+              <label className="text-md font-normal text-gray-900">留言或是質押信用點數，表達你對於呈現這個元素的想法</label>
               <label className="text-xs font-normal text-gray-900">Leave a comment or stake with crΞdit to communicate your preference for a production direction for this element  </label>
             </div>
-            <div className="flex flex-col space-y-4">
+            
+            <div className="flex flex-col space-y-2">
               <Comments />
               <PaymentInput payment="信用點數 ｜ crΞdit" register={register} />
               <Opinions />
@@ -212,7 +235,7 @@ const StakeModal = ({ modalPayload }) => {
 
   return (
     <>
-      <div div className="flex flex-col space-y-2 px-6 py-4 bg-slate-100" >
+      <div div className="flex flex-col px-6 py-4 bg-slate-100 rounded-sm" >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Content />
           

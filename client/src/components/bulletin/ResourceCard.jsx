@@ -87,14 +87,14 @@ const ResourceCard = ({ resourceId }) => {
   return (
     <>
       <div className={`flex flex-col bg-blue-50 justify-between rounded-lg`}>
-        <div className="flex flex-col p-3">
+        <div className="flex flex-col px-3 pt-3">
           
-          <div className="relative">
-            <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="w-full" />
-            <h1 class="absolute text-5xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
+          <div className="relative w-full h-full">
+            <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="rounded-sm" />
+            <h1 class="absolute text-3xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
           </div>
-          <div className="flex justify-between p-3 text-slate-800 w-full">
-            <div className={`flex py-2 space-x-2 items-center text-xs font-light text-slate-500`}>
+          <div className="flex justify-end p-2 text-slate-800">
+            <div className={`flex pt-2 space-x-2 items-center text-xs font-light text-slate-500`}>
               <Avatar className={`h-5 w-5`} address={resource.from} />
               <span>
                 {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? "Arm0ry 機器人" : shortenAddress(resource.from)}
@@ -103,7 +103,7 @@ const ResourceCard = ({ resourceId }) => {
           </div>
         </div>
         
-        <div className="w-full ">
+        <div className="">
           <div className="flex flex-col pb-2">
             <div className="flex flex-col p-2 h-20 overflow-scroll">
               {Object.keys(exchanges).map((id) => {
@@ -114,7 +114,7 @@ const ResourceCard = ({ resourceId }) => {
                       onClick={() => approve(exchanges[id].id)}
                       className="flex rounded-lg p-1 text-black hover:bg-amber-10"
                     >
-                      <div className={`${(exchanges[id].stake) ? "" : "opacity-40"} flex space-x-2 items-center`}>
+                      <div className={`${(exchanges[id].stake) ? "" : "opacity-40"} flex space-x-2 text-start items-center`}>
                         <Avatar className={`h-8 w-8`} address={exchanges[id].proposer} />
                         <label className="text-sm">{exchanges[id].content}</label>
                       </div>
@@ -127,7 +127,7 @@ const ResourceCard = ({ resourceId }) => {
           
           
           <div className="flex flex-row w-full">
-            <button disabled={""} onClick={() => stake()} className="w-full p-3 text-black rounded-sm hover:bg-blue-100 bg-blue-200">
+            <button disabled={""} onClick={() => stake()} className="w-full py-2 text-black rounded-sm hover:bg-blue-100 bg-blue-200">
               互動 | Engage
             </button>
           </div>

@@ -23,7 +23,7 @@ const Resources = () => {
         元素 ｜ Elements
       </label>
       
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-2 gap-5">
         {Object.keys(bulletin.resources).map((id) => {
           return <ResourceCard key={id} resourceId={id} />;
         })}
