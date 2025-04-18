@@ -68,7 +68,7 @@ const Bulletin = () => {
                 Recommend new elements to earn crΞdits. Stake crΞdits to communicate preferences.
               </label>
               <label className=" block text-md font-normal text-gray-900">
-                Cosmo-local coordination open until July 13th, 2025.
+                Cosmo-local coordination is open until July 13th, 2025.
               </label>
             </div>
           </div>

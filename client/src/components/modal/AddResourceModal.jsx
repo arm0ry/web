@@ -36,7 +36,7 @@ const AddResourceModal = ({ modalPayload }) => {
       try {
         const tx = proposeTrade({
           args: [
-            0, modalPayload.content.askId,
+            0, modalPayload.content.subjectId,
             {
               approved: true,
               from: address,

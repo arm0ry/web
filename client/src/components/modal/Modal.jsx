@@ -26,6 +26,7 @@ import TallyModal from "./TallyModal";
 import EngageModal from "./EngageModal";
 import AddResourceModal from "./AddResourceModal";
 import StakeModal from "./StakeModal";
+import CommentModal from "./CommentModal";
 
 
 const sizeVariants = {
@@ -149,6 +150,12 @@ const Modal = ({ children }) => {
         return (
           <>
             <StakeModal modalPayload={modalPayload} />
+          </>
+        );
+      case 14:
+        return (
+          <>
+            <CommentModal modalPayload={modalPayload} />
           </>
         );
       case -1:

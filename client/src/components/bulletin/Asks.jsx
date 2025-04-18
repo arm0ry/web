@@ -13,9 +13,9 @@ const Asks = () => {
         {/* <CurrencyBalance /> */}
       </div>
 
-      <div className="grid grid-cols-1 scroll-smooth gap-5 px-4 md:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-2">
+      <div className="grid grid-cols-1 scroll-smooth gap-5 px-4 md:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2">
         {Object.keys(bulletin.asks).map((id) => {
-          return <AskCard key={id} askId={id} />;
+          return <AskCard key={id} subjectId={id} />;
         })}
         {(Object.keys(bulletin.asks).length == 0) ?
           <div className="flex flex-col rounded-lg justify-between border border-gray-200 bg-white p-5 shadow">
@@ -28,11 +28,11 @@ const Asks = () => {
                   Loading...
                 </p>
               </div>
-              <div className="flex items-start justify-end rounded-md">
+              {/* <div className="flex items-start justify-end rounded-md">
                 <button className="flex items-center justify-center rounded-full p-3 text-black hover:bg-amber-100 bg-yellow-100">
-                  🥩
+                  🗳️
                 </button>
-              </div>
+              </div> */}
             </div>
           </div >
           :

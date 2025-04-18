@@ -23,7 +23,7 @@ const Resources = () => {
         元素 ｜ Elements
       </label>
       
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-5">
         {Object.keys(bulletin.resources).map((id) => {
           return <ResourceCard key={id} resourceId={id} />;
         })}
@@ -38,23 +38,14 @@ const Resources = () => {
                   </label>
                   <div className={`flex py-2 space-x-2 items-center text-xs font-light text-slate-500`}>
                     <Avatar className={`h-5 w-5`} address={0} />
-                    <span>
-                      🤖
-                    </span>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">肯定 | Endorsements</div>
-                <div className="flex justify-start text-sm items-center pl-2 py-2 text-gray-600">投票 | Votes</div>
-              </div>
+            
               <div className="flex flex-row w-full">
-                <button disabled={""} className="w-3/4 p-3 text-black hover:bg-blue-100 bg-blue-200">
-                  肯定 | Endorse
-                </button>
-                <button disabled={""} className="w-1/4 p-3 text-black hover:bg-amber-100 bg-yellow-100">
-                  🥩
-                </button>
+               <button disabled={""} onClick={() => stake()} className="w-full py-2 text-black rounded-sm hover:bg-blue-100 bg-blue-200">
+              互動 | Engage
+            </button>
               </div>
             </div>
             : <></>}
