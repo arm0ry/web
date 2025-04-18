@@ -95,7 +95,7 @@ const AskCard = ({ subjectId }) => {
       return (
         <div className="relative h-full">
           <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="w-32 h-full" />
-          <h1 class="absolute text-2xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
+          <h1 className="absolute text-2xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
       );
     } else if (parseInt(subjectId) == 2) { 
@@ -110,12 +110,12 @@ const AskCard = ({ subjectId }) => {
         <div className="flex flex-col space-y-3 max-h-52">
           <div className="flex space-x-2  items-start">
             {parseInt(_data[0]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[1]}</label> : <label className="h-10 w-12 block px-2 py-1 "></label>}
-            {parseInt(_data[2]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[3]}</label> : ""}
-            {parseInt(_data[4]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[5]}</label> : ""}
+            {parseInt(_data[2]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[3]}</label> : <label className="h-10 w-12 block px-2 py-1 "></label>}
+            {parseInt(_data[4]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[5]}</label> : <label className="h-10 w-12 block px-2 py-1 "></label>}
             {parseInt(_data[6]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[7]}</label> : ""}
             {parseInt(_data[8]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[9]}</label> : ""}
           </div>
-          <div className="flex items-start text-start overflow-auto">{basicExchange[data.id].content}</div>
+          <div className="flex items-start text-start text-sm overflow-auto">{basicExchange[data.id].content}</div>
         </div>
       );
     } else {}

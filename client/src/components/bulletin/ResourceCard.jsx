@@ -64,7 +64,7 @@ const ResourceCard = ({ resourceId }) => {
       }
     }
   };
-  
+
   const stake = async () => {
     showModal({
       type: 13,
@@ -80,7 +80,7 @@ const ResourceCard = ({ resourceId }) => {
           
           <div className="relative w-full h-full">
             <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="rounded-sm" />
-            <h1 class="absolute text-3xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
+            <h1 className="absolute text-3xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
           </div>
           <div className="flex justify-end p-2 text-slate-800">
             <div className={`flex pt-2 space-x-2 items-center text-sm font-light text-slate-500`}>

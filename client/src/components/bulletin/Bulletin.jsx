@@ -54,22 +54,17 @@ const Bulletin = () => {
           <div className="flex flex-row space-x-10 items-center">
             <div className="">
               <label className="pl-4 py-5 text-md text-xl text-gray-400">
-                ⾐
+                第零季
               </label>
             </div>
             <div className="space-y-2">
+              <label className=" block text-md font-normal text-gray-900">Self-finance a <b>headless</b> brand / gallery / community garden / community</label>
+              <label className=" block text-md font-normal text-gray-900">Share to earn, earn to stake, stake to communicate and coordinate</label>
               <label className=" block text-md font-normal text-gray-900">
-                A <b>headless</b> fashion house. 
-                </label>
-              <label className=" block text-md font-normal text-gray-900">
-                No Telegram, no Discord. Just a prototype on <a target="_blank" href="https://sepolia.etherscan.io/address/0x54774F36d01afE8403475fE4d5635ED4BB124A9E" className="underline">Sepolia Testnet</a>.
+                Prototype is <b>OPEN</b> on <a target="_blank" href="https://sepolia.etherscan.io/address/0x54774F36d01afE8403475fE4d5635ED4BB124A9E" className="underline">Sepolia Testnet</a> for cosmo-local experimentation
               </label>
-              <label className=" block text-md font-normal text-gray-900">
-                Recommend new elements to earn crΞdits. Stake crΞdits to communicate preferences.
-              </label>
-              <label className=" block text-md font-normal text-gray-900">
-                Cosmo-local coordination is open until July 13th, 2025.
-              </label>
+              <label className=" block text-md font-normal text-gray-900">Staking for Season Zer0 ends on day of <a target="_blank" href="https://g0v.hackmd.io/@jothon/g0v-hackath68n/" className="underline">g0v Hackath68n</a> (July 13th, 2025)</label>
+              <label className=" block text-md font-normal text-gray-900">New season begins on day of <a target="_blank" href="https://g0v.hackmd.io/@jothon/g0v-hackath69n/" className="underline">g0v Hackath69n</a> (September, 2025)</label>
             </div>
           </div>
         </div>
