@@ -54,7 +54,7 @@ export const BulletinFactory = {
 };
 
 export const mBulletin = {
-  address: "0x54774F36d01afE8403475fE4d5635ED4BB124A9E",
+  address: "0x525019878fe91a326062F3CF2AF4B72979b0F386",
   abi: M_BULLETIN_ABI,
 };
 

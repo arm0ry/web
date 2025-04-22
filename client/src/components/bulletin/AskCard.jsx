@@ -95,7 +95,7 @@ const AskCard = ({ subjectId }) => {
       return (
         <div className="relative h-full">
           <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="w-32 h-full" />
-          <h1 className="absolute text-2xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
+          <h1 className="absolute text-lg text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
       );
     } else if (parseInt(subjectId) == 2) { 
@@ -141,9 +141,12 @@ const AskCard = ({ subjectId }) => {
               <button disabled key={id} className="flex bg-slate-200 rounded-lg p-3">
                 <div className={`flex flex-col justify-between space-y-2 ${(basicExchange[id].approved) ? "" : "opacity-50"}`}>
                   {(basicExchange[id].data == 0) ? <div></div> : <DisplayDataByAsk id={id} />}
-                  <div className="flex items-center space-x-2">
-                    <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} />
-                    <label className="text-xs text-blue-700">{(basicExchange[id].credit_limit == 0) ? "路人 | Visitor" : "參與者 | Community"}</label>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-2">
+                      <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} />
+                      <label className="text-xs text-blue-700">{(basicExchange[id].credit_limit == 0) ? "路人 | Visitor" : "參與者 | Community"}</label>
+                    </div>
+                      {(basicExchange[id].approved) ? <label className="border-4 rounded-md border-green-500 bg-green-500 px-2 text-white font-semibold text-sm">+10</label> : ""}
                   </div>
                 </div>
               </button>
@@ -161,10 +164,9 @@ const AskCard = ({ subjectId }) => {
        
         <div className="flex w-full justify-between my-2">
           <div className={`flex pt-2 space-x-2 items-center text-sm font-light text-slate-500`}>
-            主辦｜Host：
             <Avatar className={`h-5 w-5`} address={ask.from} />
             <span>
-              {(ask.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${ask.from}`} target="_blank" rel="noreferrer" className="underline">Bot</a> : shortenAddress(ask.from)}
+              {(ask.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${ask.from}`} target="_blank" rel="noreferrer" className="underline">Arm0ry</a> : shortenAddress(ask.from)}
             </span>
           </div>
           <div className="flex w-1/3 h-full space-x-1 text-gray-700 font-medium items-baseline justify-end">

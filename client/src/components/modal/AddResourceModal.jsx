@@ -30,7 +30,7 @@ const AddResourceModal = ({ modalPayload }) => {
   const onSubmit = async (data) => {
     let structuredData = ethers.constants.HashZero;
     const abiCoder = ethers.utils.defaultAbiCoder;
-    structuredData = abiCoder.encode(["string", "string"], [data.title, data.url]);
+    structuredData = abiCoder.encode(["string", "string"], [data.title, "https://ipfs.io/ipfs/bafkreiacht7yytvsc6y3alu7hnnqy5agih7psx2755kntnmjxtnsuug3fy"]);
     
     if (isConnected) {
       try {
@@ -81,10 +81,10 @@ const AddResourceModal = ({ modalPayload }) => {
             <label className="text-sm font-normal text-gray-900">元素名稱 ｜ Title of Element：</label> 
             <input type="text" className="border-2 rounded-md w-3/5" {...register("title")}/>
           </div>
-           <div className="flex items-center justify-between space-x-2 py-2">
+           {/* <div className="flex items-center justify-between space-x-2 py-2">
             <label className="text-sm font-normal text-gray-900">元素連結｜ Element URL：</label> 
             <input type="text" className="border-2 rounded-md w-3/5" {...register("url")}/>
-          </div>
+          </div> */}
         </div>
       </>
     );

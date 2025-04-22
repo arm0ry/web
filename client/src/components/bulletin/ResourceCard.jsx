@@ -80,13 +80,13 @@ const ResourceCard = ({ resourceId }) => {
           
           <div className="relative w-full h-full">
             <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="rounded-sm" />
-            <h1 className="absolute text-3xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
+            <h1 className="absolute text-2xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
           </div>
           <div className="flex justify-end p-2 text-slate-800">
             <div className={`flex pt-2 space-x-2 items-center text-sm font-light text-slate-500`}>
               <Avatar className={`h-5 w-5`} address={resource.from} />
               <span>
-                {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${resource.from}`} target="_blank" rel="noreferrer" className="underline">Bot</a> : shortenAddress(resource.from)}
+                {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${resource.from}`} target="_blank" rel="noreferrer" className="underline">Arm0ry</a> : shortenAddress(resource.from)}
               </span>
             </div>
           </div>
