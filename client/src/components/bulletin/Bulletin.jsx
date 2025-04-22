@@ -36,7 +36,7 @@ const Bulletin = () => {
                 <label className="font-semibold text-gray-500">無頭牌｜Headless Brand</label>
               </Link>
               <label className=" block text-xs text-gray-400">
-                share to earn, earn to stake, stake to coordinate (<a target="_blank" href="https://sepolia.etherscan.io/address/0x54774F36d01afE8403475fE4d5635ED4BB124A9E" className="underline">Sepolia Testnet</a>)
+                share to earn, earn to stake, stake to coordinate (<a target="_blank" href="https://sepolia.etherscan.io/address/0x525019878fe91a326062F3CF2AF4B72979b0F386" className="underline">Sepolia Testnet</a>)
               </label>
             </div>
             <div className="flex items-center">

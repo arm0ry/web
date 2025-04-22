@@ -36,7 +36,7 @@ const StakeModal = ({ modalPayload }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: {amount: "", moon: 0, comments: ""},
+    defaultValues: {amount: 0, comments: ""},
   }); 
 
   const MoodRadio = ({ mandarin, english, value, register }) => {
@@ -87,10 +87,9 @@ const StakeModal = ({ modalPayload }) => {
           <div className="flex items-end">
             <input
               type="number"
-              placeholder="1"
+              placeholder="0"
               min={0}
               value={value}
-              required
               className="border-2 pl-2 rounded-sm w-1/5"
               {...register("amount")}
             />
@@ -182,7 +181,7 @@ const StakeModal = ({ modalPayload }) => {
           from: address,
           resource: ethers.constants.HashZero,
           currency: (data.amount > 0) ? "0x000000000000000000000000000000000000bEEF" : ethers.constants.AddressZero,
-          amount: ethers.utils.parseEther(data.amount),
+          amount: data.amount,
           content: data.comments,
           data: structuredData
         }
@@ -211,13 +210,13 @@ const StakeModal = ({ modalPayload }) => {
         <div className="flex flex-col space-y-2 mt-2">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              留言與質押 | Comment or stake 🥩
+              留言或質押 | Comment or stake 🥩
             </label>
             <CloseModalButton />
           </div>
           <div className="flex flex-col space-y-2">
             <div className="flex flex-col space-y-1 justify-center items-start rounded-md">
-              <label className="text-md font-normal text-gray-900">留言或是質押信用點數，表達你對於呈現這個元素的想法</label>
+              <label className="text-md font-normal text-gray-900">留言或是質押信用點數，表達你對於這個元素的想法</label>
               <label className="text-xs font-normal text-gray-900">Leave a comment or stake with crΞdit to communicate your preference for a production direction for this element  </label>
             </div>
             

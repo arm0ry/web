@@ -107,15 +107,15 @@ const AskCard = ({ subjectId }) => {
       }
 
       return (
-        <div className="flex flex-col space-y-3 max-h-52">
-          <div className="flex space-x-2  items-start">
-            {parseInt(_data[0]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[1]}</label> : <label className="h-10 w-12 block px-2 py-1 "></label>}
-            {parseInt(_data[2]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[3]}</label> : <label className="h-10 w-12 block px-2 py-1 "></label>}
-            {parseInt(_data[4]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[5]}</label> : <label className="h-10 w-12 block px-2 py-1 "></label>}
-            {parseInt(_data[6]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[7]}</label> : ""}
-            {parseInt(_data[8]._hex) > 0 ? <label className="text-sm border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1">{_data[9]}</label> : ""}
+        <div className="flex flex-col space-y-3 max-h-52 w-full">
+          <div className="flex space-x-2  items-start overflow-auto">
+            {parseInt(_data[0]._hex) > 0 ? <label className="text-xs border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1 min-w-fit">{_data[1]}</label> : ""}
+            {parseInt(_data[2]._hex) > 0 ? <label className="text-xs border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1 min-w-fit">{_data[3]}</label> : ""}
+            {parseInt(_data[4]._hex) > 0 ? <label className="text-xs border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1 min-w-fit">{_data[5]}</label> : ""}
+            {parseInt(_data[6]._hex) > 0 ? <label className="text-xs border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1 min-w-fit">{_data[7]}</label> : ""}
+            {parseInt(_data[8]._hex) > 0 ? <label className="text-xs border-2 border-blue-200 bg-blue-200 rounded-md px-2 py-1 min-w-fit">{_data[9]}</label> : ""}
           </div>
-          <div className="flex items-start text-start text-sm overflow-auto">{basicExchange[data.id].content}</div>
+          <div className="flex items-start text-start text-sm overflow-y-scroll h-40  w-44">{basicExchange[data.id].content}</div>
         </div>
       );
     } else {}
@@ -146,7 +146,7 @@ const AskCard = ({ subjectId }) => {
                       <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} />
                       <label className="text-xs text-blue-700">{(basicExchange[id].credit_limit == 0) ? "路人 | Visitor" : "參與者 | Community"}</label>
                     </div>
-                      {(basicExchange[id].approved) ? <label className="border-4 rounded-md border-green-500 bg-green-500 px-2 text-white font-semibold text-sm">+10</label> : ""}
+                      {(basicExchange[id].approved) ? <label className="border-4 rounded-md border-green-500 bg-green-500 px-1 text-white font-semibold text-xs">✓</label> : ""}
                   </div>
                 </div>
               </button>
