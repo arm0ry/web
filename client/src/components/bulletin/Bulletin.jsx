@@ -18,8 +18,6 @@ const Bulletin = () => {
   const { address, isConnected } = useAccount();
   const { bulletin } = useGlobalContext();
 
-  console.log(bulletin.user, isConnected)
-
   useEffect(() => {
     const load = async () => {
       await loadAsks();

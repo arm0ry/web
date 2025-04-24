@@ -26,6 +26,47 @@ const ResourceCard = ({ resourceId }) => {
     }
     return staked;
   };
+
+  const calculateStakingOnlyKeepPerc = () => {
+    const abiCoder = ethers.utils.defaultAbiCoder;
+    let data;
+    let count = 0;
+
+    for (let i = 0; i < stakedExchange.length; i++) {
+      try {
+        data = abiCoder.decode(["string", "string"], stakedExchange[i].data);
+        if (data[1] == "keep") count++;
+        console.log(count)
+      } catch (e) {
+        console.log(e)
+        continue;
+      }
+    }
+
+    return (stakedExchange.length == 0) ? 0 : parseInt(count / stakedExchange.length * 100);
+
+  };
+
+  const calculateTotalKeepPerc = () => {
+    const abiCoder = ethers.utils.defaultAbiCoder;
+    let data;
+    let count = 0;
+
+    for (let i = 0; i < stakedExchange.length; i++) {
+      try {
+        data = abiCoder.decode(["string", "string"], stakedExchange[i].data);
+        if (data[1] == "keep") count++;
+        console.log(count)
+      } catch (e) {
+        console.log(e)
+        continue;
+      }
+    }
+
+    return parseInt(count / exchanges.length * 100);
+
+  };
+
   
   const { write: approveExchange, state: approveState } = useWriteContract({
     ...mBulletin,
@@ -78,17 +119,18 @@ const ResourceCard = ({ resourceId }) => {
       <div className={`flex flex-col bg-blue-50 justify-between rounded-lg`}>
         <div className="flex flex-col px-3 pt-3">
           
-          <div className="relative w-full h-full">
-            <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="rounded-sm" />
-            <h1 className="absolute text-2xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
-          </div>
-          <div className="flex justify-end p-2 text-slate-800">
-            <div className={`flex pt-2 space-x-2 items-center text-sm font-light text-slate-500`}>
+          <div className="flex justify-between items-center pb-3 text-slate-800">
+            <div className={`flex space-x-2 text-sm font-light text-slate-500`}>
               <Avatar className={`h-5 w-5`} address={resource.from} />
               <span>
                 {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${resource.from}`} target="_blank" rel="noreferrer" className="underline">Arm0ry</a> : shortenAddress(resource.from)}
               </span>
             </div>
+            <div>{calculateTotalKeepPerc()} % / {calculateStakingOnlyKeepPerc()}% keep</div>
+          </div>
+          <div className="relative w-full h-full">
+            <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="rounded-sm" />
+            <h1 className="absolute text-2xl text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{resource.title}</h1>
           </div>
         </div>
         
@@ -105,6 +147,7 @@ const ResourceCard = ({ resourceId }) => {
                     >
                       <div className={`${(exchanges[id].stake) ? "" : "opacity-40"} flex space-x-2 text-start items-center`}>
                         <Avatar className={`h-8 w-8`} address={exchanges[id].proposer} />
+                        <label className="text-red-500">{(exchanges[id].stake) ? `${exchanges[id].amount}`: 0}</label>
                         <label className="text-sm">{exchanges[id].content}</label>
                       </div>
                     </button>
