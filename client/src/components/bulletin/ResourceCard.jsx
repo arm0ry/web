@@ -126,7 +126,7 @@ const ResourceCard = ({ resourceId }) => {
                 {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${resource.from}`} target="_blank" rel="noreferrer" className="underline">Arm0ry</a> : shortenAddress(resource.from)}
               </span>
             </div>
-            <div>{calculateTotalKeepPerc()} % / {calculateStakingOnlyKeepPerc()}% keep</div>
+            <div>{calculateStakingOnlyKeepPerc()}% keep</div>
           </div>
           <div className="relative w-full h-full">
             <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="rounded-sm" />
