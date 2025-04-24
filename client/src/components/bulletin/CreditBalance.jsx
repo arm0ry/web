@@ -3,21 +3,22 @@ import { useGlobalContext } from "@context/store";
 
 const CreditBalance = () => {
   const { bulletin } = useGlobalContext();
+  const user = bulletin.user;
   return (
-    <div className="flex flex-col px-2 rounded-sm bg-slate-100 justify-center items-end ">
-      <div className="flex items-baseline space-x-1">
-        <label className="text-xl font-semibold text-amber-500">
-          {(bulletin.user.credit != undefined) ? bulletin.user.credit  : "..."}
+    <div className="flex flex-col px-2 rounded-sm justify-center items-end">
+      <div className="flex items-baseline space-x-2">
+        <label className="pl-2 text-2xl font-semibold text-amber-500">
+          {(user.credit != undefined) ? user.credit  : "..."}
         </label>
-        <label className="text-sm font-normal text-amber-500">
+        <label className="text-md font-light text-amber-500">
           /
         </label>
-        <label className="text-sm font-normal text-amber-500">
-          {(bulletin.user.limit != undefined) ? bulletin.user.limit  : "..."}
+        <label className="text-xl font-normal text-amber-500">
+          {(user.limit != undefined) ? user.limit  : "..."}
         </label>
       </div>
       <div className="flex">
-        <label className="text-xs text-gray-400">credits</label>
+        <label className="text-xs text-gray-400">credit earned / line</label>
       </div>
     </div>
   );

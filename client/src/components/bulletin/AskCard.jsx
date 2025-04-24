@@ -93,8 +93,8 @@ const AskCard = ({ subjectId }) => {
       }
 
       return (
-        <div className="relative h-full">
-          <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="w-32 h-full" />
+        <div className="relative h-full w-32">
+          <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="h-full" />
           <h1 className="absolute text-lg text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
       );
@@ -162,16 +162,16 @@ const AskCard = ({ subjectId }) => {
           </div>
         </div>
        
-        <div className="flex w-full justify-between my-2">
-          <div className={`flex pt-2 space-x-2 items-center text-sm font-light text-slate-500`}>
+        <div className="flex w-full justify-between py-2">
+          <div className={`flex space-x-2 text-sm font-light items-center text-slate-500`}>
             <Avatar className={`h-5 w-5`} address={ask.from} />
             <span>
               {(ask.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${ask.from}`} target="_blank" rel="noreferrer" className="underline">Arm0ry</a> : shortenAddress(ask.from)}
             </span>
           </div>
-          <div className="flex w-1/3 h-full space-x-1 text-gray-700 font-medium items-baseline justify-end">
-            <label className="h-full text-sm">{(ask.currency == ethers.constants.AddressZero) ? "🐚" : "💰"} {ask.drop} </label>
-            <label className="h-full text-sm">{(ask.currency == ethers.constants.AddressZero) ? "信用點數 | CrΞdit" : "社群貨幣 | Currency"} </label>
+          <div className="flex w-2/3 space-x-1 text-gray-700 font-medium items-center justify-end">
+            <label className="text-sm">{ask.drop} </label>
+            <label className="text-sm">{(ask.currency == ethers.constants.AddressZero) ? "信用點數 | crΞdit" : "社群貨幣 | Currency"} </label>
           </div>
         </div>
       </div>
