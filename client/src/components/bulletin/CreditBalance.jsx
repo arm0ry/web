@@ -18,7 +18,7 @@ const CreditBalance = () => {
         </label>
       </div>
       <div className="flex">
-        <label className="text-xs text-gray-400">credit earned / line</label>
+        <label className="text-xs text-gray-500">credit earned / line</label>
       </div>
     </div>
   );

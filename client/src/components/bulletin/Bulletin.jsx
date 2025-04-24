@@ -54,7 +54,7 @@ const Bulletin = () => {
             <label className="block text-sm text-gray-600">Share to earn credits, stake credits to coordinate</label>
             <label className="block text-sm text-gray-600">Open testing on (<a target="_blank" href="https://sepolia.etherscan.io/address/0x525019878fe91a326062F3CF2AF4B72979b0F386" className="underline">Sepolia</a>) & Ethereum mainnet July, 2025</label>
           </div>
-          {isConnected ? <CreditBalance /> : <></>}
+          {isConnected ? <CreditBalance /> : <CreditBalance />}
         </div>
         <Asks />
         <Resources />
