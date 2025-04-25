@@ -160,7 +160,7 @@ const ResourceCard = ({ resourceId }) => {
           
           <div className="flex flex-row w-full">
             <button disabled={""} onClick={() => stake()} className="w-full py-2 text-black rounded-sm hover:bg-blue-100 bg-blue-200">
-              互動 | Engage
+              質押 | Stake
             </button>
           </div>
         </div>
