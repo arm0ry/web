@@ -51,8 +51,8 @@ const Bulletin = () => {
       <div className="flex flex-col px-4 py-4 mt-14">
         <div className="flex justify-between rounded-lg p-5 bg-slate-50 items-center">
           <div className="space-y-2">
-            <label className="block font-semibold text-md text-gray-600">Milestone 1: reach 20 elements</label>
-            <label className="block text-sm text-gray-600">Testing on (<a target="_blank" href="https://sepolia.etherscan.io/address/0x525019878fe91a326062F3CF2AF4B72979b0F386" className="underline">Sepolia</a>) until Milestone 1 is complete </label>
+            <label className="block font-semibold text-md text-gray-600">Milestone 1: source 20 elements on <a target="_blank" href="https://sepolia.etherscan.io/address/0x525019878fe91a326062F3CF2AF4B72979b0F386" className="underline">Sepolia</a></label>
+            <label className="block text-sm text-gray-600">Milestone 2: TBD</label>
             <label className="block text-sm text-gray-600">Share to earn credits, stake credits to coordinate</label>
           </div>
           {isConnected ? <CreditBalance /> : <CreditBalance />}

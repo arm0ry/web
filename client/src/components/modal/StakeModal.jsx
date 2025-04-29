@@ -82,7 +82,7 @@ const StakeModal = ({ modalPayload }) => {
     return (
       <>
         <div className="flex flex-col justify-start items-start">
-          <label className=" text-md font-medium text-gray-900 mb-2">質押 |  Stake：</label>
+          <label className=" text-md font-medium text-gray-900 mb-2">用信用點數投票 |  Stake：</label>
           <div className="flex items-end">
             <input
               type="number"
@@ -108,7 +108,7 @@ const StakeModal = ({ modalPayload }) => {
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900">要不要保留這個元素？ | Should we keep this element? </label>
           </div>
-          <div className="grid grid-cols-2 space-y-1 justify-between">
+          <div className="grid grid-cols-2 justify-between">
             <MoodRadio utility={utility.keep} value="keep" register={register} />
             <MoodRadio utility={utility.remove} value="remove" register={register} />
           </div>
@@ -222,7 +222,7 @@ const StakeModal = ({ modalPayload }) => {
         <div className="flex flex-col space-y-2 mt-2">
           <div className="flex items-center">
             <label className="text-md font-medium text-gray-900 mb-1">
-              質押 | Stake 🥩
+              質押式投票 | Stake 🥩
             </label>
             <CloseModalButton />
           </div>
@@ -232,7 +232,7 @@ const StakeModal = ({ modalPayload }) => {
               <label className="text-xs font-normal text-gray-900">Leave a comment or stake with crΞdit to communicate your preference for a production direction for this element  </label>
             </div>
             
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-4">
               <PaymentInput payment="信用點數 ｜ crΞdit" register={register} />
               <Opinions />
               <Comments />

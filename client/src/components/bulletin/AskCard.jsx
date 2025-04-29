@@ -93,7 +93,7 @@ const AskCard = ({ subjectId }) => {
       }
 
       return (
-        <div className="relative h-full w-32">
+        <div className="relative h-full w-36">
           <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="h-full" />
           <h1 className="absolute text-lg text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
@@ -146,7 +146,7 @@ const AskCard = ({ subjectId }) => {
                       <Avatar className={`h-8 w-8`} address={basicExchange[id].proposer} />
                       <label className="text-xs text-blue-700">{(basicExchange[id].credit_limit == 0) ? "路人 | Visitor" : "參與者 | Community"}</label>
                     </div>
-                      {(basicExchange[id].approved) ? <label className="border-4 rounded-md border-green-500 bg-green-500 px-1 text-white font-semibold text-xs">✓</label> : ""}
+                      {(basicExchange[id].approved) ? <label className="border-2 rounded-lg border-green-500 bg-green-500 px-1 text-white font-medium text-xs">✓</label> : ""}
                   </div>
                 </div>
               </button>
@@ -169,9 +169,9 @@ const AskCard = ({ subjectId }) => {
               {(ask.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${ask.from}`} target="_blank" rel="noreferrer" className="underline">Arm0ry</a> : shortenAddress(ask.from)}
             </span>
           </div>
-          <div className="flex w-2/3 space-x-1 text-gray-700 font-medium items-center justify-end">
-            <label className="text-sm">{ask.drop} </label>
-            <label className="text-sm">{(ask.currency == ethers.constants.AddressZero) ? "信用點數 | crΞdit" : "社群貨幣 | Currency"} </label>
+          <div className="flex w-2/3 space-x-2 text-gray-700 font-medium items-center justify-end">
+            <label className="text-sm text-slate-400">{(ask.currency == ethers.constants.AddressZero) ? "剩餘信用點數 | crΞdits remaining" : "社群貨幣 | Currency"}:</label>
+            <label className="text-sm font-semibold text-gray-500"> {parseInt(ask.drop)} </label>
           </div>
         </div>
       </div>

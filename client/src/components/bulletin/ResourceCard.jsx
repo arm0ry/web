@@ -27,27 +27,28 @@ const ResourceCard = ({ resourceId }) => {
     return staked;
   };
 
-  const calculateStakingOnlyKeepPerc = () => {
+  const computeStakingResult = () => {
     const abiCoder = ethers.utils.defaultAbiCoder;
     let data;
     let count = 0;
+    let total = 0;
 
     for (let i = 0; i < stakedExchange.length; i++) {
       try {
         data = abiCoder.decode(["string", "string"], stakedExchange[i].data);
-        if (data[1] == "keep") count++;
-        console.log(count)
+        total += stakedExchange[i].amount;
+        if (data[1] == "keep") count += stakedExchange[i].amount;
       } catch (e) {
         console.log(e)
         continue;
       }
     }
 
-    return (stakedExchange.length == 0) ? 0 : parseInt(count / stakedExchange.length * 100);
+    return (stakedExchange.length == 0) ? 0 : parseInt(count / total * 100);
 
   };
 
-  const calculateTotalKeepPerc = () => {
+  const computerTotalResult = () => {
     const abiCoder = ethers.utils.defaultAbiCoder;
     let data;
     let count = 0;
@@ -126,7 +127,7 @@ const ResourceCard = ({ resourceId }) => {
                 {(resource.from == "0xc9e677d8a064808717C2F38b5d6Fe9eE69C1fa6a") ? <a href={`https://sepolia.etherscan.io/address/${resource.from}`} target="_blank" rel="noreferrer" className="underline">Arm0ry</a> : shortenAddress(resource.from)}
               </span>
             </div>
-            <div>{calculateStakingOnlyKeepPerc()}% keep</div>
+            <div>{computeStakingResult()}% keep</div>
           </div>
           <div className="relative w-full h-full">
             <img src={`https://ipfs.io/ipfs/${resource.detail}`} alt="logo" className="rounded-sm" />
@@ -147,7 +148,7 @@ const ResourceCard = ({ resourceId }) => {
                     >
                       <div className={`${(exchanges[id].stake) ? "" : "opacity-40"} flex space-x-2 text-start items-center`}>
                         <Avatar className={`h-8 w-8`} address={exchanges[id].proposer} />
-                        <label className="text-red-500">{(exchanges[id].stake) ? `${exchanges[id].amount}`: 0}</label>
+                        <label className={"text-red-500"}>{(exchanges[id].stake) ? `${exchanges[id].amount}`: 0}</label>
                         <label className="text-sm">{exchanges[id].content}</label>
                       </div>
                     </button>
@@ -160,7 +161,7 @@ const ResourceCard = ({ resourceId }) => {
           
           <div className="flex flex-row w-full">
             <button disabled={""} onClick={() => stake()} className="w-full py-2 text-black rounded-sm hover:bg-blue-100 bg-blue-200">
-              質押 | Stake
+              嚴選 | Stake
             </button>
           </div>
         </div>

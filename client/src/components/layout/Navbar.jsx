@@ -89,8 +89,7 @@ const Navbar = () => {
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
             {/* <NavBarItem title="OnBoard" to="/onboard" onClick={() => setToggleMenu(false)}/> */}
 
-            <NavBarItem title="$LOCAL | $社群貨幣" disabled />
-            <NavBarItem title="65 大松" to="/bulletin" onClick={() => setToggleMenu(false)} />
+            <NavBarItem title="無頭牌｜Headless Brand" to="/bulletin" onClick={() => setToggleMenu(false)} />
 
             {/* <NavbarDropdown title={"$LOCAL | $社區穩定幣"} to="/playground" >
               <NavbarDropdownItem key={0} title={"Prototype"} />
