@@ -5,7 +5,7 @@ const CreditBalance = () => {
   const { bulletin } = useGlobalContext();
   const user = bulletin.user;
   return (
-    <div className="flex flex-col px-2 rounded-sm justify-center items-end">
+    <div className="flex flex-col rounded-sm justify-center items-end">
       <div className="flex items-baseline space-x-2">
         <label className="pl-2 text-4xl font-semibold text-amber-500">
           {(user.credit != undefined) ? user.credit  : "..."}

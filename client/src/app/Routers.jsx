@@ -55,7 +55,8 @@ const Routers = () => {
 
 
        {/* Legacy */}
-        <Route path="/bulletin" element={<Bulletin />}></Route>
+        <Route path="/bulletin" element={<Bulletin />}>
+        </Route>
         
         <Route path="/playground" element={<Playground />}>
           <Route index element={<Navigate to="faq" replace />} />
