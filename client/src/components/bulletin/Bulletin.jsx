@@ -60,7 +60,7 @@ const Bulletin = () => {
           <div className="flex items-center justify-between">
             <div className="flex flex-col justify-start w-2/3 overflow-auto">
               <Link to="/" className="flex md:mr-24">
-                <label className="font-semibold text-gray-400">無頭牌｜Headless Brand</label>
+                <label className="font-semibold text-gray-400">無頭牌｜Headless</label>
               </Link>
             </div>
             <div className="flex justify-end items-center w-1/3">

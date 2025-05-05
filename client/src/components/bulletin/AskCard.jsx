@@ -93,8 +93,8 @@ const AskCard = ({ subjectId }) => {
       }
 
       return (
-        <div className="relative h-full w-36">
-          <img src={`${_data[1] ?? _data[1]}`} alt="logo" className="h-full" />
+        <div className="relative h-24 w-full">
+          <div className="h-full bg-white rounded-md" />
           <h1 className="absolute text-lg text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
       );
