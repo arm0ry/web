@@ -94,7 +94,7 @@ const AskCard = ({ subjectId }) => {
 
       return (
         <div className="relative bg-white rounded-md">
-          <div className="h-32 2xl:h-full w-32" />
+          <div className="h-32 w-32" />
           <h1 className="absolute text-lg text-slate-800 font-semibold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{_data[0] ?? _data[0]}</h1>
         </div>
       );

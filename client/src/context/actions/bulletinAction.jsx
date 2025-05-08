@@ -118,29 +118,36 @@ export const loadResources = async () => {
   try {
     const resourceId = await Bulletin.resourceId();
     if (resourceId <= 0) return;
-    let _resources = {};
+    let _resources = [];
     await Promise.all(
       [...Array(resourceId)].map(async (_, _id) => {
         const id = _id + 1;
         const resource = await Bulletin.getResource(id);
-        data = abiCoder.decode(["string", "string"], resource[2]);
+        try {
+          data = (resource[2] != "0x") ? abiCoder.decode(["string", "string"], resource[2]) : ethers.constants.HashZero;
+          
+        } catch (e) {
+          console.log(e)
+        }
         _resources[id] = {
           from: resource[0],
           stake: parseFloat(ethers.utils.formatEther(resource[1])),
-          title: data[0],
-          detail: data[1],
+          title: (data != ethers.constants.HashZero) ? data[0] : "",
+          detail: (data != ethers.constants.HashZero) ? data[1] : "",
           exchanges: [],
           collection: 0
         }
+
+        console.log("this is resource - ", resource, "this is data - ", data, "resources[id] - ", _resources[id])
 
 
         const _exchangeId = await Bulletin.exchangeIdsPerResource(id);
         const exchangeId = parseInt(_exchangeId._hex);
         // if (exchangeId <= 0) return;
-        [...Array(exchangeId)].map(async (_, _id_) => {
+         [...Array(exchangeId)].map(async (_, _id_) => {
           const id_ = _id_ + 1;
-          const exchange = await Bulletin.getTrade(1 ,id, id_);
-          const credit = await Bulletin.getCredit(exchange[1])
+          const exchange = await Bulletin.getTrade(1, id, id_);
+          const credit = await Bulletin.getCredit(exchange[1]);
 
           _resources[id].exchanges.push({
             id: id_,
@@ -162,9 +169,12 @@ export const loadResources = async () => {
       })
     );
 
+        console.log("this is resource - ", _resources)
+
+
     dispatch.fn({
       type: LOAD_RESOURCES,
-      payload: _resources,
+      payload: _resources.filter(item => item.from !== ethers.constants.AddressZero),
     });
   } catch (error) {
     console.error(error);
