@@ -136,13 +136,14 @@ const Bulletin = () => {
         <div className="flex flex-col space-y-4 md:flex-row justify-between rounded-lg p-5 bg-slate-50 items-end lg:items-center">
           <div className="w-full space-y-2">
             <div className="pb-1 space-y-1">
-            <label className="block font-semibold text-lg text-gray-600">Launch a Brand using Mutual Credits</label>
+            <label className="block font-semibold text-lg text-gray-600">A Commons-Based Approach to Launch a Brand</label>
             <label className="block text-xs text-gray-600">Share to earn credits, stake to coordinate, pool to fundraise</label>
             </div>
             <div className="flex flex-col space-y-1">
-              <label className="block text-sm text-gray-500"><s>0. Verify mutual credit-based coordination system on <a target="_blank" href="https://sepolia.etherscan.io/address/0x525019878fe91a326062F3CF2AF4B72979b0F386" className="underline">Sepolia</a></s></label>
-              <label className="text-sm text-gray-500">1. Crowdsource 20 brand elements on <a target="_blank" href="https://sepolia.etherscan.io/address/0x525019878fe91a326062F3CF2AF4B72979b0F386" className="underline">Sepolia</a> testnet</label>
-              <label className="block text-sm text-gray-500">2. CrowdSource 20 expressions of 20 elements in (1)</label>
+              <label className="block text-sm text-gray-500"><s>0. Deploy & verify commons-based coordination system on <a target="_blank" href="https://sepolia.etherscan.io/address/0x525019878fe91a326062F3CF2AF4B72979b0F386" className="underline">Sepolia</a></s></label>
+              <label className="text-sm text-gray-500">1. Source 10 brand elements </label>
+              <label className="block text-sm text-gray-500">2. Source expressions based on the 10 elements</label>
+              <label className="block text-sm text-gray-500">3. Build products with expressions</label>
             </div>
           </div>
 
